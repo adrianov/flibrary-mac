@@ -639,7 +639,7 @@ private:
 	{
 		const auto url = link.split("://");
 		assert(url.size() == 2);
-		if (QString(Constant::BOOK).startsWith(url.front()))
+		if (url.front().compare(QString(Constant::BOOK).chopped(1), Qt::CaseInsensitive) == 0)
 		{
 			return m_bookInteractor->OnLinkActivated(url.back().toLongLong());
 		}
