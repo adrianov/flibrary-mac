@@ -69,35 +69,45 @@ private:
 
 struct ProgressController::Impl final
 	: std::enable_shared_from_this<Impl>
-	, Observable<IObserver>
+	, Observable<IProgressController::IObserver>
 	, ProgressItem::IObserver
 {
 	std::atomic_bool                stopped { false };
-	int64_t                         globalMaximum { 0 };
+	std::atomic_int64_t             globalMaximum { 0 };
 	std::atomic_int64_t             count { 0 };
 	std::atomic_int64_t             globalValue { 0 };
 	Util::FunctorExecutionForwarder forwarder;
 
+	void NotifyMainThread(std::function<void(Impl&)> action)
+	{
+		const auto weak = weak_from_this();
+		forwarder.Forward([weak, action = std::move(action)] {
+			if (const auto self = weak.lock())
+				action(*self);
+		});
+	}
+
 	void OnIncremented(const int64_t value) override
 	{
-		if (stopped)
+		if (stopped.load(std::memory_order_relaxed))
 			return;
 
-		globalValue += value;
-		forwarder.Forward([self = shared_from_this()] {
-			self->Perform(&IProgressController::IObserver::OnValueChanged);
+		globalValue.fetch_add(value, std::memory_order_relaxed);
+		NotifyMainThread([](Impl& self) {
+			if (!self.stopped.load(std::memory_order_relaxed))
+				self.Perform(&IProgressController::IObserver::OnValueChanged);
 		});
 	}
 
 	void OnDestroyed() override
 	{
-		if (--count != 0)
+		if (count.fetch_sub(1, std::memory_order_acq_rel) != 1)
 			return;
 
-		forwarder.Forward([self = shared_from_this(), maximum = globalMaximum, value = globalValue.load()] {
-			self->globalMaximum -= maximum;
-			self->globalValue   -= value;
-			self->Perform(&IProgressController::IObserver::OnStartedChanged);
+		NotifyMainThread([](Impl& self) {
+			self.globalMaximum.store(0, std::memory_order_relaxed);
+			self.globalValue.store(0, std::memory_order_relaxed);
+			self.Perform(&IProgressController::IObserver::OnStartedChanged);
 		});
 	}
 };
@@ -115,7 +125,7 @@ ProgressController::~ProgressController()
 
 bool ProgressController::IsStarted() const noexcept
 {
-	return m_impl->count != 0;
+	return m_impl->count.load(std::memory_order_relaxed) != 0;
 }
 
 void ProgressController::RegisterObserver(IObserver* observer)
@@ -130,14 +140,14 @@ void ProgressController::UnregisterObserver(IObserver* observer)
 
 std::unique_ptr<IProgressController::IProgressItem> ProgressController::Add(const int64_t value)
 {
-	const auto justStarted = m_impl->count == 0;
-	++m_impl->count;
-	m_impl->globalMaximum += value;
+	const auto justStarted = m_impl->count.load(std::memory_order_relaxed) == 0;
+	m_impl->count.fetch_add(1, std::memory_order_relaxed);
+	m_impl->globalMaximum.fetch_add(value, std::memory_order_relaxed);
 	if (justStarted)
 	{
-		m_impl->stopped = false;
-		m_impl->forwarder.Forward([self = m_impl->shared_from_this()] {
-			self->Perform(&IObserver::OnStartedChanged);
+		m_impl->stopped.store(false, std::memory_order_relaxed);
+		m_impl->NotifyMainThread([](Impl& self) {
+			self.Perform(&IProgressController::IObserver::OnStartedChanged);
 		});
 	}
 	return std::make_unique<ProgressItem>(m_impl->stopped, *m_impl, value);
@@ -145,11 +155,15 @@ std::unique_ptr<IProgressController::IProgressItem> ProgressController::Add(cons
 
 double ProgressController::GetValue() const noexcept
 {
-	return static_cast<double>(m_impl->globalValue) / static_cast<double>(m_impl->globalMaximum);
+	const auto maximum = m_impl->globalMaximum.load(std::memory_order_relaxed);
+	if (maximum == 0)
+		return 0;
+
+	return static_cast<double>(m_impl->globalValue.load(std::memory_order_relaxed)) / static_cast<double>(maximum);
 }
 
 void ProgressController::Stop()
 {
-	m_impl->stopped = true;
-	m_impl->Perform(&IObserver::OnStop);
+	m_impl->stopped.store(true, std::memory_order_relaxed);
+	m_impl->Perform(&IProgressController::IObserver::OnStop);
 }
