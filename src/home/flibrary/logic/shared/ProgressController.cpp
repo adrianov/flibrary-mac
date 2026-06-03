@@ -1,8 +1,7 @@
 #include "ProgressController.h"
 
 #include <atomic>
-
-#include <QTimer>
+#include <memory>
 
 #include "fnd/observable.h"
 
@@ -69,7 +68,8 @@ private:
 } // namespace
 
 struct ProgressController::Impl final
-	: Observable<IObserver>
+	: std::enable_shared_from_this<Impl>
+	, Observable<IObserver>
 	, ProgressItem::IObserver
 {
 	std::atomic_bool                stopped { false };
@@ -84,8 +84,8 @@ struct ProgressController::Impl final
 			return;
 
 		globalValue += value;
-		forwarder.Forward([&] {
-			Perform(&IProgressController::IObserver::OnValueChanged);
+		forwarder.Forward([self = shared_from_this()] {
+			self->Perform(&IProgressController::IObserver::OnValueChanged);
 		});
 	}
 
@@ -94,15 +94,16 @@ struct ProgressController::Impl final
 		if (--count != 0)
 			return;
 
-		forwarder.Forward([&, maximum = globalMaximum, value = globalValue.load()] {
-			globalMaximum -= maximum;
-			globalValue   -= value;
-			Perform(&IProgressController::IObserver::OnStartedChanged);
+		forwarder.Forward([self = shared_from_this(), maximum = globalMaximum, value = globalValue.load()] {
+			self->globalMaximum -= maximum;
+			self->globalValue   -= value;
+			self->Perform(&IProgressController::IObserver::OnStartedChanged);
 		});
 	}
 };
 
 ProgressController::ProgressController()
+	: m_impl { std::make_shared<Impl>() }
 {
 	PLOGV << "ProgressController created";
 }
@@ -135,8 +136,8 @@ std::unique_ptr<IProgressController::IProgressItem> ProgressController::Add(cons
 	if (justStarted)
 	{
 		m_impl->stopped = false;
-		m_impl->forwarder.Forward([&] {
-			m_impl->Perform(&IObserver::OnStartedChanged);
+		m_impl->forwarder.Forward([self = m_impl->shared_from_this()] {
+			self->Perform(&IObserver::OnStartedChanged);
 		});
 	}
 	return std::make_unique<ProgressItem>(m_impl->stopped, *m_impl, value);
