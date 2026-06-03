@@ -315,7 +315,7 @@ const char* IScriptController::GetMacro(const Macro macro)
 
 QString IScriptController::GetDefaultOutputFileNameTemplate()
 {
-	return QString("%1/%2/[%3/[%4-]]%5.%6")
+	return QString("%1/%2 - [%3 - [%4-]]%5.%6")
 	    .arg(GetMacro(Macro::UserDestinationFolder))
 	    .arg(GetMacro(Macro::Author))
 	    .arg(GetMacro(Macro::Series))
