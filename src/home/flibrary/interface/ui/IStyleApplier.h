@@ -27,7 +27,11 @@ public:
 	static constexpr auto THEME_FILE_KEY  = "ui/Theme/file";
 	static constexpr auto THEME_FILES_KEY = "ui/Theme/files";
 #endif
-	static constexpr auto THEME_NAME_DEFAULT       = "windowsvista";
+#ifdef __APPLE__
+	static constexpr auto THEME_NAME_DEFAULT = "macOS";
+#else
+	static constexpr auto THEME_NAME_DEFAULT = "windowsvista";
+#endif
 	static constexpr auto THEME_KEY_DEFAULT        = "PluginStyle";
 	static constexpr auto COLOR_SCHEME_KEY         = "ui/colorScheme";
 	static constexpr auto APP_COLOR_SCHEME_DEFAULT = "System";

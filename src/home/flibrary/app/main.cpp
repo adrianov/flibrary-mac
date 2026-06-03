@@ -31,6 +31,7 @@
 #include "logic/data/Genre.h"
 #include "logic/model/LogModel.h"
 #include "platform/PlatformUtil.h"
+#include "platformgui/NativeUi.h"
 #include "settings/ISettings.h"
 #include "util/xml/Initializer.h"
 #include "version/AppVersion.h"
@@ -117,6 +118,9 @@ int main(int argc, char* argv[])
 		QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 
 		QApplication app(argc, argv);
+#ifdef Q_OS_MACOS
+		Platform::ApplyNativeApplication(app);
+#endif
 		QCoreApplication::setApplicationName(PRODUCT_ID);
 		QCoreApplication::setApplicationVersion(PRODUCT_VERSION);
 		Util::XMLPlatformInitializer xmlPlatformInitializer;

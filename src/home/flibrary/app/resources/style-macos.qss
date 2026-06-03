@@ -1,0 +1,41 @@
+QToolBar#searchBar {
+    border: none;
+    background: transparent;
+    spacing: 8px;
+    padding: 2px 12px;
+}
+
+QLineEdit#lineEditBookTitleToSearch {
+    min-height: 22px;
+    padding: 2px 8px;
+}
+
+QSplitter::handle:horizontal {
+    width: 1px;
+    background: palette(mid);
+}
+
+QSplitter::handle:vertical {
+    height: 1px;
+    background: palette(mid);
+}
+
+QWidget#leftWidget {
+    background-color: palette(alternateBase);
+}
+
+QStatusBar {
+    border-top: 1px solid palette(mid);
+}
+
+QLineEdit[errorTag="false"] {
+    border: 1px solid palette(mid);
+}
+
+QTreeView {
+    outline: none;
+}
+
+QHeaderView::section {
+    padding: 4px 8px;
+}

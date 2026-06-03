@@ -16,6 +16,7 @@ AddTarget(${PROJECT_NAME}	app
 		logging
 		logic
 		platform
+		platformgui
 		rest
 		util
 		ver

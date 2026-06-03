@@ -37,12 +37,14 @@
 
 #include "gutil/util.h"
 #include "logging/LogAppender.h"
+#include "platformgui/NativeUi.h"
 #include "settings/Font.h"
 #include "util/FunctorExecutionForwarder.h"
 #include "util/ObjectsConnector.h"
 #include "utilgui/GeometryRestorable.h"
 
 #include "Constant.h"
+#include "MainWindowSearchBar.h"
 #include "QtTypes.h"
 #include "StackedPage.h"
 #include "TreeView.h"
@@ -70,12 +72,6 @@ constexpr auto        SELECT_QSS_FILE                      = QT_TRANSLATE_NOOP("
 constexpr auto        SELECT_SETTINGS_FILE                 = QT_TRANSLATE_NOOP("MainWindow", "Select settings file");
 constexpr auto        QSS_FILE_FILTER                      = QT_TRANSLATE_NOOP("MainWindow", "Qt stylesheet files (*.%1 *.dll);;All files (*.*)");
 constexpr auto        SETTINGS_FILE_FILTER                 = QT_TRANSLATE_NOOP("MainWindow", "Settings files (*.ini);;All files (*.*)");
-constexpr auto        SEARCH_BOOKS_PLACEHOLDER             = QT_TRANSLATE_NOOP("MainWindow", "To search for books by %1, enter the name or title here and press Enter");
-constexpr auto        SEARCH_BOOKS_PLACEHOLDER_AUTHOR      = QT_TRANSLATE_NOOP("MainWindow", "author");
-constexpr auto        SEARCH_BOOKS_PLACEHOLDER_SERIES      = QT_TRANSLATE_NOOP("MainWindow", "series");
-constexpr auto        SEARCH_BOOKS_PLACEHOLDER_TITLE       = QT_TRANSLATE_NOOP("MainWindow", "title");
-constexpr auto        SEARCH_BOOKS_PLACEHOLDER_OR          = QT_TRANSLATE_NOOP("MainWindow", " or %1");
-constexpr auto        SEARCH_BOOKS_PLACEHOLDER_ANNOTATION  = QT_TRANSLATE_NOOP("MainWindow", "annotation");
 constexpr auto        ENABLE_ALL                           = QT_TRANSLATE_NOOP("MainWindow", "Enable all");
 constexpr auto        DISABLE_ALL                          = QT_TRANSLATE_NOOP("MainWindow", "Disable all");
 constexpr auto        STOP_HTTP                            = QT_TRANSLATE_NOOP("MainWindow", "The HTTP server is still running. Would you like to stop it?");
@@ -138,67 +134,6 @@ QString GetStyleName(const QString& key)
 	return QStyleFactory::create(key) ? key : QString {};
 }
 #endif
-
-class LineEditPlaceholderTextController final : public QObject
-{
-public:
-	LineEditPlaceholderTextController(
-		MainWindow& mainWindow,
-		QLineEdit& lineEdit
-#define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) , QAction& action##NAME
-			SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
-#undef SEARCH_BOOKS_PLACEHOLDER_ITEM
-	)
-		: QObject(&lineEdit)
-		, m_mainWindow { mainWindow }
-		, m_lineEdit { lineEdit }
-#define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) , m_action##NAME { action##NAME }
-		SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
-#undef SEARCH_BOOKS_PLACEHOLDER_ITEM
-	{
-		m_lineEdit.setPlaceholderText(GetPlaceholderText());
-#define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) QObject::connect(&m_action##NAME, &QAction::toggled, [this]{m_lineEdit.setPlaceholderText(GetPlaceholderText());});
-		SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
-#undef SEARCH_BOOKS_PLACEHOLDER_ITEM
-	}
-
-private: // QObject
-	bool eventFilter(QObject* watched, QEvent* event) override
-	{
-		if (event->type() == QEvent::Enter)
-			m_lineEdit.setPlaceholderText(GetPlaceholderText());
-		else if (event->type() == QEvent::Leave)
-			m_lineEdit.setPlaceholderText({});
-		else if (event->type() == QEvent::Show)
-			emit m_mainWindow.BookTitleToSearchVisibleChanged();
-		return QObject::eventFilter(watched, event);
-	}
-
-	QString GetPlaceholderText() const
-	{
-		QStringList list;
-#define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) if (m_action##NAME.isVisible() && m_action##NAME.isChecked()) list << Tr(SEARCH_BOOKS_PLACEHOLDER_##NAME);
-		SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
-#undef SEARCH_BOOKS_PLACEHOLDER_ITEM
-
-		m_lineEdit.setVisible(!list.isEmpty());
-		if (!m_lineEdit.isVisible())
-			return {};
-
-		auto last = list.size() > 1 ? std::move(list.back()) : QString {};
-		if (!last.isEmpty())
-			list.pop_back();
-
-		return Tr(SEARCH_BOOKS_PLACEHOLDER).arg(QString("%1%2").arg(list.join(", "), last.isEmpty() ? "" : Tr(SEARCH_BOOKS_PLACEHOLDER_OR).arg(last)));
-	}
-
-private:
-	MainWindow& m_mainWindow;
-	QLineEdit&  m_lineEdit;
-#define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) QAction& m_action##NAME;
-	SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
-#undef SEARCH_BOOKS_PLACEHOLDER_ITEM
-};
 
 class VisibleChangedHandler final : public QObject
 {
@@ -337,6 +272,10 @@ public:
 
 	void OnBooksSearchFilterValueGeometryChanged(const QRect& geometry) const
 	{
+#ifdef Q_OS_MACOS
+		(void)geometry;
+		return;
+#else
 		const auto rect           = Util::GetGlobalGeometry(*m_ui.lineEditBookTitleToSearch);
 		const auto spacerNewWidth = m_searchBooksByTitleLeft->geometry().width() + geometry.x() - rect.x();
 
@@ -348,6 +287,7 @@ public:
 		m_ui.lineEditBookTitleToSearch->setMinimumWidth(lineEditBookTitleToSearchNewWidth);
 		m_ui.lineEditBookTitleToSearch->setMaximumWidth(lineEditBookTitleToSearchNewWidth);
 		m_searchBooksByTitleLayout->invalidate();
+#endif
 	}
 
 	void OnSearchNavigationItemSelected(long long /*id*/, const QString& text) const
@@ -605,6 +545,10 @@ private:
 
 		ReplaceMenuBar();
 
+#ifdef Q_OS_MACOS
+		Platform::ApplyNativeMainWindow(m_self);
+#endif
+
 		QTimer::singleShot(0, [this] {
 			const auto widgets = m_self.findChildren<QWidget*>();
 			if (const auto it = std::ranges::find(
@@ -624,22 +568,13 @@ private:
 	void ReplaceMenuBar()
 	{
 		PLOGV << "ReplaceMenuBar";
-		m_ui.lineEditBookTitleToSearch->installEventFilter(new LineEditPlaceholderTextController(
-			m_self,
-			*m_ui.lineEditBookTitleToSearch
-#define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) , *m_ui.actionSearchBy##NAME
-				 SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
-#undef SEARCH_BOOKS_PLACEHOLDER_ITEM
-		));
-		auto* menuBar              = new QWidget(&m_self);
-		m_searchBooksByTitleLayout = new QHBoxLayout(menuBar);
-		m_self.menuBar()->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-		m_searchBooksByTitleLayout->addWidget(m_self.menuBar());
-		m_searchBooksByTitleLayout->addItem((m_searchBooksByTitleLeft = new QSpacerItem(72, 20, QSizePolicy::Fixed)));
-		m_searchBooksByTitleLayout->addWidget(m_ui.lineEditBookTitleToSearch);
-		m_searchBooksByTitleLayout->addItem(new QSpacerItem(72, 20, QSizePolicy::Expanding));
-		m_searchBooksByTitleLayout->setContentsMargins(0, 0, 0, 0);
-		m_self.setMenuWidget(menuBar);
+#ifndef Q_OS_MACOS
+		const auto layout          = SetupMainWindowSearchBar(m_self, m_ui, m_self);
+		m_searchBooksByTitleLeft   = layout.left;
+		m_searchBooksByTitleLayout = layout.layout;
+#else
+		SetupMainWindowSearchBar(m_self, m_ui, m_self);
+#endif
 	}
 
 	void SetupTrayMenu()
@@ -1626,9 +1561,11 @@ private:
 	const Log::LogAppender          m_logAppender { this };
 
 	QMetaObject::Connection m_settingsLineEditExecuteContextMenuConnection;
-	QSpacerItem*            m_searchBooksByTitleLeft;
-	QLayout*                m_searchBooksByTitleLayout;
-	QObject*                m_annotationWidgetEventFilter;
+#ifndef Q_OS_MACOS
+	QSpacerItem* m_searchBooksByTitleLeft;
+	QLayout*     m_searchBooksByTitleLayout;
+#endif
+	QObject* m_annotationWidgetEventFilter;
 
 	bool m_checkForUpdateOnStartEnabled { true };
 

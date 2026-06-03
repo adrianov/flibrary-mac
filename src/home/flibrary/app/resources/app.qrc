@@ -1,6 +1,7 @@
 <RCC>
 	<qresource prefix="theme">
 		<file>style.qss</file>
+		<file>style-macos.qss</file>
 	</qresource>
 	<qresource prefix="icons">
 		<file alias="main.ico">../../../resources/icons/main.ico</file>
