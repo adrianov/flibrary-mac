@@ -14,7 +14,7 @@ using HomeCompa::Util::ParsedFb2;
 bool CheckParsed(const ParsedFb2& parsed)
 {
 	const auto& html = parsed.bodyHtml;
-	if (!html.contains(QStringLiteral("компании <em>Veuve")))
+	if (!html.contains(QStringLiteral("компании<em> Veuve")))
 	{
 		std::cerr << "missing space before emphasis\n";
 		return false;
@@ -32,6 +32,11 @@ bool CheckParsed(const ParsedFb2& parsed)
 	if (!html.contains(QStringLiteral("id=\"fn-n2\"")))
 	{
 		std::cerr << "missing footnote target\n";
+		return false;
+	}
+	if (!html.contains(QStringLiteral("class=\"footnotes\"")))
+	{
+		std::cerr << "missing footnotes section\n";
 		return false;
 	}
 	if (!html.contains(QStringLiteral("Примечания")))
