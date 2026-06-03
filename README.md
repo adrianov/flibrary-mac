@@ -52,7 +52,11 @@ git clone https://github.com/heimdallr/books.git --recursive
 * Можно открыть CMakeLists.txt в QtCreator  
 
 ### macOS
-Проверялось на macOS 14+ (Apple Silicon), Xcode Command Line Tools, Homebrew.
+Сборка и запуск проверялись на macOS 14+ (Apple Silicon) с Xcode Command Line Tools и Homebrew.
+
+**Чтение FB2.** macOS не открывает FB2 «из коробки». FLibrary при чтении и при экспорте (**Export → As epub**) конвертирует FB2 и FBD в EPUB. При чтении файл сохраняется в кэше (`~/Library/Caches/…/epub/<BookID>.epub`), поэтому повторное открытие той же книги не создаёт вторую копию в Books. Экспорт кладёт EPUB в выбранную вами папку.
+
+**macOS adaptation** © 2026 Пётр Адрианов (Peter Adrianov)
 
 ##### Зависимости
 ```
@@ -76,12 +80,13 @@ cmake --build . --parallel
 open bin/FLibrary.app
 ```
 
-Приложение собирается как `FLibrary.app` с библиотеками в `Contents/Frameworks`.
+Приложение собирается как `FLibrary.app`; зависимости лежат в `Contents/Frameworks`.
 
 ##### Ещё варианты
 * Можно открыть `CMakeLists.txt` в Qt Creator (профиль conan: `apple_clang_arm64_Release`)
 
-Проверялось на Ubuntu 24.04, компилировалось gcc 15.2, 16.1
+### Linux
+Проверялось на Ubuntu 24.04, компилятор gcc 15.2, 16.1
 
 ##### Убеждаемся в наличии gcc с поддержкой c++23
 ##### Выполняем команды  
