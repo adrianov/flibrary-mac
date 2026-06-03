@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+  <description>
+    <title-info>
+      <book-title>Sample Book</book-title>
+      <lang>ru</lang>
+      <author><first-name>Jane</first-name><last-name>Doe</last-name></author>
+    </title-info>
+  </description>
+  <body>
+    <section>
+      <title><p>Chapter One</p></title>
+      <p>Hello from <emphasis>FB2</emphasis>.</p>
+      <empty-line/>
+      <p>представительстве компании<emphasis>Veuve Clicquot</emphasis>.</p>
+      <p>И вотle jour est arrivé!<a l:href="#n2" type="note">[2]</a></p>
+      <p>Second paragraph.</p>
+    </section>
+  </body>
+  <body name="notes">
+    <section>
+      <section id="n2">
+        <title><p>2</p></title>
+        <p>День наступил — сноска к фразе на французском.</p>
+      </section>
+    </section>
+  </body>
+</FictionBook>
