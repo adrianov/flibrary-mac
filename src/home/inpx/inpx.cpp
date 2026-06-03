@@ -799,16 +799,18 @@ size_t StoreRange(DB::IDatabase& db, const QString& process, const std::string_v
 			PLOGD << std::format("{0} rows inserted ({1}%)", rowsInserted, rowsInserted * 100 / rowsTotal);
 		};
 
-		const auto result =
-			std::accumulate(container.cbegin(), container.cend(), static_cast<size_t>(0), [f = std::forward<Functor>(f), &db, &cmd = *command, &rowsInserted, &log](const size_t init, const auto& value) {
-				if (!f(cmd, value))
-					return init + 1;
+		size_t result = 0;
+		for (auto it = container.cbegin(), end = container.cend(); it != end; ++it)
+		{
+			if (!f(*command, *it))
+			{
+				++result;
+				continue;
+			}
 
-				if (++rowsInserted % LOG_INTERVAL == 0)
-					log();
-
-				return init;
-			});
+			if (++rowsInserted % LOG_INTERVAL == 0)
+				log();
+		}
 
 		log();
 		if (rowsTotal != rowsInserted)
@@ -898,11 +900,13 @@ size_t Store(DB::IDatabase& db, Data& data)
 	for (size_t i = 0, sz = std::size(data.genres); i < sz; ++i)
 		if (data.genres[i].newGenre)
 			newGenresIndex.push_back(i);
+	if (newGenresIndex.size() > 1)
+		newGenresIndex.erase(newGenresIndex.begin());
 	result += StoreRange(
 		db,
 		"Genres",
 		"INSERT INTO Genres (GenreCode, ParentCode, FB2Code, GenreAlias, GenreTitle) VALUES(?, ?, ?, ?, ?)",
-		newGenresIndex | std::views::drop(1),
+		newGenresIndex,
 		[&genres = data.genres](DB::ICommand& cmd, const size_t n) {
 			cmd.Bind(0, genres[n].dbCode);
 			cmd.Bind(1, genres[genres[n].parentId].dbCode);
