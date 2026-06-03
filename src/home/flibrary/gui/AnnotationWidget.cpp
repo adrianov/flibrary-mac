@@ -238,7 +238,7 @@ public:
 
 		m_annotationController->RegisterObserver(this);
 
-		m_ui.cover->setStyleSheet("background-color: white;");
+		m_ui.cover->setStyleSheet(QString("background-color: %1;").arg(m_ui.cover->palette().color(QPalette::Base).name()));
 
 		connect(m_ui.info, &QLabel::linkActivated, m_ui.info, [&](const QString& link) {
 			OnLinkActivated(link);
