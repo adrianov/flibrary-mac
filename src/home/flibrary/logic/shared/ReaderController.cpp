@@ -6,6 +6,7 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QTemporaryDir>
+#include <QUrl>
 
 #include "fnd/ScopedCall.h"
 
@@ -23,6 +24,8 @@
 #include "util/IExecutor.h"
 #include "util/ImageRestore.h"
 #include "util/files.h"
+
+#include "shared/ReaderOpenPath.h"
 
 #include "log.h"
 #include "zip.h"
@@ -165,6 +168,8 @@ struct ReaderController::Impl
 		if (!temporaryDir)
 			return uiFactory->ShowError(error);
 
+		fileName = PrepareReaderFile(fileName);
+
 		auto ext = QFileInfo(fileName).suffix();
 		if (ext.isEmpty())
 			return uiFactory->ShowError(Tr(UNSUPPORTED));
@@ -207,7 +212,7 @@ struct ReaderController::Impl
 
 		if (reader == DEFAULT)
 		{
-			if (QDesktopServices::openUrl(fileName))
+			if (QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)))
 				return;
 
 			settings->Remove(key);
