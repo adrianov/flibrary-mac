@@ -22,3 +22,16 @@ AddTarget(${PROJECT_NAME}	app
 	DEPENDENCIES
 		locales
 )
+
+if(APPLE)
+	set(_app_bundle "${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}.app")
+	set(_app_frameworks "${_app_bundle}/Contents/Frameworks")
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E make_directory "${_app_frameworks}"
+		COMMAND ${CMAKE_COMMAND} -Dsrc="${CMAKE_BINARY_DIR}/lib" -Ddst="${_app_frameworks}" -P "${CMAKE_SOURCE_DIR}/cmake/copy_bundle_libs.cmake"
+	)
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+		BUILD_RPATH "@executable_path/../Frameworks"
+		INSTALL_RPATH "@executable_path/../Frameworks"
+	)
+endif()

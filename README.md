@@ -51,7 +51,36 @@ git clone https://github.com/heimdallr/books.git --recursive
 * Можно запустить батник build.bat. Если окружение настроено правильно, то в папке build/installer будут собраны инсталляторы и архив портабельной версии программы.  
 * Можно открыть CMakeLists.txt в QtCreator  
 
-### Linux
+### macOS
+Проверялось на macOS 14+ (Apple Silicon), Xcode Command Line Tools, Homebrew.
+
+##### Зависимости
+```
+brew install conan ninja qt p7zip
+git submodule update --init --recursive
+```
+
+##### Сборка
+```
+./build-mac.sh
+```
+или вручную:
+```
+mkdir build && cd build
+CC=/usr/bin/clang CXX=/usr/bin/clang++ cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DQt6_DIR=/opt/homebrew/opt/qt/lib/cmake/Qt6 \
+  -D7zip_BIN_DIR=/opt/homebrew/lib \
+  -G Ninja
+cmake --build . --parallel
+open bin/FLibrary.app
+```
+
+Приложение собирается как `FLibrary.app` с библиотеками в `Contents/Frameworks`.
+
+##### Ещё варианты
+* Можно открыть `CMakeLists.txt` в Qt Creator (профиль conan: `apple_clang_arm64_Release`)
+
 Проверялось на Ubuntu 24.04, компилировалось gcc 15.2, 16.1
 
 ##### Убеждаемся в наличии gcc с поддержкой c++23

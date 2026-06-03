@@ -46,7 +46,7 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CMAKE_PROJECT_VERSION}-setu
 file(WRITE "${CMAKE_BINARY_DIR}/bin/installer_mode" ${CPACK_GENERATOR})
 install(FILES "${CMAKE_BINARY_DIR}/bin/installer_mode" DESTINATION .)
 
-if(NOT WIN32)
+if(NOT WIN32 AND NOT APPLE)
 	file(WRITE "${CMAKE_BINARY_DIR}/start.sh" "#!/bin/bash\nLD_LIBRARY_PATH=$(dirname \"\${BASH_SOURCE[0]}\")/lib:$LD_LIBRARY_PATH ICU_DATA=$(dirname \"\${BASH_SOURCE[0]}\")/lib $(dirname \"\${BASH_SOURCE[0]}\")/${PROJECT_NAME}")
 	install(PROGRAMS "${CMAKE_BINARY_DIR}/start.sh" DESTINATION .)
 endif()

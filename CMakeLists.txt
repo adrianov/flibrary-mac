@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.12)
 
+if(APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+	set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0" CACHE STRING "Minimum macOS version" FORCE)
+endif()
+
 execute_process(COMMAND git log -1 --format=%h WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} OUTPUT_VARIABLE GIT_HASH OUTPUT_STRIP_TRAILING_WHITESPACE)
 message(STATUS "Git commit hash: ${GIT_HASH}")
 
@@ -9,7 +13,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install")
 
 set(COMPANY_NAME HomeCompa)
-set(COPYRIGHT "© 2026 heimdallr")
+set(COPYRIGHT "Â© 2026 heimdallr")
 set(PRODUCT_DESCRIPTION "another e-book cataloger")
 set(PRODUCT_ICON "${CMAKE_CURRENT_LIST_DIR}/src/home/resources/icons/main.ico")
 
@@ -49,6 +53,8 @@ message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 if (NOT DEFINED 7zip_BIN_DIR)
 	if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
 		set(7zip_BIN_DIR "/usr/lib/7zip" CACHE STRING "Path to 7zip binaries (required)")
+	elseif(APPLE)
+		set(7zip_BIN_DIR "/opt/homebrew/lib" CACHE STRING "Path to 7zip binaries (required)")
 	endif()
 endif()
 if ("${7zip_BIN_DIR}" STREQUAL "")
@@ -62,6 +68,11 @@ conan_install(
 	)
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_BINARY_DIR}/conan_toolchain.cmake")
 include("${CMAKE_BINARY_DIR}/conan_toolchain.cmake")
+
+if(APPLE AND CMAKE_OSX_SYSROOT STREQUAL "macosx")
+	execute_process(COMMAND xcrun --show-sdk-path OUTPUT_VARIABLE _OSX_SDK OUTPUT_STRIP_TRAILING_WHITESPACE)
+	set(CMAKE_OSX_SYSROOT "${_OSX_SDK}" CACHE STRING "" FORCE)
+endif()
 
 if(MSVC)
 	if (NOT ${CMAKE_CXX_FLAGS} STREQUAL "")
@@ -82,8 +93,9 @@ if(MSVC)
 	)
 else()
 	SET(CMAKE_SKIP_BUILD_RPATH FALSE)
+	SET(CMAKE_INSTALL_RPATH "@executable_path/../lib")
+	SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 	SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-	SET(CMAKE_INSTALL_RPATH lib)
 
 	add_compile_options(
 		-Wall
@@ -91,19 +103,37 @@ else()
 		-Werror
 		-pedantic
 		-Wno-deprecated-declarations
-		-Wno-virtual-move-assign
 		-Wno-missing-field-initializers
 		-Wno-array-bounds
 		-fPIC		
 	)
+	if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
+		add_compile_options(-Wno-virtual-move-assign)
+	endif()
+	if(APPLE)
+		add_compile_options(
+			-Wno-gnu-anonymous-struct
+			-Wno-nested-anon-types
+			-Wno-defaulted-function-deleted
+			-Wno-unused-lambda-capture
+			-Wno-overloaded-virtual
+			-Wno-inconsistent-missing-override
+			-Wno-missing-template-arg-list-after-template-kw
+			-Wno-call-to-pure-virtual-from-ctor-dtor
+			-Wno-unused-function
+		)
+	endif()
 endif()
 
 set(QtModules Core Gui Widgets Xml Network Svg Concurrent)
 if(QT6)
 	list(APPEND QtModules HttpServer WebSockets)
 endif()
-if(NOT WIN32)
-	list(APPEND QtModules DBus WaylandClient)
+if(UNIX AND NOT APPLE)
+	list(APPEND QtModules DBus)
+endif()
+if(UNIX AND NOT WIN32 AND NOT APPLE)
+	list(APPEND QtModules WaylandClient)
 endif()
 
 set(QtPlugins
@@ -125,6 +155,12 @@ elseif(QT6)
 			QModernWindowsStyle
 			QSchannelBackend
 		)
+	elseif(APPLE)
+		list(APPEND QtPlugins
+			QCocoaIntegration
+			QMacStyle
+			QSecureTransportBackend
+		)
 	else()
 		list(APPEND QtPlugins
 			QWaylandIntegration QXcbIntegration
@@ -143,6 +179,10 @@ find_package(Qt${QT_MAJOR_VERSION} REQUIRED COMPONENTS ${QtModules})
 set(BIT7Z_AUTO_FORMAT ON CACHE BOOL "enable auto format support" FORCE)
 set(BIT7Z_USE_NATIVE_STRING ON CACHE BOOL "enable native string" FORCE)
 set(BIT7Z_USE_STD_BYTE ON CACHE BOOL "enable std::byte" FORCE)
+if(APPLE)
+	set(BIT7Z_7ZIP_VERSION "21.07" CACHE STRING "7-zip SDK version for p7zip compatibility" FORCE)
+	set(BIT7Z_USE_LEGACY_IUNKNOWN ON CACHE BOOL "legacy IUnknown for p7zip on macOS" FORCE)
+endif()
 add_subdirectory(${CMAKE_SOURCE_DIR}/src/ext/bit7z)
 if(MSVC)
 	set_property(TARGET bit7z PROPERTY FOLDER ThirdParty)

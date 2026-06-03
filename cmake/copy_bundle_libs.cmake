@@ -1,0 +1,5 @@
+file(GLOB libs "${src}/*.dylib" "${src}/*.so" "${src}/*.dat")
+foreach(lib ${libs})
+	get_filename_component(name ${lib} NAME)
+	execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${lib} ${dst}/${name})
+endforeach()
