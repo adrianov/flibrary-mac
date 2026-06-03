@@ -20,7 +20,6 @@
 #include "logic/data/Genre.h"
 #include "util/AnnotationControllerObserver.h"
 #include "util/Fb2InpxParser.h"
-#include "util/FunctorExecutionForwarder.h"
 #include "util/ImageUtil.h"
 
 #include "log.h"
@@ -444,9 +443,6 @@ private:
 			{ resultName, array }
 		};
 	}
-
-private:
-	Util::FunctorExecutionForwarder m_forwarder;
 };
 
 namespace
