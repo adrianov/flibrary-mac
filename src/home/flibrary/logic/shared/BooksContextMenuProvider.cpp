@@ -3,7 +3,6 @@
 #include <ranges>
 
 #include <QClipboard>
-#include <QFileInfo>
 #include <QGuiApplication>
 #include <QMimeData>
 #include <QTemporaryDir>
