@@ -14,11 +14,16 @@
       <empty-line/>
       <p>представительстве компании<emphasis>Veuve Clicquot</emphasis>.</p>
       <p>И вотle jour est arrivé!<a l:href="#n2" type="note">[2]</a></p>
+      <p>толстеют.Pourquoi<a l:href="#1" type="note">[1]</a>?</p>
       <p>Second paragraph.</p>
     </section>
   </body>
   <body name="notes">
     <section>
+      <section id="n1">
+        <title><p>1</p></title>
+        <p>Pourquoi les Françaises ne grossissent pas — сноска.</p>
+      </section>
       <section id="n2">
         <title><p>2</p></title>
         <p>День наступил — сноска к фразе на французском.</p>

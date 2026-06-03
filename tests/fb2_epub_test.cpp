@@ -24,6 +24,36 @@ bool CheckParsed(const ParsedFb2& parsed)
 		std::cerr << "missing space between scripts\n";
 		return false;
 	}
+	if (!html.contains(QStringLiteral("толстеют. Pourquoi")))
+	{
+		std::cerr << "missing space after punctuation\n";
+		return false;
+	}
+	if (!html.contains(QStringLiteral("[<a epub:type=\"noteref\" href=\"#fn-n1\">1</a>]")))
+	{
+		std::cerr << "missing linked footnote marker\n";
+		return false;
+	}
+	if (!html.contains(QStringLiteral("epub:type=\"noteref\"")))
+	{
+		std::cerr << "missing noteref link\n";
+		return false;
+	}
+	if (!html.contains(QStringLiteral("href=\"#fn-n1\"")))
+	{
+		std::cerr << "missing footnote link for note 1\n";
+		return false;
+	}
+	if (!html.contains(QStringLiteral("id=\"fn-n1\"")))
+	{
+		std::cerr << "missing footnote target for note 1\n";
+		return false;
+	}
+	if (!html.contains(QStringLiteral("epub:type=\"footnote\"")))
+	{
+		std::cerr << "missing footnote aside\n";
+		return false;
+	}
 	if (!html.contains(QStringLiteral("href=\"#fn-n2\"")))
 	{
 		std::cerr << "missing footnote link\n";
@@ -34,14 +64,9 @@ bool CheckParsed(const ParsedFb2& parsed)
 		std::cerr << "missing footnote target\n";
 		return false;
 	}
-	if (!html.contains(QStringLiteral("class=\"footnotes\"")))
+	if (html.contains(QStringLiteral("class=\"footnotes\"")))
 	{
-		std::cerr << "missing footnotes section\n";
-		return false;
-	}
-	if (!html.contains(QStringLiteral("Примечания")))
-	{
-		std::cerr << "missing footnotes heading\n";
+		std::cerr << "footnotes section should be omitted for pop-up notes\n";
 		return false;
 	}
 	return true;
