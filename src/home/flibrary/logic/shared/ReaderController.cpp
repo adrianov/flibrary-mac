@@ -156,7 +156,7 @@ struct ReaderController::Impl
 	{
 	}
 
-	void Read(std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir, QString fileName, const QString& error) const
+	void Read(std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir, QString fileName, const QString& error, long long bookId = 0) const
 	{
 		if (fileName.isEmpty())
 		{
@@ -168,7 +168,7 @@ struct ReaderController::Impl
 		if (!temporaryDir)
 			return uiFactory->ShowError(error);
 
-		fileName = PrepareReaderFile(fileName);
+		fileName = PrepareReaderFile(fileName, bookId);
 
 		auto ext = QFileInfo(fileName).suffix();
 		if (ext.isEmpty())
@@ -288,8 +288,8 @@ void ReaderController::Read(long long id) const
 						 return logicFactory->CreateTemporaryDir(true);
 					 }();
 					 Extract(*m_impl->settings, *temporaryDir, archive, fileName, error, m_impl->logicFactory);
-					 return [this, executor = std::move(executor), fileName = std::move(fileName), temporaryDir = std::move(temporaryDir), error(std::move(error))](size_t) mutable {
-						 m_impl->Read(std::move(temporaryDir), std::move(fileName), error);
+					 return [this, executor = std::move(executor), fileName = std::move(fileName), temporaryDir = std::move(temporaryDir), error(std::move(error)), id](size_t) mutable {
+						 m_impl->Read(std::move(temporaryDir), std::move(fileName), error, id);
 						 executor.reset();
 					 };
 				 } });
