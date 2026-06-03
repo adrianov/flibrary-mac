@@ -4,7 +4,7 @@ set -euo pipefail
 root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 build_dir="${root_dir}/build"
 qt_dir="${QT6_DIR:-/opt/homebrew/opt/qt/lib/cmake/Qt6}"
-seven_zip_dir="${7ZIP_BIN_DIR:-/opt/homebrew/lib}"
+seven_zip_dir="${SEVENZIP_BIN_DIR:-/opt/homebrew/lib}"
 
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++

@@ -180,8 +180,9 @@ set(BIT7Z_AUTO_FORMAT ON CACHE BOOL "enable auto format support" FORCE)
 set(BIT7Z_USE_NATIVE_STRING ON CACHE BOOL "enable native string" FORCE)
 set(BIT7Z_USE_STD_BYTE ON CACHE BOOL "enable std::byte" FORCE)
 if(APPLE)
-	set(BIT7Z_7ZIP_VERSION "21.07" CACHE STRING "7-zip SDK version for p7zip compatibility" FORCE)
-	set(BIT7Z_USE_LEGACY_IUNKNOWN ON CACHE BOOL "legacy IUnknown for p7zip on macOS" FORCE)
+	# Homebrew sevenzip (26.x) uses modern 7-Zip IUnknown; legacy mode crashes at runtime.
+	set(BIT7Z_7ZIP_VERSION "23.01" CACHE STRING "7-zip SDK version" FORCE)
+	set(BIT7Z_USE_LEGACY_IUNKNOWN OFF CACHE BOOL "legacy IUnknown for old p7zip" FORCE)
 endif()
 add_subdirectory(${CMAKE_SOURCE_DIR}/src/ext/bit7z)
 if(MSVC)
@@ -248,6 +249,15 @@ include("src/home/home.cmake")
 
 include("src/home/script/cmake/pack.cmake")
 install(FILES "${CMAKE_SOURCE_DIR}/LICENSE_en.txt" DESTINATION . RENAME LICENSE.txt)
+
+if(APPLE)
+	AddTarget(fb2_epub_test app_console
+		PROJECT_GROUP Tests
+		SOURCES "${CMAKE_SOURCE_DIR}/tests/fb2_epub_test.cpp"
+		LINK_TARGETS util
+		LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Core
+	)
+endif()
 
 if (PERSONAL_BUILD_NAME)
 	message(WARNING "Personal ${PERSONAL_BUILD_NAME} build")
