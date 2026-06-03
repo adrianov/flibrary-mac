@@ -41,6 +41,8 @@
 #include "log.h"
 #include "zip.h"
 
+#include "BooksHeaderLayout.h"
+
 using namespace HomeCompa;
 using namespace Flibrary;
 
@@ -1128,10 +1130,9 @@ private:
 		if (needDataCollect)
 		{
 			for (auto i = 0, sz = header->count(); i < sz; ++i)
-			{
 				header->showSection(i);
-				header->resizeSection(i, header->minimumSectionSize());
-			}
+
+			BooksHeaderLayout::ApplyDefaultWidths(*header, m_ui.treeView->viewport()->width());
 			return;
 		}
 
@@ -1156,22 +1157,19 @@ private:
 			header->moveSection(header->visualIndex(logicalIndex), visualIndex);
 
 		m_ui.treeView->model()->setData({}, m_booksHeaderView->logicalIndex(0), Role::CheckableColumn);
-		CheckHeaderViewWidth(QResizeEvent(m_self.size(), m_self.size()));
+		FillBooksHeaderWidth();
 	}
 
-	void CheckHeaderViewWidth(const QResizeEvent& event)
+	void FillBooksHeaderWidth() const
 	{
-		const auto diff   = m_ui.treeView->width() - m_ui.treeView->viewport()->width();
-		auto&      header = *m_ui.treeView->header();
-		if (const auto length = header.length() + diff; std::abs(length - event.oldSize().width()) < 3 * QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent))
-		{
-			if (const auto offset = event.size().width() - length)
-			{
-				QSignalBlocker block(&header);
-				header.resizeSection(0, m_ui.treeView->header()->sectionSize(0) + offset);
-				SaveHeaderLayout();
-			}
-		}
+		auto& header = *m_ui.treeView->header();
+		QSignalBlocker block(&header);
+		BooksHeaderLayout::ScaleToWidth(header, m_ui.treeView->viewport()->width());
+	}
+
+	void CheckHeaderViewWidth(const QResizeEvent& /*event*/)
+	{
+		FillBooksHeaderWidth();
 	}
 
 	void OnHeaderSectionsVisibleChanged() const
