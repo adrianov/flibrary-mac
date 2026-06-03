@@ -2,33 +2,20 @@
 
 #include <random>
 
-#include <QDesktopServices>
-#include <QFileInfo>
-#include <QProcess>
-#include <QTemporaryDir>
-#include <QUrl>
-
-#include "fnd/ScopedCall.h"
-
 #include "database/interface/ICommand.h"
 #include "database/interface/IDatabase.h"
 #include "database/interface/IQuery.h"
 #include "database/interface/ITransaction.h"
 
 #include "interface/constants/ExportStat.h"
-#include "interface/constants/SettingsConstant.h"
 #include "interface/localization.h"
 
-#include "platform/FileUtil.h"
-#include "platform/PlatformUtil.h"
 #include "util/IExecutor.h"
-#include "util/ImageRestore.h"
-#include "util/files.h"
 
-#include "shared/ReaderOpenPath.h"
+#include "shared/ReaderExtract.h"
+#include "shared/ReaderLaunch.h"
 
 #include "log.h"
-#include "zip.h"
 
 using namespace HomeCompa::Flibrary;
 using namespace HomeCompa;
@@ -36,99 +23,9 @@ using namespace HomeCompa;
 namespace
 {
 
-constexpr auto CONTEXT                     = "ReaderController";
-constexpr auto DIALOG_TITLE                = QT_TRANSLATE_NOOP("ReaderController", "Select %1 reader");
-constexpr auto DIALOG_FILTER               = QT_TRANSLATE_NOOP("ReaderController", "Applications (*.exe)");
-constexpr auto USE_DEFAULT                 = QT_TRANSLATE_NOOP("ReaderController", "Use the default reader?");
-constexpr auto CANNOT_START_DEFAULT_READER = QT_TRANSLATE_NOOP("ReaderController", "Cannot start default reader. Will you specify the application manually?");
-constexpr auto CANNOT_START_READER         = QT_TRANSLATE_NOOP("ReaderController", "'%1' not found. Will you specify another application?");
-constexpr auto UNSUPPORTED                 = QT_TRANSLATE_NOOP("ReaderController", "Unsupported file type");
-constexpr auto SELECT_FILE                 = QT_TRANSLATE_NOOP("ReaderController", "Specify the file to be read");
-
-constexpr auto READER_KEY = "Reader/%1";
-constexpr auto DIALOG_KEY = "Reader";
-constexpr auto DEFAULT    = "default";
-
 constexpr auto DEFAULT_FOLDER_KEY = "Preferences/Export/readFolder";
 
-TR_DEF
-
-class ReaderProcess final : QProcess
-{
-public:
-	ReaderProcess(const QString& process, const QString& fileName, std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir, QObject* parent = nullptr)
-		: QProcess(parent)
-		, m_temporaryDir(std::move(temporaryDir))
-	{
-		start(process, { fileName });
-		waitForStarted();
-		connect(this, qOverload<int, ExitStatus>(&QProcess::finished), this, &QObject::deleteLater);
-	}
-
-private:
-	std::shared_ptr<ILogicFactory::ITemporaryDir> m_temporaryDir;
-};
-
-void Extract(const ISettings& settings, const ILogicFactory::ITemporaryDir& temporaryDir, const QString& archive, QString& fileName, QString& error, std::weak_ptr<const ILogicFactory> logicFactory)
-{
-	try
-	{
-		const Zip  zip(archive);
-		const auto stream       = zip.Read(fileName);
-		const auto settingsStub = ILogicFactory::Lock(logicFactory)->CreateSettingsStub();
-
-		if (!fileName.endsWith(".epub", Qt::CaseInsensitive) && Zip::IsArchive(Platform::RemoveIllegalPathCharacters(fileName)))
-		{
-			const Zip   subZip(stream->GetStream());
-			const auto  fileList = subZip.GetFileNameList();
-			QStringList filesWithReader;
-			for (const auto& archiveFileName : fileList)
-			{
-				if (auto ext = QFileInfo(archiveFileName).suffix(); !ext.isEmpty())
-				{
-					auto key = QString(READER_KEY).arg(ext);
-					if (auto reader = settings.Get(key).toString(); !reader.isEmpty())
-						filesWithReader << archiveFileName;
-				}
-
-				auto       fileNameDst = temporaryDir.filePath(archiveFileName);
-				const auto dir         = QFileInfo(fileNameDst).dir();
-				if (!dir.exists() && !dir.mkpath("."))
-				{
-					PLOGE << "Cannot create " << dir.dirName();
-					continue;
-				}
-
-				if (QFile file(fileNameDst); file.open(QIODevice::WriteOnly))
-				{
-					const auto subStream = subZip.Read(archiveFileName);
-					file.write(Util::PrepareToExport(subStream->GetStream(), archive, fileName, *settingsStub));
-				}
-			}
-
-			if (fileList.size() == 1)
-				fileName = temporaryDir.filePath(fileList.front());
-			else if (filesWithReader.size() == 1)
-				fileName = temporaryDir.filePath(filesWithReader.front());
-			else
-				fileName.clear();
-		}
-		else
-		{
-			auto fileNameDst = temporaryDir.filePath(Platform::RemoveIllegalPathCharacters(fileName));
-			if (QFile file(fileNameDst); file.open(QIODevice::WriteOnly))
-				file.write(Util::PrepareToExport(stream->GetStream(), archive, fileName, *settingsStub));
-
-			fileName = std::move(fileNameDst);
-		}
-	}
-	catch (const std::exception& ex)
-	{
-		error = ex.what();
-	}
 }
-
-} // namespace
 
 struct ReaderController::Impl
 {
@@ -156,87 +53,9 @@ struct ReaderController::Impl
 	{
 	}
 
-	void Read(std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir, QString fileName, const QString& error, long long bookId = 0) const
+	void Read(std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir, QString fileName, const QString& error, const long long bookId = 0) const
 	{
-		if (fileName.isEmpty())
-		{
-			fileName = uiFactory->GetOpenFileName({}, Tr(SELECT_FILE), {}, temporaryDir->path());
-			if (fileName.isEmpty())
-				return;
-		}
-
-		if (!temporaryDir)
-			return uiFactory->ShowError(error);
-
-		fileName = PrepareReaderFile(fileName, bookId);
-
-		auto ext = QFileInfo(fileName).suffix();
-		if (ext.isEmpty())
-			return uiFactory->ShowError(Tr(UNSUPPORTED));
-
-		auto key    = QString(READER_KEY).arg(ext);
-		auto reader = settings->Get(key).toString();
-
-		const auto getReader = [&] {
-			reader = uiFactory->GetOpenFileName(DIALOG_KEY, Tr(DIALOG_TITLE).arg(ext), Tr(DIALOG_FILTER));
-			if (reader.isEmpty())
-				return;
-
-			if (settings->Get(Constant::Settings::PREFER_RELATIVE_PATHS, false))
-				reader = Util::ToRelativePath(reader);
-			settings->Set(key, reader);
-		};
-
-		if (reader.isEmpty())
-		{
-			if (Platform::IsRegisteredExtension(ext))
-				switch (uiFactory->ShowQuestion(Tr(USE_DEFAULT), QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes)) // NOLINT(clang-diagnostic-switch-enum)
-				{
-					case QMessageBox::Yes:
-						settings->Set(key, (reader = DEFAULT));
-						break;
-					case QMessageBox::No:
-						break;
-					case QMessageBox::Cancel:
-					default:
-						return;
-				}
-
-			if (reader.isEmpty())
-			{
-				getReader();
-				if (reader.isEmpty())
-					return;
-			}
-		}
-
-		if (reader == DEFAULT)
-		{
-			if (QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)))
-				return;
-
-			settings->Remove(key);
-			if (uiFactory->ShowQuestion(Tr(CANNOT_START_DEFAULT_READER), QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes) != QMessageBox::Yes)
-				return;
-
-			getReader();
-			if (reader.isEmpty())
-				return;
-		}
-
-		reader = Util::ToAbsolutePath(reader);
-		while (!QFile::exists(reader))
-		{
-			if (uiFactory->ShowQuestion(Tr(CANNOT_START_READER).arg(QFileInfo(reader).fileName()), QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes) != QMessageBox::Yes)
-				return;
-
-			getReader();
-			if (reader.isEmpty())
-				return;
-		}
-
-		assert(!reader.isEmpty());
-		new ReaderProcess(reader, fileName, std::move(temporaryDir), uiFactory->GetParentObject());
+		LaunchConfiguredReader(*settings, *uiFactory, std::move(temporaryDir), std::move(fileName), error, bookId);
 	}
 };
 
@@ -287,7 +106,7 @@ void ReaderController::Read(long long id) const
 							 return logicFactory->CreateTemporaryDir(folder.toString());
 						 return logicFactory->CreateTemporaryDir(true);
 					 }();
-					 Extract(*m_impl->settings, *temporaryDir, archive, fileName, error, m_impl->logicFactory);
+					 ExtractBookForReading(*m_impl->settings, *temporaryDir, archive, fileName, error, ILogicFactory::Lock(m_impl->logicFactory));
 					 return [this, executor = std::move(executor), fileName = std::move(fileName), temporaryDir = std::move(temporaryDir), error(std::move(error)), id](size_t) mutable {
 						 m_impl->Read(std::move(temporaryDir), std::move(fileName), error, id);
 						 executor.reset();
