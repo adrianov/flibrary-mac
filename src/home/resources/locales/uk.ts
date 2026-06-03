@@ -458,6 +458,10 @@
         <translation>Ви впевнені, що хочете, щоб мовою цих книг була %1?</translation>
     </message>
     <message>
+        <source>As &amp;epub</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>As &amp;inpx collection</source>
         <translation>Як &amp;inpx-колекцію</translation>
     </message>

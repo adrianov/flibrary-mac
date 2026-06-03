@@ -19,6 +19,11 @@
 #include "log.h"
 #include "zip.h"
 
+#ifdef Q_OS_MACOS
+#include "util/Fb2EpubConverter.h"
+#include "util/Fb2Format.h"
+#endif
+
 using namespace HomeCompa::Flibrary;
 using namespace HomeCompa;
 
@@ -89,11 +94,35 @@ bool Unpack(QByteArray& input, const std::filesystem::path& path)
 	return Write(input, path);
 }
 
+bool WriteEpub(const QByteArray& input, const std::filesystem::path& path, const Util::ExtractedBook& book)
+{
+#ifdef Q_OS_MACOS
+	if (!Util::IsFb2Suffix(QFileInfo(book.file).suffix()))
+		return false;
+
+	QTemporaryDir tempDir;
+	if (!tempDir.isValid())
+		return false;
+
+	const auto fb2Path = tempDir.filePath(book.file);
+	if (!Write(input, Platform::StringToPath(fb2Path)))
+		return false;
+
+	return Util::ConvertFb2ToEpub(fb2Path, Platform::PathToString(path));
+#else
+	(void)input;
+	(void)path;
+	(void)book;
+	return false;
+#endif
+}
+
 enum class WriteMode
 {
 	AsIs,
 	Archive,
 	Unpack,
+	Epub,
 };
 
 std::pair<bool, std::filesystem::path> Write(
@@ -130,6 +159,8 @@ std::pair<bool, std::filesystem::path> Write(
 				return Archive(bytes, result.second, dstFileInfo.completeBaseName() + "." + QFileInfo(book.file).suffix(), std::move(zipProgressCallback));
 			case WriteMode::Unpack:
 				return Unpack(bytes, result.second);
+			case WriteMode::Epub:
+				return WriteEpub(bytes, result.second, book);
 			default: // NOLINT(clang-diagnostic-covered-switch-default)
 				return assert(false && "unexpected mode"), false;
 		}
@@ -421,6 +452,19 @@ void BooksExtractor::ExtractAsIs(QString folder, const QString& /*parameter*/, U
 		ExportStat::Type::AsIs,
 		[this](const std::filesystem::path& archiveFolder, const QString& /*dstFolder*/, const Util::ExtractedBook& book, IProgressController::IProgressItem& progress, IExportHelper& exportHelper) {
 			Process(m_impl->GetSettings(), archiveFolder, book, progress, {}, exportHelper, WriteMode::AsIs);
+		}
+	);
+}
+
+void BooksExtractor::ExtractAsEpub(QString folder, const QString& /*parameter*/, Util::ExtractedBooks&& books, Callback callback)
+{
+	m_impl->Extract(
+		std::move(folder),
+		std::move(books),
+		std::move(callback),
+		ExportStat::Type::Epub,
+		[this](const std::filesystem::path& archiveFolder, const QString& /*dstFolder*/, const Util::ExtractedBook& book, IProgressController::IProgressItem& progress, IExportHelper& exportHelper) {
+			Process(m_impl->GetSettings(), archiveFolder, book, progress, {}, exportHelper, WriteMode::Epub);
 		}
 	);
 }

@@ -458,6 +458,10 @@
         <translation></translation>
     </message>
     <message>
+        <source>As &amp;epub</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>As &amp;inpx collection</source>
         <translation></translation>
     </message>

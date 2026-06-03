@@ -529,7 +529,7 @@ private: // ITreeViewController::IObserver
 				break;
 		}
 
-		if (IsOneOf(item->GetData(MenuItem::Column::Id).toInt(), BooksMenuAction::SendAsArchive, BooksMenuAction::SendAsIs, BooksMenuAction::SendAsScript) && item->GetData(MenuItem::Column::HasError).toInt())
+		if (IsOneOf(item->GetData(MenuItem::Column::Id).toInt(), BooksMenuAction::SendAsArchive, BooksMenuAction::SendAsIs, BooksMenuAction::SendAsEpub, BooksMenuAction::SendAsScript) && item->GetData(MenuItem::Column::HasError).toInt())
 			m_uiFactory->ShowWarning(Loc::Tr(Loc::Ctx::ERROR_CTX, Loc::BOOKS_EXTRACT_ERROR));
 	}
 

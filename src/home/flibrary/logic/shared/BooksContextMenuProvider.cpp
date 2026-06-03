@@ -3,6 +3,7 @@
 #include <ranges>
 
 #include <QClipboard>
+#include <QFileInfo>
 #include <QGuiApplication>
 #include <QMimeData>
 #include <QTemporaryDir>
@@ -26,10 +27,12 @@
 #include "ChangeNavigationController/GroupController.h"
 #include "database/DatabaseUtil.h"
 #include "extract/BooksExtractor.h"
+#include "util/Fb2Format.h"
 #include "util/language.h"
 
 #include "Constant.h"
 #include "MenuItems.h"
+#include "BooksContextMenuExport.h"
 #include "QtTypes.h"
 #include "log.h"
 
@@ -41,12 +44,6 @@ namespace
 
 constexpr auto CONTEXT                  = "BookContextMenu";
 constexpr auto READ_BOOK                = QT_TRANSLATE_NOOP("BookContextMenu", "&Read");
-constexpr auto EXPORT                   = QT_TRANSLATE_NOOP("BookContextMenu", "E&xport");
-constexpr auto SEND_AS_ARCHIVE          = QT_TRANSLATE_NOOP("BookContextMenu", "As &zip archive");
-constexpr auto SEND_AS_IS               = QT_TRANSLATE_NOOP("BookContextMenu", "As &original format");
-constexpr auto UNPACK                   = QT_TRANSLATE_NOOP("BookContextMenu", "&Unpack");
-constexpr auto SEND_AS_INPX             = QT_TRANSLATE_NOOP("BookContextMenu", "As &inpx collection");
-constexpr auto SEND_AS_SINGLE_INPX      = QT_TRANSLATE_NOOP("BookContextMenu", "Generate inde&x file (*.inpx)");
 constexpr auto MARK_AS_READ             = QT_TRANSLATE_NOOP("BookContextMenu", "&Mark as read");
 constexpr auto SET_MY_RATE              = QT_TRANSLATE_NOOP("BookContextMenu", "&My rate");
 constexpr auto REMOVE_MY_RATE           = QT_TRANSLATE_NOOP("BookContextMenu", "&Remove read mark");
@@ -71,22 +68,10 @@ constexpr auto RESTORE              = QT_TRANSLATE_NOOP("BookContextMenu", "rest
 
 constexpr auto REMOVE_PERMANENTLY_CONFIRM = QT_TRANSLATE_NOOP("BookContextMenu", "The result of this operation cannot be undone. Are you sure you want to delete the books permanently?");
 constexpr auto CHANGE_LANGUAGE_CONFIRM    = QT_TRANSLATE_NOOP("BookContextMenu", "Are you sure you want to change the language of the books to %1?");
-constexpr auto SAME_NAMED_FILES           = QT_TRANSLATE_NOOP("BookContextMenu", "What to do with the same named files?");
-constexpr auto SAME_NAMED_FILES_SKIP      = QT_TRANSLATE_NOOP("BookContextMenu", "Skip");
-constexpr auto SAME_NAMED_FILES_OVERWRITE = QT_TRANSLATE_NOOP("BookContextMenu", "Overwrite");
-constexpr auto SAME_NAMED_FILES_RENAME    = QT_TRANSLATE_NOOP("BookContextMenu", "Rename");
-constexpr auto SAME_NAMED_FILES_CANCEL    = QT_TRANSLATE_NOOP("BookContextMenu", "Cancel");
 
 TR_DEF
 
 constexpr auto USER_RATE_QUERY = "select coalesce(bu.UserRate, -1) from Books b left join Books_User bu on bu.BookID = b.BookID where b.BookID = ?";
-
-struct SendSettings
-{
-	QString ext;
-	bool    tempFolder { false };
-	bool    createFillTemplateConverterParameter { false };
-};
 
 class IContextMenuHandler // NOLINT(cppcoreguidelines-special-member-functions)
 {
@@ -130,28 +115,6 @@ void CreateMyRateMenu(const IDataItem::Ptr& root, const QString& id, DB::IDataba
 
 	AddMenuItem(parent)->SetData(QString::number(-1), MenuItem::Column::Parameter);
 	AddMenuItem(parent, REMOVE_MY_RATE, Tr(REMOVE_MY_RATE), BooksMenuAction::SetUserRate)->SetData(QString::number(-1), MenuItem::Column::Parameter);
-}
-
-void CreateSendMenu(const IDataItem::Ptr& root, const ITreeViewController::RequestContextMenuOptions options, const IScriptController::Scripts& scripts)
-{
-	const auto& send = AddMenuItem(root, EXPORT, Tr(EXPORT));
-	AddMenuItem(send, SEND_AS_ARCHIVE, Tr(SEND_AS_ARCHIVE), BooksMenuAction::SendAsArchive);
-	AddMenuItem(send, SEND_AS_IS, Tr(SEND_AS_IS), BooksMenuAction::SendAsIs);
-	if (!!(options & ITreeViewController::RequestContextMenuOptions::IsArchive))
-		AddMenuItem(send, UNPACK, Tr(UNPACK), BooksMenuAction::SendUnpack);
-
-	if (!scripts.empty())
-	{
-		AddMenuItem(send)->SetData(QString::number(-1), MenuItem::Column::Parameter);
-		for (const auto& script : scripts)
-		{
-			const auto& scriptItem = AddMenuItem(send, script.uid, script.name, BooksMenuAction::SendAsScript);
-			scriptItem->SetData(script.uid, MenuItem::Column::Parameter);
-		}
-	}
-	AddMenuItem(send)->SetData(QString::number(-1), MenuItem::Column::Parameter);
-	AddMenuItem(send, SEND_AS_INPX, Tr(SEND_AS_INPX), BooksMenuAction::SendAsInpxCollection);
-	AddMenuItem(send, SEND_AS_SINGLE_INPX, Tr(SEND_AS_SINGLE_INPX), BooksMenuAction::SendAsInpxFile);
 }
 
 void CreateCheckMenu(const IDataItem::Ptr& root)
@@ -248,9 +211,10 @@ public:
 
 		m_databaseUser->Execute(
 			{ "Create context menu",
-		      [id      = index.data(Role::Id).toString(),
-		       type    = index.data(Role::Type).value<ItemType>(),
-		       removed = index.data(Role::IsRemoved).toBool(),
+		      [id       = index.data(Role::Id).toString(),
+		       type     = index.data(Role::Type).value<ItemType>(),
+		       removed  = index.data(Role::IsRemoved).toBool(),
+		       fileName = index.data(Role::FileName).toString(),
 		       options,
 		       starSymbol    = m_starSymbol,
 		       callback      = std::move(callback),
@@ -262,7 +226,7 @@ public:
 				  if (type == ItemType::Books)
 					  AddMenuItem(result, READ_BOOK, Tr(READ_BOOK), BooksMenuAction::ReadBook);
 
-				  CreateSendMenu(result, options, scripts);
+				  CreateSendMenu(result, options, scripts, Util::IsFb2Path(fileName));
 				  AddMenuItem(result)->SetData(QString::number(-1), MenuItem::Column::Parameter);
 
 				  if (type == ItemType::Books)
@@ -456,27 +420,32 @@ private: // IContextMenuHandler
 
 	void SendAsArchive(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback) const override
 	{
-		SendAsImpl(model, index, indexList, std::move(item), std::move(callback), &BooksExtractor::ExtractAsArchives, { .ext = "zip" });
+		SendAsImpl(ExportHost(), model, index, indexList, std::move(item), std::move(callback), &BooksExtractor::ExtractAsArchives, { .ext = "zip" });
 	}
 
 	void SendAsIs(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback) const override
 	{
-		SendAsImpl(model, index, indexList, std::move(item), std::move(callback), &BooksExtractor::ExtractAsIs);
+		SendAsImpl(ExportHost(), model, index, indexList, std::move(item), std::move(callback), &BooksExtractor::ExtractAsIs);
+	}
+
+	void SendAsEpub(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback) const override
+	{
+		SendAsImpl(ExportHost(), model, index, indexList, std::move(item), std::move(callback), &BooksExtractor::ExtractAsEpub, { .ext = "epub" });
 	}
 
 	void SendUnpack(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback) const override
 	{
-		SendAsImpl(model, index, indexList, std::move(item), std::move(callback), &BooksExtractor::ExtractUnpack);
+		SendAsImpl(ExportHost(), model, index, indexList, std::move(item), std::move(callback), &BooksExtractor::ExtractUnpack);
 	}
 
 	void SendAsInpxCollection(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback) const override
 	{
-		SendAsInpxImpl(model, index, indexList, std::move(item), std::move(callback), &IInpxGenerator::ExtractAsInpxCollection);
+		SendAsInpxImpl(ExportHost(), model, index, indexList, std::move(item), std::move(callback), &IInpxGenerator::ExtractAsInpxCollection);
 	}
 
 	void SendAsInpxFile(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback) const override
 	{
-		SendAsInpxImpl(model, index, indexList, std::move(item), std::move(callback), &IInpxGenerator::GenerateInpx);
+		SendAsInpxImpl(ExportHost(), model, index, indexList, std::move(item), std::move(callback), &IInpxGenerator::GenerateInpx);
 	}
 
 	void SendAsScript(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback) const override
@@ -486,6 +455,7 @@ private: // IContextMenuHandler
 			return IScriptController::HasMacro(command.args, IScriptController::Macro::UserDestinationFolder);
 		});
 		Send(
+			ExportHost(),
 			model,
 			index,
 			indexList,
@@ -628,105 +598,15 @@ private: // IContextMenuHandler
 	}
 
 private:
-	void SendAsInpxImpl(
-		QAbstractItemModel*       model,
-		const QModelIndex&        index,
-		const QList<QModelIndex>& indexList,
-		IDataItem::Ptr            item,
-		Callback                  callback,
-		void (IInpxGenerator::*extractorMethod)(QString, const std::vector<QString>&, const IBookInfoProvider&, IInpxGenerator::Callback)
-	) const
+	[[nodiscard]] BooksContextMenuExportHost ExportHost() const
 	{
-		auto idList = ILogicFactory::Lock(m_logicFactory)->GetSelectedBookIds(model, index, indexList, { Role::Id });
-		if (idList.empty())
-			return;
-
-		std::transform(std::next(idList.begin()), idList.end(), std::back_inserter(idList.front()), [](auto& id) {
-			return std::move(id.front());
-		});
-
-		auto inpxName = m_uiFactory->GetSaveFileName(Constant::Settings::EXPORT_DIALOG_KEY, Loc::Tr(Loc::EXPORT, Loc::SELECT_INPX_FILE), Loc::Tr(Loc::EXPORT, Loc::SELECT_INPX_FILE_FILTER));
-		if (inpxName.isEmpty())
-			return callback(item);
-
-		auto extractor = ILogicFactory::Lock(m_logicFactory)->CreateInpxGenerator();
-		std::invoke(extractorMethod, *extractor, std::move(inpxName), idList.front(), *m_dataProvider, [extractor, item = std::move(item), callback = std::move(callback)](const bool hasError) mutable {
-			item->SetData(QString::number(hasError), MenuItem::Column::HasError);
-			callback(item);
-			extractor.reset();
-		});
-	}
-
-	void SendAsImpl(
-		QAbstractItemModel*           model,
-		const QModelIndex&            index,
-		const QList<QModelIndex>&     indexList,
-		IDataItem::Ptr                item,
-		Callback                      callback,
-		const BooksExtractor::Extract f,
-		const SendSettings&           sendSettings = {}
-	) const
-	{
-		auto       outputFileNameTemplate = m_settings->Get(Constant::Settings::EXPORT_TEMPLATE_KEY, IScriptController::GetDefaultOutputFileNameTemplate());
-		const bool dstFolderRequired      = IScriptController::HasMacro(outputFileNameTemplate, IScriptController::Macro::UserDestinationFolder);
-		Send(model, index, indexList, std::move(item), std::move(callback), f, outputFileNameTemplate, dstFolderRequired, sendSettings);
-	}
-
-	void Send(
-		QAbstractItemModel*           model,
-		const QModelIndex&            index,
-		const QList<QModelIndex>&     indexList,
-		IDataItem::Ptr                item,
-		Callback                      callback,
-		const BooksExtractor::Extract f,
-		const QString&                outputFileNameTemplate,
-		const bool                    dstFolderRequired,
-		const SendSettings&           sendSettings
-	) const
-	{
-		auto dir = dstFolderRequired ? m_uiFactory->GetExistingDirectory(Constant::Settings::EXPORT_DIALOG_KEY, Loc::SELECT_SEND_TO_FOLDER) : QString();
-		if (dstFolderRequired && dir.isEmpty())
-			return callback(item);
-
-		const auto logicFactory = ILogicFactory::Lock(m_logicFactory);
-
-		auto books = logicFactory->GetExtractedBooks(model, index, indexList);
-
-		const auto fillTemplateConverter = logicFactory->CreateFillTemplateConverter(sendSettings.createFillTemplateConverterParameter);
-
-		std::shared_ptr<QTemporaryDir> tempDir;
-		if (sendSettings.tempFolder)
-			tempDir = std::make_shared<QTemporaryDir>();
-
-		const auto db = m_databaseUser->Database();
-		for (auto& book : books)
-			fillTemplateConverter->Fill(*db, outputFileNameTemplate, book, tempDir ? tempDir->filePath("") : dir);
-
-		if (!sendSettings.ext.isEmpty())
-		{
-			for (auto& book : books)
-			{
-				const QFileInfo fileInfo(book.dstFileName);
-				book.dstFileName = fileInfo.dir().filePath(fileInfo.completeBaseName() + "." + sendSettings.ext);
-			}
-		}
-
-		if (CheckUniqueFileNames(books))
-			return callback(item);
-
-		auto       ids       = books | std::views::transform([](const auto book) {
-					   return QString::number(book.id);
-							   })
-		                     | std::ranges::to<std::set<QString>>();
-		auto       extractor = logicFactory->CreateBooksExtractor();
-		const auto parameter = item->GetData(MenuItem::Column::Parameter);
-		((*extractor)
-		 .*f)(dir, parameter, std::move(books), [extractor, model, item = std::move(item), ids = std::move(ids), tempDir = std::move(tempDir), callback = std::move(callback)](const bool hasError) mutable {
-			item->SetData(QString::number(hasError), MenuItem::Column::HasError);
-			callback(item);
-			model->setData({}, QVariant::fromValue(ids), Role::Uncheck);
-			extractor.reset();
-		});
+		return {
+			.logicFactory = m_logicFactory,
+			.settings     = m_settings,
+			.databaseUser = m_databaseUser,
+			.dataProvider = m_dataProvider,
+			.uiFactory    = m_uiFactory,
+		};
 	}
 
 	void GroupAction(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback, const GroupActionFunction f) const
@@ -765,62 +645,6 @@ private:
 											 m_dataProvider->RequestBooks(true);
 									 };
 								 } });
-	}
-
-	bool CheckUniqueFileNames(Util::ExtractedBooks& books) const
-	{
-		const auto whatTodo = [&] {
-			std::unordered_set<QString> uniqueNames;
-			if (std::ranges::any_of(books, [&](const auto& book) {
-					return QFile::exists(book.dstFileName) || !uniqueNames.emplace(book.dstFileName).second;
-				}))
-				return m_uiFactory->ShowCustomDialog(
-					QMessageBox::Question,
-					Loc::Tr(Loc::Ctx::COMMON, Loc::WARNING),
-					Tr(SAME_NAMED_FILES),
-					{
-						{      QMessageBox::AcceptRole,      Tr(SAME_NAMED_FILES_SKIP) },
-						{ QMessageBox::DestructiveRole, Tr(SAME_NAMED_FILES_OVERWRITE) },
-						{          QMessageBox::NoRole,    Tr(SAME_NAMED_FILES_RENAME) },
-						{      QMessageBox::RejectRole,    Tr(SAME_NAMED_FILES_CANCEL) },
-                },
-					QMessageBox::AcceptRole
-				);
-
-			return QMessageBox::AcceptRole;
-		}();
-
-		if (whatTodo == QMessageBox::RejectRole)
-			return true;
-
-		if (whatTodo == QMessageBox::NoRole)
-			return false;
-
-		std::unordered_map<QString, size_t> unique;
-		for (const auto& [book, index] : std::views::zip(books, std::views::iota(0)))
-		{
-			if (QFile::exists(book.dstFileName))
-			{
-				if (whatTodo == QMessageBox::DestructiveRole)
-					QFile::remove(book.dstFileName);
-				else
-					continue;
-			}
-
-			auto [it, inserted] = unique.try_emplace(book.dstFileName, index);
-			if (inserted)
-				continue;
-
-			if (whatTodo == QMessageBox::DestructiveRole)
-				it->second = index;
-		}
-
-		const auto indices = unique | std::views::values | std::ranges::to<std::unordered_set<size_t>>();
-		std::erase_if(books, [&, index = 0ULL](const auto&) mutable {
-			return !indices.contains(index++);
-		});
-
-		return false;
 	}
 
 private:

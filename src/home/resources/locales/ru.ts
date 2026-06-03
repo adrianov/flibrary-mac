@@ -458,6 +458,10 @@
         <translation>Вы уверены, что хотите изменить язык книг на %1?</translation>
     </message>
     <message>
+        <source>As &amp;epub</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>As &amp;inpx collection</source>
         <translation>В виде &amp;inpx-коллекции</translation>
     </message>

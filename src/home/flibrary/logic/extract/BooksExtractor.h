@@ -40,6 +40,7 @@ public:
 public:
 	void ExtractAsArchives(QString folder, const QString& parameter, Util::ExtractedBooks&& books, Callback callback);
 	void ExtractAsIs(QString folder, const QString& parameter, Util::ExtractedBooks&& books, Callback callback);
+	void ExtractAsEpub(QString folder, const QString& parameter, Util::ExtractedBooks&& books, Callback callback);
 	void ExtractUnpack(QString folder, const QString& parameter, Util::ExtractedBooks&& books, Callback callback);
 	void ExtractAsScript(QString folder, const QString& parameter, Util::ExtractedBooks&& books, Callback callback);
 

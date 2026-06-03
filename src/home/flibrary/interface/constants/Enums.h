@@ -91,6 +91,7 @@ struct GroupsMenuAction
 	MENU_ACTION_ITEM(ExpandAll)             \
 	MENU_ACTION_ITEM(SendAsArchive)         \
 	MENU_ACTION_ITEM(SendAsIs)              \
+	MENU_ACTION_ITEM(SendAsEpub)            \
 	MENU_ACTION_ITEM(SendUnpack)            \
 	MENU_ACTION_ITEM(SendAsInpxCollection)  \
 	MENU_ACTION_ITEM(SendAsInpxFile)        \
