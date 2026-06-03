@@ -1,5 +1,6 @@
 #include "util/Fb2EpubConverter.h"
 #include "util/Fb2EpubParser.h"
+#include "util/Fb2EpubText.h"
 
 #include <QCoreApplication>
 #include <QFile>
@@ -73,11 +74,192 @@ bool CheckParsed(const ParsedFb2& parsed)
 	return true;
 }
 
+bool CheckGluedWords()
+{
+	const auto warning = HomeCompa::Util::SplitGluedWords(QStringLiteral("Предупреждение:не рекомендуется к прочтению несовершеннолетним"));
+	if (!warning.contains(QStringLiteral("Предупреждение: не")))
+	{
+		std::cerr << "glued: " << warning.toStdString() << '\n';
+		return false;
+	}
+	if (HomeCompa::Util::SplitGluedWords(QStringLiteral("12:30")) != QStringLiteral("12:30"))
+	{
+		std::cerr << "glued: split numeric time\n";
+		return false;
+	}
+	if (!HomeCompa::Util::NeedsSpaceAfterPunctuation(QChar(u'е'), QChar(u':'), QChar(u'н')))
+	{
+		std::cerr << "missing space after colon before cyrillic word\n";
+		return false;
+	}
+	if (HomeCompa::Util::NeedsSpaceAfterPunctuation(QChar(u'2'), QChar(u':'), QChar(u'3')))
+	{
+		std::cerr << "should not split numeric colon\n";
+		return false;
+	}
+	return true;
+}
+
+bool CheckWarningSpacing(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open " << fb2Path.toStdString() << '\n';
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << fb2Path.toStdString() << " parse failed\n";
+		return false;
+	}
+
+	if (!parsed.bodyHtml.contains(QStringLiteral("Предупреждение: <em>не")))
+	{
+		std::cerr << "missing space before emphasis after colon: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	return true;
+}
+
+bool CheckEmphasisParenSpacing(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open " << fb2Path.toStdString() << '\n';
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << fb2Path.toStdString() << " parse failed\n";
+		return false;
+	}
+
+	if (!parsed.bodyHtml.contains(QString::fromUtf8("работает</em> (clean")))
+	{
+		std::cerr << "missing space before parenthesis after emphasis: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	return true;
+}
+
+bool CheckFootnoteAfterSentence(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open " << fb2Path.toStdString() << '\n';
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << fb2Path.toStdString() << " parse failed\n";
+		return false;
+	}
+
+	if (!parsed.bodyHtml.contains(QStringLiteral("time.<sup><a epub:type=\"noteref\" href=\"#fn-n8\">8</a></sup> On")))
+	{
+		std::cerr << "footnote glued to next sentence: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	return true;
+}
+
+bool CheckDropCap(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open " << fb2Path.toStdString() << '\n';
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << fb2Path.toStdString() << " parse failed\n";
+		return false;
+	}
+
+	if (!parsed.bodyHtml.contains(QString::fromUtf8("<em>П</em>одумать")))
+	{
+		std::cerr << "drop cap split from word: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	if (!parsed.bodyHtml.contains(QStringLiteral("компании<em> Veuve")))
+	{
+		std::cerr << "missing space before emphasis across scripts: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	return true;
+}
+
+bool CheckCoverOverride(const QString& fb2Path)
+{
+	static const QByteArray png = QByteArray::fromHex(
+		"89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c489"
+		"0000000a49444154789c6300010000050001000d0a2db40000000049454e44ae426082"
+	);
+
+	const auto epubPath = QStringLiteral("/tmp/fb2_epub_cover_test.epub");
+	const HomeCompa::Util::EpubCover cover { png, QStringLiteral("image/png") };
+	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath, &cover))
+	{
+		std::cerr << "cover override conversion failed\n";
+		return false;
+	}
+
+	QProcess unzip;
+	unzip.start("/usr/bin/unzip", { "-l", epubPath });
+	if (!unzip.waitForFinished(-1) || unzip.exitCode() != 0)
+	{
+		std::cerr << "cannot list epub archive\n";
+		return false;
+	}
+
+	const auto listing = QString::fromUtf8(unzip.readAllStandardOutput());
+	QFile::remove(epubPath);
+	if (!listing.contains(QStringLiteral("OEBPS/cover.xhtml")) || !listing.contains(QStringLiteral("OEBPS/cover.png")))
+	{
+		std::cerr << "cover assets missing from epub\n";
+		return false;
+	}
+
+	return true;
+}
+
 } // namespace
 
 int main(int argc, char* argv[])
 {
 	QCoreApplication app(argc, argv);
+	if (!CheckGluedWords())
+		return 1;
+
+	if (!CheckWarningSpacing(QStringLiteral("../tests/fixtures/warning_spacing.fb2")))
+		return 1;
+
+	if (!CheckEmphasisParenSpacing(QStringLiteral("../tests/fixtures/emphasis_paren_spacing.fb2")))
+		return 1;
+
+	if (!CheckFootnoteAfterSentence(QStringLiteral("../tests/fixtures/footnote_after_sentence.fb2")))
+		return 1;
+
+	if (!CheckDropCap(QStringLiteral("../tests/fixtures/drop_cap.fb2")))
+		return 1;
+
 	if (argc != 3)
 	{
 		std::cerr << "usage: fb2_epub_test <input.fb2> <output.epub>\n";
@@ -103,6 +285,9 @@ int main(int argc, char* argv[])
 		std::cerr << "conversion failed\n";
 		return 1;
 	}
+
+	if (!CheckCoverOverride(fb2Path))
+		return 1;
 
 	if (!QFileInfo::exists(epubPath) || QFileInfo(epubPath).size() == 0)
 	{

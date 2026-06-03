@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+<body>
+<section>
+<p>So, on one hand, Lisp is one of computer science's "classical" languages, based on ideas that have stood the test of time.<a l:href="#n8" type="note">[8]</a> On the other, it's a thoroughly modern, general-purpose language.</p>
+</section>
+</body>
+<body name="notes">
+<section>
+<section id="n8">
+<title><p>8</p></title>
+<p>Footnote text about Lisp history.</p>
+</section>
+</section>
+</body>
+</FictionBook>
