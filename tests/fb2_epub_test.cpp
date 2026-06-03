@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include <QFile>
 #include <QFileInfo>
+#include <QProcess>
 #include <iostream>
 
 namespace
@@ -24,14 +25,14 @@ bool CheckParsed(const ParsedFb2& parsed)
 		std::cerr << "missing space between scripts\n";
 		return false;
 	}
-	if (!html.contains(QStringLiteral("толстеют. Pourquoi")))
+	if (!html.contains(QStringLiteral("не толстеют. Pourquoi<sup><a epub:type=\"noteref\" href=\"#fn-n1\">1</a></sup>")))
 	{
-		std::cerr << "missing space after punctuation\n";
+		std::cerr << "missing superscript footnote marker\n";
 		return false;
 	}
-	if (!html.contains(QStringLiteral("[<a epub:type=\"noteref\" href=\"#fn-n1\">1</a>]")))
+	if (html.contains(QStringLiteral("[<a epub:type=\"noteref\"")))
 	{
-		std::cerr << "missing linked footnote marker\n";
+		std::cerr << "footnote should use sup, not bracket markers\n";
 		return false;
 	}
 	if (!html.contains(QStringLiteral("epub:type=\"noteref\"")))
@@ -106,6 +107,21 @@ int main(int argc, char* argv[])
 	if (!QFileInfo::exists(epubPath) || QFileInfo(epubPath).size() == 0)
 	{
 		std::cerr << "output missing\n";
+		return 1;
+	}
+
+	QProcess unzip;
+	unzip.start("/usr/bin/unzip", { "-p", epubPath, "OEBPS/content.xhtml" });
+	if (!unzip.waitForFinished(-1) || unzip.exitCode() != 0)
+	{
+		std::cerr << "cannot read content.xhtml from epub\n";
+		return 1;
+	}
+	const auto contentXhtml = QString::fromUtf8(unzip.readAllStandardOutput());
+	if (!contentXhtml.contains(QStringLiteral("a[epub|type~=\"noteref\"]"))
+	    || !contentXhtml.contains(QStringLiteral("<sup><a epub:type=\"noteref\"")))
+	{
+		std::cerr << "missing publisher footnote styles or markup in epub\n";
 		return 1;
 	}
 
