@@ -867,6 +867,13 @@ void TreeViewControllerNavigation::RequestNavigation(const bool force) const
 	m_impl->dataProvider->RequestNavigation(force);
 }
 
+void TreeViewControllerNavigation::ResetCachedModel(const NavigationMode mode) const
+{
+	const auto index = static_cast<size_t>(mode);
+	if (index < m_impl->models.size())
+		m_impl->models[index].reset();
+}
+
 void TreeViewControllerNavigation::RequestBooks(const bool force) const
 {
 	m_impl->dataProvider->RequestBooks(force);

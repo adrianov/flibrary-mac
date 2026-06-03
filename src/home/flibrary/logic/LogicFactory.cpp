@@ -455,11 +455,26 @@ void LogicFactory::FindBook(const QString& navigationMode, const QString& naviga
 	const auto  settings   = m_impl->container.resolve<ISettings>();
 	const auto& collection = m_impl->container.resolve<ICollectionProvider>()->GetActiveCollection();
 
+	const auto booksRecentIdKey = QString(Constant::Settings::RECENT_NAVIGATION_ID_KEY).arg(collection.id, Loc::Books, "");
 	if (bookId > 0)
-		settings->Set(QString(Constant::Settings::RECENT_NAVIGATION_ID_KEY).arg(collection.id, Loc::Books, ""), bookId);
+		settings->Set(booksRecentIdKey, bookId);
+	else if (navigationMode == QLatin1String(Loc::Search))
+		settings->Set(booksRecentIdKey, QString {});
 
 	settings->Set(QString(Constant::Settings::RECENT_NAVIGATION_ID_KEY).arg(collection.id, QString("%1/").arg(Loc::NAVIGATION), navigationMode), navigationId);
-	GetTreeViewController(ItemType::Navigation)->SetMode(navigationMode);
+
+	auto navigation = GetTreeViewController(ItemType::Navigation);
+	if (navigationMode == QLatin1String(Loc::Search))
+	{
+		if (auto* nav = dynamic_cast<TreeViewControllerNavigation*>(navigation.get()))
+			nav->ResetCachedModel(NavigationMode::Search);
+
+		navigation->SetMode(navigationMode);
+		navigation->SetCurrentId(ItemType::Navigation, navigationId, true);
+		return;
+	}
+
+	navigation->SetMode(navigationMode);
 }
 
 std::shared_ptr<IProgressController> LogicFactory::GetProgressController() const

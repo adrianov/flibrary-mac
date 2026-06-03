@@ -37,6 +37,7 @@ public:
 public:
 	void RequestNavigation(bool force) const;
 	void RequestBooks(bool force) const;
+	void ResetCachedModel(NavigationMode mode) const;
 
 private: // ITreeViewController
 	[[nodiscard]] std::vector<std::pair<const char*, int>> GetModeNames() const override;
