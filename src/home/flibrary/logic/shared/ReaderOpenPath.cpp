@@ -20,7 +20,7 @@ namespace
 #ifdef Q_OS_MACOS
 
 // Bump when EPUB output format changes so cached read copies are rebuilt.
-constexpr auto EPUB_CACHE_VERSION = "v3";
+constexpr auto EPUB_CACHE_VERSION = "v6";
 
 QString EpubCacheDir()
 {
@@ -62,7 +62,7 @@ void RemoveLegacyCache(long long bookId)
 		return;
 
 	const auto dir = EpubCacheDir();
-	for (const auto& suffix : { QString(), QStringLiteral(".v2") })
+	for (const auto& suffix : { QString(), QStringLiteral(".v2"), QStringLiteral(".v3"), QStringLiteral(".v4"), QStringLiteral(".v5") })
 		QFile::remove(QDir(dir).filePath(QString("%1%2.epub").arg(bookId).arg(suffix)));
 }
 
