@@ -1146,11 +1146,18 @@ private:
 
 		std::vector<QAction*> styles;
 		for (const auto& name : QStyleFactory::keys())
+		{
+#ifdef Q_OS_MACOS
+			if (name.compare(IStyleApplier::THEME_NAME_DEFAULT, Qt::CaseInsensitive) != 0)
+				continue;
+#endif
 			if (const auto actionName = GetStyleName(name); !actionName.isEmpty())
 				styles.emplace_back(CreateStyleAction(*m_ui.menuTheme, IStyleApplier::Type::PluginStyle, actionName, name));
+		}
 
 		m_ui.menuTheme->addSeparator();
 
+#ifndef Q_OS_MACOS
 		if (const auto externalThemesVar = m_settings->Get(IStyleApplier::THEME_FILES_KEY); externalThemesVar.isValid())
 		{
 			auto externalThemes = externalThemesVar.toStringList() | std::ranges::to<std::vector>();
@@ -1158,11 +1165,14 @@ private:
 			for (const auto& fileName : externalThemes)
 				std::ranges::copy(AddExternalStyle(fileName), std::back_inserter(styles));
 		}
+#endif
 		addActionGroup(styles, m_stylesActionGroup);
 
+#ifndef Q_OS_MACOS
 		m_ui.menuTheme->addSeparator();
 		m_ui.menuTheme->addAction(m_ui.actionAddThemes);
 		m_ui.menuTheme->addAction(m_ui.actionDeleteAllThemes);
+#endif
 	}
 
 	std::vector<QAction*> AddExternalStyle(const QString& fileName)

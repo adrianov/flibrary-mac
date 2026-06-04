@@ -11,17 +11,14 @@ using namespace Flibrary;
 namespace
 {
 
-#ifdef Q_OS_MACOS
-constexpr auto MACOS_STYLE_FILE_NAME = ":/theme/style-macos.qss";
-#endif
-
 QString ResolvePluginStyleName(const QString& style)
 {
 #ifdef Q_OS_MACOS
-	if (style.compare("windowsvista", Qt::CaseInsensitive) == 0 || style.compare("Windows", Qt::CaseInsensitive) == 0 || style.compare("Windows11", Qt::CaseInsensitive) == 0)
-		return IStyleApplier::THEME_NAME_DEFAULT;
-#endif
+	(void)style;
+	return IStyleApplier::THEME_NAME_DEFAULT;
+#else
 	return style;
+#endif
 }
 
 } // namespace
@@ -50,11 +47,11 @@ std::unique_ptr<Platform::DyLib> PluginStyleApplier::Set(QApplication& app) cons
 
 	QApplication::setStyle(style);
 
-	auto stylesheet = ReadStyleSheet(STYLE_FILE_NAME);
 #ifdef Q_OS_MACOS
-	stylesheet += ReadStyleSheet(MACOS_STYLE_FILE_NAME);
+	app.setStyleSheet(ReadStyleSheet(":/theme/style-macos.qss"));
+#else
+	app.setStyleSheet(ReadStyleSheet(STYLE_FILE_NAME));
 #endif
-	app.setStyleSheet(stylesheet);
 
 	return {};
 }
