@@ -1,3 +1,19 @@
+# FLibrary — каталогизатор электронной библиотеки
+
+## Адаптация для macOS
+
+Эта ветка дополняет [оригинальный FLibrary](https://github.com/heimdallr/books) поддержкой macOS: сборка нативного приложения, интерфейс, удобное чтение в «Книгах».
+
+1. **Сборка в `.app`** — проект собирается как полноценный пакет macOS (`FLibrary.app`) с зависимостями в `Contents/Frameworks`, а не как отдельный исполняемый файл.
+2. **Интерфейс под macOS** — оформление и поведение UI приведены к привычному для Mac виду; приложение по-прежнему на Qt.
+3. **Чтение в «Книгах»** — FB2 и EPUB из каталога открываются в Books без лишних шагов: FB2 незаметно конвертируется в EPUB с картинками из базы FLibrary; EPUB из архива распаковывается и приводится к формату, который принимает Books.
+
+**macOS adaptation** © 2026 Peter Adrianov (Пётр Адрианов)
+
+Модуль конвертации FB2→EPUB и подготовки EPUB для «Книг» распространяется под [MIT](src/ext/foundation/util/LICENSE-Fb2Epub.txt), автор — **Peter Adrianov**. Остальной FLibrary — лицензия оригинального проекта.
+
+---
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![C++](https://img.shields.io/badge/c++-%2300599C.svg?logo=c%2B%2B&logoColor=white)](https://cppreference.com/)
 [![Static Badge](https://img.shields.io/badge/C%2B%2BStandard-C%2B%2B23-green?style=flat&label=C%2B%2BStandard)](https://en.cppreference.com/w/cpp/23.html)
@@ -6,9 +22,8 @@
 [![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?logo=sqlite&logoColor=white)](https://sqlite.org/)
 [![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?logo=visual-studio&logoColor=white)](https://visualstudio.microsoft.com/)
 [![Windows](https://img.shields.io/badge/-Windows-6E46A2.svg?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0ODc1IDQ4NzUiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMjMxMXYyMzEwSDB6bTI1NjQgMGgyMzExdjIzMTBIMjU2NHpNMCAyNTY0aDIzMTF2MjMxMUgwem0yNTY0IDBoMjMxMXYyMzExSDI1NjQiLz48L3N2Zz4=)](https://www.microsoft.com/en-us/windows/windows-11)
+[![macOS](https://img.shields.io/badge/-macOS-000000.svg?logo=apple&logoColor=white)](https://www.apple.com/macos/)
 [![Linux](https://img.shields.io/badge/-Linux-ad3a90.svg?style=flat&logo=linux&logoColor=white)](https://ubuntu.com/)
-
-# FLibrary - каталогизатор электронной библитотеки
 
 <details>
 <summary>Скриншоты</summary>
@@ -54,10 +69,6 @@ git clone https://github.com/heimdallr/books.git --recursive
 ### macOS
 Сборка и запуск проверялись на macOS 14+ (Apple Silicon) с Xcode Command Line Tools и Homebrew.
 
-**Чтение FB2.** macOS не открывает FB2 «из коробки». FLibrary при чтении и при экспорте (**Export → As epub**) конвертирует FB2 и FBD в EPUB. При чтении файл сохраняется в кэше (`~/Library/Caches/…/epub/<BookID>.epub`), поэтому повторное открытие той же книги не создаёт вторую копию в Books. Экспорт кладёт EPUB в выбранную вами папку.
-
-**macOS adaptation** © 2026 Пётр Адрианов (Peter Adrianov)
-
 ##### Зависимости
 ```
 brew install conan ninja qt p7zip
@@ -81,6 +92,8 @@ open bin/FLibrary.app
 ```
 
 Приложение собирается как `FLibrary.app`; зависимости лежат в `Contents/Frameworks`.
+
+При чтении и экспорте (**Export → As epub**) FB2 конвертируется в EPUB; кэш: `~/Library/Caches/…/epub/<BookID>.epub`.
 
 ##### Ещё варианты
 * Можно открыть `CMakeLists.txt` в Qt Creator (профиль conan: `apple_clang_arm64_Release`)
