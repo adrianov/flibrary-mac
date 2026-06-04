@@ -470,6 +470,10 @@
         <translation>В &amp;оригінальному форматі</translation>
     </message>
     <message>
+        <source>As &amp;original format (%1)</source>
+        <translation>В &amp;оригінальному форматі (%1)</translation>
+    </message>
+    <message>
         <source>As &amp;zip archive</source>
         <translation>У &amp;zip-архіві</translation>
     </message>

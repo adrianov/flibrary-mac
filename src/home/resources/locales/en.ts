@@ -470,6 +470,10 @@
         <translation></translation>
     </message>
     <message>
+        <source>As &amp;original format (%1)</source>
+        <translation></translation>
+    </message>
+    <message>
         <source>As &amp;zip archive</source>
         <translation></translation>
     </message>
