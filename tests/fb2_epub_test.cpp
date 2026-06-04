@@ -179,6 +179,73 @@ bool CheckFootnoteAfterSentence(const QString& fb2Path)
 	return true;
 }
 
+bool CheckInlineWordBoundary(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open " << fb2Path.toStdString() << '\n';
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << fb2Path.toStdString() << " parse failed\n";
+		return false;
+	}
+
+	const auto& html = parsed.bodyHtml;
+	if (html.contains(QStringLiteral("мечтаетстать")))
+	{
+		std::cerr << "glued words across inline tag: " << html.toStdString() << '\n';
+		return false;
+	}
+	if (!html.contains(QStringLiteral("</em> стать")))
+	{
+		std::cerr << "missing space after </em>: " << html.toStdString() << '\n';
+		return false;
+	}
+	if (!html.contains(QStringLiteral("компании<em> Veuve")))
+	{
+		std::cerr << "missing space after <em> open: " << html.toStdString() << '\n';
+		return false;
+	}
+
+	return true;
+}
+
+bool CheckFootnoteEmphasis(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open " << fb2Path.toStdString() << '\n';
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << fb2Path.toStdString() << " parse failed\n";
+		return false;
+	}
+
+	const auto aside = QStringLiteral("<aside epub:type=\"footnote\" id=\"fn-n4\"><p>Никогда, никогда (<em>фр.</em>).</p></aside>");
+	if (!parsed.bodyHtml.contains(aside))
+	{
+		std::cerr << "footnote emphasis not rendered: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+	if (parsed.bodyHtml.contains(QStringLiteral("&lt;em&gt;")))
+	{
+		std::cerr << "footnote has escaped emphasis tags\n";
+		return false;
+	}
+
+	return true;
+}
+
 bool CheckDropCap(const QString& fb2Path)
 {
 	QFile fb2File(fb2Path);
@@ -448,6 +515,12 @@ int main(int argc, char* argv[])
 		return 1;
 
 	if (!CheckFootnoteAfterSentence(QStringLiteral("../../tests/fixtures/footnote_after_sentence.fb2")))
+		return 1;
+
+	if (!CheckFootnoteEmphasis(QStringLiteral("../../tests/fixtures/footnote_emphasis.fb2")))
+		return 1;
+
+	if (!CheckInlineWordBoundary(QStringLiteral("../../tests/fixtures/inline_word_boundary.fb2")))
 		return 1;
 
 	if (!CheckDropCap(QStringLiteral("../../tests/fixtures/drop_cap.fb2")))

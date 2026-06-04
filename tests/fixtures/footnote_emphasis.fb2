@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+<body>
+<section>
+<p>Text with note.<a l:href="#n4" type="note">[4]</a></p>
+</section>
+</body>
+<body name="notes">
+<section>
+<section id="n4">
+<title><p>4</p></title>
+<p>Никогда, никогда (<emphasis>фр.</emphasis>).</p>
+</section>
+</section>
+</body>
+</FictionBook>

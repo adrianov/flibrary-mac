@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+<body>
+<section>
+<p>Поступив в университет, Вавилов мечтает<emphasis> </emphasis>стать настоящим ученым.</p>
+<p>мечтает<emphasis>каким-то</emphasis>стать ученым.</p>
+<p>представительстве компании<emphasis>Veuve Clicquot</emphasis>.</p>
+</section>
+</body>
+</FictionBook>
