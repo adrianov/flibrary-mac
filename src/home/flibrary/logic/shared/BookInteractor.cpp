@@ -104,7 +104,7 @@ struct BookInteractor::Impl final : IBookInteractorImpl
 
 	void Interact(const long long bookId, const QString& key) const
 	{
-		const auto invoker = FindSecond(INTERACT, settings->Get(key, QString {}).toStdString().data(), INTERACT[0].second, PszComparer {});
+		const auto invoker = FindSecond(INTERACT, settings->Get(key, QStringLiteral("Read")).toStdString().data(), INTERACT[0].second, PszComparer {});
 		std::invoke(invoker, this, bookId);
 	}
 
