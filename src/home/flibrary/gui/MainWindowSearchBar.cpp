@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QMainWindow>
 #include <QSpacerItem>
+#include <QStackedWidget>
 #include <QToolBar>
 
 #include "interface/localization.h"
@@ -56,6 +57,12 @@ public:
 #define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) QObject::connect(&m_action##NAME, &QAction::toggled, [this]{m_lineEdit.setPlaceholderText(GetPlaceholderText());});
 		SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
 #undef SEARCH_BOOKS_PLACEHOLDER_ITEM
+		if (const auto* stackedWidget = m_mainWindow.findChild<QStackedWidget*>("stackedWidget"))
+		{
+			QObject::connect(stackedWidget, &QStackedWidget::currentChanged, [this] {
+				m_lineEdit.setPlaceholderText(GetPlaceholderText());
+			});
+		}
 	}
 
 private: // QObject
@@ -66,7 +73,11 @@ private: // QObject
 		else if (event->type() == QEvent::Leave)
 			m_lineEdit.setPlaceholderText({});
 		else if (event->type() == QEvent::Show)
+		{
+			if (!IsMainPageVisible())
+				m_lineEdit.setVisible(false);
 			emit m_mainWindow.BookTitleToSearchVisibleChanged();
+		}
 		return QObject::eventFilter(watched, event);
 	}
 
@@ -77,7 +88,7 @@ private: // QObject
 		SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
 #undef SEARCH_BOOKS_PLACEHOLDER_ITEM
 
-		m_lineEdit.setVisible(!list.isEmpty());
+		m_lineEdit.setVisible(!list.isEmpty() && IsMainPageVisible());
 		if (!m_lineEdit.isVisible())
 			return {};
 
@@ -86,6 +97,13 @@ private: // QObject
 			list.pop_back();
 
 		return Tr(SEARCH_BOOKS_PLACEHOLDER).arg(QString("%1%2").arg(list.join(", "), last.isEmpty() ? "" : Tr(SEARCH_BOOKS_PLACEHOLDER_OR).arg(last)));
+	}
+
+	[[nodiscard]] bool IsMainPageVisible() const
+	{
+		if (const auto* stackedWidget = m_mainWindow.findChild<QStackedWidget*>("stackedWidget"))
+			return stackedWidget->currentIndex() == 0;
+		return true;
 	}
 
 private:
