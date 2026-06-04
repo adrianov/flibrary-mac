@@ -44,6 +44,18 @@ public:
 class ApplicationCursorController : public IApplicationCursorController
 {
 public:
+	ApplicationCursorController()
+	{
+		m_showTimer.setSingleShot(true);
+		QObject::connect(&m_showTimer, &QTimer::timeout, &m_showTimer, [this] {
+			if (m_counter > 0 && !m_cursorShown)
+			{
+				QGuiApplication::setOverrideCursor(Qt::BusyCursor);
+				m_cursorShown = true;
+			}
+		});
+	}
+
 	static std::unique_ptr<IApplicationCursorController> create()
 	{
 		return std::make_unique<ApplicationCursorController>();
@@ -56,17 +68,7 @@ public:
 		{
 			++m_counter;
 			if (m_counter == 1)
-			{
-				m_showTimer.setSingleShot(true);
 				m_showTimer.start(std::chrono::seconds(5));
-				QObject::connect(&m_showTimer, &QTimer::timeout, &m_showTimer, [this] {
-					if (m_counter > 0 && !m_cursorShown)
-					{
-						QGuiApplication::setOverrideCursor(Qt::BusyCursor);
-						m_cursorShown = true;
-					}
-				}, Qt::SingleShotConnection);
-			}
 			return;
 		}
 
