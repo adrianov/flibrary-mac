@@ -1,5 +1,6 @@
 #include "ui_AnnotationWidget.h"
 
+#include "AnnotationCoverLayout.h"
 #include "AnnotationWidget.h"
 
 #include <ranges>
@@ -9,9 +10,6 @@
 #include <QDesktopServices>
 #include <QGuiApplication>
 #include <QMenu>
-#include <QPainter>
-#include <QPainterPath>
-#include <QSvgRenderer>
 #include <QTemporaryDir>
 #include <QTimer>
 #include <QToolButton>
@@ -86,33 +84,6 @@ constexpr auto DIALOG_KEY = "Image";
 
 TR_DEF
 
-bool SaveImage(QString& fileName, const QByteArray& bytes)
-{
-	const auto [recoded, mediaType] = Util::Recode(bytes);
-	if (const QFileInfo fileInfo(fileName); fileInfo.suffix().isEmpty())
-		fileName += QString(mediaType) == Util::IMAGE_PNG ? ".png" : ".jpg";
-
-	if (QFile::exists(fileName))
-	{
-		PLOGW << fileName << " already exists and will be overwritten";
-	}
-
-	QFile file(fileName);
-	if (!file.open(QIODevice::WriteOnly))
-	{
-		PLOGE << "Cannot open to write into " << fileName;
-		return false;
-	}
-
-	if (file.write(recoded) != recoded.size())
-	{
-		PLOGW << "Write incomplete into " << fileName;
-		return false;
-	}
-
-	return true;
-}
-
 struct CoverButtonType
 {
 	enum
@@ -148,28 +119,6 @@ constexpr std::pair<const char*, std::pair<ContentMode, const char*>> CONTENT_MO
 },
 	CONTENT_MODE_ITEMS_X_MACRO
 #undef CONTENT_MODE_ITEM
-};
-
-class CoverLabel final : public QLabel
-{
-public:
-	explicit CoverLabel(QWidget* parent = nullptr)
-		: QLabel(parent)
-	{
-	}
-
-private:
-	void paintEvent(QPaintEvent* /*event*/) override
-	{
-		static constexpr auto off = 6;
-		QPainter              painter(this);
-		QPainterPath          path;
-		path.addText(off, font().pointSize() + off, font(), text());
-		painter.setRenderHints(QPainter::Antialiasing);
-		painter.strokePath(path, QPen(palette().color(QPalette::Window), 2));
-		painter.fillPath(path, QBrush(palette().color(QPalette::Text)));
-		resize(path.boundingRect().size().toSize().width() + off * 2, path.boundingRect().size().toSize().height() + off * 2);
-	}
 };
 
 } // namespace
@@ -312,7 +261,7 @@ public:
 			const auto& [name, bytes] = m_covers[m_currentCoverIndex];
 			auto path                 = m_logicFactory.lock()->CreateTemporaryDir()->filePath(name);
 
-			if (!SaveImage(path, bytes))
+			if (!SaveCoverImage(path, bytes))
 				return m_uiFactory->ShowError(Tr(CANNOT_SAVE_IMAGE).arg(path));
 			if (!QDesktopServices::openUrl(path))
 				m_uiFactory->ShowError(Tr(CANNOT_OPEN_IMAGE).arg(path));
@@ -337,7 +286,7 @@ public:
 		connect(m_ui.actionSaveImageAs, &QAction::triggered, &m_self, [this] {
 			assert(!m_covers.empty());
 			if (auto fileName = m_uiFactory->GetSaveFileName(DIALOG_KEY, Tr(SELECT_IMAGE_FILE_NAME), IMAGE_FILE_NAME_FILTER); !fileName.isEmpty())
-				SaveImage(fileName, m_covers[m_currentCoverIndex].bytes);
+				SaveCoverImage(fileName, m_covers[m_currentCoverIndex].bytes);
 		});
 
 		connect(m_ui.actionSaveAllImages, &QAction::triggered, &m_self, [this] {
@@ -353,7 +302,7 @@ public:
 							 for (const auto& [name, bytes] : covers)
 							 {
 								 auto path = QString("%1/%2").arg(folder).arg(name);
-								 if (SaveImage(path, bytes))
+								 if (SaveCoverImage(path, bytes))
 									 ++savedCount;
 
 								 progressItem->Increment(1);
@@ -375,7 +324,7 @@ public:
 						 } });
 		});
 
-		m_coverLabel = new CoverLabel(&m_self);
+		m_coverLabel = CreateCoverTitleLabel(&m_self);
 		m_coverLabel->setVisible(false);
 
 		const auto createCoverButton = [this, onCoverClicked](const QString& iconFileName, const QAction* action) {
@@ -543,62 +492,16 @@ private:
 			return;
 		}
 
-		m_coverLabel->setText(Tr(m_covers[m_currentCoverIndex].name.toStdString().data()));
-
-		auto imgHeight = m_ui.mainWidget->height();
-		auto imgWidth  = m_ui.mainWidget->width() / 3;
-
-		if (auto pixmap = Util::Decode(m_covers[m_currentCoverIndex].bytes); !pixmap.isNull())
-		{
-			if (imgHeight * pixmap.width() > pixmap.height() * imgWidth)
-				imgHeight = pixmap.height() * imgWidth / pixmap.width();
-			else
-				imgWidth = pixmap.width() * imgHeight / pixmap.height();
-
-			m_ui.cover->setPixmap(pixmap.scaled(imgWidth, imgHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-		}
-		else
-		{
-			QSvgRenderer renderer(QString(":/icons/unsupported-image.svg"));
-			const auto   defaultSize = renderer.defaultSize();
-			imgWidth                 = imgHeight * defaultSize.width() / defaultSize.height();
-			pixmap                   = QPixmap(imgWidth, imgHeight);
-			pixmap.fill(Qt::transparent);
-			QPainter painter(&pixmap);
-			renderer.render(&painter);
-			m_ui.cover->setPixmap(pixmap);
-		}
+		const auto fit = FitCoverToArea(*m_ui.cover, m_covers[m_currentCoverIndex].bytes, m_ui.mainWidget->width() / 3, m_ui.mainWidget->height());
+		if (!fit.valid)
+			return;
 
 		if (m_covers.size() > 1)
 			m_coverButtonsEnabled = true;
 
-		m_ui.coverArea->setMinimumWidth(imgWidth);
-		m_ui.coverArea->setMaximumWidth(imgWidth);
-
-		const QFontMetrics metrics(m_self.font());
-		const auto         height = 3 * metrics.lineSpacing() / 2;
-		const QSize        size { height, height };
-		const auto         top = imgHeight - height - height / 8;
-		m_coverButtons[CoverButtonType::Previous]->setGeometry(
-			QRect {
-				QPoint { height / 8, top },
-				size
-        }
-		);
-		m_coverButtons[CoverButtonType::Next]->setGeometry(
-			QRect {
-				QPoint { imgWidth - height - height / 8, top },
-				size
-        }
-		);
-		m_coverButtons[CoverButtonType::Home]->setGeometry(
-			QRect {
-				QPoint { (imgWidth - height) / 2, top },
-				size
-        }
-		);
-
-		m_coverLabel->move(height / 8, height / 16);
+		m_ui.coverArea->setMinimumWidth(fit.size.width());
+		m_ui.coverArea->setMaximumWidth(fit.size.width());
+		LayoutCoverNav(m_coverButtons, *m_coverLabel, Tr(m_covers[m_currentCoverIndex].name.toStdString().data()), fit.size.width(), fit.size.height(), m_currentCoverIndex);
 	}
 
 	void OnContentChanged()
