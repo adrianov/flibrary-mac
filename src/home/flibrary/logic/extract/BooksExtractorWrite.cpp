@@ -18,7 +18,6 @@
 
 #ifdef Q_OS_MACOS
 #include "util/Fb2EpubConverter.h"
-#include "util/Fb2EpubText.h"
 #include "util/Fb2Format.h"
 #endif
 
@@ -84,46 +83,6 @@ bool Unpack(QByteArray& input, const std::filesystem::path& path)
 	return Write(input, path);
 }
 
-bool WriteEpub(const QByteArray& input, const std::filesystem::path& path, const Util::ExtractedBook& book, const ISettings& settings, const QString& archiveFolder)
-{
-#ifdef Q_OS_MACOS
-	if (!Util::IsFb2Suffix(QFileInfo(book.file).suffix()))
-		return false;
-
-	QTemporaryDir tempDir;
-	if (!tempDir.isValid())
-		return false;
-
-	const auto fb2Path = tempDir.filePath(book.file);
-	if (!Write(input, Platform::StringToPath(fb2Path)))
-		return false;
-
-	Util::EpubCover      cover;
-	const Util::EpubCover* coverPtr = nullptr;
-	if (!settings.Get(Export::REMOVE_COVER_KEY, false))
-	{
-		Util::ExtractBookImages(archiveFolder, book.file, settings, [&](QString /*name*/, const bool isCover, QByteArray body) {
-			if (isCover && cover.data.isEmpty() && !body.isEmpty())
-			{
-				cover.data = std::move(body);
-				cover.mime = Util::CoverMimeFromData(cover.data);
-				coverPtr   = &cover;
-			}
-			return false;
-		});
-	}
-
-	return Util::ConvertFb2ToEpub(fb2Path, Platform::PathToString(path), coverPtr);
-#else
-	(void)input;
-	(void)path;
-	(void)book;
-	(void)settings;
-	(void)archiveFolder;
-	return false;
-#endif
-}
-
 std::pair<bool, std::filesystem::path> WriteFile(
 	const ISettings&                       settings,
 	QIODevice&                             input,
@@ -159,7 +118,16 @@ std::pair<bool, std::filesystem::path> WriteFile(
 			case BooksExtractorWrite::WriteMode::Unpack:
 				return Unpack(bytes, result.second);
 			case BooksExtractorWrite::WriteMode::Epub:
-				return WriteEpub(bytes, result.second, book, settings, folder);
+#ifdef Q_OS_MACOS
+				if (!Util::IsFb2Suffix(QFileInfo(book.file).suffix()))
+					return false;
+				{
+					const Util::Fb2ToEpubOptions options { .archiveFolder = folder, .bookFile = book.file, .settings = &settings };
+					return Util::ConvertFb2BytesToEpub(bytes, book.file, Platform::PathToString(result.second), &options);
+				}
+#else
+				return false;
+#endif
 			default: // NOLINT(clang-diagnostic-covered-switch-default)
 				return assert(false && "unexpected mode"), false;
 		}

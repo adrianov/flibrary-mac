@@ -7,6 +7,8 @@
 
 #ifdef Q_OS_MACOS
 #include "util/Fb2EpubConverter.h"
+
+#include "settings/ISettings.h"
 #include "util/Fb2Format.h"
 #include "zip.h"
 #endif
@@ -28,7 +30,7 @@ namespace
 #ifdef Q_OS_MACOS
 
 // Bump when EPUB output format changes so cached read copies are rebuilt.
-constexpr auto EPUB_CACHE_VERSION = "v14";
+constexpr auto EPUB_CACHE_VERSION = "v15";
 
 QString EpubCacheDir()
 {
@@ -133,7 +135,12 @@ bool IsCachedEpubValid(const QString& epubPath)
 
 } // namespace
 
-QString PrepareReaderFile(const QString& extractedPath, const long long bookId)
+QString PrepareReaderFile(
+	const QString&                extractedPath,
+	const long long               bookId,
+	const ISettings*              settings,
+	const Util::Fb2ToEpubOptions* epubOptions
+)
 {
 #ifdef Q_OS_MACOS
 	RemoveLegacyCache(bookId);
@@ -157,7 +164,12 @@ QString PrepareReaderFile(const QString& extractedPath, const long long bookId)
 			QFile::remove(epubPath);
 		}
 
-		if (Util::ConvertFb2ToEpub(extractedPath, epubPath))
+		Util::Fb2ToEpubOptions options;
+		if (epubOptions)
+			options = *epubOptions;
+		options.settings = settings ? settings : options.settings;
+
+		if (Util::ConvertFb2ToEpub(extractedPath, epubPath, &options))
 			return epubPath;
 
 		return extractedPath;
@@ -167,6 +179,8 @@ QString PrepareReaderFile(const QString& extractedPath, const long long bookId)
 		return CopyEpubToCache(extractedPath, bookId);
 #else
 	(void)bookId;
+	(void)settings;
+	(void)epubOptions;
 #endif
 
 	return extractedPath;

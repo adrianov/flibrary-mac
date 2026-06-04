@@ -12,12 +12,14 @@ namespace HomeCompa::Flibrary
 bool OpenDefaultReader(const QString& fileName, const QString& ext);
 
 void LaunchConfiguredReader(
-	ISettings&                                  settings,
-	const IUiFactory&                           uiFactory,
+	ISettings&                                    settings,
+	const IUiFactory&                             uiFactory,
 	std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir,
-	QString                                     fileName,
-	const QString&                              error,
-	long long                                   bookId
+	QString                                       fileName,
+	const QString&                                error,
+	long long                                     bookId,
+	const QString&                                archiveFolder    = {},
+	const QString&                                bookFileInArchive = {}
 );
 
 } // namespace HomeCompa::Flibrary

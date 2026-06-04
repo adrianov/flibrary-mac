@@ -12,6 +12,8 @@
 #include "platform/PlatformUtil.h"
 #include "util/files.h"
 
+#include "util/Fb2EpubConverter.h"
+
 #include "shared/ReaderOpenPath.h"
 
 using namespace HomeCompa;
@@ -76,12 +78,14 @@ bool OpenDefaultReader(const QString& fileName, const QString& ext)
 }
 
 void LaunchConfiguredReader(
-	ISettings&                                  settings,
-	const IUiFactory&                           uiFactory,
+	ISettings&                                    settings,
+	const IUiFactory&                             uiFactory,
 	std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir,
-	QString                                     fileName,
-	const QString&                              error,
-	const long long                             bookId
+	QString                                       fileName,
+	const QString&                                error,
+	const long long                               bookId,
+	const QString&                                archiveFolder,
+	const QString&                                bookFileInArchive
 )
 {
 	if (fileName.isEmpty())
@@ -97,7 +101,8 @@ void LaunchConfiguredReader(
 	if (!temporaryDir)
 		return uiFactory.ShowError(error);
 
-	fileName = PrepareReaderFile(fileName, bookId);
+	const Util::Fb2ToEpubOptions epubOptions { .archiveFolder = archiveFolder, .bookFile = bookFileInArchive, .settings = &settings };
+	fileName                               = PrepareReaderFile(fileName, bookId, &settings, &epubOptions);
 
 	const auto ext = QFileInfo(fileName).suffix();
 	if (ext.isEmpty())

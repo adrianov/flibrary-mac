@@ -52,9 +52,16 @@ struct ReaderController::Impl
 	{
 	}
 
-	void Read(std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir, QString fileName, const QString& error, const long long bookId = 0) const
+	void Read(
+		std::shared_ptr<ILogicFactory::ITemporaryDir> temporaryDir,
+		QString                                       fileName,
+		const QString&                                error,
+		const long long                               bookId      = 0,
+		const QString&                                archiveFolder = {},
+		const QString&                                bookFileInArchive = {}
+	) const
 	{
-		LaunchConfiguredReader(*settings, *uiFactory, std::move(temporaryDir), std::move(fileName), error, bookId);
+		LaunchConfiguredReader(*settings, *uiFactory, std::move(temporaryDir), std::move(fileName), error, bookId, archiveFolder, bookFileInArchive);
 	}
 };
 
@@ -80,6 +87,8 @@ void ReaderController::Read(long long id) const
 	m_impl->databaseUser->Execute({ "Get archive and file names", [this, id]() mutable {
 									   QString    fileName;
 									   QString    error;
+									   QString    archive;
+									   QString    bookFileInArchive;
 									   auto       temporaryDir = std::shared_ptr<ILogicFactory::ITemporaryDir> {};
 									   try
 									   {
@@ -100,8 +109,9 @@ void ReaderController::Read(long long id) const
 											   throw std::runtime_error("book not found");
 
 										   const auto folderName = query->Get<const char*>(0);
-										   fileName              = query->Get<const char*>(1);
-										   const auto archive    = QString("%1/%2").arg(m_impl->collectionController->GetActiveCollection().GetFolder(), folderName);
+										   bookFileInArchive     = query->Get<const char*>(1);
+										   fileName              = bookFileInArchive;
+										   archive               = QString("%1/%2").arg(m_impl->collectionController->GetActiveCollection().GetFolder(), folderName);
 										   const auto logicFactory = ILogicFactory::Lock(m_impl->logicFactory);
 										   if (const auto folder = m_impl->settings->Get(DEFAULT_FOLDER_KEY); folder.isValid())
 											   temporaryDir = logicFactory->CreateTemporaryDir(folder.toString());
@@ -115,8 +125,14 @@ void ReaderController::Read(long long id) const
 										   error = QString::fromUtf8(ex.what());
 									   }
 
-									   return [this, fileName = std::move(fileName), temporaryDir = std::move(temporaryDir), error = std::move(error), id](size_t) mutable {
-										   m_impl->Read(std::move(temporaryDir), std::move(fileName), error, id);
+									   return [this,
+											   fileName           = std::move(fileName),
+											   temporaryDir       = std::move(temporaryDir),
+											   error              = std::move(error),
+											   id,
+											   archive            = archive,
+											   bookFileInArchive](size_t) mutable {
+										   m_impl->Read(std::move(temporaryDir), std::move(fileName), error, id, archive, bookFileInArchive);
 									   };
 								   } });
 }
