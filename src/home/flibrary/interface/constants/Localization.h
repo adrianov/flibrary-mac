@@ -35,6 +35,7 @@ constexpr auto ERROR_TEXT      = QT_TRANSLATE_NOOP("Common", "Error!");
 constexpr auto INFORMATION     = QT_TRANSLATE_NOOP("Common", "Information");
 constexpr auto QUESTION        = QT_TRANSLATE_NOOP("Common", "Question");
 constexpr auto WARNING         = QT_TRANSLATE_NOOP("Common", "Warning!");
+constexpr auto DO_NOT_ASK_AGAIN = QT_TRANSLATE_NOOP("Common", "Don't ask again");
 constexpr auto CONFIRM_RESTART = QT_TRANSLATE_NOOP("Common", "You must restart the application to apply the changes.\nRestart now?");
 constexpr auto ANONYMOUS       = QT_TRANSLATE_NOOP("Common", "Anonymous");
 

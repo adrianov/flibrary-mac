@@ -47,6 +47,15 @@ Dialog::~Dialog()
 
 QMessageBox::StandardButton Dialog::Show(const QMessageBox::Icon icon, const QString& title, DialogInitializer& initializer) const
 {
+	const auto remember = !initializer.rememberKey.isEmpty();
+	if (remember)
+	{
+		if (m_settings->Get(initializer.rememberKey, false))
+			return QMessageBox::Yes;
+		if (initializer.checkboxText.isEmpty())
+			initializer.checkboxText = Loc::DoNotAskAgain();
+	}
+
 	auto*       parent = m_parentProvider->GetWidget();
 	QMessageBox msgBox(parent);
 	msgBox.setFont(parent ? parent->font() : QApplication::font());
@@ -69,7 +78,11 @@ QMessageBox::StandardButton Dialog::Show(const QMessageBox::Icon icon, const QSt
 	msgBox.show();
 	MoveToParentCenter(msgBox);
 
-	return static_cast<QMessageBox::StandardButton>(msgBox.exec());
+	const auto result = static_cast<QMessageBox::StandardButton>(msgBox.exec());
+	if (remember && initializer.checked && *initializer.checked == Qt::Checked && (result == QMessageBox::Yes || result == QMessageBox::Ok))
+		m_settings->Set(initializer.rememberKey, true);
+
+	return result;
 }
 
 #define STANDARD_DIALOG_ITEM(NAME)                                                                                         \

@@ -20,7 +20,7 @@ constexpr auto CONTEXT                        = "GroupController";
 constexpr auto INPUT_NEW_GROUP_NAME           = QT_TRANSLATE_NOOP("GroupController", "Input new group name");
 constexpr auto GROUP_NAME                     = QT_TRANSLATE_NOOP("GroupController", "Group name");
 constexpr auto NEW_GROUP_NAME                 = QT_TRANSLATE_NOOP("GroupController", "New group");
-constexpr auto REMOVE_GROUP_CONFIRM           = QT_TRANSLATE_NOOP("GroupController", "Are you sure you want to delete the groups (%1)?");
+constexpr auto REMOVE_GROUP_CONFIRM           = QT_TRANSLATE_NOOP("GroupController", "Delete the selected groups (%1)?");
 constexpr auto GROUP_NAME_TOO_LONG            = QT_TRANSLATE_NOOP("GroupController", "Group name too long.\nTry again?");
 constexpr auto GROUP_ALREADY_EXISTS           = QT_TRANSLATE_NOOP("GroupController", "Group %1 already exists.\nTry again?");
 constexpr auto CANNOT_CREATE_GROUP            = QT_TRANSLATE_NOOP("GroupController", "Cannot create group");
@@ -253,7 +253,7 @@ void GroupController::Rename(const Id id, QString name, Callback callback) const
 
 void GroupController::Remove(Ids ids, Callback callback) const
 {
-	if (ids.empty() || m_impl->uiFactory->ShowQuestion(Tr(REMOVE_GROUP_CONFIRM).arg(ids.size()), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No)
+	if (ids.empty() || m_impl->uiFactory->ShowQuestion("ui/Confirm/RemoveGroup", Tr(REMOVE_GROUP_CONFIRM).arg(ids.size()), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No)
 		return;
 
 	m_impl->databaseUser->Execute({ "Remove groups", [&, ids = std::move(ids), callback = std::move(callback)]() mutable {

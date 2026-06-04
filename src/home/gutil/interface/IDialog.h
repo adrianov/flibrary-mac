@@ -13,6 +13,7 @@ struct DialogInitializer
 	QMessageBox::StandardButton   defaultButton { QMessageBox::NoButton };
 	QString                       checkboxText;
 	std::optional<Qt::CheckState> checked;
+	QString                       rememberKey;
 };
 
 class IDialog // NOLINT(cppcoreguidelines-special-member-functions)

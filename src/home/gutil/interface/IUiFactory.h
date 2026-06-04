@@ -55,6 +55,23 @@ public:
 		DialogInitializer initializer { .text = text, .buttons = buttons, .defaultButton = defaultButton, .checkboxText = {} };
 		return ShowWarning(initializer);
 	}
+
+	// Confirmations with a persisted "Don't ask again" choice. When the user
+	// ticks the checkbox and confirms, rememberKey is stored and the dialog is
+	// skipped (returns Yes) on later calls.
+	[[nodiscard]] QMessageBox::StandardButton
+	ShowQuestion(const QString& rememberKey, const QString& text, const QMessageBox::StandardButtons& buttons, const QMessageBox::StandardButton defaultButton) const
+	{
+		DialogInitializer initializer { .text = text, .buttons = buttons, .defaultButton = defaultButton, .rememberKey = rememberKey };
+		return ShowQuestion(initializer);
+	}
+
+	QMessageBox::StandardButton
+	ShowWarning(const QString& rememberKey, const QString& text, const QMessageBox::StandardButtons& buttons, const QMessageBox::StandardButton defaultButton) const
+	{
+		DialogInitializer initializer { .text = text, .buttons = buttons, .defaultButton = defaultButton, .rememberKey = rememberKey };
+		return ShowWarning(initializer);
+	}
 };
 
 } // namespace HomeCompa::Util

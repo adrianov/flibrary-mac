@@ -48,6 +48,11 @@ inline QString Warning()
 	return Tr(Ctx::COMMON, WARNING);
 }
 
+inline QString DoNotAskAgain()
+{
+	return Tr(Ctx::COMMON, DO_NOT_ASK_AGAIN);
+}
+
 } // namespace HomeCompa::Loc
 
 #define TR_DEF                         \

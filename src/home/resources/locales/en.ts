@@ -837,6 +837,10 @@
         <translation></translation>
     </message>
     <message>
+        <source>Don&apos;t ask again</source>
+        <translation></translation>
+    </message>
+    <message>
         <source>Error!</source>
         <translation></translation>
     </message>
@@ -2566,10 +2570,6 @@ Restart now?</source>
 <context>
     <name>GroupController</name>
     <message>
-        <source>Are you sure you want to delete the groups (%1)?</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Cannot add book to group</source>
         <translation></translation>
     </message>
@@ -2587,6 +2587,10 @@ Restart now?</source>
     </message>
     <message>
         <source>Cannot rename group</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Delete the selected groups (%1)?</source>
         <translation></translation>
     </message>
     <message>
@@ -5558,15 +5562,15 @@ Try again?</source>
 <context>
     <name>SearchController</name>
     <message>
-        <source>Are you sure you want to delete the search results (%1)?</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Cannot create search query (%1)</source>
         <translation></translation>
     </message>
     <message>
         <source>Cannot remove search query</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Delete the selected searches (%1)?</source>
         <translation></translation>
     </message>
     <message>
