@@ -253,8 +253,10 @@ install(FILES "${CMAKE_SOURCE_DIR}/LICENSE_en.txt" DESTINATION . RENAME LICENSE.
 if(APPLE)
 	AddTarget(fb2_epub_test app_console
 		PROJECT_GROUP Tests
-		SOURCES "${CMAKE_SOURCE_DIR}/tests/fb2_epub_test.cpp"
-		LINK_TARGETS util
+		SOURCES
+			"${CMAKE_SOURCE_DIR}/tests/fb2_epub_test.cpp"
+			"${CMAKE_SOURCE_DIR}/tests/fb2_epub_test_checks.cpp"
+		LINK_TARGETS util zip settings platform
 		LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Core
 	)
 endif()
