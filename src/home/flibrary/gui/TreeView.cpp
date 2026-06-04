@@ -1011,8 +1011,10 @@ private:
 				OnContextMenuReady(id, item);
 			});
 		});
-		connect(m_ui.treeView, &QTreeView::doubleClicked, &m_self, [this] {
-			m_controller->OnDoubleClicked(m_ui.treeView->currentIndex());
+		connect(m_ui.treeView, &QTreeView::doubleClicked, &m_self, [this](const QModelIndex& index) {
+			if (!index.isValid())
+				return;
+			m_controller->OnDoubleClicked(index);
 		});
 	}
 

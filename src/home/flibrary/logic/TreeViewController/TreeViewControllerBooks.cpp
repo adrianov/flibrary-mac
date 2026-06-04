@@ -169,9 +169,15 @@ void TreeViewControllerBooks::OnContextMenuTriggered(QAbstractItemModel* model, 
 
 void TreeViewControllerBooks::OnDoubleClicked(const QModelIndex& index) const
 {
+	if (!index.isValid())
+		return;
+
 	if (index.data(Role::Type).value<ItemType>() != ItemType::Books)
 		return;
 
 	const auto id = index.data(Role::Id).toLongLong();
+	if (id <= 0)
+		return;
+
 	m_impl->bookInteractor->OnDoubleClicked(id);
 }
