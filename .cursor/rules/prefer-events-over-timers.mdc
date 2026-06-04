@@ -1,0 +1,26 @@
+---
+description: Prefer callbacks, observers, and completion hooks over QTimer delays
+alwaysApply: true
+---
+
+# Prefer events over timers
+
+Do not use `QTimer`, `singleShot(0)`, or arbitrary delays when the codebase already has a clear logical point to run the work.
+
+## Use instead
+
+- **Observer / callback completion** — e.g. after `Perform(&IObserver::On…)` returns, synchronous observers have run.
+- **Existing state transitions** — load finished, model updated, cache hit, executor task callback.
+- **Explicit API** — `OnXxxDone()`, `finished` signal, `IExecutor` completion handler.
+
+## Timers are OK when
+
+- Debouncing rapid user input (search, resize coalescing).
+- Polling or periodic refresh with no event source.
+- Delay is a real product requirement (auto-hide, idle timeout).
+- No hook exists yet and adding one would be disproportionate — document why.
+
+## Anti-patterns
+
+- `start(0)` / `singleShot(0)` only to “run after” code that already has a completion path.
+- Timer to order two steps that share a parent function or observer chain.
