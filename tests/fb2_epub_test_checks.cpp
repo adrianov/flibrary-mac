@@ -143,6 +143,11 @@ bool CheckArchiveEpubExport(const QString& archivePath, const QString& bookFile,
 	{
 		const HomeCompa::Zip zip(archivePath);
 		const auto        archiveFile = HomeCompa::Util::ResolveArchiveBookFile(zip.GetFileNameList(), bookFile);
+		if (archiveFile.isEmpty())
+		{
+			std::cerr << "ResolveArchiveBookFile returned empty for " << bookFile.toStdString() << '\n';
+			return false;
+		}
 		const auto        settings    = HomeCompa::SettingsFactory::CreateStub();
 		const auto        stream      = zip.Read(archiveFile);
 		const auto        bytes       = HomeCompa::Util::PrepareToExport(stream->GetStream(), archivePath, archiveFile, *settings);

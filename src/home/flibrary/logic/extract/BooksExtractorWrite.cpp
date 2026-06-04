@@ -163,9 +163,13 @@ std::filesystem::path Process(
 	if (!QFile::exists(folder))
 		throw std::runtime_error((folder + ": archive not found").toStdString());
 
-	const Zip  zip(folder);
-	const auto archiveFile = Util::ResolveArchiveBookFile(zip.GetFileNameList(), book.file);
-	const auto stream      = zip.Read(archiveFile);
+	const Zip        zip(folder);
+	const auto       names       = zip.GetFileNameList();
+	const auto       archiveFile = Util::ResolveArchiveBookFile(names, book.file);
+	if (archiveFile.isEmpty())
+		throw std::runtime_error((book.file + ": archive entry not found").toStdString());
+
+	const auto stream = zip.Read(archiveFile);
 	auto [ok, path]        = WriteFile(settings, stream->GetStream(), folder, archiveFile, book, progress, std::move(zipProgressCallback), exportHelper, mode);
 	if (!ok && exists(path))
 		remove(path);
