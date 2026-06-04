@@ -884,7 +884,7 @@ std::vector<std::pair<const char*, int>> TreeViewControllerNavigation::GetModeNa
 	return m_impl->modes;
 }
 
-void TreeViewControllerNavigation::SetCurrentId(ItemType, QString id, const bool force)
+void TreeViewControllerNavigation::SetCurrentId(ItemType, QString id, const bool force, std::vector<QString> /*preloadBookIds*/)
 {
 	m_impl->dataProvider->SetNavigationId(std::move(id), force);
 }

@@ -2,6 +2,7 @@
 
 #include "TreeView.h"
 
+#include <functional>
 #include <ranges>
 #include <stack>
 
@@ -48,6 +49,40 @@ using namespace Flibrary;
 
 namespace
 {
+
+constexpr int PRELOAD_BOOK_COUNT = 20;
+
+std::vector<QString> CollectNextBookIds(const QAbstractItemModel& model, const QModelIndex& current, const int maxCount)
+{
+	std::vector<QString> result;
+	if (!current.isValid() || maxCount <= 0 || current.data(Role::Type).value<ItemType>() != ItemType::Books)
+		return result;
+
+	result.reserve(static_cast<size_t>(maxCount));
+
+	bool afterCurrent = false;
+	std::function<void(const QModelIndex&)> visit = [&](const QModelIndex& parent) {
+		for (int row = 0, count = model.rowCount(parent); row < count && static_cast<int>(result.size()) < maxCount; ++row)
+		{
+			const auto index = model.index(row, 0, parent);
+			if (index == current)
+			{
+				afterCurrent = true;
+				continue;
+			}
+
+			if (afterCurrent && index.data(Role::Type).value<ItemType>() == ItemType::Books)
+				result.emplace_back(index.data(Role::Id).toString());
+
+			if (model.rowCount(index) > 0)
+				visit(index);
+		}
+	};
+
+	visit({});
+	return result;
+}
+
 
 constexpr auto CONTEXT        = "TreeView";
 constexpr auto NAVIGATION     = QT_TRANSLATE_NOOP("TreeView", "Navigation");
@@ -652,7 +687,9 @@ private:
 
 		connect(m_ui.treeView->selectionModel(), &QItemSelectionModel::currentRowChanged, &m_self, [this](const QModelIndex& index, const QModelIndex& prev) {
 			auto currentId = index.data(Role::Id).toString();
-			m_controller->SetCurrentId(index.data(Role::Type).value<ItemType>(), currentId);
+			const auto*    bookModel = m_ui.treeView->model();
+			auto           preload   = m_controller->GetItemType() == ItemType::Books && bookModel ? CollectNextBookIds(*bookModel, index, PRELOAD_BOOK_COUNT) : std::vector<QString> {};
+			m_controller->SetCurrentId(index.data(Role::Type).value<ItemType>(), currentId, false, std::move(preload));
 			if (prev.isValid())
 				m_settings->Set(GetRecentIdKey(), m_currentId = std::move(currentId));
 

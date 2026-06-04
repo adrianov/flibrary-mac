@@ -111,9 +111,9 @@ std::vector<std::pair<const char*, int>> TreeViewControllerBooks::GetModeNames()
 	return result;
 }
 
-void TreeViewControllerBooks::SetCurrentId(const ItemType type, QString id, bool /*force*/)
+void TreeViewControllerBooks::SetCurrentId(const ItemType type, QString id, bool /*force*/, std::vector<QString> preloadBookIds)
 {
-	m_impl->annotationController->SetCurrentBookId(type == ItemType::Books ? std::move(id) : QString {});
+	m_impl->annotationController->SetCurrentBookId(type == ItemType::Books ? std::move(id) : QString {}, false, std::move(preloadBookIds));
 }
 
 const QString& TreeViewControllerBooks::GetNavigationId() const noexcept

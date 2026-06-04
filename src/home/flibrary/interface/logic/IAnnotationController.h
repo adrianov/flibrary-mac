@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <QDateTime>
 #include <QString>
 
@@ -156,7 +158,8 @@ public:
 	virtual ~IAnnotationController() = default;
 
 public:
-	virtual void    SetCurrentBookId(QString bookId, bool extractNow = false)                            = 0;
+	virtual void    SetCurrentBookId(QString bookId, bool extractNow = false, std::vector<QString> preloadBookIds = {}) = 0;
+	virtual void    PreloadBooks(std::vector<QString> bookIds)                                           = 0;
 	virtual QString CreateAnnotation(const IDataProvider& dataProvider, const IStrategy& strategy) const = 0;
 	virtual void    ShowJokes(IJokeRequesterFactory::Implementation impl, bool value)                    = 0;
 	virtual void    ShowReviews(bool value)                                                              = 0;

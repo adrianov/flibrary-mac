@@ -90,7 +90,8 @@ void DiLogic(Hypodermic::ContainerBuilder& builder, const std::shared_ptr<Hypode
 	builder.registerType<HotkeyManager>().as<IHotkeyManager>().singleInstance();
 	builder.registerType<LogController>().as<ILogController>().singleInstance();
 	builder.registerType<NavigationQueryExecutor>().as<INavigationQueryExecutor>().singleInstance();
-	builder.registerType<ProgressController>().as<IAnnotationProgressController>().as<IBooksExtractorProgressController>().singleInstance();
+	builder.registerType<ProgressController>().as<IAnnotationProgressController>().singleInstance();
+	builder.registerType<ProgressController>().as<IBooksExtractorProgressController>().singleInstance();
 	builder.registerType<ReaderController>().as<IReaderController>().singleInstance();
 	builder.registerType<SearchController>().as<IBookSearchController>().singleInstance();
 

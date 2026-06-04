@@ -182,6 +182,10 @@ public:
 
 		m_progressTimer.setSingleShot(true);
 		m_progressTimer.setInterval(std::chrono::milliseconds(300));
+		connect(&m_progressTimer, &QTimer::timeout, &m_self, [this] {
+			if (m_processingSelectedBook)
+				m_ui.bookProgressBar->setVisible(true);
+		});
 
 		m_ui.content->header()->setDefaultAlignment(Qt::AlignCenter);
 
@@ -388,6 +392,9 @@ private: // QObject
 private: // IAnnotationController::IObserver
 	void OnAnnotationRequested() override
 	{
+		m_processingSelectedBook = true;
+		m_ui.bookProgressBar->setValue(0);
+		m_ui.bookProgressBar->setVisible(false);
 		m_ui.contentWidget->setVisible(false);
 		m_ui.content->setModel(nullptr);
 		m_ui.coverArea->setVisible(false);
@@ -404,6 +411,10 @@ private: // IAnnotationController::IObserver
 
 	void OnAnnotationChanged(const IAnnotationController::IDataProvider& dataProvider) override
 	{
+		m_processingSelectedBook = false;
+		m_progressTimer.stop();
+		m_ui.bookProgressBar->setValue(100);
+		m_ui.bookProgressBar->setVisible(false);
 		m_content.clear();
 
 		auto annotation = m_annotationController->CreateAnnotation(dataProvider, *this);
@@ -448,14 +459,25 @@ private: // IAnnotationController::IObserver
 	void OnArchiveParserProgress(const int percents) override
 	{
 		m_forwarder.Forward([&, percents] {
-			if (percents)
-			{
-				if (!m_progressTimer.isActive())
-					m_ui.info->setText(percents == 100 ? QString {} : QString("%1%").arg(percents));
-			}
-			else
+			if (percents <= 0)
 			{
 				m_progressTimer.start();
+				m_ui.bookProgressBar->setValue(0);
+				m_ui.bookProgressBar->setVisible(false);
+				return;
+			}
+			if (percents >= 100)
+			{
+				m_processingSelectedBook = false;
+				m_progressTimer.stop();
+				m_ui.bookProgressBar->setValue(100);
+				m_ui.bookProgressBar->setVisible(false);
+				return;
+			}
+			if (!m_progressTimer.isActive())
+			{
+				m_ui.bookProgressBar->setValue(percents);
+				m_ui.bookProgressBar->setVisible(true);
 			}
 		});
 	}
@@ -606,6 +628,7 @@ private:
 	bool                                            m_showCover { true };
 	Util::FunctorExecutionForwarder                 m_forwarder;
 	QTimer                                          m_progressTimer;
+	bool                                            m_processingSelectedBook { false };
 	ContentMode                                     m_allowedContentMode { ContentMode::None };
 	ContentMode                                     m_currentContentMode { ContentMode::None };
 	ContentMode m_selectedContentMode { FindSecond(CONTENT_MODES, m_settings->Get(CONTENT_MODE_KEY, QString {}).toStdString().data(), CONTENT_MODES[0].second, PszComparer {}).first };

@@ -30,7 +30,8 @@ public:
 	~AnnotationController() override;
 
 private: // IAnnotationController
-	void    SetCurrentBookId(QString bookId, bool extractNow) override;
+	void    SetCurrentBookId(QString bookId, bool extractNow, std::vector<QString> preloadBookIds = {}) override;
+	void    PreloadBooks(std::vector<QString> bookIds) override;
 	QString CreateAnnotation(const IDataProvider& dataProvider, const IStrategy& strategy) const override;
 	void    ShowJokes(IJokeRequesterFactory::Implementation impl, bool value) override;
 	void    ShowReviews(bool value) override;
