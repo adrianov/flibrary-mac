@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QString>
+
 #include "fnd/observer.h"
 
 namespace HomeCompa::Flibrary
@@ -11,7 +13,8 @@ public:
 	class IObserver : public Observer // NOLINT(cppcoreguidelines-special-member-functions)
 	{
 	public:
-		virtual void OnStartAnotherApp() = 0;
+		virtual void OnStartAnotherApp()        = 0;
+		virtual void OnOpenFb2(const QString& path) = 0;
 	};
 
 public:

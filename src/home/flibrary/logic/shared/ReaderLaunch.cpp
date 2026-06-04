@@ -13,6 +13,7 @@
 #include "util/files.h"
 
 #include "util/Fb2EpubConverter.h"
+#include "util/Fb2Format.h"
 
 #include "shared/ReaderOpenPath.h"
 
@@ -75,6 +76,24 @@ bool OpenDefaultReader(const QString& fileName, const QString& ext)
 #endif
 
 	return QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
+}
+
+bool OpenFb2InBooks(const QString& fb2Path)
+{
+#ifdef Q_OS_MACOS
+	const auto path = QFileInfo(fb2Path).absoluteFilePath();
+	if (!HomeCompa::Util::IsFb2Path(path) || !QFile::exists(path))
+		return false;
+
+	const auto epubPath = PrepareReaderFile(path, 0, nullptr, nullptr);
+	if (!HomeCompa::Util::IsEpubPath(epubPath) || !QFile::exists(epubPath))
+		return false;
+
+	return OpenDefaultReader(epubPath, QStringLiteral("epub"));
+#else
+	(void)fb2Path;
+	return false;
+#endif
 }
 
 void LaunchConfiguredReader(

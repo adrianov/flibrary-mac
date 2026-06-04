@@ -78,6 +78,7 @@ private: // IMainWindow
 
 private: // ISingleInstanceController::IObserver
 	void OnStartAnotherApp() override;
+	void OnOpenFb2(const QString& path) override;
 
 private: // QWidget
 	void changeEvent(QEvent*) override;

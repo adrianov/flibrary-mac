@@ -1,5 +1,6 @@
 #include "SingleInstanceController.h"
 
+#include <QCoreApplication>
 #include <QLocalServer>
 #include <QLocalSocket>
 
@@ -9,6 +10,8 @@
 #include "interface/constants/SettingsConstant.h"
 #include "interface/localization.h"
 #include "interface/logic/ISingleInstanceController.h"
+
+#include "util/Fb2Format.h"
 
 using namespace HomeCompa;
 using namespace Flibrary;
@@ -22,6 +25,7 @@ constexpr auto DIALOG_MESSAGE = QT_TRANSLATE_NOOP("SingleInstanceController", "T
 constexpr auto MULTIPLE_INSTANCE_APP_KEY = "Preferences/MultipleInstance";
 constexpr auto SERVER_NAME               = "dd51de1b-7ef5-426b-baf0-180c20a6310e";
 constexpr auto SERVER_MESSAGE            = "show";
+constexpr auto SERVER_OPEN_FB2_PREFIX    = "open:";
 
 #define MODE_ITEMS_X_MACRO \
 	MODE_ITEM(Enabled)     \
@@ -42,6 +46,14 @@ constexpr std::pair<const char*, Mode> MODES[] {
 };
 
 TR_DEF
+
+void SendOpenMessage(QLocalSocket& socket, const QString& fb2Path)
+{
+	if (fb2Path.isEmpty())
+		socket.write(SERVER_MESSAGE);
+	else
+		socket.write(QByteArray(SERVER_OPEN_FB2_PREFIX) + fb2Path.toUtf8());
+}
 
 } // namespace
 
@@ -67,7 +79,15 @@ struct SingleInstanceController::Impl final : Observable<IObserver>
 			{
 				auto* socket = server->nextPendingConnection();
 				QObject::connect(socket, &QLocalSocket::readyRead, [this, socket] {
-					if (socket->readAll() == SERVER_MESSAGE)
+					const auto message = socket->readAll();
+					if (message.startsWith(SERVER_OPEN_FB2_PREFIX))
+					{
+						const auto path = QString::fromUtf8(message.mid(sizeof(SERVER_OPEN_FB2_PREFIX) - 1));
+						Perform(&IObserver::OnOpenFb2, std::cref(path));
+						return;
+					}
+
+					if (message == SERVER_MESSAGE)
 						Perform(&IObserver::OnStartAnotherApp);
 				});
 			}
@@ -85,7 +105,8 @@ private:
 			return false;
 
 		const auto exit = [&] {
-			localSocket.write(SERVER_MESSAGE);
+			const auto fb2Paths = Util::CollectFb2Args(QCoreApplication::arguments().mid(1));
+			SendOpenMessage(localSocket, fb2Paths.isEmpty() ? QString {} : fb2Paths.front());
 			localSocket.flush();
 			localSocket.waitForBytesWritten();
 			throw std::runtime_error("another app instance started");

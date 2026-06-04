@@ -45,6 +45,7 @@
 
 #include "Constant.h"
 #include "MainWindowSearchBar.h"
+#include "logic/shared/ReaderLaunch.h"
 #include "QtTypes.h"
 #include "StackedPage.h"
 #include "TreeView.h"
@@ -376,6 +377,11 @@ public:
 		m_isFullScreen ? m_self.showFullScreen() : m_isMaximized ? m_self.showMaximized() : m_self.showNormal();
 		if (m_systemTray)
 			m_systemTray->hide();
+	}
+
+	void OnOpenFb2(const QString& path) const
+	{
+		OpenFb2InBooks(path);
 	}
 
 	void CreateCollection(Collection collection)
@@ -1672,6 +1678,11 @@ void MainWindow::Show()
 void MainWindow::OnStartAnotherApp()
 {
 	m_impl->OnStartAnotherApp();
+}
+
+void MainWindow::OnOpenFb2(const QString& path)
+{
+	m_impl->OnOpenFb2(path);
 }
 
 void MainWindow::changeEvent(QEvent* event)

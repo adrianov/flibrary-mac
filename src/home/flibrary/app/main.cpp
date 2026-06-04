@@ -1,6 +1,6 @@
 #include <thread>
 
-#include <QApplication>
+#include "FlibraryApplication.h"
 #include <QCommandLineParser>
 #include <QStandardPaths>
 #include <QStyleFactory>
@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
 	{
 		QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 
-		QApplication app(argc, argv);
+		FlibraryApplication app(argc, argv);
 #ifdef Q_OS_MACOS
 		Platform::ApplyNativeApplication(app);
 #endif
@@ -226,6 +226,7 @@ int main(int argc, char* argv[])
 				collectionToRecreate = std::nullopt;
 			}
 			mainWindow->Show();
+			app.OpenPendingFb2();
 
 			if (const auto code = QApplication::exec(); code != Global::RESTART_APP)
 			{

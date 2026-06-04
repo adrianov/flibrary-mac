@@ -25,6 +25,16 @@ AddTarget(${PROJECT_NAME}	app
 )
 
 if(APPLE)
+	set(_info_plist "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_Info.plist")
+	set(MACOSX_BUNDLE_EXECUTABLE_NAME "${PROJECT_NAME}")
+	set(MACOSX_BUNDLE_ICON_FILE "${PROJECT_NAME}")
+	set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.homecompa.${PROJECT_NAME}")
+	set(MACOSX_BUNDLE_BUNDLE_NAME "${PROJECT_NAME}")
+	set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${PRODUCT_VERSION}")
+	set(MACOSX_BUNDLE_BUNDLE_VERSION "${PRODUCT_VERSION_FULL}")
+	configure_file("${CMAKE_CURRENT_LIST_DIR}/Info.plist.in" "${_info_plist}" @ONLY)
+	set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${_info_plist}")
+
 	set(_app_bundle "${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}.app")
 	set(_app_frameworks "${_app_bundle}/Contents/Frameworks")
 	set(_app_icon_ico "${CMAKE_SOURCE_DIR}/src/home/resources/icons/main.ico")
@@ -47,6 +57,7 @@ if(APPLE)
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E make_directory "${_app_frameworks}"
 		COMMAND ${CMAKE_COMMAND} -Dsrc="${CMAKE_BINARY_DIR}/lib" -Ddst="${_app_frameworks}" -P "${CMAKE_SOURCE_DIR}/cmake/copy_bundle_libs.cmake"
+		COMMAND /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f -R "${_app_bundle}"
 	)
 	set_target_properties(${PROJECT_NAME} PROPERTIES
 		BUILD_RPATH "@executable_path/../Frameworks"
