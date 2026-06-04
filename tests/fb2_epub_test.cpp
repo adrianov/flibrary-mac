@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QProcess>
+#include <cstdlib>
 #include <iostream>
 
 namespace
@@ -206,6 +207,60 @@ bool CheckDropCap(const QString& fb2Path)
 	return true;
 }
 
+bool CheckInlineImage(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open inline image fixture\n";
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << "inline image parse failed\n";
+		return false;
+	}
+
+	if (parsed.images.size() != 1)
+	{
+		std::cerr << "expected one inline image, got " << parsed.images.size() << '\n';
+		return false;
+	}
+
+	if (!parsed.bodyHtml.contains(QStringLiteral("<img src=\"images/pic.png\"")))
+	{
+		std::cerr << "inline image markup missing: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	const auto epubPath = QStringLiteral("/tmp/fb2_epub_inline_image_test.epub");
+	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath))
+	{
+		std::cerr << "inline image conversion failed\n";
+		return false;
+	}
+
+	QProcess unzip;
+	unzip.start("/usr/bin/unzip", { "-l", epubPath });
+	if (!unzip.waitForFinished(-1) || unzip.exitCode() != 0)
+	{
+		std::cerr << "cannot list inline image epub\n";
+		return false;
+	}
+
+	const auto listing = QString::fromUtf8(unzip.readAllStandardOutput());
+	QFile::remove(epubPath);
+	if (!listing.contains(QStringLiteral("OEBPS/images/pic.png")))
+	{
+		std::cerr << "inline image file missing from epub\n";
+		return false;
+	}
+
+	return true;
+}
+
 bool CheckCoverOverride(const QString& fb2Path)
 {
 	static const QByteArray png = QByteArray::fromHex(
@@ -214,8 +269,9 @@ bool CheckCoverOverride(const QString& fb2Path)
 	);
 
 	const auto epubPath = QStringLiteral("/tmp/fb2_epub_cover_test.epub");
-	const HomeCompa::Util::EpubCover cover { png, QStringLiteral("image/png") };
-	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath, &cover))
+	const HomeCompa::Util::EpubCover       cover { png, QStringLiteral("image/png") };
+	const HomeCompa::Util::Fb2ToEpubOptions options { .coverOverride = &cover };
+	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath, &options))
 	{
 		std::cerr << "cover override conversion failed\n";
 		return false;
@@ -240,24 +296,57 @@ bool CheckCoverOverride(const QString& fb2Path)
 	return true;
 }
 
+bool ConvertOnly(const QString& fb2Path, const QString& epubPath)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open input\n";
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed) || parsed.bodyHtml.isEmpty())
+	{
+		std::cerr << "parse failed\n";
+		return false;
+	}
+
+	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath))
+	{
+		std::cerr << "conversion failed\n";
+		return false;
+	}
+
+	std::cout << "ok " << epubPath.toStdString() << " images=" << parsed.images.size() << "\n";
+	return QFileInfo::exists(epubPath) && QFileInfo(epubPath).size() > 0;
+}
+
 } // namespace
 
 int main(int argc, char* argv[])
 {
 	QCoreApplication app(argc, argv);
+
+	if (argc == 3 && std::getenv("FB2_EPUB_CONVERT_ONLY") != nullptr)
+		return ConvertOnly(argv[1], argv[2]) ? 0 : 1;
+
 	if (!CheckGluedWords())
 		return 1;
 
-	if (!CheckWarningSpacing(QStringLiteral("../tests/fixtures/warning_spacing.fb2")))
+	if (!CheckWarningSpacing(QStringLiteral("../../tests/fixtures/warning_spacing.fb2")))
 		return 1;
 
-	if (!CheckEmphasisParenSpacing(QStringLiteral("../tests/fixtures/emphasis_paren_spacing.fb2")))
+	if (!CheckEmphasisParenSpacing(QStringLiteral("../../tests/fixtures/emphasis_paren_spacing.fb2")))
 		return 1;
 
-	if (!CheckFootnoteAfterSentence(QStringLiteral("../tests/fixtures/footnote_after_sentence.fb2")))
+	if (!CheckFootnoteAfterSentence(QStringLiteral("../../tests/fixtures/footnote_after_sentence.fb2")))
 		return 1;
 
-	if (!CheckDropCap(QStringLiteral("../tests/fixtures/drop_cap.fb2")))
+	if (!CheckDropCap(QStringLiteral("../../tests/fixtures/drop_cap.fb2")))
+		return 1;
+
+	if (!CheckInlineImage(QStringLiteral("../../tests/fixtures/inline_image.fb2")))
 		return 1;
 
 	if (argc != 3)
@@ -276,8 +365,13 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
+	const auto convertOnly = std::getenv("FB2_EPUB_CONVERT_ONLY") != nullptr;
+
 	ParsedFb2 parsed;
-	if (!HomeCompa::Util::ParseFb2(fb2File, parsed) || !CheckParsed(parsed))
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+		return 1;
+
+	if (!convertOnly && !CheckParsed(parsed))
 		return 1;
 
 	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath))
@@ -286,7 +380,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	if (!CheckCoverOverride(fb2Path))
+	if (!convertOnly && !CheckCoverOverride(fb2Path))
 		return 1;
 
 	if (!QFileInfo::exists(epubPath) || QFileInfo(epubPath).size() == 0)
@@ -303,8 +397,9 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	const auto contentXhtml = QString::fromUtf8(unzip.readAllStandardOutput());
-	if (!contentXhtml.contains(QStringLiteral("a[epub|type~=\"noteref\"]"))
-	    || !contentXhtml.contains(QStringLiteral("<sup><a epub:type=\"noteref\"")))
+	if (!convertOnly
+	    && (!contentXhtml.contains(QStringLiteral("a[epub|type~=\"noteref\"]"))
+	        || !contentXhtml.contains(QStringLiteral("<sup><a epub:type=\"noteref\""))))
 	{
 		std::cerr << "missing publisher footnote styles or markup in epub\n";
 		return 1;

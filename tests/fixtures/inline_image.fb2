@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+	<description>
+		<title-info>
+			<book-title>Inline Image Test</book-title>
+			<coverpage><image l:href="#cover"/></coverpage>
+			<lang>en</lang>
+		</title-info>
+	</description>
+	<body>
+		<image l:href="#pic"/>
+		<p>Text after image.</p>
+	</body>
+	<binary id="pic" content-type="image/png">iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==</binary>
+	<binary id="cover" content-type="image/png">iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==</binary>
+</FictionBook>
