@@ -17,6 +17,7 @@
 #include "zip.h"
 
 #ifdef Q_OS_MACOS
+#include "util/EpubBooksPack.h"
 #include "util/Fb2EpubConverter.h"
 #include "util/Fb2Format.h"
 #endif
@@ -119,12 +120,14 @@ std::pair<bool, std::filesystem::path> WriteFile(
 				return Unpack(bytes, result.second);
 			case BooksExtractorWrite::WriteMode::Epub:
 #ifdef Q_OS_MACOS
-				if (!Util::IsFb2Suffix(QFileInfo(book.file).suffix()))
-					return false;
+				if (Util::IsFb2Suffix(QFileInfo(book.file).suffix()))
 				{
 					const Util::Fb2ToEpubOptions options { .archiveFolder = folder, .bookFile = book.file, .settings = &settings };
 					return Util::ConvertFb2BytesToEpub(bytes, book.file, Platform::PathToString(result.second), &options);
 				}
+				if (Util::IsEpubSuffix(QFileInfo(book.file).suffix()))
+					return Util::RepackEpubBytesForBooks(bytes, Platform::PathToString(result.second));
+				return false;
 #else
 				return false;
 #endif

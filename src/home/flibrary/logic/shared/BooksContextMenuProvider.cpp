@@ -26,7 +26,6 @@
 #include "ChangeNavigationController/GroupController.h"
 #include "database/DatabaseUtil.h"
 #include "extract/BooksExtractor.h"
-#include "util/Fb2Format.h"
 #include "util/language.h"
 
 #include "Constant.h"
@@ -225,7 +224,7 @@ public:
 				  if (type == ItemType::Books)
 					  AddMenuItem(result, READ_BOOK, Tr(READ_BOOK), BooksMenuAction::ReadBook);
 
-				  CreateSendMenu(result, options, scripts, Util::IsFb2Path(fileName));
+				  CreateSendMenu(result, options, scripts, fileName);
 				  AddMenuItem(result)->SetData(QString::number(-1), MenuItem::Column::Parameter);
 
 				  if (type == ItemType::Books)

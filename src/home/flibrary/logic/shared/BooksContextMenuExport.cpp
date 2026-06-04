@@ -17,6 +17,7 @@
 #include "Constant.h"
 #include "MenuItems.h"
 #include "QtTypes.h"
+#include "util/Fb2Format.h"
 
 using namespace HomeCompa;
 using namespace Flibrary;
@@ -28,6 +29,7 @@ constexpr auto CONTEXT             = "BookContextMenu";
 constexpr auto EXPORT              = QT_TRANSLATE_NOOP("BookContextMenu", "E&xport");
 constexpr auto SEND_AS_ARCHIVE     = QT_TRANSLATE_NOOP("BookContextMenu", "As &zip archive");
 constexpr auto SEND_AS_IS          = QT_TRANSLATE_NOOP("BookContextMenu", "As &original format");
+constexpr auto SEND_AS_IS_FMT      = QT_TRANSLATE_NOOP("BookContextMenu", "As &original format (%1)");
 constexpr auto SEND_AS_EPUB        = QT_TRANSLATE_NOOP("BookContextMenu", "As &epub");
 constexpr auto UNPACK              = QT_TRANSLATE_NOOP("BookContextMenu", "&Unpack");
 constexpr auto SEND_AS_INPX        = QT_TRANSLATE_NOOP("BookContextMenu", "As &inpx collection");
@@ -163,13 +165,18 @@ void CreateSendMenu(
 	const IDataItem::Ptr&                          root,
 	const ITreeViewController::RequestContextMenuOptions options,
 	const IScriptController::Scripts&              scripts,
-	const bool                                     epubEnabled
+	const QString&                                 fileName
 )
 {
 	const auto& send = AddMenuItem(root, EXPORT, Tr(EXPORT));
 	AddMenuItem(send, SEND_AS_ARCHIVE, Tr(SEND_AS_ARCHIVE), BooksMenuAction::SendAsArchive);
-	AddMenuItem(send, SEND_AS_IS, Tr(SEND_AS_IS), BooksMenuAction::SendAsIs);
+
+	const auto suffix   = QFileInfo(fileName).suffix();
+	const auto asIsText = suffix.isEmpty() ? Tr(SEND_AS_IS) : Tr(SEND_AS_IS_FMT).arg(suffix);
+	AddMenuItem(send, SEND_AS_IS, asIsText, BooksMenuAction::SendAsIs);
+
 #ifdef Q_OS_MACOS
+	const bool epubEnabled = Util::IsFb2Suffix(suffix) || Util::IsEpubSuffix(suffix);
 	if (const auto epubItem = AddMenuItem(send, SEND_AS_EPUB, Tr(SEND_AS_EPUB), BooksMenuAction::SendAsEpub); !epubEnabled)
 		epubItem->SetData(QVariant(false).toString(), MenuItem::Column::Enabled);
 #endif

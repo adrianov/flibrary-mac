@@ -44,7 +44,7 @@ void CreateSendMenu(
 	const IDataItem::Ptr&                          root,
 	ITreeViewController::RequestContextMenuOptions options,
 	const IScriptController::Scripts&              scripts,
-	bool                                           epubEnabled
+	const QString&                                 fileName
 );
 
 void SendAsImpl(

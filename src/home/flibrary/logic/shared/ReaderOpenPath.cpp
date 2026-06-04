@@ -6,6 +6,7 @@
 #include <QStandardPaths>
 
 #ifdef Q_OS_MACOS
+#include "util/EpubBooksPack.h"
 #include "util/Fb2EpubConverter.h"
 
 #include "settings/ISettings.h"
@@ -30,7 +31,7 @@ namespace
 #ifdef Q_OS_MACOS
 
 // Bump when EPUB output format changes so cached read copies are rebuilt.
-constexpr auto EPUB_CACHE_VERSION = "v15";
+constexpr auto EPUB_CACHE_VERSION = "v18";
 
 QString EpubCacheDir()
 {
@@ -79,7 +80,7 @@ bool IsEpubArchive(const QString& epubPath)
 	}
 }
 
-QString CopyEpubToCache(const QString& extractedPath, const long long bookId)
+QString RepackEpubToCache(const QString& extractedPath, const long long bookId)
 {
 	const auto epubPath = ResolveCachedEpubPath(extractedPath, bookId);
 	if (epubPath.isEmpty())
@@ -90,10 +91,10 @@ QString CopyEpubToCache(const QString& extractedPath, const long long bookId)
 	if (srcInfo.canonicalFilePath() == dstInfo.canonicalFilePath())
 		return extractedPath;
 
-	if (!dstInfo.exists() || srcInfo.lastModified() > dstInfo.lastModified() || !IsEpubArchive(epubPath))
+	if (!dstInfo.exists() || srcInfo.lastModified() > dstInfo.lastModified() || !Util::IsBooksCompatibleEpub(epubPath))
 	{
 		QFile::remove(epubPath);
-		if (!QFile::copy(extractedPath, epubPath) || !IsEpubArchive(epubPath))
+		if (!Util::RepackEpubForBooks(extractedPath, epubPath) || !IsEpubArchive(epubPath))
 			return extractedPath;
 	}
 
@@ -106,7 +107,8 @@ void RemoveLegacyCache(long long bookId)
 		return;
 
 	const auto dir = EpubCacheDir();
-	for (const auto& suffix : { QString(), QStringLiteral(".v2"), QStringLiteral(".v3"), QStringLiteral(".v4"), QStringLiteral(".v5"), QStringLiteral(".v6"), QStringLiteral(".v7"), QStringLiteral(".v8"), QStringLiteral(".v9") })
+	for (const auto& suffix :
+	     { QString(), QStringLiteral(".v2"), QStringLiteral(".v3"), QStringLiteral(".v4"), QStringLiteral(".v5"), QStringLiteral(".v6"), QStringLiteral(".v7"), QStringLiteral(".v8"), QStringLiteral(".v9"), QStringLiteral(".v15"), QStringLiteral(".v16"), QStringLiteral(".v17") })
 		QFile::remove(QDir(dir).filePath(QString("%1%2.epub").arg(bookId).arg(suffix)));
 }
 
@@ -120,10 +122,8 @@ bool IsCachedEpubValid(const QString& epubPath)
 			return false;
 
 		const auto html = stream->GetStream().readAll();
-		if (!html.contains("epub:"))
-			return true;
-
-		return html.contains("xmlns:epub");
+		return html.startsWith("<?xml")
+		    && html.contains("xmlns:epub=\"http://www.idpf.org/2007/ops\"");
 	}
 	catch (...)
 	{
@@ -175,8 +175,8 @@ QString PrepareReaderFile(
 		return extractedPath;
 	}
 
-	if (QFileInfo(extractedPath).suffix().compare(QStringLiteral("epub"), Qt::CaseInsensitive) == 0)
-		return CopyEpubToCache(extractedPath, bookId);
+	if (Util::IsEpubPath(extractedPath))
+		return RepackEpubToCache(extractedPath, bookId);
 #else
 	(void)bookId;
 	(void)settings;
