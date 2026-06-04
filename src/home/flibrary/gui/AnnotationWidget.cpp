@@ -404,6 +404,8 @@ private: // IAnnotationController::IObserver
 
 	void OnAnnotationChanged(const IAnnotationController::IDataProvider& dataProvider) override
 	{
+		m_content.clear();
+
 		auto annotation = m_annotationController->CreateAnnotation(dataProvider, *this);
 
 		m_ui.info->setText(annotation);
