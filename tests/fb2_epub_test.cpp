@@ -80,10 +80,10 @@ bool CheckParsed(const ParsedFb2& parsed)
 
 bool CheckGluedWords()
 {
-	const auto warning = HomeCompa::Util::SplitGluedWords(QStringLiteral("Предупреждение:не рекомендуется к прочтению несовершеннолетним"));
-	if (!warning.contains(QStringLiteral("Предупреждение: не")))
+	const auto glued = QStringLiteral("Предупреждение:не рекомендуется");
+	if (HomeCompa::Util::SplitGluedWords(glued) != glued)
 	{
-		std::cerr << "glued: " << warning.toStdString() << '\n';
+		std::cerr << "glued: invented space after punctuation\n";
 		return false;
 	}
 	if (HomeCompa::Util::SplitGluedWords(QStringLiteral("12:30")) != QStringLiteral("12:30"))
@@ -91,14 +91,16 @@ bool CheckGluedWords()
 		std::cerr << "glued: split numeric time\n";
 		return false;
 	}
-	if (!HomeCompa::Util::NeedsSpaceAfterPunctuation(QChar(u'е'), QChar(u':'), QChar(u'н')))
+	if (HomeCompa::Util::SplitGluedWords(QStringLiteral("bookdesigner@the-ebook.org"))
+	    != QStringLiteral("bookdesigner@the-ebook.org"))
 	{
-		std::cerr << "missing space after colon before cyrillic word\n";
+		std::cerr << "glued: split email/domain period\n";
 		return false;
 	}
-	if (HomeCompa::Util::NeedsSpaceAfterPunctuation(QChar(u'2'), QChar(u':'), QChar(u'3')))
+	const auto scriptGlue = HomeCompa::Util::SplitGluedWords(QStringLiteral("компанииVeuve"));
+	if (!scriptGlue.contains(QStringLiteral("компании Veuve")))
 	{
-		std::cerr << "should not split numeric colon\n";
+		std::cerr << "glued: missing script boundary: " << scriptGlue.toStdString() << '\n';
 		return false;
 	}
 	return true;
@@ -173,6 +175,39 @@ bool CheckFootnoteAfterSentence(const QString& fb2Path)
 	if (!parsed.bodyHtml.contains(QStringLiteral("time.<sup><a epub:type=\"noteref\" href=\"#fn-n8\">8</a></sup> On")))
 	{
 		std::cerr << "footnote glued to next sentence: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	return true;
+}
+
+bool CheckFootnotePunctSpacing(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open " << fb2Path.toStdString() << '\n';
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << fb2Path.toStdString() << " parse failed\n";
+		return false;
+	}
+
+	const auto snippet = QStringLiteral("impressa&quot;</em><sup><a epub:type=\"noteref\" href=\"#fn-n_5\">5</a></sup><em>, помоги");
+	if (!parsed.bodyHtml.contains(snippet))
+	{
+		std::cerr << "space before comma after footnote: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	const auto closing = QStringLiteral("inertiae</em><sup><a epub:type=\"noteref\" href=\"#fn-n_6\">6</a></sup><em>»</em>");
+	if (!parsed.bodyHtml.contains(closing))
+	{
+		std::cerr << "space before closing quote after footnote: " << parsed.bodyHtml.toStdString() << '\n';
 		return false;
 	}
 
@@ -515,6 +550,9 @@ int main(int argc, char* argv[])
 		return 1;
 
 	if (!CheckFootnoteAfterSentence(QStringLiteral("../../tests/fixtures/footnote_after_sentence.fb2")))
+		return 1;
+
+	if (!CheckFootnotePunctSpacing(QStringLiteral("../../tests/fixtures/footnote_punct_spacing.fb2")))
 		return 1;
 
 	if (!CheckFootnoteEmphasis(QStringLiteral("../../tests/fixtures/footnote_emphasis.fb2")))

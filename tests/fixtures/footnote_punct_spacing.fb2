@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+<body>
+<section>
+<p><emphasis>„vis motricis impressa"</emphasis><a l:href="#n_5" type="note">[5]</a><emphasis>, помоги inertiae</emphasis><a l:href="#n_6" type="note">[6]</a><emphasis>»</emphasis></p>
+</section>
+</body>
+<body name="notes">
+<section>
+<section id="n_5"><title><p>5</p></title><p>Footnote five.</p></section>
+<section id="n_6"><title><p>6</p></title><p>Footnote six.</p></section>
+</section>
+</body>
+</FictionBook>
