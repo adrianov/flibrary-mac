@@ -61,12 +61,14 @@ bool OpenDefaultReader(const QString& fileName, const QString& ext)
 		return false;
 
 #ifdef Q_OS_MACOS
-	if (ext.compare(QStringLiteral("epub"), Qt::CaseInsensitive) == 0)
 	{
-		QProcess process;
-		process.start(QStringLiteral("/usr/bin/open"), { QStringLiteral("-a"), QStringLiteral("Books"), fileName });
-		if (process.waitForStarted(3000))
-			return true;
+		QStringList args;
+		if (ext.compare(QStringLiteral("epub"), Qt::CaseInsensitive) == 0)
+			args << QStringLiteral("-a") << QStringLiteral("Books") << fileName;
+		else
+			args << fileName;
+
+		return QProcess::startDetached(QStringLiteral("/usr/bin/open"), args);
 	}
 #endif
 

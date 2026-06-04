@@ -10,10 +10,9 @@
 #include "interface/constants/ExportStat.h"
 #include "interface/localization.h"
 
-#include "util/IExecutor.h"
-
 #include "shared/ReaderExtract.h"
 #include "shared/ReaderLaunch.h"
+#include "shared/ReaderOpenPath.h"
 
 #include "log.h"
 
@@ -78,40 +77,48 @@ ReaderController::~ReaderController()
 
 void ReaderController::Read(long long id) const
 {
-	std::shared_ptr executor = ILogicFactory::Lock(m_impl->logicFactory)->GetExecutor();
+	m_impl->databaseUser->Execute({ "Get archive and file names", [this, id]() mutable {
+									   QString    fileName;
+									   QString    error;
+									   auto       temporaryDir = std::shared_ptr<ILogicFactory::ITemporaryDir> {};
+									   try
+									   {
+										   const auto db = m_impl->databaseUser->Database();
+										   {
+											   const auto transaction = db->CreateTransaction();
+											   const auto command     = transaction->CreateQuery(ExportStat::INSERT_QUERY);
+											   command->Bind(0, id);
+											   command->Bind(1, static_cast<int>(ExportStat::Type::Read));
+											   command->Execute();
+											   transaction->Commit();
+										   }
 
-	const auto& executorRef = *executor;
-	executorRef({ "Get archive and file names", [this, id, executor = std::move(executor)]() mutable {
-					 const auto db = m_impl->databaseUser->Database();
-					 {
-						 const auto transaction = db->CreateTransaction();
-						 const auto command     = transaction->CreateQuery(ExportStat::INSERT_QUERY);
-						 command->Bind(0, id);
-						 command->Bind(1, static_cast<int>(ExportStat::Type::Read));
-						 command->Execute();
-						 transaction->Commit();
-					 }
+										   const auto query = db->CreateQuery("select f.FolderTitle, b.FileName||b.Ext from Books b join Folders f on f.FolderID = b.FolderID where b.BookID = ?");
+										   query->Bind(0, id);
+										   query->Execute();
+										   if (query->Eof())
+											   throw std::runtime_error("book not found");
 
-					 const auto query = db->CreateQuery("select f.FolderTitle, b.FileName||b.Ext from Books b join Folders f on f.FolderID = b.FolderID where b.BookID = ?");
-					 query->Bind(0, id);
-					 query->Execute();
-					 assert(!query->Eof());
+										   const auto folderName = query->Get<const char*>(0);
+										   fileName              = query->Get<const char*>(1);
+										   const auto archive    = QString("%1/%2").arg(m_impl->collectionController->GetActiveCollection().GetFolder(), folderName);
+										   const auto logicFactory = ILogicFactory::Lock(m_impl->logicFactory);
+										   if (const auto folder = m_impl->settings->Get(DEFAULT_FOLDER_KEY); folder.isValid())
+											   temporaryDir = logicFactory->CreateTemporaryDir(folder.toString());
+										   else
+											   temporaryDir = logicFactory->CreateTemporaryDir(ReadExtractDir(id));
 
-					 QString folderName = query->Get<const char*>(0), fileName = query->Get<const char*>(1);
-					 auto    archive = QString("%1/%2").arg(m_impl->collectionController->GetActiveCollection().GetFolder(), folderName);
-					 QString error;
-					 auto    temporaryDir = [this] {
-						 const auto logicFactory = ILogicFactory::Lock(m_impl->logicFactory);
-						 if (const auto folder = m_impl->settings->Get(DEFAULT_FOLDER_KEY); folder.isValid())
-							 return logicFactory->CreateTemporaryDir(folder.toString());
-						 return logicFactory->CreateTemporaryDir(true);
-					 }();
-					 ExtractBookForReading(*m_impl->settings, *temporaryDir, archive, fileName, error, ILogicFactory::Lock(m_impl->logicFactory));
-					 return [this, executor = std::move(executor), fileName = std::move(fileName), temporaryDir = std::move(temporaryDir), error(std::move(error)), id](size_t) mutable {
-						 m_impl->Read(std::move(temporaryDir), std::move(fileName), error, id);
-						 executor.reset();
-					 };
-				 } });
+										   ExtractBookForReading(*m_impl->settings, *temporaryDir, archive, fileName, error, logicFactory);
+									   }
+									   catch (const std::exception& ex)
+									   {
+										   error = QString::fromUtf8(ex.what());
+									   }
+
+									   return [this, fileName = std::move(fileName), temporaryDir = std::move(temporaryDir), error = std::move(error), id](size_t) mutable {
+										   m_impl->Read(std::move(temporaryDir), std::move(fileName), error, id);
+									   };
+								   } });
 }
 
 void ReaderController::ReadRandomBook(QString lang) const

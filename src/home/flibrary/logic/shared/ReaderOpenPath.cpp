@@ -14,6 +14,14 @@
 namespace HomeCompa::Flibrary
 {
 
+QString ReadExtractDir(const long long bookId)
+{
+	const auto root = QDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation)).filePath(QStringLiteral("read"));
+	const auto dir  = QDir(root).filePath(bookId > 0 ? QString::number(bookId) : QStringLiteral("misc"));
+	QDir().mkpath(dir);
+	return dir;
+}
+
 namespace
 {
 
