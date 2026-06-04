@@ -2,9 +2,6 @@
 
 #include <filesystem>
 
-#include <QBuffer>
-#include <QTemporaryDir>
-
 #include "database/interface/ICommand.h"
 #include "database/interface/IDatabase.h"
 #include "database/interface/ITransaction.h"
@@ -13,19 +10,13 @@
 #include "interface/constants/SettingsConstant.h"
 
 #include "Constant.h"
-
+#include "platform/PlatformUtil.h"
 #include "platform/StrUtil.h"
 #include "util/IExecutor.h"
-#include "util/ImageRestore.h"
 
+#include "BooksExtractorWrite.h"
 #include "log.h"
 #include "zip.h"
-
-#ifdef Q_OS_MACOS
-#include "util/Fb2EpubConverter.h"
-#include "util/Fb2EpubText.h"
-#include "util/Fb2Format.h"
-#endif
 
 using namespace HomeCompa::Flibrary;
 using namespace HomeCompa;
@@ -33,223 +24,23 @@ using namespace HomeCompa;
 namespace
 {
 
-class IExportHelper // NOLINT(cppcoreguidelines-special-member-functions)
-{
-public:
-	virtual ~IExportHelper()                                                                                         = default;
-	virtual void                                       CheckPath(std::filesystem::path& path)                        = 0;
-	virtual std::unique_ptr<const Util::ExtractedBook> GetMetadataReplacement(const Util::ExtractedBook& book) const = 0;
-};
+using WriteMode     = BooksExtractorWrite::WriteMode;
+using IExportHelper = BooksExtractorWrite::IExportHelper;
 
-bool Write(const QByteArray& input, const std::filesystem::path& path)
-{
-	QFile output(Platform::PathToString(path));
-	return output.open(QIODevice::WriteOnly) && output.write(input) == input.size();
-}
-
-bool Archive(const QByteArray& input, const std::filesystem::path& path, QString fileName, std::shared_ptr<Zip::ProgressCallback> zipProgressCallback)
-{
-	try
-	{
-		Zip  zip(Platform::PathToString(path), Zip::Format::Zip, false, std::move(zipProgressCallback));
-		auto zipFiles = Zip::CreateZipFileController();
-		zipFiles->AddFile(std::move(fileName), input, QDateTime::currentDateTime());
-		zip.Write(*zipFiles);
-		return true;
-	}
-	catch (const std::exception& ex)
-	{
-		PLOGE << ex.what();
-	}
-	return false;
-}
-
-bool Unpack(QByteArray& input, const std::filesystem::path& path)
-{
-	try
-	{
-		QBuffer buffer(&input);
-		buffer.open(QIODevice::ReadOnly);
-		Zip zip(buffer);
-
-		std::filesystem::path folder = path;
-		folder.replace_extension("");
-		std::error_code ec;
-		if (!create_directories(folder, ec))
-		{
-			PLOGE << ec.message() << " (" << ec.value() << ")";
-			return false;
-		}
-
-		return std::ranges::all_of(zip.GetFileNameList(), [&](const auto& fileName) {
-			const auto fullPath = folder / Platform::StringToPath(fileName);
-			std::filesystem::create_directories(fullPath.parent_path());
-			QFile      output(Platform::PathToString(fullPath));
-			const auto fileSize = zip.GetFileSize(fileName);
-			return output.open(QIODevice::WriteOnly) && output.write(zip.Read(fileName)->GetStream().readAll()) == static_cast<qint64>(fileSize);
-		});
-	}
-	catch (const std::exception& ex)
-	{
-		PLOGE << ex.what();
-	}
-
-	return Write(input, path);
-}
-
-bool WriteEpub(const QByteArray& input, const std::filesystem::path& path, const Util::ExtractedBook& book, const ISettings& settings, const QString& archiveFolder)
-{
-#ifdef Q_OS_MACOS
-	if (!Util::IsFb2Suffix(QFileInfo(book.file).suffix()))
-		return false;
-
-	QTemporaryDir tempDir;
-	if (!tempDir.isValid())
-		return false;
-
-	const auto fb2Path = tempDir.filePath(book.file);
-	if (!Write(input, Platform::StringToPath(fb2Path)))
-		return false;
-
-	Util::EpubCover      cover;
-	const Util::EpubCover* coverPtr = nullptr;
-	if (!settings.Get(Export::REMOVE_COVER_KEY, false))
-	{
-		Util::ExtractBookImages(archiveFolder, book.file, settings, [&](QString /*name*/, const bool isCover, QByteArray body) {
-			if (isCover && cover.data.isEmpty() && !body.isEmpty())
-			{
-				cover.data = std::move(body);
-				cover.mime = Util::CoverMimeFromData(cover.data);
-				coverPtr   = &cover;
-			}
-			return false;
-		});
-	}
-
-	return Util::ConvertFb2ToEpub(fb2Path, Platform::PathToString(path), coverPtr);
-#else
-	(void)input;
-	(void)path;
-	(void)book;
-	(void)settings;
-	(void)archiveFolder;
-	return false;
-#endif
-}
-
-enum class WriteMode
-{
-	AsIs,
-	Archive,
-	Unpack,
-	Epub,
-};
-
-std::pair<bool, std::filesystem::path> Write(
-	const ISettings&                       settings,
-	QIODevice&                             input,
-	const QString&                         folder,
-	const Util::ExtractedBook&             book,
-	IProgressController::IProgressItem&    progress,
-	std::shared_ptr<Zip::ProgressCallback> zipProgressCallback,
-	IExportHelper&                         exportHelper,
-	const WriteMode                        mode
-)
-{
-	auto            result = std::make_pair(false, std::filesystem::path {});
-	const QFileInfo dstFileInfo(book.dstFileName);
-	if (const auto dstDir = dstFileInfo.absolutePath(); !(QDir().exists(dstDir) || QDir().mkpath(dstDir)))
-		return result;
-
-	result.second = Platform::StringToPath(QDir::toNativeSeparators(book.dstFileName));
-
-	exportHelper.CheckPath(result.second);
-
-	if (exists(result.second))
-		if (!remove(result.second))
-			return assert(false), result;
-
-	result.first = [&] {
-		auto bytes = PrepareToExport(input, folder, book.file, settings, exportHelper.GetMetadataReplacement(book));
-		switch (mode)
-		{
-			case WriteMode::AsIs:
-				return Write(bytes, result.second);
-			case WriteMode::Archive:
-				return Archive(bytes, result.second, dstFileInfo.completeBaseName() + "." + QFileInfo(book.file).suffix(), std::move(zipProgressCallback));
-			case WriteMode::Unpack:
-				return Unpack(bytes, result.second);
-			case WriteMode::Epub:
-				return WriteEpub(bytes, result.second, book, settings, folder);
-			default: // NOLINT(clang-diagnostic-covered-switch-default)
-				return assert(false && "unexpected mode"), false;
-		}
-	}();
-	progress.Increment(1);
-
-	return result;
-}
-
-std::filesystem::path Process(
-	const ISettings&                       settings,
-	const std::filesystem::path&           archiveFolder,
-	const Util::ExtractedBook&             book,
-	IProgressController::IProgressItem&    progress,
-	std::shared_ptr<Zip::ProgressCallback> zipProgressCallback,
-	IExportHelper&                         exportHelper,
-	const WriteMode                        mode
-)
-{
-	if (progress.IsStopped())
-		return {};
-
-	const auto folder = QDir::fromNativeSeparators(Platform::PathToString(archiveFolder / Platform::StringToPath(book.folder)));
-	if (!QFile::exists(folder))
-		throw std::runtime_error((folder + ": archive not found").toStdString());
-
-	const Zip  zip(folder);
-	const auto stream = zip.Read(book.file);
-	auto [ok, path]   = Write(settings, stream->GetStream(), folder, book, progress, std::move(zipProgressCallback), exportHelper, mode);
-	if (!ok && exists(path))
-		remove(path);
-
-	return ok ? path : std::filesystem::path {};
-}
-
-void Process(
-	const ISettings&                    settings,
+using ProcessFunctor = std::function<std::filesystem::path(
 	const std::filesystem::path&        archiveFolder,
 	const QString&                      dstFolder,
-	DB::IDatabase&                      db,
 	const Util::ExtractedBook&          book,
 	IProgressController::IProgressItem& progress,
-	IExportHelper&                      exportHelper,
-	const IScriptController&            scriptController,
-	IScriptController::Commands         commands
-)
+	IExportHelper&                      exportHelper)>;
+
+void RevealLastExport(const std::vector<std::filesystem::path>& paths)
 {
-	const auto needFile   = std::ranges::any_of(commands, [](const auto& command) {
-		return IScriptController::HasMacro(command.args, IScriptController::Macro::SourceFile);
-	});
-	const auto sourceFile = needFile ? Process(settings, archiveFolder, book, progress, {}, exportHelper, WriteMode::AsIs) : std::filesystem::path {};
+	if (paths.empty())
+		return;
 
-	std::ranges::sort(commands, {}, [](const IScriptController::Command& command) {
-		return command.number;
-	});
-	for (auto command : commands)
-	{
-		if (needFile)
-			IScriptController::SetMacro(command.args, IScriptController::Macro::SourceFile, QDir::toNativeSeparators(Platform::PathToString(sourceFile)));
-		IScriptController::SetMacro(command.args, IScriptController::Macro::UserDestinationFolder, QDir::toNativeSeparators(dstFolder));
-		ILogicFactory::FillScriptTemplate(db, command.args, book);
-
-		if (progress.IsStopped() || !scriptController.Execute(command))
-			return;
-	}
+	Platform::RevealInFileManager(Platform::PathToString(paths.back()));
 }
-
-using ProcessFunctor =
-	std::function<void(const std::filesystem::path& archiveFolder, const QString& dstFolder, const Util::ExtractedBook& book, IProgressController::IProgressItem& progress, IExportHelper& exportHelper)>;
 
 } // namespace
 
@@ -290,6 +81,7 @@ public:
 	{
 		assert(!m_callback);
 		m_hasError       = false;
+		m_exportedPaths.clear();
 		m_callback       = std::move(callback);
 		m_taskCount      = std::size(books);
 		m_processFunctor = std::move(processFunctor);
@@ -383,6 +175,15 @@ private: // IProgressController::IObserver
 	}
 
 private:
+	void NoteExportedPath(std::filesystem::path path)
+	{
+		if (path.empty())
+			return;
+
+		std::lock_guard lock(m_exportedPathsGuard);
+		m_exportedPaths.push_back(std::move(path));
+	}
+
 	Util::IExecutor::Task CreateTask(Util::ExtractedBook&& book)
 	{
 		std::shared_ptr progressItem = m_progressController->Add(1);
@@ -391,7 +192,7 @@ private:
 										  bool error = false;
 										  try
 										  {
-											  m_processFunctor(m_archiveFolder, m_dstFolder, book, *progressItem, *this);
+											  NoteExportedPath(m_processFunctor(m_archiveFolder, m_dstFolder, book, *progressItem, *this));
 										  }
 										  catch (const std::exception& ex)
 										  {
@@ -401,8 +202,17 @@ private:
 										  return [this, error, progressItem = std::move(progressItem)](const size_t) {
 											  m_hasError = error || m_hasError;
 											  assert(m_taskCount > 0);
-											  if (--m_taskCount == 0)
-												  m_callback(m_hasError);
+											  if (--m_taskCount != 0)
+												  return;
+
+											  if (!m_hasError)
+											  {
+												  std::lock_guard lock(m_exportedPathsGuard);
+												  RevealLastExport(m_exportedPaths);
+											  }
+
+											  m_exportedPaths.clear();
+											  m_callback(m_hasError);
 										  };
 									  } };
 	}
@@ -424,6 +234,8 @@ private:
 	std::filesystem::path                                     m_archiveFolder;
 	std::mutex                                                m_usedPathGuard;
 	std::unordered_set<QString>                               m_usedPath;
+	std::mutex                                                m_exportedPathsGuard;
+	std::vector<std::filesystem::path>                        m_exportedPaths;
 	bool                                                      m_needReplaceMetadata;
 };
 
@@ -458,7 +270,7 @@ void BooksExtractor::ExtractAsArchives(QString folder, const QString& /*paramete
 	     zipProgressCallback = std::move(
 			 zipProgressCallback
 		 )](const std::filesystem::path& archiveFolder, const QString& /*dstFolder*/, const Util::ExtractedBook& book, IProgressController::IProgressItem& progress, IExportHelper& exportHelper) mutable {
-			Process(m_impl->GetSettings(), archiveFolder, book, progress, std::move(zipProgressCallback), exportHelper, WriteMode::Archive);
+			return BooksExtractorWrite::Process(m_impl->GetSettings(), archiveFolder, book, progress, std::move(zipProgressCallback), exportHelper, WriteMode::Archive);
 		}
 	);
 }
@@ -471,7 +283,7 @@ void BooksExtractor::ExtractAsIs(QString folder, const QString& /*parameter*/, U
 		std::move(callback),
 		ExportStat::Type::AsIs,
 		[this](const std::filesystem::path& archiveFolder, const QString& /*dstFolder*/, const Util::ExtractedBook& book, IProgressController::IProgressItem& progress, IExportHelper& exportHelper) {
-			Process(m_impl->GetSettings(), archiveFolder, book, progress, {}, exportHelper, WriteMode::AsIs);
+			return BooksExtractorWrite::Process(m_impl->GetSettings(), archiveFolder, book, progress, {}, exportHelper, WriteMode::AsIs);
 		}
 	);
 }
@@ -484,7 +296,7 @@ void BooksExtractor::ExtractAsEpub(QString folder, const QString& /*parameter*/,
 		std::move(callback),
 		ExportStat::Type::Epub,
 		[this](const std::filesystem::path& archiveFolder, const QString& /*dstFolder*/, const Util::ExtractedBook& book, IProgressController::IProgressItem& progress, IExportHelper& exportHelper) {
-			Process(m_impl->GetSettings(), archiveFolder, book, progress, {}, exportHelper, WriteMode::Epub);
+			return BooksExtractorWrite::Process(m_impl->GetSettings(), archiveFolder, book, progress, {}, exportHelper, WriteMode::Epub);
 		}
 	);
 }
@@ -497,7 +309,7 @@ void BooksExtractor::ExtractUnpack(QString folder, const QString& /*parameter*/,
 		std::move(callback),
 		ExportStat::Type::Unpack,
 		[this](const std::filesystem::path& archiveFolder, const QString& /*dstFolder*/, const Util::ExtractedBook& book, IProgressController::IProgressItem& progress, IExportHelper& exportHelper) {
-			Process(m_impl->GetSettings(), archiveFolder, book, progress, {}, exportHelper, WriteMode::Unpack);
+			return BooksExtractorWrite::Process(m_impl->GetSettings(), archiveFolder, book, progress, {}, exportHelper, WriteMode::Unpack);
 		}
 	);
 }
@@ -518,7 +330,8 @@ void BooksExtractor::ExtractAsScript(QString folder, const QString& parameter, U
 			IProgressController::IProgressItem& progress,
 			IExportHelper&                      exportHelper
 		) {
-			Process(m_impl->GetSettings(), archiveFolder, dstFolder, *db, book, progress, exportHelper, *scriptController, commands);
+			BooksExtractorWrite::Process(m_impl->GetSettings(), archiveFolder, dstFolder, *db, book, progress, exportHelper, *scriptController, commands);
+			return std::filesystem::path {};
 		}
 	);
 }
