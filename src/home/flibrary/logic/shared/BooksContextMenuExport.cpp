@@ -176,7 +176,7 @@ void CreateSendMenu(
 	AddMenuItem(send, SEND_AS_IS, asIsText, BooksMenuAction::SendAsIs);
 
 #ifdef Q_OS_MACOS
-	const bool epubEnabled = Util::IsFb2Suffix(suffix) || Util::IsEpubSuffix(suffix);
+	const bool epubEnabled = Util::IsExportableEpubSource(fileName);
 	if (const auto epubItem = AddMenuItem(send, SEND_AS_EPUB, Tr(SEND_AS_EPUB), BooksMenuAction::SendAsEpub); !epubEnabled)
 		epubItem->SetData(QVariant(false).toString(), MenuItem::Column::Enabled);
 #endif

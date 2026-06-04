@@ -88,6 +88,7 @@ std::pair<bool, std::filesystem::path> WriteFile(
 	const ISettings&                       settings,
 	QIODevice&                             input,
 	const QString&                         folder,
+	const QString&                         archiveFile,
 	const Util::ExtractedBook&             book,
 	IProgressController::IProgressItem&    progress,
 	std::shared_ptr<Zip::ProgressCallback> zipProgressCallback,
@@ -109,23 +110,23 @@ std::pair<bool, std::filesystem::path> WriteFile(
 			return assert(false), result;
 
 	result.first = [&] {
-		auto bytes = PrepareToExport(input, folder, book.file, settings, exportHelper.GetMetadataReplacement(book));
+		auto bytes = PrepareToExport(input, folder, archiveFile, settings, exportHelper.GetMetadataReplacement(book));
 		switch (mode)
 		{
 			case BooksExtractorWrite::WriteMode::AsIs:
 				return Write(bytes, result.second);
 			case BooksExtractorWrite::WriteMode::Archive:
-				return Archive(bytes, result.second, dstFileInfo.completeBaseName() + "." + QFileInfo(book.file).suffix(), std::move(zipProgressCallback));
+				return Archive(bytes, result.second, dstFileInfo.completeBaseName() + "." + QFileInfo(archiveFile).suffix(), std::move(zipProgressCallback));
 			case BooksExtractorWrite::WriteMode::Unpack:
 				return Unpack(bytes, result.second);
 			case BooksExtractorWrite::WriteMode::Epub:
 #ifdef Q_OS_MACOS
-				if (Util::IsFb2Suffix(QFileInfo(book.file).suffix()))
+				if (Util::IsFb2Suffix(QFileInfo(archiveFile).suffix()))
 				{
-					const Util::Fb2ToEpubOptions options { .archiveFolder = folder, .bookFile = book.file, .settings = &settings };
-					return Util::ConvertFb2BytesToEpub(bytes, book.file, Platform::PathToString(result.second), &options);
+					const Util::Fb2ToEpubOptions options { .archiveFolder = folder, .bookFile = archiveFile, .settings = &settings };
+					return Util::ConvertFb2BytesToEpub(bytes, archiveFile, Platform::PathToString(result.second), &options);
 				}
-				if (Util::IsEpubSuffix(QFileInfo(book.file).suffix()))
+				if (Util::IsEpubSuffix(QFileInfo(archiveFile).suffix()))
 					return Util::RepackEpubBytesForBooks(bytes, Platform::PathToString(result.second));
 				return false;
 #else
@@ -163,8 +164,9 @@ std::filesystem::path Process(
 		throw std::runtime_error((folder + ": archive not found").toStdString());
 
 	const Zip  zip(folder);
-	const auto stream = zip.Read(book.file);
-	auto [ok, path]   = WriteFile(settings, stream->GetStream(), folder, book, progress, std::move(zipProgressCallback), exportHelper, mode);
+	const auto archiveFile = Util::ResolveArchiveBookFile(zip.GetFileNameList(), book.file);
+	const auto stream      = zip.Read(archiveFile);
+	auto [ok, path]        = WriteFile(settings, stream->GetStream(), folder, archiveFile, book, progress, std::move(zipProgressCallback), exportHelper, mode);
 	if (!ok && exists(path))
 		remove(path);
 

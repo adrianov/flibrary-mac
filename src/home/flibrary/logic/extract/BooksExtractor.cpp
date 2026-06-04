@@ -192,7 +192,11 @@ private:
 										  bool error = false;
 										  try
 										  {
-											  NoteExportedPath(m_processFunctor(m_archiveFolder, m_dstFolder, book, *progressItem, *this));
+											  const auto path = m_processFunctor(m_archiveFolder, m_dstFolder, book, *progressItem, *this);
+											  if (path.empty())
+												  error = true;
+											  else
+												  NoteExportedPath(path);
 										  }
 										  catch (const std::exception& ex)
 										  {

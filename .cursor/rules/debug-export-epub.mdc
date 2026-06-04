@@ -1,0 +1,57 @@
+---
+description: Debug FLibrary Export → As epub failures (INPX names, pipeline split, local repro)
+alwaysApply: true
+---
+
+# Debug export / EPUB failures
+
+When **Export → As epub** fails but **As original format** works (or nothing appears, no error), follow this route.
+
+## 1. Identify the book
+
+- User `Book://<BookID>` → query `Books` + `Folders` in `~/Library/Application Support/FLibrary/FLibrary.db`.
+- Fields: `BookID`, `Title`, `FileName`, `Ext`, `FolderTitle` (archive `.7z` name).
+- Collection folder: `~/Library/Preferences/com.homecompa.FLibrary.plist` → `Collections.<id>.folder`.
+
+## 2. Confirm failure mode
+
+| Check | Where | Meaning |
+|-------|--------|---------|
+| Export attempts | `Export_List_User` (`ExportType` 5 = Epub) | Export started |
+| Output file | User export folder (`ui.RecentDir.Export` in plist) | Missing `.epub` → write/convert failed |
+| Context menu | `CreateSendMenu` in `BooksContextMenuExport.cpp` | `Role::FileName` often has **no suffix** → epub item disabled |
+
+## 3. Split converter vs export pipeline
+
+```bash
+# Extract from archive (7z), then:
+FB2_EPUB_CONVERT_ONLY=1 ./build/bin/fb2_epub_test /path/book.fb2 /tmp/out.epub
+```
+
+- **Converter OK, export fails** → bug in `BooksExtractorWrite` / `PrepareToExport`, not `Fb2EpubConverter`.
+- **Converter fails** → `ParseFb2` / `BuildEpubBytes` / `PackEpubMembers` (`Fb2Epub*`, `EpubZipPack`).
+
+Quick helpers test: `ARCHIVE_FILE_NAME_ONLY=1 ./build/bin/fb2_epub_test`.
+
+## 4. INPX file-name trap (common root cause)
+
+- DB: `FileName` + `Ext` (e.g. `249292` + `.fb2`).
+- UI/export model: `Role::FileName` = **base name only** (`LogicFactory::GetExtractedBooks`).
+- Archive entry: usually `249292.fb2`.
+
+**Symptom:** `IsFb2Suffix(QFileInfo(book.file).suffix())` is false → Epub branch returns `false`. AsIs still works (no suffix check).
+
+**Fix pattern:** resolve with `Util::ResolveArchiveBookFile(archiveFiles, book.file)` before `zip.Read` and format checks; menu via `Util::IsExportableEpubSource(fileName)`.
+
+## 5. Key code paths
+
+- Menu: `BooksContextMenuExport.cpp` → `SendAsEpub` → `BooksExtractor::ExtractAsEpub`
+- Write: `BooksExtractorWrite.cpp` (`WriteMode::Epub`, `PrepareToExport`, `ConvertFb2BytesToEpub`)
+- Read/open uses full name: `ReaderController` (`FileName||b.Ext`) — compare when export behaves differently from Read.
+
+## 6. Silent / generic failure
+
+- UI text **“Retrieving books had errors”** (`BOOKS_EXTRACT_ERROR`) = `BooksExtractor` finished with `hasError` (empty export path or exception).
+- **Export uses `ConvertFb2BytesToEpub`**, not `ConvertFb2ToEpub`. Test bytes path explicitly:
+  `ConvertFb2BytesToEpub(bytes, "249292.fb2", out.epub)` — must pass before blaming INPX names.
+- Known bug pattern: temp FB2 left open for write while converter opens it read-only → always fails on macOS. Fix: `fb2.close()` before `ConvertFb2ToEpub` in `Fb2EpubConverter.cpp`.
