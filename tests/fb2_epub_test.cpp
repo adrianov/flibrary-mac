@@ -1,11 +1,14 @@
+#include "util/EpubBooksPack.h"
 #include "util/Fb2EpubConverter.h"
 #include "util/Fb2EpubParser.h"
 #include "util/Fb2EpubText.h"
 
 #include <QCoreApplication>
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QProcess>
+#include <QTemporaryDir>
 #include <cstdlib>
 #include <iostream>
 
@@ -261,6 +264,56 @@ bool CheckInlineImage(const QString& fb2Path)
 	return true;
 }
 
+bool CheckSpecialTitle(const QString& fb2Path)
+{
+	const auto title = QString::fromUtf8(u8"ЖОПА («Жизнь одна — подумай, а!»)");
+
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open special title fixture\n";
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << "special title parse failed\n";
+		return false;
+	}
+
+	if (parsed.title != title)
+	{
+		std::cerr << "unexpected title: " << parsed.title.toStdString() << '\n';
+		return false;
+	}
+
+	const auto epubPath = QStringLiteral("/tmp/fb2_epub_special_title_test.epub");
+	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath))
+	{
+		std::cerr << "special title conversion failed\n";
+		return false;
+	}
+
+	QProcess unzip;
+	unzip.start("/usr/bin/unzip", { "-p", epubPath, "OEBPS/content.opf" });
+	if (!unzip.waitForFinished(-1) || unzip.exitCode() != 0)
+	{
+		std::cerr << "cannot read content.opf\n";
+		return false;
+	}
+
+	const auto opf = QString::fromUtf8(unzip.readAllStandardOutput());
+	QFile::remove(epubPath);
+	if (!opf.contains(title))
+	{
+		std::cerr << "title missing from opf\n";
+		return false;
+	}
+
+	return true;
+}
+
 bool CheckCoverOverride(const QString& fb2Path)
 {
 	static const QByteArray png = QByteArray::fromHex(
@@ -322,6 +375,57 @@ bool ConvertOnly(const QString& fb2Path, const QString& epubPath)
 	return QFileInfo::exists(epubPath) && QFileInfo(epubPath).size() > 0;
 }
 
+bool CheckEpubRepack()
+{
+	QTemporaryDir dir;
+	if (!dir.isValid())
+		return false;
+
+	const auto workDir = dir.path();
+	{
+		QFile image(QDir(workDir).filePath(QStringLiteral("i.jpg")));
+		if (!image.open(QIODevice::WriteOnly) || image.write("x") != 1)
+			return false;
+	}
+
+	const auto badEpub = QDir(workDir).filePath(QStringLiteral("bad.epub"));
+	const auto goodEpub = QDir(workDir).filePath(QStringLiteral("good.epub"));
+
+	auto runZip = [&](const QStringList& args) {
+		QProcess zip;
+		zip.setProgram(QStringLiteral("/usr/bin/zip"));
+		zip.setArguments(args);
+		zip.setWorkingDirectory(workDir);
+		zip.start();
+		return zip.waitForFinished(-1) && zip.exitCode() == 0;
+	};
+
+	if (!runZip({ QStringLiteral("-X9"), badEpub, QStringLiteral("i.jpg") }))
+		return false;
+
+	if (HomeCompa::Util::IsBooksCompatibleEpub(badEpub))
+	{
+		std::cerr << "bad fixture should not be books-compatible\n";
+		return false;
+	}
+
+	if (!HomeCompa::Util::RepackEpubForBooks(badEpub, goodEpub) || !HomeCompa::Util::IsBooksCompatibleEpub(goodEpub))
+	{
+		std::cerr << "epub repack failed\n";
+		return false;
+	}
+
+	QProcess unzip;
+	unzip.start(QStringLiteral("/usr/bin/unzip"), { QStringLiteral("-l"), goodEpub });
+	if (!unzip.waitForFinished(-1) || unzip.exitCode() != 0 || !QString::fromUtf8(unzip.readAllStandardOutput()).contains(QStringLiteral("i.jpg")))
+	{
+		std::cerr << "repacked epub lost images\n";
+		return false;
+	}
+
+	return true;
+}
+
 } // namespace
 
 int main(int argc, char* argv[])
@@ -330,6 +434,9 @@ int main(int argc, char* argv[])
 
 	if (argc == 3 && std::getenv("FB2_EPUB_CONVERT_ONLY") != nullptr)
 		return ConvertOnly(argv[1], argv[2]) ? 0 : 1;
+
+	if (argc == 3 && std::getenv("EPUB_REPACK_ONLY") != nullptr)
+		return HomeCompa::Util::RepackEpubForBooks(argv[1], argv[2]) ? 0 : 1;
 
 	if (!CheckGluedWords())
 		return 1;
@@ -348,6 +455,14 @@ int main(int argc, char* argv[])
 
 	if (!CheckInlineImage(QStringLiteral("../../tests/fixtures/inline_image.fb2")))
 		return 1;
+
+	if (!CheckSpecialTitle(QStringLiteral("../../tests/fixtures/special_title.fb2")))
+		return 1;
+
+#ifdef Q_OS_MACOS
+	if (!CheckEpubRepack())
+		return 1;
+#endif
 
 	if (argc != 3)
 	{
