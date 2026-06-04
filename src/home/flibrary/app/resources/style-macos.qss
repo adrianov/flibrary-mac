@@ -13,17 +13,55 @@
 QLabel#lblError { color: #FF3B30; }
 QLineEdit[errorTag="true"] { border: 1px solid #FF3B30; }
 
-/* --- Top search toolbar -------------------------------------------------- */
-QToolBar#searchBar {
-    border: none;
-    background: transparent;
-    spacing: 8px;
-    padding: 2px 12px;
+/* --- Search fields -------------------------------------------------------- */
+QWidget#bookTitleSearchContainer,
+QLineEdit#value {
+    background-color: palette(button);
+    border: 1px solid palette(mid);
+    color: palette(text);
+    selection-background-color: palette(highlight);
+    selection-color: palette(highlighted-text);
+}
+
+QWidget#bookTitleSearchContainer[focused="true"],
+QLineEdit#value:focus {
+    background-color: palette(base);
+    border: 1px solid palette(highlight);
+}
+
+QWidget#bookTitleSearchContainer {
+    border-radius: 16px;
+    margin: 4px 6px 3px 6px;
+    min-height: 30px;
 }
 
 QLineEdit#lineEditBookTitleToSearch {
+    background: transparent;
+    border: none;
+    color: palette(text);
+    margin: 0;
+    min-height: 28px;
+    padding: 0;
+    selection-background-color: palette(highlight);
+    selection-color: palette(highlighted-text);
+}
+
+QToolButton#bookTitleSearchButton,
+QToolButton#bookTitleSearchClearButton {
+    background: transparent;
+    border: none;
+    margin: 0;
+    max-height: 22px;
+    max-width: 22px;
     min-height: 22px;
-    padding: 2px 8px;
+    min-width: 22px;
+    padding: 0;
+}
+
+QLineEdit#value {
+    border-radius: 13px;
+    min-height: 24px;
+    padding: 1px 8px;
 }
 
 /* Value-mode combo: the line edit paints itself, so hide the drop-down. */

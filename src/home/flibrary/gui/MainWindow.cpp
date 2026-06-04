@@ -530,9 +530,6 @@ private:
 
 		m_ui.settingsLineEdit->setVisible(false);
 		m_lineOption->SetLineEdit(m_ui.settingsLineEdit);
-
-		m_ui.lineEditBookTitleToSearch->addAction(m_ui.actionSearchBookByTitle, QLineEdit::LeadingPosition);
-
 		if (!m_collectionController->ActiveCollectionExists())
 			m_ui.actionAllowDestructiveOperations->setVisible(false);
 		else
@@ -886,7 +883,11 @@ private:
 		PLOGV << "ConnectActionsSettingsView";
 		ConnectSettings(m_ui.actionShowRemoved, Constant::Settings::SHOW_REMOVED_BOOKS_KEY, this, &Impl::ShowRemovedBooks);
 		ConnectSettings(m_ui.actionShowStatusBar, SHOW_STATUS_BAR_KEY, qobject_cast<QWidget*>(m_ui.statusBar), &QWidget::setVisible);
+#ifdef Q_OS_MACOS
+		ConnectSettings(m_ui.actionShowSearchBookString, SHOW_SEARCH_BOOK_KEY, m_self.findChild<QWidget*>("bookTitleSearchContainer"), &QWidget::setVisible);
+#else
 		ConnectSettings(m_ui.actionShowSearchBookString, SHOW_SEARCH_BOOK_KEY, qobject_cast<QWidget*>(m_ui.lineEditBookTitleToSearch), &QWidget::setVisible);
+#endif
 		ConnectSettings(m_ui.actionShowAuthorAnnotation, SHOW_AUTHOR_ANNOTATION_KEY, m_authorAnnotationWidget.get(), &AuthorAnnotationWidget::Show);
 		ConnectShowHide(m_ui.annotationWidget, &QWidget::setVisible, m_ui.actionShowAnnotation, m_ui.actionHideAnnotation, SHOW_ANNOTATION_KEY);
 

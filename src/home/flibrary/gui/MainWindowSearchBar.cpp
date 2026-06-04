@@ -2,12 +2,16 @@
 
 #include "ui_MainWindow.h"
 
+#include <QBoxLayout>
 #include <QHBoxLayout>
+#include <QIcon>
 #include <QLineEdit>
 #include <QMainWindow>
 #include <QSpacerItem>
 #include <QStackedWidget>
+#include <QStyle>
 #include <QToolBar>
+#include <QToolButton>
 
 #include "interface/localization.h"
 
@@ -41,7 +45,8 @@ class LineEditPlaceholderTextController final : public QObject
 public:
 	LineEditPlaceholderTextController(
 		MainWindow& mainWindow,
-		QLineEdit& lineEdit
+		QLineEdit& lineEdit,
+		QWidget* visibilityWidget
 #define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) , QAction& action##NAME
 			SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
 #undef SEARCH_BOOKS_PLACEHOLDER_ITEM
@@ -49,6 +54,7 @@ public:
 		: QObject(&lineEdit)
 		, m_mainWindow { mainWindow }
 		, m_lineEdit { lineEdit }
+		, m_visibilityWidget { visibilityWidget }
 #define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) , m_action##NAME { action##NAME }
 		SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
 #undef SEARCH_BOOKS_PLACEHOLDER_ITEM
@@ -72,10 +78,12 @@ private: // QObject
 			m_lineEdit.setPlaceholderText(GetPlaceholderText());
 		else if (event->type() == QEvent::Leave)
 			m_lineEdit.setPlaceholderText({});
+		else if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut)
+			SetFocused(event->type() == QEvent::FocusIn);
 		else if (event->type() == QEvent::Show)
 		{
 			if (!IsMainPageVisible())
-				m_lineEdit.setVisible(false);
+				SetVisible(false);
 			emit m_mainWindow.BookTitleToSearchVisibleChanged();
 		}
 		return QObject::eventFilter(watched, event);
@@ -88,8 +96,9 @@ private: // QObject
 		SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
 #undef SEARCH_BOOKS_PLACEHOLDER_ITEM
 
-		m_lineEdit.setVisible(!list.isEmpty() && IsMainPageVisible());
-		if (!m_lineEdit.isVisible())
+		const auto visible = !list.isEmpty() && IsMainPageVisible();
+		SetVisible(visible);
+		if (!visible)
 			return {};
 
 		auto last = list.size() > 1 ? std::move(list.back()) : QString {};
@@ -106,9 +115,27 @@ private: // QObject
 		return true;
 	}
 
+	void SetVisible(const bool visible) const
+	{
+		m_lineEdit.setVisible(visible);
+		if (m_visibilityWidget)
+			m_visibilityWidget->setVisible(visible);
+	}
+
+	void SetFocused(const bool focused) const
+	{
+		if (!m_visibilityWidget)
+			return;
+
+		m_visibilityWidget->setProperty("focused", focused);
+		m_visibilityWidget->style()->unpolish(m_visibilityWidget);
+		m_visibilityWidget->style()->polish(m_visibilityWidget);
+	}
+
 private:
 	MainWindow& m_mainWindow;
 	QLineEdit&  m_lineEdit;
+	QWidget*    m_visibilityWidget;
 #define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) QAction& m_action##NAME;
 	SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
 #undef SEARCH_BOOKS_PLACEHOLDER_ITEM
@@ -121,26 +148,48 @@ namespace HomeCompa::Flibrary
 
 MainWindowSearchBarLayout SetupMainWindowSearchBar(QMainWindow& window, Ui::MainWindow& ui, MainWindow& mainWindow)
 {
-	ui.lineEditBookTitleToSearch->installEventFilter(new LineEditPlaceholderTextController(
-		mainWindow,
-		*ui.lineEditBookTitleToSearch
-#define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) , *ui.actionSearchBy##NAME
-			SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
-#undef SEARCH_BOOKS_PLACEHOLDER_ITEM
-	));
-
 	MainWindowSearchBarLayout result;
-#ifdef Q_OS_MACOS
-	ui.lineEditBookTitleToSearch->setMinimumWidth(280);
-	ui.lineEditBookTitleToSearch->setMaximumWidth(420);
+	QWidget*                  visibilityWidget { nullptr };
 
-	auto* searchBar = new QToolBar(&window);
-	searchBar->setObjectName("searchBar");
-	searchBar->setMovable(false);
-	searchBar->setFloatable(false);
-	searchBar->addWidget(ui.lineEditBookTitleToSearch);
-	window.addToolBar(Qt::TopToolBarArea, searchBar);
+#ifdef Q_OS_MACOS
+	ui.actionSearchBookByTitle->setIcon(QIcon(":/icons/SearchFieldFind.svg"));
+	ui.lineEditBookTitleToSearch->setClearButtonEnabled(false);
+	ui.lineEditBookTitleToSearch->setFrame(false);
+
+	auto* container = new QWidget(&window);
+	container->setObjectName("bookTitleSearchContainer");
+	container->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	visibilityWidget = container;
+
+	auto* layout = new QHBoxLayout(container);
+	layout->setContentsMargins(12, 0, 8, 0);
+	layout->setSpacing(6);
+
+	auto* searchButton = new QToolButton(container);
+	searchButton->setObjectName("bookTitleSearchButton");
+	searchButton->setDefaultAction(ui.actionSearchBookByTitle);
+	searchButton->setAutoRaise(true);
+	searchButton->setFocusPolicy(Qt::NoFocus);
+	layout->addWidget(searchButton);
+	layout->addWidget(ui.lineEditBookTitleToSearch, 1);
+
+	auto* clearButton = new QToolButton(container);
+	clearButton->setObjectName("bookTitleSearchClearButton");
+	clearButton->setIcon(QIcon(":/icons/SearchFieldClear.svg"));
+	clearButton->setAutoRaise(true);
+	clearButton->setFocusPolicy(Qt::NoFocus);
+	clearButton->setVisible(!ui.lineEditBookTitleToSearch->text().isEmpty());
+	QObject::connect(clearButton, &QToolButton::clicked, ui.lineEditBookTitleToSearch, &QLineEdit::clear);
+	QObject::connect(ui.lineEditBookTitleToSearch, &QLineEdit::textChanged, clearButton, [clearButton](const QString& text) {
+		clearButton->setVisible(!text.isEmpty());
+	});
+	layout->addWidget(clearButton);
+
+	if (auto* rightWidget = window.findChild<QWidget*>("rightWidget"))
+		if (auto* rightLayout = qobject_cast<QBoxLayout*>(rightWidget->layout()))
+			rightLayout->insertWidget(0, container);
 #else
+	ui.lineEditBookTitleToSearch->addAction(ui.actionSearchBookByTitle, QLineEdit::LeadingPosition);
 	auto* menuBar = new QWidget(&window);
 	result.layout = new QHBoxLayout(menuBar);
 	window.menuBar()->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
@@ -151,6 +200,15 @@ MainWindowSearchBarLayout SetupMainWindowSearchBar(QMainWindow& window, Ui::Main
 	result.layout->setContentsMargins(0, 0, 0, 0);
 	window.setMenuWidget(menuBar);
 #endif
+
+	ui.lineEditBookTitleToSearch->installEventFilter(new LineEditPlaceholderTextController(
+		mainWindow,
+		*ui.lineEditBookTitleToSearch,
+		visibilityWidget
+#define SEARCH_BOOKS_PLACEHOLDER_ITEM(NAME) , *ui.actionSearchBy##NAME
+			SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO
+#undef SEARCH_BOOKS_PLACEHOLDER_ITEM
+	));
 	return result;
 }
 

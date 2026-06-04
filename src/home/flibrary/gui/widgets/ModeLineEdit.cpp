@@ -4,6 +4,7 @@
 
 #include <ranges>
 
+#include <QIcon>
 #include <QMenu>
 
 #include "settings/ISettings.h"
@@ -15,6 +16,14 @@ namespace
 {
 
 constexpr auto TYPE = "type";
+
+#ifdef Q_OS_MACOS
+void ApplySearchFieldClearIcon(QLineEdit& lineEdit)
+{
+	if (auto* clearAction = lineEdit.findChild<QAction*>("_q_qlineeditclearaction"))
+		clearAction->setIcon(QIcon(":/icons/SearchFieldClear.svg"));
+}
+#endif
 
 }
 
@@ -33,6 +42,10 @@ ModeLineEdit::ModeLineEdit(QWidget* parent)
 {
 	auto& impl = *m_impl;
 	impl.ui.setupUi(this);
+
+#ifdef Q_OS_MACOS
+	impl.ui.actionFindMode->setIcon(QIcon(":/icons/SearchFieldFind.svg"));
+#endif
 
 	impl.valueModeActions.emplace_back(impl.ui.actionFindMode, &IValueApplier::Find);
 	impl.valueModeActions.emplace_back(impl.ui.actionFilterMode, &IValueApplier::Filter);
@@ -55,6 +68,10 @@ ModeLineEdit::IValueApplier::ValueApplier ModeLineEdit::Setup(std::shared_ptr<IS
 	auto& impl = *m_impl;
 	impl.settings.reset(std::move(settings));
 	impl.settingsKey = std::move(settingsKey);
+
+#ifdef Q_OS_MACOS
+	ApplySearchFieldClearIcon(*this);
+#endif
 
 	if (const auto it = std::ranges::find(
 			impl.valueModeActions,
