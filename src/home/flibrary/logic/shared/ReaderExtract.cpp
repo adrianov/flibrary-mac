@@ -22,28 +22,23 @@ constexpr auto READER_KEY = "Reader/%1";
 
 QByteArray ReadBookBytes(QIODevice& stream, const QString& archive, const QString& entryName, const ISettings& settings)
 {
-	if (entryName.endsWith(".epub", Qt::CaseInsensitive))
-		return stream.readAll();
-
 	return Util::PrepareToExport(stream, archive, entryName, settings);
 }
 
 } // namespace
 
 void ExtractBookForReading(
-	const ISettings&                            settings,
-	const ILogicFactory::ITemporaryDir&         temporaryDir,
-	const QString&                                archive,
-	QString&                                    fileName,
-	QString&                                    error,
-	const std::shared_ptr<const ILogicFactory>& logicFactory
+	const ISettings&                    settings,
+	const ILogicFactory::ITemporaryDir& temporaryDir,
+	const QString&                      archive,
+	QString&                            fileName,
+	QString&                            error
 )
 {
 	try
 	{
 		const Zip  zip(archive);
-		const auto stream       = zip.Read(fileName);
-		const auto settingsStub = logicFactory->CreateSettingsStub();
+		const auto stream = zip.Read(fileName);
 
 		if (!fileName.endsWith(".epub", Qt::CaseInsensitive) && Zip::IsArchive(Platform::RemoveIllegalPathCharacters(fileName)))
 		{
@@ -70,7 +65,7 @@ void ExtractBookForReading(
 				if (QFile file(fileNameDst); file.open(QIODevice::WriteOnly))
 				{
 					const auto subStream = subZip.Read(archiveFileName);
-					file.write(ReadBookBytes(subStream->GetStream(), archive, archiveFileName, *settingsStub));
+					file.write(ReadBookBytes(subStream->GetStream(), archive, archiveFileName, settings));
 				}
 			}
 
@@ -85,7 +80,7 @@ void ExtractBookForReading(
 		{
 			auto fileNameDst = temporaryDir.filePath(Platform::RemoveIllegalPathCharacters(fileName));
 			if (QFile file(fileNameDst); file.open(QIODevice::WriteOnly))
-				file.write(ReadBookBytes(stream->GetStream(), archive, fileName, *settingsStub));
+				file.write(ReadBookBytes(stream->GetStream(), archive, fileName, settings));
 
 			fileName = std::move(fileNameDst);
 		}

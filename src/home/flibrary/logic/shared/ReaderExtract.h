@@ -9,12 +9,11 @@ namespace HomeCompa::Flibrary
 {
 
 void ExtractBookForReading(
-	const ISettings&                            settings,
-	const ILogicFactory::ITemporaryDir&         temporaryDir,
-	const QString&                                archive,
-	QString&                                    fileName,
-	QString&                                    error,
-	const std::shared_ptr<const ILogicFactory>& logicFactory
+	const ISettings&                    settings,
+	const ILogicFactory::ITemporaryDir& temporaryDir,
+	const QString&                      archive,
+	QString&                            fileName,
+	QString&                            error
 );
 
 } // namespace HomeCompa::Flibrary

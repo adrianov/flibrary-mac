@@ -118,7 +118,7 @@ void ReaderController::Read(long long id) const
 										   else
 											   temporaryDir = logicFactory->CreateTemporaryDir(ReadExtractDir(id));
 
-										   ExtractBookForReading(*m_impl->settings, *temporaryDir, archive, fileName, error, logicFactory);
+										   ExtractBookForReading(*m_impl->settings, *temporaryDir, archive, fileName, error);
 									   }
 									   catch (const std::exception& ex)
 									   {
