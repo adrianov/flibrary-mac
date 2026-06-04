@@ -1,24 +1,19 @@
-QLabel#lblError {
-    color: #FF0000;
-}
+/* FLibrary macOS theme.
+ *
+ * Principle: keep native AppKit controls native (buttons, combos, checkboxes,
+ * scrollbars, the menu bar). Style only window "chrome": panels, the source
+ * list sidebar, item views, headers, splitters, tooltips.
+ *
+ * Colors come from palette() so light/dark appearance and the system accent
+ * are followed automatically. Radii are concentric (HIG): containers 8px,
+ * selections/popups 6px. Spacing uses a 4px grid.
+ */
 
-QLineEdit[errorTag="true"] {
-    border: 1px solid #FF0000;
-}
+/* --- Validation states --------------------------------------------------- */
+QLabel#lblError { color: #FF3B30; }
+QLineEdit[errorTag="true"] { border: 1px solid #FF3B30; }
 
-QComboBox#cbValueMode::drop-down {
-    border-width: 0;
-}
-
-QComboBox#cbValueMode::down-arrow {
-    image: none;
-    border-width: 0;
-}
-
-QMenu {
-    menu-scrollable: 1;
-}
-
+/* --- Top search toolbar -------------------------------------------------- */
 QToolBar#searchBar {
     border: none;
     background: transparent;
@@ -31,40 +26,66 @@ QLineEdit#lineEditBookTitleToSearch {
     padding: 2px 8px;
 }
 
-QSplitter::handle:horizontal {
-    width: 1px;
-    background: palette(mid);
+/* Value-mode combo: the line edit paints itself, so hide the drop-down. */
+QComboBox#cbValueMode::drop-down { border-width: 0; }
+QComboBox#cbValueMode::down-arrow { image: none; border-width: 0; }
+
+/* Add / remove buttons: rounded bezel like the native list +/- buttons. */
+QToolButton#btnNew, QToolButton#btnRemove {
+    background-color: palette(button);
+    border: 1px solid palette(mid);
+    border-radius: 5px;
+    padding: 3px;
 }
 
-QSplitter::handle:vertical {
-    height: 1px;
-    background: palette(mid);
+QToolButton#btnNew:hover, QToolButton#btnRemove:hover {
+    background-color: palette(midlight);
 }
 
+QToolButton#btnNew:pressed, QToolButton#btnRemove:pressed {
+    background-color: palette(mid);
+}
+
+/* --- Splitters: 1px hairline dividers like Finder ------------------------ */
+QSplitter::handle:horizontal { width: 1px; background: palette(mid); }
+QSplitter::handle:vertical { height: 1px; background: palette(mid); }
+
+/* --- Containers ---------------------------------------------------------- */
 QWidget#leftWidget {
     background-color: palette(alternateBase);
     border-radius: 8px;
 }
 
-QStatusBar {
-    border: none;
-}
+QFrame#mainWidget { border: none; }
+QScrollArea { border: none; background: transparent; }
+QStatusBar { border: none; }
 
+/* --- Item views ---------------------------------------------------------- */
 QTreeView {
     border: none;
     background: palette(base);
     outline: none;
 }
 
-QFrame#mainWidget {
-    border: none;
-}
-
-QScrollArea {
-    border: none;
+/* Navigation panel = macOS source list: tinted, inset, rounded selection. */
+QWidget#navigationWidget QTreeView {
     background: transparent;
+    padding: 6px;
 }
 
+QWidget#navigationWidget QTreeView::item {
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+QWidget#navigationWidget QTreeView::item:selected {
+    background-color: palette(highlight);
+    color: palette(highlighted-text);
+}
+
+QListView#logView::item { padding: 2px 4px; }
+
+/* --- Column header -------------------------------------------------------- */
 QHeaderView::section {
     padding: 4px 8px;
     background: palette(alternateBase);
@@ -72,6 +93,16 @@ QHeaderView::section {
     border-bottom: 1px solid palette(mid);
 }
 
-QHeaderView::section:last {
-    border-right: none;
+QHeaderView::section:last { border-right: none; }
+
+/* --- Tooltips ------------------------------------------------------------ */
+QToolTip {
+    background: palette(base);
+    color: palette(text);
+    border: 1px solid palette(mid);
+    border-radius: 6px;
+    padding: 4px 8px;
 }
+
+/* --- Context menus: keep native rendering, only allow scrolling ---------- */
+QMenu { menu-scrollable: 1; }

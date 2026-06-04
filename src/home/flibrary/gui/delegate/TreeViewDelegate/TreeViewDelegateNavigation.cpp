@@ -48,6 +48,7 @@ private: // QStyledItemDelegate
 			return QStyledItemDelegate::createEditor(parent, option, index);
 
 		auto* btn = new QToolButton(parent);
+		btn->setObjectName("btnRemove");
 		btn->setIcon(QIcon(":/icons/remove.svg"));
 		btn->setAutoRaise(true);
 		btn->setFocusPolicy(Qt::FocusPolicy::NoFocus);

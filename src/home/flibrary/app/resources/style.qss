@@ -1,13 +1,59 @@
-QLabel#lblError { color: #FF0000; }
+/* FLibrary base stylesheet (Windows/Linux and external themes).
+ *
+ * This file is appended to every selected theme, so it stays thin and
+ * structural: only layout/shape polish driven by palette() so it stays
+ * consistent with whatever theme palette is active (including dark mode).
+ * Per-platform control chrome is left to the active Qt/native style.
+ */
 
-QLineEdit[errorTag="true"] { border: 1px solid #FF0000; }
-QLineEdit[errorTag="false"] { border: 1px solid #000000; }
+/* --- Validation states (theme-aware) ------------------------------------- */
+QLabel#lblError { color: #FF3B30; }
+QLineEdit[errorTag="true"] { border: 1px solid #FF3B30; }
+QLineEdit[errorTag="false"] { border: 1px solid palette(mid); }
 
+/* --- Splitters: keep handles flush --------------------------------------- */
 QSplitter::handle:horizontal { width: 0px; }
-
 QSplitter::handle:vertical { height: 0px; }
 
+/* Value-mode combo: the line edit paints itself, so hide the drop-down. */
 QComboBox#cbValueMode::drop-down { border-width: 0px; }
 QComboBox#cbValueMode::down-arrow { image: none; border-width: 0px; }
 
+/* Add / remove buttons: rounded bezel like the native list +/- buttons. */
+QToolButton#btnNew, QToolButton#btnRemove {
+    background-color: palette(button);
+    border: 1px solid palette(mid);
+    border-radius: 5px;
+    padding: 3px;
+}
+
+QToolButton#btnNew:hover, QToolButton#btnRemove:hover {
+    background-color: palette(midlight);
+}
+
+QToolButton#btnNew:pressed, QToolButton#btnRemove:pressed {
+    background-color: palette(mid);
+}
+
+/* --- Containers ---------------------------------------------------------- */
+QWidget#leftWidget { border-radius: 8px; }
+QTreeView { outline: none; }
+
+/* Navigation panel = source list: inset, rounded selection. */
+QWidget#navigationWidget QTreeView::item {
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+QWidget#navigationWidget QTreeView::item:selected {
+    background-color: palette(highlight);
+    color: palette(highlighted-text);
+}
+
+QListView#logView::item { padding: 2px 4px; }
+
+/* --- Column header -------------------------------------------------------- */
+QHeaderView::section { padding: 4px 8px; }
+
+/* --- Context menus -------------------------------------------------------- */
 QMenu { menu-scrollable: 1; }
