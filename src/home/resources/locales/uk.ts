@@ -238,6 +238,10 @@
         <translation>Мій рейтинг:</translation>
     </message>
     <message>
+        <source>No structured metadata in the file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>PublishYear:</source>
         <translation>Рік видання:</translation>
     </message>

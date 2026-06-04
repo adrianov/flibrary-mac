@@ -238,6 +238,10 @@
         <translation></translation>
     </message>
     <message>
+        <source>No structured metadata in the file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>PublishYear:</source>
         <translation>Publish year:</translation>
     </message>

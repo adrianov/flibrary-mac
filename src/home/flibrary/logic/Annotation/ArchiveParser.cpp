@@ -1,5 +1,7 @@
 #include "ArchiveParser.h"
 
+#include "ArchiveDescriptionFallback.h"
+
 #include <ranges>
 
 #include <QFile>
@@ -175,6 +177,7 @@ private: // IParser
 
 		ExtractBookImages(rootFolder, book, *m_settings, m_covers, m_data.covers);
 
+		ArchiveDescriptionFallback::Apply(m_data);
 		return m_data;
 	}
 
@@ -542,6 +545,7 @@ private: // IParser
 		std::vector<std::pair<QString, QByteArray>> _;
 		ExtractBookImages(rootFolder, book, *m_settings, _, result.covers);
 
+		ArchiveDescriptionFallback::ApplyEpub(result, parsed);
 		return result;
 	}
 
@@ -593,6 +597,7 @@ private: // IParser
 		ArchiveParser::Data result;
 		if (auto bytes = m_imageExtractor(m_ioDevice); !bytes.isEmpty())
 			result.covers.emplace_back(Global::COVER, std::move(bytes));
+		ArchiveDescriptionFallback::Apply(result);
 		return result;
 	}
 
@@ -612,7 +617,9 @@ public:
 private: // IParser
 	ArchiveParser::Data Parse(const QString& /*rootFolder*/, const IDataItem& /*book*/, std::unique_ptr<IProgressController::IProgressItem> /*progressItem*/) override
 	{
-		return {};
+		ArchiveParser::Data result;
+		ArchiveDescriptionFallback::Apply(result);
+		return result;
 	}
 };
 
