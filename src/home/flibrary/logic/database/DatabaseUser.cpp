@@ -2,6 +2,7 @@
 
 #include <QtGui/QCursor>
 #include <QtGui/QGuiApplication>
+#include <QTimer>
 
 #include "database/interface/IDatabase.h"
 #include "database/interface/IQuery.h"
@@ -51,17 +52,40 @@ public:
 public:
 	void Set(const bool value) override
 	{
-		if (!m_counter)
-			QGuiApplication::setOverrideCursor(Qt::BusyCursor);
+		if (value)
+		{
+			++m_counter;
+			if (m_counter == 1)
+			{
+				m_showTimer.start(std::chrono::seconds(5));
+				QObject::connect(&m_showTimer, &QTimer::timeout, &m_showTimer, [this] {
+					if (m_counter > 0 && !m_cursorShown)
+					{
+						QGuiApplication::setOverrideCursor(Qt::BusyCursor);
+						m_cursorShown = true;
+					}
+				}, Qt::SingleShotConnection);
+			}
+			return;
+		}
 
-		m_counter += value ? 1 : -1;
+		if (m_counter > 0)
+			--m_counter;
+		if (m_counter != 0)
+			return;
 
-		if (!m_counter)
+		m_showTimer.stop();
+		if (m_cursorShown)
+		{
 			QGuiApplication::restoreOverrideCursor();
+			m_cursorShown = false;
+		}
 	}
 
 private:
-	int m_counter { 0 };
+	int    m_counter { 0 };
+	bool   m_cursorShown { false };
+	QTimer m_showTimer;
 };
 
 std::unique_ptr<IApplicationCursorController> APPLICATION_CURSOR_CONTROLLER { ApplicationCursorControllerStub::create() };
