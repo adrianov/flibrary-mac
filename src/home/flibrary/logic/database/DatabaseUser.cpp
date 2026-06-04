@@ -57,6 +57,7 @@ public:
 			++m_counter;
 			if (m_counter == 1)
 			{
+				m_showTimer.setSingleShot(true);
 				m_showTimer.start(std::chrono::seconds(5));
 				QObject::connect(&m_showTimer, &QTimer::timeout, &m_showTimer, [this] {
 					if (m_counter > 0 && !m_cursorShown)

@@ -576,7 +576,7 @@ private:
 		m_searchBooksByTitleLeft   = layout.left;
 		m_searchBooksByTitleLayout = layout.layout;
 #else
-		SetupMainWindowSearchBar(m_self, m_ui, m_self);
+		m_bookTitleSearchContainer = SetupMainWindowSearchBar(m_self, m_ui, m_self).container;
 #endif
 	}
 
@@ -884,7 +884,7 @@ private:
 		ConnectSettings(m_ui.actionShowRemoved, Constant::Settings::SHOW_REMOVED_BOOKS_KEY, this, &Impl::ShowRemovedBooks);
 		ConnectSettings(m_ui.actionShowStatusBar, SHOW_STATUS_BAR_KEY, qobject_cast<QWidget*>(m_ui.statusBar), &QWidget::setVisible);
 #ifdef Q_OS_MACOS
-		ConnectSettings(m_ui.actionShowSearchBookString, SHOW_SEARCH_BOOK_KEY, m_self.findChild<QWidget*>("bookTitleSearchContainer"), &QWidget::setVisible);
+		ConnectSettings(m_ui.actionShowSearchBookString, SHOW_SEARCH_BOOK_KEY, m_bookTitleSearchContainer, &QWidget::setVisible);
 #else
 		ConnectSettings(m_ui.actionShowSearchBookString, SHOW_SEARCH_BOOK_KEY, qobject_cast<QWidget*>(m_ui.lineEditBookTitleToSearch), &QWidget::setVisible);
 #endif
@@ -1581,6 +1581,8 @@ private:
 #ifndef Q_OS_MACOS
 	QSpacerItem* m_searchBooksByTitleLeft;
 	QLayout*     m_searchBooksByTitleLayout;
+#else
+	QWidget* m_bookTitleSearchContainer { nullptr };
 #endif
 	QObject* m_annotationWidgetEventFilter;
 

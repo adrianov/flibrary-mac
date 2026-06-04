@@ -157,6 +157,7 @@ MainWindowSearchBarLayout SetupMainWindowSearchBar(QMainWindow& window, Ui::Main
 	ui.lineEditBookTitleToSearch->setFrame(false);
 
 	auto* container = new QWidget(&window);
+	result.container = container;
 	container->setObjectName("bookTitleSearchContainer");
 	container->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	visibilityWidget = container;
