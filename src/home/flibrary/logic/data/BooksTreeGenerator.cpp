@@ -275,6 +275,8 @@ public:
 		std::unordered_map<IdsSet, std::pair<SeriesToBooks, IdsSet>, UnorderedSetHash<long long>> authorToBooks;
 		for (const auto& [id, book] : m_books)
 		{
+			if (!book.book)
+				continue;
 			auto& [series, books] = authorToBooks[book.authors.first];
 			const auto& seriesIds = book.series;
 			if (seriesIds.empty())
