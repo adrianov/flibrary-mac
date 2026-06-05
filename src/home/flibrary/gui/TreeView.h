@@ -57,6 +57,7 @@ private slots:
 
 private: // QWidget
 	void resizeEvent(QResizeEvent* event) override;
+	void changeEvent(QEvent* event) override;
 
 private:
 	class Impl;

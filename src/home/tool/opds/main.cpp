@@ -220,7 +220,7 @@ int run(int argc, char* argv[])
 		}
 
 		Util::QStringWrapper::SetLocale(Loc::GetLocale(*settings));
-		const auto translators = Loc::LoadLocales(*settings); //-V808
+		Loc::LoadLocales(*settings);
 		const auto server      = container->resolve<IServer>();
 
 		if (const auto code = QCoreApplication::exec(); code != Global::RESTART_APP)

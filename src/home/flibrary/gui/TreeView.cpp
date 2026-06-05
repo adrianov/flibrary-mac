@@ -8,6 +8,7 @@
 
 #include <QActionGroup>
 #include <QClipboard>
+#include <QEvent>
 #include <QMenu>
 #include <QMimeData>
 #include <QPainter>
@@ -500,6 +501,16 @@ public:
 	{
 		assert(!IsNavigation());
 		m_navigationItemFlags = index.data(Role::Flags).value<IDataItem::Flags>();
+	}
+
+	void RetranslateComboBox() const
+	{
+		for (int i = 0; i < m_ui.cbMode->count(); ++i)
+		{
+			const auto name = m_ui.cbMode->itemData(i).toString();
+			if (!name.isEmpty())
+				m_ui.cbMode->setItemText(i, Loc::Tr(m_controller->TrContext(), name.toUtf8().constData()));
+		}
 	}
 
 	void ResizeEvent(const QResizeEvent* event)
@@ -1471,4 +1482,11 @@ void TreeView::resizeEvent(QResizeEvent* event)
 {
 	m_impl->ResizeEvent(event);
 	QWidget::resizeEvent(event);
+}
+
+void TreeView::changeEvent(QEvent* event)
+{
+	if (event->type() == QEvent::LanguageChange)
+		m_impl->RetranslateComboBox();
+	QWidget::changeEvent(event);
 }

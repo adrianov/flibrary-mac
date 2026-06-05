@@ -25,8 +25,8 @@ namespace HomeCompa::Loc
 FLINT_EXPORT QString Tr(const char* context, const char* str);
 FLINT_EXPORT std::vector<const char*> GetLocales();
 FLINT_EXPORT QString                  GetLocale(const ISettings& settings);
-FLINT_EXPORT std::vector<PropagateConstPtr<QTranslator>> LoadLocales(const ISettings& settings);
-FLINT_EXPORT std::vector<PropagateConstPtr<QTranslator>> LoadLocales(const QString& locale);
+FLINT_EXPORT const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const ISettings& settings);
+FLINT_EXPORT const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const QString& locale);
 
 inline QString Error()
 {

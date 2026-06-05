@@ -17,6 +17,21 @@
 namespace HomeCompa::Loc
 {
 
+namespace
+{
+
+std::vector<PropagateConstPtr<QTranslator>> g_translators;
+
+void UninstallTranslators()
+{
+	for (auto& translator : g_translators)
+		if (translator)
+			QCoreApplication::removeTranslator(translator.get());
+	g_translators.clear();
+}
+
+} // namespace
+
 QString Tr(const char* context, const char* str)
 {
 	return QCoreApplication::translate(context, str);
@@ -54,27 +69,27 @@ QString GetLocale(const ISettings& settings)
 	return LOCALES[0];
 }
 
-std::vector<PropagateConstPtr<QTranslator>> LoadLocales(const ISettings& settings)
+const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const ISettings& settings)
 {
 	return LoadLocales(GetLocale(settings));
 }
 
-std::vector<PropagateConstPtr<QTranslator>> LoadLocales(const QString& locale)
+const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const QString& locale)
 {
-	std::vector<PropagateConstPtr<QTranslator>> translators;
-	const QDir                                  dir = QCoreApplication::applicationDirPath() + "/locales";
+	UninstallTranslators();
+	const QDir dir = QCoreApplication::applicationDirPath() + "/locales";
 
 	for (const auto& file : dir.entryList(QStringList() << QString("*_%1.qm").arg(locale), QDir::Files))
 	{
 		const auto fileName   = dir.absoluteFilePath(file);
-		auto&      translator = translators.emplace_back();
+		auto&      translator = g_translators.emplace_back();
 		if (translator->load(fileName))
 			QCoreApplication::installTranslator(translator.get());
 		else
 			PLOGE << "Cannot load " << fileName;
 	}
 
-	return translators;
+	return g_translators;
 }
 
 } // namespace HomeCompa::Loc

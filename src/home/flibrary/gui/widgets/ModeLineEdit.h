@@ -45,6 +45,9 @@ public:
 private:
 	void OnValueModeActionTriggered();
 
+private: // QWidget
+	void changeEvent(QEvent* event) override;
+
 private:
 	struct Impl;
 	PropagateConstPtr<Impl> m_impl;

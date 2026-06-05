@@ -21,19 +21,17 @@ class LocaleController final : public QObject
 	NON_COPY_MOVABLE(LocaleController)
 	Q_OBJECT
 
-signals:
-	void LocaleChanged() const;
-
 public:
 	LocaleController(std::shared_ptr<ISettings> settings, std::shared_ptr<IUiFactory> uiFactory, QObject* parent = nullptr);
 	~LocaleController() override;
 
 public:
 	void Setup(QMenu& menu);
+	void RetranslateMenu();
 
 private:
 	class Impl;
 	PropagateConstPtr<Impl> m_impl;
 };
 
-}
+} // namespace HomeCompa::Flibrary

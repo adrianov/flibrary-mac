@@ -74,7 +74,9 @@ public:
 private: // QObject
 	bool eventFilter(QObject* watched, QEvent* event) override
 	{
-		if (event->type() == QEvent::Enter)
+		if (event->type() == QEvent::LanguageChange)
+			m_lineEdit.setPlaceholderText(GetPlaceholderText());
+		else if (event->type() == QEvent::Enter)
 			m_lineEdit.setPlaceholderText(GetPlaceholderText());
 		else if (event->type() == QEvent::Leave)
 			m_lineEdit.setPlaceholderText({});

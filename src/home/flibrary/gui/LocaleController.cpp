@@ -1,6 +1,7 @@
 #include "LocaleController.h"
 
 #include <QActionGroup>
+#include <QApplication>
 #include <QMenu>
 
 #include "interface/constants/SettingsConstant.h"
@@ -18,14 +19,26 @@ namespace
 
 constexpr auto NAME = "name";
 
+void ApplyLocale(const QString& locale)
+{
+	Loc::LoadLocales(locale);
+	Util::QStringWrapper::SetLocale(locale);
+
+	if (auto* app = qobject_cast<QApplication*>(QCoreApplication::instance()))
+	{
+		QEvent event(QEvent::LanguageChange);
+		for (auto* widget : app->allWidgets())
+			QApplication::sendEvent(widget, &event);
+	}
+}
+
 }
 
 class LocaleController::Impl
 {
 public:
-	explicit Impl(LocaleController& self, std::shared_ptr<ISettings> settings, std::shared_ptr<IUiFactory> uiFactory)
-		: m_self(self)
-		, m_settings(std::move(settings))
+	explicit Impl(std::shared_ptr<ISettings> settings, std::shared_ptr<IUiFactory> uiFactory)
+		: m_settings(std::move(settings))
 		, m_uiFactory(std::move(uiFactory))
 	{
 		m_actionGroup.setExclusive(true);
@@ -56,20 +69,30 @@ public:
 		}
 	}
 
+	void RetranslateMenu()
+	{
+		for (auto* action : m_actionGroup.actions())
+		{
+			const auto locale = action->property(NAME).toString();
+			action->setText(Loc::Tr(Loc::Ctx::LANG, locale.toUtf8().constData()));
+		}
+	}
+
 private:
 	void SetLocale(const QString& locale)
 	{
 		for (auto* action : m_actionGroup.actions())
-			action->setEnabled(action->property(NAME).toString() != locale);
+		{
+			const auto selected = action->property(NAME).toString() == locale;
+			action->setChecked(selected);
+			action->setEnabled(!selected);
+		}
 
 		m_settings->Set(Constant::Settings::LOCALE_KEY, locale);
-
-		if (m_uiFactory->ShowQuestion(Loc::Tr(Loc::Ctx::COMMON, Loc::CONFIRM_RESTART), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
-			emit m_self.LocaleChanged();
+		ApplyLocale(locale);
 	}
 
 private:
-	LocaleController&                              m_self;
 	PropagateConstPtr<ISettings, std::shared_ptr>  m_settings;
 	PropagateConstPtr<IUiFactory, std::shared_ptr> m_uiFactory;
 	QActionGroup                                   m_actionGroup { nullptr };
@@ -77,7 +100,7 @@ private:
 
 LocaleController::LocaleController(std::shared_ptr<ISettings> settings, std::shared_ptr<IUiFactory> uiFactory, QObject* parent)
 	: QObject(parent)
-	, m_impl(*this, std::move(settings), std::move(uiFactory))
+	, m_impl(std::move(settings), std::move(uiFactory))
 {
 	PLOGV << "LocaleController created";
 }
@@ -90,6 +113,11 @@ LocaleController::~LocaleController()
 void LocaleController::Setup(QMenu& menu)
 {
 	m_impl->Setup(menu);
+}
+
+void LocaleController::RetranslateMenu()
+{
+	m_impl->RetranslateMenu();
 }
 
 } // namespace HomeCompa::Flibrary

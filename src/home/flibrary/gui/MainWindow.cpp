@@ -295,11 +295,6 @@ public:
 		return CheckSystemTray(m_hideToTray) && CheckOpds() && (QCoreApplication::exit(), true);
 	}
 
-	bool Change(const QEvent* event)
-	{
-		return event->type() != QEvent::WindowStateChange || m_self.windowState() != Qt::WindowState::WindowMinimized || CheckSystemTray(m_minimizeToTray);
-	}
-
 	void OnStartAnotherApp() const
 	{
 		m_isFullScreen ? m_self.showFullScreen() : m_isMaximized ? m_self.showMaximized() : m_self.showNormal();
@@ -321,6 +316,50 @@ public:
 	{
 		m_isMaximized  = m_self.isMaximized();
 		m_isFullScreen = m_self.isFullScreen();
+	}
+
+	void OnLanguageChange()
+	{
+		m_ui.retranslateUi(&m_self);
+		m_localeController->RetranslateMenu();
+
+		for (auto* action : m_ui.menuLogVerbosityLevel->actions())
+		{
+			if (action == m_ui.actionTestLogColors)
+				continue;
+			const auto name = action->objectName();
+			if (!name.isEmpty())
+				action->setText(Loc::Tr(Loc::Ctx::LOGGING, name.toUtf8().constData()));
+		}
+
+		for (auto* action : m_ui.menuNavigation->actions())
+		{
+			const auto name = action->objectName();
+			if (!name.isEmpty())
+				action->setText(Loc::Tr(Loc::NAVIGATION, name.toUtf8().constData()));
+		}
+
+		if (m_enableAllJokes)
+			m_enableAllJokes->setText(Tr(ENABLE_ALL));
+		if (m_disableAllJokes)
+			m_disableAllJokes->setText(Tr(DISABLE_ALL));
+
+		if (m_systemTray)
+			if (auto* menu = m_systemTray->contextMenu(); menu && menu->actions().size() >= 2)
+			{
+				menu->actions().at(0)->setText(Tr(OPEN));
+				menu->actions().at(1)->setText(Tr(EXIT));
+			}
+
+		if (m_collectionController->ActiveCollectionExists())
+			m_self.setWindowTitle(QString("%1 %2 - %3").arg(PRODUCT_ID, PRODUCT_VERSION, m_collectionController->GetActiveCollection().name));
+		else
+			m_self.setWindowTitle(QString("%1 %2").arg(PRODUCT_ID, PRODUCT_VERSION));
+	}
+
+	bool Change(const QEvent* event)
+	{
+		return event->type() != QEvent::WindowStateChange || m_self.windowState() != Qt::WindowState::WindowMinimized || CheckSystemTray(m_minimizeToTray);
 	}
 
 private: // ICollectionsObserver
@@ -887,9 +926,6 @@ private:
 
 		ConnectActionsSettingsSearch();
 
-		connect(m_localeController.get(), &LocaleController::LocaleChanged, &m_self, [&] {
-			Reboot();
-		});
 		connect(m_ui.actionFilters, &QAction::triggered, &m_self, [&] {
 			m_uiFactory->CreateFilterSettingsDialog()->exec();
 		});
@@ -1431,7 +1467,9 @@ void MainWindow::OnOpenFb2(const QString& path)
 
 void MainWindow::changeEvent(QEvent* event)
 {
-	if (!m_impl->Change(event))
+	if (event->type() == QEvent::LanguageChange)
+		m_impl->OnLanguageChange();
+	else if (!m_impl->Change(event))
 		event->ignore();
 }
 

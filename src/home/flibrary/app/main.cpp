@@ -168,7 +168,7 @@ int main(int argc, char* argv[])
 				if (const auto keyboardLayoutId = settings->Get(KEYBOARD_LAYOUT_KEY, QString {}); !keyboardLayoutId.isEmpty())
 					Platform::SetKeyboardLayoutId(keyboardLayoutId);
 
-			const auto translators = Loc::LoadLocales(*settings); //-V808
+			Loc::LoadLocales(*settings);
 
 			auto singleInstanceController = container->resolve<ISingleInstanceController>();
 			if (!singleInstanceController->IsFirstSingleInstanceApp())

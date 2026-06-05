@@ -4,6 +4,7 @@
 
 #include <ranges>
 
+#include <QEvent>
 #include <QIcon>
 #include <QMenu>
 
@@ -88,6 +89,13 @@ ModeLineEdit::IValueApplier::ValueApplier ModeLineEdit::Setup(std::shared_ptr<IS
 
 	assert(result);
 	return result;
+}
+
+void ModeLineEdit::changeEvent(QEvent* event)
+{
+	if (event->type() == QEvent::LanguageChange)
+		m_impl->ui.retranslateUi(this);
+	QLineEdit::changeEvent(event);
 }
 
 void ModeLineEdit::OnValueModeActionTriggered()
