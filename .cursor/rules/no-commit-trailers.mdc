@@ -1,0 +1,61 @@
+---
+description: Git commits must not include message trailers
+alwaysApply: true
+---
+
+# No commit trailers
+
+Never add trailers to commit messages.
+
+## Forbidden
+
+Do not append any footer lines after the subject or body, including:
+
+- `Signed-off-by:`
+- `Co-authored-by:`
+- `Reviewed-by:`
+- `Acked-by:`
+- `Fixes:` / `Closes:` / `Refs:` (as git-trailer lines)
+- Any other `Key: value` trailer convention
+
+## Required format
+
+- One subject line (optionally one short body paragraph).
+- No blank-line footer block.
+- No `--trailer` flags when committing.
+
+## Examples
+
+```
+chore: vendor foundation into the main repo
+```
+
+```
+fix: resolve INPX base-name-only book files for epub export
+
+Export now resolves archive entry names before reading FB2 bytes.
+```
+
+## Anti-patterns
+
+```
+fix: epub export
+
+Signed-off-by: Someone <someone@example.com>
+```
+
+```
+feat: add converter
+
+Co-authored-by: Name <email@example.com>
+```
+
+When committing, pass the message via HEREDOC with subject (and optional body) only — nothing after the body.
+
+## Disable Cursor auto-trailers
+
+1. **IDE**: Cursor Settings → Agent → Attribution → turn off commit/PR attribution.
+2. **CLI / agent**: `~/.cursor/cli-config.json` and project `.cursor/cli.json` set `attribution.attributeCommitsToAgent` and `attributePRsToAgent` to `false`.
+3. **Fallback**: this repo’s `.git/hooks/prepare-commit-msg` strips Cursor trailers if they still appear.
+
+If attribution is injected after `git commit` (agent shell wrapper), use `git commit-tree` to rewrite the message, or amend via low-level git — normal `--no-verify` may not be enough.
