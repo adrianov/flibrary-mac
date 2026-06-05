@@ -32,6 +32,8 @@ QString StyleOpenTag(const XmlAttributes& attributes)
 		return QStringLiteral("<code>");
 	if (name.compare("strikethrough", Qt::CaseInsensitive) == 0)
 		return QStringLiteral("<s>");
+	if (name.compare("underline", Qt::CaseInsensitive) == 0 || name == "not_supported_in_fb2_underline")
+		return QStringLiteral("<u>");
 	if (name.isEmpty())
 		return QStringLiteral("<span>");
 	return QString("<span class=\"fb2-%1\">").arg(EscapeHtmlText(name));
@@ -47,6 +49,8 @@ QString StyleCloseTag(const QString& openTag)
 		return QStringLiteral("</code>");
 	if (openTag == QStringLiteral("<s>"))
 		return QStringLiteral("</s>");
+	if (openTag.startsWith(QStringLiteral("<u")))
+		return QStringLiteral("</u>");
 	return QStringLiteral("</span>");
 }
 

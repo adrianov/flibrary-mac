@@ -646,6 +646,10 @@ bool CheckFb2Elements(const QString& fb2Path)
 		return false;
 	if (!require(QStringLiteral("x<sup>2</sup>"), "sup"))
 		return false;
+	if (!require(QStringLiteral("<u>under</u>"), "underline"))
+		return false;
+	if (!require(QStringLiteral("<u>lined</u>"), "not_supported_in_fb2_underline"))
+		return false;
 	if (!require(QStringLiteral("class=\"fb2-note\">custom</span>"), "style"))
 		return false;
 	if (!require(QStringLiteral("<table>"), "table"))

@@ -16,7 +16,7 @@
       <cite>
         <p>Sign on the wall.</p>
       </cite>
-      <p>Inline <code>printf()</code>, <strikethrough>deleted</strikethrough>, H<sub>2</sub>O, x<sup>2</sup>, and <style name="note">custom</style>.</p>
+      <p>Inline <code>printf()</code>, <strikethrough>deleted</strikethrough>, H<sub>2</sub>O, x<sup>2</sup>, <style name="underline">under</style>, <style name="not_supported_in_fb2_underline">lined</style>, and <style name="note">custom</style>.</p>
       <table>
         <tr><th>Name</th><th>Value</th></tr>
         <tr><td>Alpha</td><td>One</td></tr>
