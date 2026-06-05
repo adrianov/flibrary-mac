@@ -174,7 +174,11 @@ void CreateTreeMenu(const IDataItem::Ptr& root, const ITreeViewController::Reque
 
 class BooksContextMenuProvider::Impl final : public IContextMenuHandler
 {
+	const std::shared_ptr<bool> m_alive { std::make_shared<bool>(true) };
+
 public:
+	~Impl() override { *m_alive = false; }
+
 	explicit Impl(
 		const std::shared_ptr<const ILogicFactory>& logicFactory,
 		std::shared_ptr<const ISettings>            settings,
@@ -382,7 +386,7 @@ private: // IContextMenuHandler
 
 	void SetUserRate(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback) const override
 	{
-		m_databaseUser->Execute({ "Set my rate", [this, ids = GetSelected(model, index, indexList), item = std::move(item), callback = std::move(callback)]() mutable {
+		m_databaseUser->Execute({ "Set my rate", [this, alive = std::weak_ptr(m_alive), ids = GetSelected(model, index, indexList), item = std::move(item), callback = std::move(callback)]() mutable {
 									 const auto db          = m_databaseUser->Database();
 									 const auto transaction = db->CreateTransaction();
 									 const auto command =
@@ -405,14 +409,15 @@ private: // IContextMenuHandler
 									 });
 									 ok      = transaction->Commit() && ok;
 
-									 return [this, item = std::move(item), callback = std::move(callback), ok](size_t) {
-										 if (!ok)
-											 m_uiFactory->ShowError(Tr(CANNOT_SET_USER_RATE));
-
-										 callback(item);
-										 if (ok)
-											 m_dataProvider->RequestBooks(true);
-									 };
+								 return [this, alive, item = std::move(item), callback = std::move(callback), ok](size_t) {
+									 if (alive.expired())
+										 return;
+									 if (!ok)
+										 m_uiFactory->ShowError(Tr(CANNOT_SET_USER_RATE));
+									 callback(item);
+									 if (ok)
+										 m_dataProvider->RequestBooks(true);
+								 };
 								 } });
 	}
 
@@ -475,7 +480,7 @@ private: // IContextMenuHandler
 		if (m_uiFactory->ShowQuestion(Tr(CHANGE_LANGUAGE_CONFIRM).arg(item->GetData(MenuItem::Column::Title)), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes)
 			return callback(item);
 
-		m_databaseUser->Execute({ "Change book language", [this, ids = GetSelected(model, index, indexList), item = std::move(item), callback = std::move(callback)]() mutable {
+		m_databaseUser->Execute({ "Change book language", [this, alive = std::weak_ptr(m_alive), ids = GetSelected(model, index, indexList), item = std::move(item), callback = std::move(callback)]() mutable {
 									 const auto lang = item->GetData(MenuItem::Column::Parameter).toStdString();
 
 									 const auto db          = m_databaseUser->Database();
@@ -493,14 +498,15 @@ private: // IContextMenuHandler
 									 const auto ok = execute("insert or replace into Books_User(BookID, Lang, CreatedAt) values(:id, :lang, datetime(CURRENT_TIMESTAMP, 'localtime'))")
 			                                      && execute("update Books set Lang = :lang where BookID = :id") && transaction->Commit();
 
-									 return [this, item = std::move(item), callback = std::move(callback), ok](size_t) {
-										 if (!ok)
-											 m_uiFactory->ShowError(Tr(CANNOT_SET_LANGUAGE));
-
-										 callback(item);
-										 if (ok)
-											 m_dataProvider->RequestBooks(true);
-									 };
+								 return [this, alive, item = std::move(item), callback = std::move(callback), ok](size_t) {
+									 if (alive.expired())
+										 return;
+									 if (!ok)
+										 m_uiFactory->ShowError(Tr(CANNOT_SET_LANGUAGE));
+									 callback(item);
+									 if (ok)
+										 m_dataProvider->RequestBooks(true);
+								 };
 								 } });
 	}
 
@@ -632,17 +638,18 @@ private:
 
 	void ChangeBookRemoved(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item, Callback callback, const bool remove) const
 	{
-		m_databaseUser->Execute({ "Remove books", [this, ids = GetSelected(model, index, indexList), item = std::move(item), callback = std::move(callback), remove]() mutable {
-									 const bool ok = DatabaseUtil::ChangeBookRemoved(*m_databaseUser->Database(), ids, remove);
-									 return [this, item = std::move(item), callback = std::move(callback), remove, ok](size_t) {
-										 if (!ok)
-											 m_uiFactory->ShowError(Tr(CANNOT_REMOVE_BOOK).arg(Tr(remove ? REMOVE : RESTORE)));
-
-										 callback(item);
-										 if (ok)
-											 m_dataProvider->RequestBooks(true);
-									 };
-								 } });
+		m_databaseUser->Execute({ "Remove books", [this, alive = std::weak_ptr(m_alive), ids = GetSelected(model, index, indexList), item = std::move(item), callback = std::move(callback), remove]() mutable {
+								 const bool ok = DatabaseUtil::ChangeBookRemoved(*m_databaseUser->Database(), ids, remove);
+								 return [this, alive, item = std::move(item), callback = std::move(callback), remove, ok](size_t) {
+									 if (alive.expired())
+										 return;
+									 if (!ok)
+										 m_uiFactory->ShowError(Tr(CANNOT_REMOVE_BOOK).arg(Tr(remove ? REMOVE : RESTORE)));
+									 callback(item);
+									 if (ok)
+										 m_dataProvider->RequestBooks(true);
+								 };
+							 } });
 	}
 
 private:
