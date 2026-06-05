@@ -1,30 +1,49 @@
 ---
-description: Edited files over 200 lines must shrink by ≥100 lines per change via extract or DRY
+description: Mandatory — after every edit, any touched file over 200 lines must lose ≥100 lines via extract or DRY before you finish
 alwaysApply: true
 ---
 
 # Source file length and post-edit refactor
 
-## Limit
+## Mandatory
 
-- **Long-term target**: project source files should stay at **200 lines or fewer**.
-- Applies to C/C++ sources and headers, CMake modules, and repo-owned scripts you edit.
-- **Skip**: `third-party/`, `src/ext/` vendored submodules (unless the task explicitly changes them), generated build output, and binary assets.
+**Run this rule every time you edit in-scope files. Do not skip, defer, or treat it as optional.**
 
-Reaching 200 lines may take several edits — that is fine.
+Completing the user's task does **not** excuse leaving oversized touched files unchanged. A bug fix, one-liner, or urgent change still triggers this rule.
 
-## After each edit
+**Do not finish** (respond, commit, or mark work done) until every qualifying file below has been refactored.
 
-When you finish a coherent change:
+No exceptions for: pre-existing length, time pressure, unrelated task scope, or “minimal diff only”.
+
+## Target
+
+Keep project source files at **200 lines or fewer** over time.
+
+**In scope**: C/C++ sources and headers, CMake modules, repo-owned scripts you edit.
+
+**Out of scope**: `third-party/`, `src/ext/` vendored submodules (unless the task changes them), generated build output, binary assets.
+
+Hitting 200 lines in one step is not required — shrink large files across edits.
+
+## When this applies
+
+After **every** coherent change, before you finish:
 
 1. List **every file you modified**.
-2. For **each** file still **over 200 lines**, refactor it now (longest first):
-   - Remove dead code, duplication, and unused paths first (**DRY**).
-   - **This time**, **extract or consolidate at least 100 lines** into a focused helper, sibling module, or shared unit.
-3. **Per edit, the bar is −100 lines, not ≤200 lines.** You do not have to reach 200 in one step; you must cut **at least 100 lines** from every touched file that is still over 200. Small trims alone are not enough.
-4. Do **not** refactor long files you did **not** edit unless asked.
+2. For each in-scope file **over 200 lines** at that moment — whether it was already long or grew past 200 during your edit — apply the refactor below.
 
-**Pre-existing size is not an excuse.** If you touched a file that was already over 200 lines, apply the **−100 lines** rule before finishing.
+## What to do
+
+For each qualifying file:
+
+1. **Remove** dead code, duplication, and unused paths first (**DRY**).
+2. **Extract or consolidate at least 100 lines** into a focused helper, sibling module, or shared unit.
+
+**Minimum per edit: −100 lines**, not “reach ≤200”. Small trims alone do not satisfy the rule.
+
+**Do not** refactor long files you did not edit unless asked.
+
+Work longest qualifying files first.
 
 ## How to extract
 
@@ -33,3 +52,9 @@ When you finish a coherent change:
 - **Preserve behaviour** — structural change only.
 - Prefer **one** new focused module over many tiny files.
 - Match nearby naming, include style, and CMake/target patterns.
+
+## Before you finish — verify
+
+- [ ] Every modified in-scope file was checked for line count.
+- [ ] Every file still over 200 lines lost **≥100 lines** via extract or DRY.
+- [ ] No qualifying file was left for “later” or a follow-up.
