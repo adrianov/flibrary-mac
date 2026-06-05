@@ -6,11 +6,9 @@
 
 #include <QActionGroup>
 #include <QDesktopServices>
-#include <QDirIterator>
 #include <QGuiApplication>
 #include <QKeyEvent>
 #include <QStandardPaths>
-#include <QStyleFactory>
 #include <QSystemTrayIcon>
 #include <QTimer>
 #include <QToolBar>
@@ -39,12 +37,13 @@
 #include "logging/LogAppender.h"
 #include "platformgui/NativeUi.h"
 #include "settings/Font.h"
-#include "util/FunctorExecutionForwarder.h"
 #include "util/ObjectsConnector.h"
 #include "utilgui/GeometryRestorable.h"
 
 #include "Constant.h"
 #include "MainWindowSearchBar.h"
+#include "MainWindowThemeMenu.h"
+#include "StatusBarLogAppender.h"
 #include "logic/shared/ReaderLaunch.h"
 #include "QtTypes.h"
 #include "StackedPage.h"
@@ -65,13 +64,10 @@ constexpr auto        EXIT                                 = QT_TRANSLATE_NOOP("
 constexpr auto        OPEN                                 = QT_TRANSLATE_NOOP("MainWindow", "Open FLibrary");
 constexpr auto        FONT_DIALOG_TITLE                    = QT_TRANSLATE_NOOP("MainWindow", "Select font");
 constexpr auto        CONFIRM_RESTORE_DEFAULT_SETTINGS     = QT_TRANSLATE_NOOP("MainWindow", "Are you sure you want to return to default settings?");
-constexpr auto        CONFIRM_REMOVE_ALL_THEMES            = QT_TRANSLATE_NOOP("MainWindow", "Are you sure you want to delete all themes?");
 constexpr auto        DATABASE_BROKEN                      = QT_TRANSLATE_NOOP("MainWindow", "Database file \"%1\" is probably corrupted");
 constexpr auto        DENY_DESTRUCTIVE_OPERATIONS_MESSAGE  = QT_TRANSLATE_NOOP("MainWindow", "The right decision!");
 constexpr auto        ALLOW_DESTRUCTIVE_OPERATIONS_MESSAGE = QT_TRANSLATE_NOOP("MainWindow", "Well, you only have yourself to blame!");
-constexpr auto        SELECT_QSS_FILE                      = QT_TRANSLATE_NOOP("MainWindow", "Select stylesheet files");
 constexpr auto        SELECT_SETTINGS_FILE                 = QT_TRANSLATE_NOOP("MainWindow", "Select settings file");
-constexpr auto        QSS_FILE_FILTER                      = QT_TRANSLATE_NOOP("MainWindow", "Qt stylesheet files (*.%1 *.dll);;All files (*.*)");
 constexpr auto        SETTINGS_FILE_FILTER                 = QT_TRANSLATE_NOOP("MainWindow", "Settings files (*.ini);;All files (*.*)");
 constexpr auto        ENABLE_ALL                           = QT_TRANSLATE_NOOP("MainWindow", "Enable all");
 constexpr auto        DISABLE_ALL                          = QT_TRANSLATE_NOOP("MainWindow", "Disable all");
@@ -98,7 +94,6 @@ constexpr auto SHOW_REVIEWS_KEY                   = "ui/View/ShowReadersReviews"
 constexpr auto SHOW_SEARCH_BOOK_KEY               = "ui/View/ShowSearchBook";
 constexpr auto CHECK_FOR_UPDATE_ON_START_KEY      = "ui/View/CheckForUpdateOnStart";
 constexpr auto START_FOCUSED_CONTROL              = "Preferences/StartFocusedControl";
-constexpr auto QSS                                = "qss";
 constexpr auto SETTINGS_FILE_KEY                  = "settings_file";
 
 #define SEARCH_BOOKS_PLACEHOLDER_ITEMS_X_MACRO  \
@@ -106,35 +101,6 @@ constexpr auto SETTINGS_FILE_KEY                  = "settings_file";
 	SEARCH_BOOKS_PLACEHOLDER_ITEM(SERIES)       \
 	SEARCH_BOOKS_PLACEHOLDER_ITEM(TITLE)        \
 	SEARCH_BOOKS_PLACEHOLDER_ITEM(ANNOTATION)
-
-template <typename T>
-QString ToString(const T* source) = delete;
-
-template <>
-[[maybe_unused]] QString ToString<char>(const char* source)
-{
-	return QString::fromStdString(source);
-}
-
-template <>
-[[maybe_unused]] QString ToString<wchar_t>(const wchar_t* source)
-{
-	return QString::fromStdWString(source);
-}
-
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-QString GetStyleName(const QString& key)
-{
-	if (const auto* style = QStyleFactory::create(key))
-		return style->name();
-	return {};
-}
-#else
-QString GetStyleName(const QString& key)
-{
-	return QStyleFactory::create(key) ? key : QString {};
-}
-#endif
 
 class VisibleChangedHandler final : public QObject
 {
@@ -169,15 +135,6 @@ private:
 	std::function<void(bool)> m_callback;
 };
 
-std::set<QString> GetQssList()
-{
-	std::set<QString> list;
-	QDirIterator      it(":/", QStringList() << "*.qss", QDir::Files, QDirIterator::Subdirectories);
-	while (it.hasNext())
-		list.emplace(it.next());
-	return list;
-}
-
 } // namespace
 
 class MainWindow::Impl final
@@ -187,7 +144,6 @@ class MainWindow::Impl final
 	, ILineOption::IObserver
 	, IAlphabetPanel::IObserver
 	, ITreeViewController::IObserver
-	, virtual plog::IAppender
 {
 	NON_COPY_MOVABLE(Impl)
 
@@ -331,35 +287,7 @@ public:
 
 	void RemoveCustomStyleFile()
 	{
-		if (m_lastStyleFileHovered.isEmpty())
-			return;
-
-		auto list = m_settings->Get(IStyleApplier::THEME_FILES_KEY).toStringList();
-		if (!list.removeAll(m_lastStyleFileHovered))
-			return;
-
-		m_settings->Set(IStyleApplier::THEME_FILES_KEY, list);
-
-		auto actions = m_ui.menuTheme->actions();
-		if (const auto it = std::ranges::find(
-				actions,
-				m_lastStyleFileHovered,
-				[](const QAction* action) {
-					return action->property(IStyleApplier::ACTION_PROPERTY_THEME_FILE).toString();
-				}
-			);
-		    it != actions.end())
-		{
-			m_ui.menuTheme->removeAction(*it);
-			if (auto* menu = (*it)->menu())
-				menu->close();
-		}
-
-		if (m_styleApplierFactory->CreateThemeApplier()->GetChecked().second != m_lastStyleFileHovered)
-			return;
-
-		m_styleApplierFactory->CreateStyleApplier(IStyleApplier::Type::PluginStyle)->Apply(IStyleApplier::THEME_NAME_DEFAULT, {});
-		RebootDialog();
+		RemoveCustomThemeFile(ThemeMenuDeps());
 	}
 
 	bool Close()
@@ -413,15 +341,6 @@ private: // ICollectionsObserver
 
 		RestoreUserData(m_collectionToRecreate->id);
 		m_collectionToRecreate = std::nullopt;
-	}
-
-private: // plog::IAppender
-	void write(const plog::Record& record) override
-	{
-		if (record.getSeverity() < plog::Severity::verbose && m_ui.statusBar && m_ui.statusBar->isVisible())
-			m_forwarder.Forward([&, message = ToString(record.getMessage())] {
-				m_ui.statusBar->showMessage(message, 2000);
-			});
 	}
 
 private: // ILineOption::IObserver
@@ -844,17 +763,6 @@ private:
 		});
 	}
 
-	void ConnectActionsSettingsTheme()
-	{
-		PLOGV << "ConnectActionsSettingsTheme";
-		connect(m_ui.actionAddThemes, &QAction::triggered, &m_self, [this] {
-			OpenExternalStyle(m_uiFactory->GetOpenFileNames(QSS, Tr(SELECT_QSS_FILE), Tr(QSS_FILE_FILTER).arg(QSS)));
-		});
-		connect(m_ui.actionDeleteAllThemes, &QAction::triggered, &m_self, [this] {
-			DeleteCustomThemes();
-		});
-	}
-
 	void ConnectActionsSettingsExport()
 	{
 		PLOGV << "ConnectActionsSettingsExport";
@@ -910,7 +818,7 @@ private:
 		ConnectActionsSettingsFont();
 		ConnectActionsSettingsAlphabet();
 		ConnectActionsSettingsLog();
-		ConnectActionsSettingsTheme();
+		ConnectMainWindowThemeMenuActions(ThemeMenuDeps());
 	}
 
 	void ConnectActionsSettingsHttp()
@@ -1095,196 +1003,15 @@ private:
 		});
 	}
 
-	void ApplyStyleAction(QAction& action, const QActionGroup& group) const
-	{
-		PLOGV << "ApplyStyleAction";
-		for (auto* groupAction : group.actions())
-			groupAction->setEnabled(true);
-
-		action.setEnabled(false);
-
-		auto applier = m_styleApplierFactory->CreateStyleApplier(static_cast<IStyleApplier::Type>(action.property(IStyleApplier::ACTION_PROPERTY_THEME_TYPE).toInt()));
-		applier->Apply(action.property(IStyleApplier::ACTION_PROPERTY_THEME_NAME).toString(), action.property(IStyleApplier::ACTION_PROPERTY_THEME_FILE).toString());
-		RebootDialog();
-	}
-
 	void RebootDialog() const
 	{
 		if (m_uiFactory->ShowQuestion(Loc::Tr(Loc::Ctx::COMMON, Loc::CONFIRM_RESTART), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
 			Reboot();
 	}
 
-	void AddStyleActionsToGroup(const std::vector<QAction*>& actions, QActionGroup* group)
-	{
-		for (auto* action : actions)
-		{
-			group->addAction(action);
-			connect(action, &QAction::triggered, &m_self, [this, action, group] {
-				ApplyStyleAction(*action, *group);
-			});
-		}
-	}
-
-	QAction* CreateStyleAction(QMenu& menu, const IStyleApplier::Type type, const QString& actionName, const QString& name, const QString& file = {})
-	{
-		auto* action = menu.addAction(QFileInfo(actionName).completeBaseName());
-		action->setObjectName(QString::fromUtf8(actionName.toUtf8().toBase64().toHex()));
-
-		action->setProperty(IStyleApplier::ACTION_PROPERTY_THEME_NAME, name);
-		action->setProperty(IStyleApplier::ACTION_PROPERTY_THEME_TYPE, static_cast<int>(type));
-		action->setProperty(IStyleApplier::ACTION_PROPERTY_THEME_FILE, file);
-		action->setCheckable(true);
-
-		connect(action, &QAction::hovered, &m_self, [this, file] {
-			m_lastStyleFileHovered = file;
-		});
-
-		return action;
-	}
-
 	void CreateStylesMenu()
 	{
-		PLOGV << "CreateStylesMenu";
-		const auto addActionGroup = [this](const std::vector<QAction*>& actions, QActionGroup* group) {
-			AddStyleActionsToGroup(actions, group);
-			m_styleApplierFactory->CheckAction(actions);
-		};
-		addActionGroup({ m_ui.actionColorSchemeSystem, m_ui.actionColorSchemeLight, m_ui.actionColorSchemeDark }, new QActionGroup(&m_self));
-
-		std::vector<QAction*> styles;
-		for (const auto& name : QStyleFactory::keys())
-		{
-#ifdef Q_OS_MACOS
-			if (name.compare(IStyleApplier::THEME_NAME_DEFAULT, Qt::CaseInsensitive) != 0)
-				continue;
-#endif
-			if (const auto actionName = GetStyleName(name); !actionName.isEmpty())
-				styles.emplace_back(CreateStyleAction(*m_ui.menuTheme, IStyleApplier::Type::PluginStyle, actionName, name));
-		}
-
-		m_ui.menuTheme->addSeparator();
-
-#ifndef Q_OS_MACOS
-		if (const auto externalThemesVar = m_settings->Get(IStyleApplier::THEME_FILES_KEY); externalThemesVar.isValid())
-		{
-			auto externalThemes = externalThemesVar.toStringList() | std::ranges::to<std::vector>();
-			std::ranges::sort(externalThemes);
-			for (const auto& fileName : externalThemes)
-				std::ranges::copy(AddExternalStyle(fileName), std::back_inserter(styles));
-		}
-#endif
-		addActionGroup(styles, m_stylesActionGroup);
-
-#ifndef Q_OS_MACOS
-		m_ui.menuTheme->addSeparator();
-		m_ui.menuTheme->addAction(m_ui.actionAddThemes);
-		m_ui.menuTheme->addAction(m_ui.actionDeleteAllThemes);
-#endif
-	}
-
-	std::vector<QAction*> AddExternalStyle(const QString& fileName)
-	{
-		assert(!fileName.isEmpty());
-
-		const QFileInfo fileInfo(fileName);
-		if (!fileInfo.exists())
-			return {};
-
-		const auto ext = fileInfo.suffix().toLower();
-		if (ext == "qss")
-			return { CreateStyleAction(*m_ui.menuTheme, IStyleApplier::Type::QssStyle, fileName, fileInfo.completeBaseName(), fileName) };
-
-		if (ext == "dll")
-			return AddExternalStyleDll(fileInfo);
-
-		return {};
-	}
-
-	std::vector<QAction*> AddExternalStyleDll(const QFileInfo& fileInfo)
-	{
-		const auto addLibList = [&](const std::set<QString>& libList) -> std::vector<QAction*> {
-			if (libList.empty())
-				return {};
-
-			auto* menu = m_ui.menuTheme->addMenu(fileInfo.completeBaseName());
-			menu->setFont(m_self.font());
-
-			auto* action = menu->menuAction();
-			action->setProperty(IStyleApplier::ACTION_PROPERTY_THEME_FILE, fileInfo.filePath());
-			connect(action, &QAction::hovered, &m_self, [this, file = fileInfo.filePath()] {
-				m_lastStyleFileHovered = file;
-			});
-
-			std::vector<QAction*> result;
-			result.reserve(libList.size());
-			std::ranges::transform(libList, std::back_inserter(result), [&](const auto& qss) {
-				return CreateStyleAction(*menu, IStyleApplier::Type::DllStyle, qss, qss, fileInfo.filePath());
-			});
-
-			return result;
-		};
-
-		auto currentList = GetQssList();
-
-		if (auto applier = m_styleApplierFactory->CreateThemeApplier(); applier->GetType() == IStyleApplier::Type::DllStyle && applier->GetChecked().second == fileInfo.filePath())
-		{
-			currentList.erase(IStyleApplier::STYLE_FILE_NAME);
-			return addLibList(currentList);
-		}
-
-		Platform::DyLib lib(fileInfo.filePath().toStdString());
-		if (!lib.IsOpen())
-		{
-			PLOGE << lib.GetErrorDescription();
-			return {};
-		}
-
-		auto libList = GetQssList();
-		erase_if(libList, [&](const auto& item) {
-			return currentList.contains(item);
-		});
-		return addLibList(libList);
-	}
-
-	void OpenExternalStyle(const QStringList& fileNames)
-	{
-		auto list = m_settings->Get(IStyleApplier::THEME_FILES_KEY).toStringList();
-
-		for (const auto& fileName : fileNames)
-		{
-			if (list.contains(fileName, Qt::CaseInsensitive))
-				continue;
-
-			auto actions = AddExternalStyle(fileName);
-			if (actions.empty())
-				continue;
-
-			AddStyleActionsToGroup(actions, m_stylesActionGroup);
-			list << fileName;
-		}
-
-		m_settings->Set(IStyleApplier::THEME_FILES_KEY, list);
-	}
-
-	void DeleteCustomThemes()
-	{
-		if (m_uiFactory->ShowQuestion(Tr(CONFIRM_REMOVE_ALL_THEMES), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) != QMessageBox::Yes)
-			return;
-
-		for (auto* action : m_ui.menuTheme->actions())
-		{
-			const auto file = action->property(IStyleApplier::ACTION_PROPERTY_THEME_FILE).toString();
-			if (!file.isEmpty())
-				m_ui.menuTheme->removeAction(action);
-		}
-
-		m_settings->Remove(IStyleApplier::THEME_FILES_KEY);
-
-		if (m_styleApplierFactory->CreateThemeApplier()->GetType() == IStyleApplier::Type::PluginStyle)
-			return;
-
-		m_styleApplierFactory->CreateStyleApplier(IStyleApplier::Type::PluginStyle)->Apply(IStyleApplier::THEME_NAME_DEFAULT, {});
-		RebootDialog();
+		CreateMainWindowThemeMenu(ThemeMenuDeps());
 	}
 
 	void SearchBookByTitle()
@@ -1540,6 +1267,20 @@ private:
 		});
 	}
 
+	MainWindowThemeMenuDeps ThemeMenuDeps()
+	{
+		return {
+			m_self,
+			m_ui,
+			*m_settings,
+			*m_styleApplierFactory,
+			*m_uiFactory,
+			*m_stylesActionGroup,
+			m_lastStyleFileHovered,
+			[this] { RebootDialog(); }
+		};
+	}
+
 private:
 	MainWindow&    m_self;
 	Ui::MainWindow m_ui {};
@@ -1574,8 +1315,8 @@ private:
 	std::shared_ptr<QMainWindow> m_queryWindow;
 	std::shared_ptr<QWidget>     m_additionalWidget;
 
-	Util::FunctorExecutionForwarder m_forwarder;
-	const Log::LogAppender          m_logAppender { this };
+	StatusBarLogAppender m_statusBarLogAppender { m_self, [this] { return m_ui.statusBar; } };
+	const Log::LogAppender m_logAppender { &m_statusBarLogAppender };
 
 	QMetaObject::Connection m_settingsLineEditExecuteContextMenuConnection;
 #ifndef Q_OS_MACOS
