@@ -30,6 +30,7 @@ void ResolveBodyImagePlaceholders(
 	QString&                              bodyHtml,
 	std::vector<Fb2EmbeddedImage>&        images,
 	const std::vector<QString>&           bodyImageIds,
+	const QMap<QString, QString>&          imageAlts,
 	const QMap<QString, QPair<QByteArray, QString>>& binaries,
 	const QString&                        coverId
 )
@@ -55,9 +56,10 @@ void ResolveBodyImagePlaceholders(
 				return item.fileName == fileName;
 			}))
 			images.push_back(Fb2EmbeddedImage { fileName, it->first, it->second });
+		const auto alt = EscapeHtmlText(imageAlts.value(id));
 		bodyHtml.replace(
 			marker,
-			QString("<p class=\"image\"><img src=\"%1\" alt=\"\" /></p>\n").arg(EscapeHtmlText(fileName))
+			QString("<p class=\"image\"><img src=\"%1\" alt=\"%2\" /></p>\n").arg(EscapeHtmlText(fileName), alt)
 		);
 	}
 }

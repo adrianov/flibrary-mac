@@ -4,48 +4,28 @@
 //
 #include "Fb2EpubParserImpl.h"
 
+#include "Fb2EpubMeta.h"
+
 namespace HomeCompa::Util
 {
 
 bool Fb2Parser::OnEndElement(const QString& name, const QString& /*path*/)
 {
-	if (name.compare("title-info", Qt::CaseInsensitive) == 0)
-	{
-		inTitleInfo = false;
+	if (OnMetaEndElement(name))
 		return true;
-	}
 	if (name.compare("body", Qt::CaseInsensitive) == 0)
 	{
 		if (inNotesBody)
 			inNotesBody = false;
+		else if (inExtraBody)
+		{
+			bodyBuffer.append("</section>\n");
+			inExtraBody = false;
+			inMainBody  = false;
+		}
 		else if (inMainBody)
 			inMainBody = false;
 		inBody = inMainBody || inNotesBody;
-		return true;
-	}
-	if (name.compare("book-title", Qt::CaseInsensitive) == 0)
-	{
-		inBookTitle = false;
-		return true;
-	}
-	if (name.compare("lang", Qt::CaseInsensitive) == 0)
-	{
-		inLanguage = false;
-		return true;
-	}
-	if (name.compare("author", Qt::CaseInsensitive) == 0)
-	{
-		inAuthor = inFirstName = inLastName = false;
-		return true;
-	}
-	if (name.compare("first-name", Qt::CaseInsensitive) == 0)
-	{
-		inFirstName = false;
-		return true;
-	}
-	if (name.compare("last-name", Qt::CaseInsensitive) == 0)
-	{
-		inLastName = false;
 		return true;
 	}
 	if (name.compare("binary", Qt::CaseInsensitive) == 0 && inBinary)
@@ -70,6 +50,17 @@ bool Fb2Parser::OnEndElement(const QString& name, const QString& /*path*/)
 	if (!inBody)
 		return true;
 
+	if (name.compare("description", Qt::CaseInsensitive) == 0 && inImageDescription)
+	{
+		inImageDescription = false;
+		return true;
+	}
+	if (name.compare("image", Qt::CaseInsensitive) == 0 && inBodyImage)
+	{
+		CommitBodyImage();
+		return true;
+	}
+
 	if (inNotesBody)
 	{
 		if (name.compare("title", Qt::CaseInsensitive) == 0 && inNoteTitle)
@@ -92,7 +83,7 @@ bool Fb2Parser::OnEndElement(const QString& name, const QString& /*path*/)
 	}
 	else if (name.compare("section", Qt::CaseInsensitive) == 0)
 	{
-		bodyBuffer.append("</section>\n");
+		AppendBlockHtml("</section>\n");
 		return true;
 	}
 
@@ -108,8 +99,14 @@ bool Fb2Parser::OnEndElement(const QString& name, const QString& /*path*/)
 		if (name.compare("subtitle", Qt::CaseInsensitive) == 0)
 		{
 			inSubtitle = false;
-			bodyBuffer.append("</h2>\n");
-			AddTocItem();
+			if (subtitleAsHeading)
+			{
+				AppendBlockHtml("</h2>\n");
+				AddTocItem();
+			}
+			else
+				AppendBlockHtml("</p>\n");
+			subtitleAsHeading = false;
 			return true;
 		}
 	}
@@ -117,8 +114,24 @@ bool Fb2Parser::OnEndElement(const QString& name, const QString& /*path*/)
 	if (name.compare("p", Qt::CaseInsensitive) == 0 && !(inTitle || inSubtitle))
 	{
 		inParagraph = false;
-		if (!inNotesBody)
-			bodyBuffer.append("</p>\n");
+		AppendBlockHtml("</p>\n");
+		return true;
+	}
+	if (name.compare("v", Qt::CaseInsensitive) == 0)
+	{
+		inVerse = false;
+		AppendBlockHtml("<br />\n");
+		return true;
+	}
+	if (name.compare("stanza", Qt::CaseInsensitive) == 0)
+	{
+		AppendBlockHtml("</p>\n");
+		return true;
+	}
+	if (name.compare("poem", Qt::CaseInsensitive) == 0)
+	{
+		inPoem = false;
+		AppendBlockHtml("</section>\n");
 		return true;
 	}
 	if (name.compare("emphasis", Qt::CaseInsensitive) == 0)
@@ -142,6 +155,7 @@ bool Fb2Parser::OnEndElement(const QString& name, const QString& /*path*/)
 		MarkInlineCloseBoundary();
 		return true;
 	}
+	TryBodyExtraEnd(name);
 	return true;
 }
 

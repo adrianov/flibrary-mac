@@ -37,7 +37,7 @@ bool Fb2Parser::OnBodyStartElement(const QString& name, const XmlAttributes& att
 	}
 	else if (name.compare("section", Qt::CaseInsensitive) == 0)
 	{
-		bodyBuffer.append("<section>\n");
+		AppendBlockHtml("<section>\n");
 		return true;
 	}
 
@@ -46,9 +46,15 @@ bool Fb2Parser::OnBodyStartElement(const QString& name, const XmlAttributes& att
 		const auto id = RefIdFromAttr(attributes);
 		if (!id.isEmpty() && id != coverId)
 		{
-			bodyImageIds.push_back(id);
-			bodyBuffer.append(QString("{{FB2IMG:%1}}\n").arg(id));
+			currentImageId   = id;
+			inBodyImage      = true;
+			currentImageAlt.clear();
 		}
+		return true;
+	}
+	if (name.compare("description", Qt::CaseInsensitive) == 0 && inBodyImage)
+	{
+		inImageDescription = true;
 		return true;
 	}
 
@@ -64,37 +70,42 @@ bool Fb2Parser::OnBodyStartElement(const QString& name, const XmlAttributes& att
 		}
 		if (name.compare("subtitle", Qt::CaseInsensitive) == 0)
 		{
-			inSubtitle   = true;
-			headingLevel = 2;
+			inSubtitle        = true;
 			headingBuffer.clear();
-			bodyBuffer.append(QString("<h2 id=\"h%1\">").arg(++headingCount));
+			subtitleAsHeading = !inPoem && !inCite && !inEpigraph && !inAnnotation;
+			if (subtitleAsHeading)
+			{
+				headingLevel = 2;
+				AppendBlockHtml(QString("<h2 id=\"h%1\">").arg(++headingCount));
+			}
+			else
+				AppendBlockHtml("<p class=\"subtitle\">");
 			return true;
 		}
 	}
 
 	if (name.compare("p", Qt::CaseInsensitive) == 0 && (inTitle || inSubtitle))
 	{
-		AppendSpaceIfNeeded(bodyBuffer);
+		if (!headingBuffer.trimmed().isEmpty())
+			bodyBuffer.append("<br />\n");
 		AppendSeparatorIfNeeded(headingBuffer);
 		return true;
 	}
 	if (name.compare("p", Qt::CaseInsensitive) == 0)
 	{
 		inParagraph = true;
-		if (!inNotesBody)
-			bodyBuffer.append("<p>");
+		AppendBlockHtml("<p>");
 		return true;
 	}
 	if (name.compare("poem", Qt::CaseInsensitive) == 0)
 	{
-		if (!inNotesBody)
-			bodyBuffer.append("<section epub:type=\"poem\">\n");
+		inPoem = true;
+		AppendBlockHtml("<section epub:type=\"z3998:poem\">\n");
 		return true;
 	}
 	if (name.compare("stanza", Qt::CaseInsensitive) == 0)
 	{
-		if (!inNotesBody)
-			bodyBuffer.append("<p>");
+		AppendBlockHtml("<p>");
 		return true;
 	}
 	if (name.compare("v", Qt::CaseInsensitive) == 0)
@@ -120,9 +131,9 @@ bool Fb2Parser::OnBodyStartElement(const QString& name, const XmlAttributes& att
 		ActiveBuffer().append("<strong>");
 		return true;
 	}
-	if (name.compare("empty-line", Qt::CaseInsensitive) == 0 && !inNotesBody)
+	if (name.compare("empty-line", Qt::CaseInsensitive) == 0)
 	{
-		bodyBuffer.append("<br />\n");
+		AppendBlockHtml("<br />\n");
 		return true;
 	}
 	if (name.compare("a", Qt::CaseInsensitive) == 0)
@@ -147,6 +158,7 @@ bool Fb2Parser::OnBodyStartElement(const QString& name, const XmlAttributes& att
 		}
 		return true;
 	}
+	TryBodyExtraStart(name, attributes);
 	return true;
 }
 

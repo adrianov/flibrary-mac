@@ -5,6 +5,7 @@
 #include "Fb2EpubParserImpl.h"
 
 #include "Fb2EpubImages.h"
+#include "Fb2EpubMeta.h"
 #include "Fb2EpubText.h"
 
 namespace HomeCompa::Util
@@ -22,17 +23,17 @@ ParsedFb2 Fb2Parser::TakeResult()
 	AppendFootnotesHtml();
 
 	std::vector<Fb2EmbeddedImage> images;
-	ResolveBodyImagePlaceholders(bodyBuffer, images, bodyImageIds, binaries, coverId);
+	ResolveBodyImagePlaceholders(bodyBuffer, images, bodyImageIds, imageAlts, binaries, coverId);
 
-	auto author = authorFirst.trimmed();
-	if (!authorLast.trimmed().isEmpty())
-		author = author.isEmpty() ? authorLast.trimmed() : QString("%1 %2").arg(author, authorLast.trimmed());
+	auto author   = PrimaryAuthorName(metadata);
+	auto bodyHtml = PrependBookAnnotation(bodyBuffer, metadata.annotation);
 
 	return ParsedFb2 {
 		.title     = titleBuffer.trimmed(),
 		.author    = std::move(author),
 		.language  = languageBuffer.trimmed(),
-		.bodyHtml  = std::move(bodyBuffer),
+		.metadata  = std::move(metadata),
+		.bodyHtml  = std::move(bodyHtml),
 		.coverData = coverData,
 		.coverMime = coverMime,
 		.images    = std::move(images),
@@ -59,32 +60,19 @@ bool Fb2Parser::OnCharacters(const QString& /*path*/, const QString& value)
 		binaryBuffer.append(value);
 		return true;
 	}
-	if (inBookTitle)
-	{
-		AppendCollapsedText(titleBuffer, value);
+	if (!inBody && OnMetaCharacters(value))
 		return true;
-	}
-	if (inLanguage)
-	{
-		AppendCollapsedText(languageBuffer, value);
-		return true;
-	}
-	if (inAuthor && inFirstName)
-	{
-		AppendCollapsedText(authorFirst, value);
-		return true;
-	}
-	if (inAuthor && inLastName)
-	{
-		AppendCollapsedText(authorLast, value);
-		return true;
-	}
 	if (!inBody)
 		return true;
 
 	if (inNoteTitle && inNoteSection)
 	{
 		AppendCollapsedText(noteTitleBuffer, value);
+		return true;
+	}
+	if (inImageDescription)
+	{
+		AppendCollapsedText(currentImageAlt, value);
 		return true;
 	}
 

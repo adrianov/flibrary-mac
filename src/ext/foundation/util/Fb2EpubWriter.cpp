@@ -8,6 +8,7 @@
 #include <QUuid>
 
 #include "Fb2EpubNav.h"
+#include "Fb2EpubMeta.h"
 #include "Fb2EpubText.h"
 #include "EpubZipPack.h"
 #include "zip.h"
@@ -58,25 +59,13 @@ std::vector<EpubMember> BuildEpubMembers(const ParsedFb2& parsed, const QString&
 		"</container>\n");
 	AddTextMember(members, QStringLiteral("META-INF/container.xml"), containerXml);
 
-	const auto safeTitle  = EscapeXmlText(title);
-	const auto safeAuthor = EscapeXmlText(parsed.author);
-	const auto safeLang   = EscapeXmlText(parsed.language);
 	const auto language   = parsed.language.isEmpty() ? QStringLiteral("en") : parsed.language;
-	const auto identifier = QString("urn:uuid:%1").arg(QUuid::createUuid().toString(QUuid::WithoutBraces));
 
 	QString opf;
 	opf += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	opf += "<package xmlns=\"http://www.idpf.org/2007/opf\" version=\"3.0\" unique-identifier=\"book-id\">\n";
-	opf += "  <metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
-	opf += QString("    <dc:identifier id=\"book-id\">%1</dc:identifier>\n").arg(identifier);
-	opf += QString("    <dc:title>%1</dc:title>\n").arg(safeTitle);
-	opf += QString("    <dc:language>%1</dc:language>\n").arg(safeLang.isEmpty() ? QStringLiteral("en") : safeLang);
-	if (!safeAuthor.isEmpty())
-		opf += QString("    <dc:creator>%1</dc:creator>\n").arg(safeAuthor);
-	opf += QString("    <meta property=\"dcterms:modified\">%1</meta>\n").arg(EpubTimestampUtc());
-	if (!coverFileName.isEmpty())
-		opf += "    <meta name=\"cover\" content=\"cover-image\"/>\n";
-	opf += "  </metadata>\n  <manifest>\n";
+	opf += BuildOpfMetadata(parsed.metadata, title, language, !coverFileName.isEmpty());
+	opf += "  <manifest>\n";
 	if (!coverFileName.isEmpty())
 	{
 		opf += QString("    <item id=\"cover-image\" href=\"%1\" media-type=\"%2\" properties=\"cover-image\"/>\n").arg(coverFileName, coverMediaType);
@@ -103,7 +92,8 @@ std::vector<EpubMember> BuildEpubMembers(const ParsedFb2& parsed, const QString&
 	const auto contentHtml = QString(
 		"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 		"<!DOCTYPE html>\n"
-		"<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"%1\" lang=\"%1\">\n"
+		"<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" "
+		"epub:prefix=\"z3998: http://www.daisy.org/z3998/2012/vocab/structure/#\" xml:lang=\"%1\" lang=\"%1\">\n"
 		"<head><meta charset=\"utf-8\" /><title>%2</title>%3</head>\n"
 		"<body>\n%4\n</body>\n</html>\n")
 	                             .arg(language,

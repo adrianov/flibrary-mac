@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "Fb2EpubImages.h"
+#include "Fb2EpubMeta.h"
 
 class QIODevice;
 
@@ -27,6 +28,7 @@ struct ParsedFb2
 	QString                   title;
 	QString                   author;
 	QString                   language;
+	Fb2Metadata               metadata;
 	QString                   bodyHtml;
 	QByteArray                coverData;
 	QString                   coverMime;

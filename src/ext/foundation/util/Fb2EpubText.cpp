@@ -178,10 +178,35 @@ QString EpubContentStyles()
 		"<style type=\"text/css\">\n"
 		"@namespace epub \"http://www.idpf.org/2007/ops\";\n"
 		"sup { font-size: 0.75em; line-height: normal; }\n"
+		"sub { font-size: 0.75em; line-height: normal; }\n"
 		"a[epub|type~=\"noteref\"] { text-decoration: none; }\n"
 		"p.image { text-align: center; margin: 1em 0; }\n"
 		"p.image img { max-width: 100%; height: auto; }\n"
+		"blockquote { margin: 1em 2em; }\n"
+		"p.text-author { text-align: right; font-style: italic; margin-top: 0.5em; }\n"
+		"aside.annotation { margin: 1em 0; padding: 0.5em 1em; border-left: 3px solid #ccc; }\n"
+		"table { border-collapse: collapse; margin: 1em auto; }\n"
+		"th, td { border: 1px solid #ccc; padding: 0.25em 0.5em; }\n"
+		"p.subtitle { font-style: italic; text-align: center; }\n"
+		"section.book-annotation { margin: 1em 0; padding: 0.5em 1em; font-style: italic; }\n"
 		"</style>");
+}
+
+QString PrependBookAnnotation(const QString& bodyHtml, const QString& annotation)
+{
+	const auto text = annotation.trimmed();
+	if (text.isEmpty())
+		return bodyHtml;
+
+	QString section = QStringLiteral("<section epub:type=\"abstract\" class=\"book-annotation\">\n");
+	for (const auto& paragraph : text.split(QStringLiteral("\n\n"), Qt::SkipEmptyParts))
+	{
+		const auto trimmed = paragraph.trimmed();
+		if (!trimmed.isEmpty())
+			section.append(QStringLiteral("<p>%1</p>\n").arg(EscapeHtmlText(trimmed)));
+	}
+	section.append(QStringLiteral("</section>\n"));
+	return section + bodyHtml;
 }
 
 QString CoverMimeFromData(const QByteArray& data)

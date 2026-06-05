@@ -118,10 +118,17 @@ void Fb2Parser::AppendFootnotesHtml()
 
 	for (auto it = footnotes.constBegin(); it != footnotes.constEnd(); ++it)
 	{
-		bodyBuffer.append(QStringLiteral("<aside epub:type=\"footnote\" id=\"fn-%1\"><p>").arg(EscapeXmlText(it.key())));
-		// noteBuffer already contains escaped text and inline tags (<em>, <strong>, …)
-		bodyBuffer.append(it.value());
-		bodyBuffer.append(QStringLiteral("</p></aside>\n"));
+		const auto& note = it.value();
+		bodyBuffer.append(QStringLiteral("<aside epub:type=\"footnote\" id=\"fn-%1\">").arg(EscapeXmlText(it.key())));
+		if (note.contains(QStringLiteral("<p>")) || note.contains(QStringLiteral("<blockquote")))
+			bodyBuffer.append(note);
+		else
+		{
+			bodyBuffer.append(QStringLiteral("<p>"));
+			bodyBuffer.append(note);
+			bodyBuffer.append(QStringLiteral("</p>"));
+		}
+		bodyBuffer.append(QStringLiteral("</aside>\n"));
 	}
 }
 

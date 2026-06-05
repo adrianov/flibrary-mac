@@ -20,6 +20,7 @@ QString EscapeXmlText(const QString& text);
 QString EscapeHtmlText(const QString& text);
 QString EpubTimestampUtc();
 QString EpubContentStyles();
+QString PrependBookAnnotation(const QString& bodyHtml, const QString& annotation);
 QString CoverMimeFromData(const QByteArray& data);
 
 } // namespace HomeCompa::Util

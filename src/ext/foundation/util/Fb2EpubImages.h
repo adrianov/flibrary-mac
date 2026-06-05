@@ -47,6 +47,7 @@ void    ResolveBodyImagePlaceholders(
 	QString&                              bodyHtml,
 	std::vector<Fb2EmbeddedImage>&        images,
 	const std::vector<QString>&           bodyImageIds,
+	const QMap<QString, QString>&          imageAlts,
 	const QMap<QString, QPair<QByteArray, QString>>& binaries,
 	const QString&                        coverId
 );

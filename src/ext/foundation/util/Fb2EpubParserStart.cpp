@@ -4,25 +4,27 @@
 //
 #include "Fb2EpubParserImpl.h"
 
-#include "Fb2EpubImages.h"
-
 namespace HomeCompa::Util
 {
 
 namespace
 {
 
-constexpr auto COVERPAGE_IMAGE = "FictionBook/description/title-info/coverpage/image";
+QString ExtraBodyClass(const QString& bodyName)
+{
+	QString safe = bodyName.trimmed();
+	for (auto& ch : safe)
+	{
+		if (!ch.isLetterOrNumber() && ch != '-' && ch != '_')
+			ch = '_';
+	}
+	return safe.isEmpty() ? QStringLiteral("extra") : safe;
+}
 
 } // namespace
 
 bool Fb2Parser::OnStartElement(const QString& name, const QString& path, const XmlAttributes& attributes)
 {
-	if (name.compare("title-info", Qt::CaseInsensitive) == 0)
-	{
-		inTitleInfo = true;
-		return true;
-	}
 	if (name.compare("body", Qt::CaseInsensitive) == 0)
 	{
 		const auto bodyName = attributes.GetAttribute("name");
@@ -38,43 +40,15 @@ bool Fb2Parser::OnStartElement(const QString& name, const QString& path, const X
 			inMainBody  = true;
 			inBody      = true;
 			ResetBodyChar();
+			return true;
 		}
-		return true;
-	}
 
-	if (inTitleInfo)
-	{
-		if (coverId.isEmpty() && (path == COVERPAGE_IMAGE || name.compare("image", Qt::CaseInsensitive) == 0))
-		{
-			if (const auto id = RefIdFromAttr(attributes); !id.isEmpty())
-				coverId = id;
-			return true;
-		}
-		if (name.compare("book-title", Qt::CaseInsensitive) == 0)
-		{
-			inBookTitle = true;
-			return true;
-		}
-		if (name.compare("lang", Qt::CaseInsensitive) == 0)
-		{
-			inLanguage = true;
-			return true;
-		}
-		if (name.compare("author", Qt::CaseInsensitive) == 0 && authorFirst.isEmpty() && authorLast.isEmpty())
-		{
-			inAuthor = true;
-			return true;
-		}
-		if (inAuthor && name.compare("first-name", Qt::CaseInsensitive) == 0)
-		{
-			inFirstName = true;
-			return true;
-		}
-		if (inAuthor && name.compare("last-name", Qt::CaseInsensitive) == 0)
-		{
-			inLastName = true;
-			return true;
-		}
+		inExtraBody = true;
+		inMainBody  = true;
+		inBody      = true;
+		ResetBodyChar();
+		bodyBuffer.append(QString("<section class=\"fb2-body-%1\">\n").arg(ExtraBodyClass(bodyName)));
+		return true;
 	}
 
 	if (name.compare("binary", Qt::CaseInsensitive) == 0)
@@ -87,9 +61,24 @@ bool Fb2Parser::OnStartElement(const QString& name, const QString& path, const X
 	}
 
 	if (!inBody)
-		return true;
+		return OnMetaStartElement(name, path, attributes);
 
 	return OnBodyStartElement(name, attributes);
+}
+
+void Fb2Parser::CommitBodyImage()
+{
+	if (currentImageId.isEmpty())
+		return;
+
+	bodyImageIds.push_back(currentImageId);
+	if (!currentImageAlt.trimmed().isEmpty())
+		imageAlts.insert(currentImageId, currentImageAlt.trimmed());
+	bodyBuffer.append(QString("{{FB2IMG:%1}}\n").arg(currentImageId));
+	currentImageId.clear();
+	currentImageAlt.clear();
+	inBodyImage         = false;
+	inImageDescription  = false;
 }
 
 } // namespace HomeCompa::Util

@@ -79,7 +79,7 @@ void Fb2Parser::ResetBodyChar()
 
 void Fb2Parser::AppendBodyText(const QString& value)
 {
-	if (!InContent() || !(inParagraph || inVerse || inTitle || inSubtitle || inEmphasis || inStrong || inLink))
+	if (!InContent() || !InTextContent())
 		return;
 
 	auto& buffer = ActiveBuffer();
@@ -108,10 +108,11 @@ void Fb2Parser::AppendBodyText(const QString& value)
 		appendSpaceIfNeeded();
 	else if (needSpaceBeforeText && IsWordChar(lastBodyChar) && IsWordChar(first))
 		appendSpaceIfNeeded();
-	else if (IsWordChar(lastBodyChar) && IsWordChar(first) && NeedsWordBoundarySpace(lastBodyChar, first, false))
+	else if (!afterTightInline && IsWordChar(lastBodyChar) && IsWordChar(first) && NeedsWordBoundarySpace(lastBodyChar, first, false))
 		appendSpaceIfNeeded();
 
 	needSpaceBeforeText = false;
+	afterTightInline    = false;
 
 	if (!value.isEmpty() && value.front().isSpace() && !buffer.isEmpty() && !buffer.back().isSpace())
 		buffer.append(u' ');
@@ -120,7 +121,7 @@ void Fb2Parser::AppendBodyText(const QString& value)
 
 	if (!value.isEmpty() && value.back().isSpace() && !buffer.isEmpty() && !buffer.back().isSpace())
 		buffer.append(u' ');
-	if (inEmphasis || inStrong)
+	if (inEmphasis || inStrong || inCode || inStyle)
 		inlineWordChars += collapsed.size();
 	lastBodyChar = collapsed.back();
 
