@@ -76,6 +76,7 @@ OpenResult OpenDefaultReader(const QString& fileName, const QString& /*ext*/)
 
 #ifdef Q_OS_MACOS
 	{
+		const auto ext = QFileInfo(fileName).suffix();
 		QStringList args;
 		if (ext.compare(QStringLiteral("epub"), Qt::CaseInsensitive) == 0)
 			args << QStringLiteral("-a") << QStringLiteral("Books") << fileName;
