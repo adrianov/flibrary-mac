@@ -31,7 +31,7 @@ namespace
 #ifdef Q_OS_MACOS
 
 // Bump when EPUB output format changes so cached read copies are rebuilt.
-constexpr auto EPUB_CACHE_VERSION = "v21";
+constexpr auto EPUB_CACHE_VERSION = "v26";
 
 QString EpubCacheDir()
 {
@@ -108,7 +108,7 @@ void RemoveLegacyCache(long long bookId)
 
 	const auto dir = EpubCacheDir();
 	for (const auto& suffix :
-	     { QString(), QStringLiteral(".v2"), QStringLiteral(".v3"), QStringLiteral(".v4"), QStringLiteral(".v5"), QStringLiteral(".v6"), QStringLiteral(".v7"), QStringLiteral(".v8"), QStringLiteral(".v9"), QStringLiteral(".v15"), QStringLiteral(".v16"), QStringLiteral(".v17"), QStringLiteral(".v18"), QStringLiteral(".v19"), QStringLiteral(".v20") })
+	     { QString(), QStringLiteral(".v2"), QStringLiteral(".v3"), QStringLiteral(".v4"), QStringLiteral(".v5"), QStringLiteral(".v6"), QStringLiteral(".v7"), QStringLiteral(".v8"), QStringLiteral(".v9"), QStringLiteral(".v15"), QStringLiteral(".v16"), QStringLiteral(".v17"), QStringLiteral(".v18"), QStringLiteral(".v19"), QStringLiteral(".v20"), QStringLiteral(".v21"), QStringLiteral(".v22"), QStringLiteral(".v23"), QStringLiteral(".v24"), QStringLiteral(".v25") })
 		QFile::remove(QDir(dir).filePath(QString("%1%2.epub").arg(bookId).arg(suffix)));
 }
 
