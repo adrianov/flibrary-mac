@@ -94,6 +94,7 @@ private:
 	bool    inFirstName { false };
 	bool    inLastName { false };
 	bool    inParagraph { false };
+	bool    inVerse { false };
 	bool    inTitle { false };
 	bool    inSubtitle { false };
 	bool    inEmphasis { false };

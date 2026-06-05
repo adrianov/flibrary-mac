@@ -85,6 +85,23 @@ bool Fb2Parser::OnBodyStartElement(const QString& name, const XmlAttributes& att
 			bodyBuffer.append("<p>");
 		return true;
 	}
+	if (name.compare("poem", Qt::CaseInsensitive) == 0)
+	{
+		if (!inNotesBody)
+			bodyBuffer.append("<section epub:type=\"poem\">\n");
+		return true;
+	}
+	if (name.compare("stanza", Qt::CaseInsensitive) == 0)
+	{
+		if (!inNotesBody)
+			bodyBuffer.append("<p>");
+		return true;
+	}
+	if (name.compare("v", Qt::CaseInsensitive) == 0)
+	{
+		inVerse = true;
+		return true;
+	}
 	if (name.compare("emphasis", Qt::CaseInsensitive) == 0)
 	{
 		inEmphasis       = true;

@@ -79,7 +79,7 @@ void Fb2Parser::ResetBodyChar()
 
 void Fb2Parser::AppendBodyText(const QString& value)
 {
-	if (!InContent() || !(inParagraph || inTitle || inSubtitle || inEmphasis || inStrong || inLink))
+	if (!InContent() || !(inParagraph || inVerse || inTitle || inSubtitle || inEmphasis || inStrong || inLink))
 		return;
 
 	auto& buffer = ActiveBuffer();
