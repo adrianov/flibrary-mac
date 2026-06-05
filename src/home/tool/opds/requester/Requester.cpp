@@ -1024,7 +1024,9 @@ public:
 			{ Loc::AllOptions,                          { SEARCH_QUERY_TEXT, &WriteBookEntries, BOOK_DESCRIPTION, SEARCH_RESULTS_BOOKS } },
 		};
 
-		const auto& [queryText, writeEntries, navigationDescription, foundMessage] = FindSecond(separatedDescriptions, separated.toStdString().data(), PszComparer {});
+		const auto stdStr = separated.toStdString();
+		const auto found = FindSecond(separatedDescriptions, stdStr.data(), PszComparer {});
+		const auto& [queryText, writeEntries, navigationDescription, foundMessage] = found;
 
 		const auto n = head.children.size();
 
