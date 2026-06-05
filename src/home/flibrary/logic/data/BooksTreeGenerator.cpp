@@ -178,9 +178,9 @@ public:
 	{
 		IDataItem::Items items;
 		items.reserve(std::size(m_books));
-		std::ranges::transform(m_books | std::views::values, std::back_inserter(items), [](const auto& item) {
-			return item.book;
-		});
+		for (const auto& item : m_books | std::views::values)
+			if (item.book)
+				items.push_back(item.book);
 
 		rootCached = CreateBooksRoot();
 		rootCached->SetChildren(std::move(items));
@@ -199,6 +199,8 @@ public:
 
 		for (const auto& [book, seriesIds, authorIds, genreIds] : m_books | std::views::values)
 		{
+			if (!book)
+				continue;
 			if (seriesIds.empty())
 			{
 				rootCached->AppendChild(book);
@@ -232,7 +234,8 @@ public:
 	{
 		std::unordered_map<IdsSet, IdsSet, UnorderedSetHash<long long>> authorToBooks;
 		for (const auto& [id, book] : m_books)
-			authorToBooks[book.authors.first].insert(id);
+			if (book.book)
+				authorToBooks[book.authors.first].insert(id);
 
 		rootCached = CreateBooksRoot();
 		for (const auto& [authorIds, bookIds] : authorToBooks)
@@ -493,7 +496,8 @@ join Series s on s.SeriesID = l.SeriesID
 
 				const auto bookId = query->Get<long long>(4);
 				auto&      book   = m_books[bookId];
-				assert(book.book);
+				if (!book.book)
+					continue;
 
 				const auto seqNum = query->Get<int>(5);
 				const auto ordNum = query->Get<int>(6);
@@ -502,7 +506,8 @@ join Series s on s.SeriesID = l.SeriesID
 			}
 			if (filterProvider.IsFilterEnabled())
 				for (const auto& [bookId, flag] : flags)
-					addFlag(*m_books[bookId].book, flag);
+					if (m_books[bookId].book)
+						addFlag(*m_books[bookId].book, flag);
 		}
 
 		{
@@ -525,13 +530,15 @@ join Authors a on a.AuthorID = l.AuthorID
 
 				const auto bookId = query->Get<long long>(6);
 				auto&      book   = m_books[bookId];
-				assert(book.book);
+				if (!book.book)
+					continue;
 				Add(book.authors, static_cast<long long&&>(id), query->Get<int>(7));
 				m_authorsFlagAccumulator(flags, bookId, item->GetFlags());
 			}
 			if (filterProvider.IsFilterEnabled())
 				for (const auto& [bookId, flag] : flags)
-					addFlag(*m_books[bookId].book, flag);
+					if (m_books[bookId].book)
+						addFlag(*m_books[bookId].book, flag);
 		}
 		{
 			static constexpr auto queryText = R"({}
@@ -553,13 +560,15 @@ join Genres g on g.GenreCode = l.GenreCode
 
 				const auto bookId = query->Get<long long>(5);
 				auto&      book   = m_books[bookId];
-				assert(book.book);
+				if (!book.book)
+					continue;
 				Add(book.genres, std::move(id), query->Get<int>(6));
 				m_genresFlagAccumulator(flags, bookId, item->GetFlags());
 			}
 			if (filterProvider.IsFilterEnabled())
 				for (const auto& [bookId, flag] : flags)
-					addFlag(*m_books[bookId].book, flag);
+					if (m_books[bookId].book)
+						addFlag(*m_books[bookId].book, flag);
 		}
 		{
 			static constexpr auto queryText = R"({}
@@ -576,11 +585,14 @@ join Keywords k on k.KeywordID = l.KeywordID
 				m_keywordsFlagAccumulator(flags, query->Get<long long>(1), static_cast<IDataItem::Flags>(query->Get<int>(0)));
 			if (filterProvider.IsFilterEnabled())
 				for (const auto& [bookId, flag] : flags)
-					addFlag(*m_books[bookId].book, flag);
+					if (m_books[bookId].book)
+						addFlag(*m_books[bookId].book, flag);
 		}
 
 		for (auto& [book, seriesId, authorIds, genreIds] : m_books | std::views::values)
 		{
+			if (!book)
+				continue;
 			for (const auto authorId : authorIds.second | std::views::values)
 			{
 				const auto it = m_authors.find(authorId);
@@ -612,6 +624,8 @@ join Keywords k on k.KeywordID = l.KeywordID
 
 		for (auto& [book, seriesIds, authorIds, genreIds] : m_books | std::views::values)
 		{
+			if (!book)
+				continue;
 			book->SetData(std::size(authorIds.second) > 1 ? Join(m_authors, authorIds.second | std::views::values) : book->GetRawData(BookItem::Column::AuthorFull), BookItem::Column::Author);
 			book->SetData(Join(m_genres, genreIds.second | std::views::values), BookItem::Column::Genre);
 			if (seriesIds.empty())
