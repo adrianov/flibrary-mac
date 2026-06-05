@@ -58,7 +58,7 @@ private:
 
 } // namespace
 
-bool OpenDefaultReader(const QString& fileName, const QString& ext)
+bool OpenDefaultReader(const QString& fileName, const QString& /*ext*/)
 {
 	if (!QFile::exists(fileName) || QFileInfo(fileName).size() == 0)
 		return false;
