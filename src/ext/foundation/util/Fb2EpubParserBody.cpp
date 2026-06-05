@@ -17,11 +17,6 @@ bool IsWordChar(QChar c)
 	return c.isLetter() || c.isNumber();
 }
 
-[[maybe_unused]] bool IsSentencePunct(QChar c)
-{
-	return c == u'.' || c == u'!' || c == u'?' || c == u',' || c == u':' || c == u';';
-}
-
 bool ScriptsDiffer(QChar a, QChar b)
 {
 	if (!IsWordChar(a) || !IsWordChar(b))
