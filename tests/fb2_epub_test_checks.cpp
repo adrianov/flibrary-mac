@@ -529,6 +529,48 @@ bool CheckCoverOverride(const QString& fb2Path)
 	QFile::remove(epubPath);
 	return true;
 }
+
+bool CheckPoem(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open poem fixture\n";
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << "poem parse failed\n";
+		return false;
+	}
+
+	const auto& html = parsed.bodyHtml;
+	if (!html.contains(QStringLiteral("epub:type=\"poem\"")))
+	{
+		std::cerr << "missing poem section: " << html.toStdString() << '\n';
+		return false;
+	}
+	if (!html.contains(QString::fromUtf8("Знайка шёл гулять на речку,")))
+	{
+		std::cerr << "missing first verse line: " << html.toStdString() << '\n';
+		return false;
+	}
+	if (!html.contains(QString::fromUtf8("Перепрыгнул через овечку.")))
+	{
+		std::cerr << "missing second verse line: " << html.toStdString() << '\n';
+		return false;
+	}
+	if (!html.contains(QStringLiteral("Second stanza line one,")))
+	{
+		std::cerr << "missing second stanza: " << html.toStdString() << '\n';
+		return false;
+	}
+
+	return true;
+}
+
 bool CheckEpubRepack()
 {
 	QByteArray badEpubBytes;

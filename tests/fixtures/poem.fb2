@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+  <description>
+    <title-info>
+      <book-title>Poem Test</book-title>
+      <lang>ru</lang>
+    </title-info>
+  </description>
+  <body>
+    <section>
+      <p>Before poem.</p>
+      <poem>
+        <stanza>
+          <v>Знайка шёл гулять на речку,</v>
+          <v>Перепрыгнул через овечку.</v>
+        </stanza>
+        <stanza>
+          <v>Second stanza line one,</v>
+          <v>Second stanza line two.</v>
+        </stanza>
+      </poem>
+      <p>After poem.</p>
+    </section>
+  </body>
+</FictionBook>

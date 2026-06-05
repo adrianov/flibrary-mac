@@ -110,6 +110,9 @@ int main(int argc, char* argv[])
 	if (!Fb2EpubTest::CheckSpecialTitle(QStringLiteral("../../tests/fixtures/special_title.fb2")))
 		return 1;
 
+	if (!Fb2EpubTest::CheckPoem(QStringLiteral("../../tests/fixtures/poem.fb2")))
+		return 1;
+
 #ifdef Q_OS_MACOS
 	if (!Fb2EpubTest::CheckEpubRepack())
 		return 1;
