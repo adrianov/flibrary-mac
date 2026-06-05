@@ -17,11 +17,9 @@
 #include "log.h"
 #include "zip.h"
 
-#ifdef Q_OS_MACOS
+#include "util/Fb2Format.h"
 #include "util/EpubBooksPack.h"
 #include "util/Fb2EpubConverter.h"
-#include "util/Fb2Format.h"
-#endif
 
 using namespace HomeCompa::Flibrary;
 using namespace HomeCompa;
@@ -121,7 +119,6 @@ std::pair<bool, std::filesystem::path> WriteFile(
 			case BooksExtractorWrite::WriteMode::Unpack:
 				return Unpack(bytes, result.second);
 			case BooksExtractorWrite::WriteMode::Epub:
-#ifdef Q_OS_MACOS
 				if (Util::IsFb2Suffix(QFileInfo(archiveFile).suffix()))
 				{
 					const Util::Fb2ToEpubOptions options { .archiveFolder = folder, .bookFile = archiveFile, .settings = &settings };
@@ -130,9 +127,6 @@ std::pair<bool, std::filesystem::path> WriteFile(
 				if (Util::IsEpubSuffix(QFileInfo(archiveFile).suffix()))
 					return Util::RepackEpubBytesForBooks(bytes, Platform::PathToString(result.second));
 				return false;
-#else
-				return false;
-#endif
 			default: // NOLINT(clang-diagnostic-covered-switch-default)
 				return assert(false && "unexpected mode"), false;
 		}

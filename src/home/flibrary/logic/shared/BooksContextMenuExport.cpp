@@ -175,11 +175,10 @@ void CreateSendMenu(
 	const auto asIsText = suffix.isEmpty() ? Tr(SEND_AS_IS) : Tr(SEND_AS_IS_FMT).arg(suffix);
 	AddMenuItem(send, SEND_AS_IS, asIsText, BooksMenuAction::SendAsIs);
 
-#ifdef Q_OS_MACOS
 	const bool epubEnabled = Util::IsExportableEpubSource(fileName);
 	if (const auto epubItem = AddMenuItem(send, SEND_AS_EPUB, Tr(SEND_AS_EPUB), BooksMenuAction::SendAsEpub); !epubEnabled)
 		epubItem->SetData(QVariant(false).toString(), MenuItem::Column::Enabled);
-#endif
+
 	if (!!(options & ITreeViewController::RequestContextMenuOptions::IsArchive))
 		AddMenuItem(send, UNPACK, Tr(UNPACK), BooksMenuAction::SendUnpack);
 

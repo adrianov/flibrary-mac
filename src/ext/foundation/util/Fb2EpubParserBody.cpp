@@ -17,7 +17,7 @@ bool IsWordChar(QChar c)
 	return c.isLetter() || c.isNumber();
 }
 
-bool IsSentencePunct(QChar c)
+[[maybe_unused]] bool IsSentencePunct(QChar c)
 {
 	return c == u'.' || c == u'!' || c == u'?' || c == u',' || c == u':' || c == u';';
 }

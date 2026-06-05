@@ -1,35 +1,11 @@
 // Copyright (c) 2026 Peter Adrianov
 // SPDX-License-Identifier: MIT
-// FB2/EPUB conversion (macOS), used in FLibrary.
+// FB2/EPUB conversion, used in FLibrary.
 //
 #include "Fb2EpubWriter.h"
 
 #include <QFile>
 #include <QUuid>
-
-#ifndef Q_OS_MACOS
-
-namespace HomeCompa::Util
-{
-
-std::vector<EpubMember> BuildEpubMembers(const ParsedFb2& /*parsed*/, const QString& /*title*/)
-{
-	return {};
-}
-
-QByteArray BuildEpubBytes(const ParsedFb2& /*parsed*/, const QString& /*title*/)
-{
-	return {};
-}
-
-bool WriteEpubBytesToFile(const QByteArray& /*epubBytes*/, const QString& /*epubPath*/)
-{
-	return false;
-}
-
-} // namespace HomeCompa::Util
-
-#else
 
 #include "Fb2EpubNav.h"
 #include "Fb2EpubText.h"
@@ -193,5 +169,3 @@ bool WriteEpubBytesToFile(const QByteArray& epubBytes, const QString& epubPath)
 }
 
 } // namespace HomeCompa::Util
-
-#endif
