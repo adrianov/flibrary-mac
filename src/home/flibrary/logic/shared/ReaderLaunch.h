@@ -9,8 +9,6 @@
 namespace HomeCompa::Flibrary
 {
 
-bool OpenDefaultReader(const QString& fileName, const QString& ext);
-
 bool OpenFb2InBooks(const QString& fb2Path);
 
 void LaunchConfiguredReader(

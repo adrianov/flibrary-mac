@@ -5283,6 +5283,10 @@ Try again?</source>
         <translation>Приложения (*.exe)</translation>
     </message>
     <message>
+        <source>Book file not found. The archive may have been moved or deleted.</source>
+        <translation>Файл книги не найден. Возможно, архив был перемещён или удалён.</translation>
+    </message>
+    <message>
         <source>Cannot start default reader. Will you specify the application manually?</source>
         <translation>Не удалось запустить системную читалку. Попробуете указать приложение для чтения книг вручную?</translation>
     </message>

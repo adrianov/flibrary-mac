@@ -29,6 +29,7 @@ constexpr auto CONTEXT                     = "ReaderController";
 constexpr auto DIALOG_TITLE                = QT_TRANSLATE_NOOP("ReaderController", "Select %1 reader");
 constexpr auto DIALOG_FILTER               = QT_TRANSLATE_NOOP("ReaderController", "Applications (*.exe)");
 constexpr auto USE_DEFAULT                 = QT_TRANSLATE_NOOP("ReaderController", "Use the default reader?");
+constexpr auto BOOK_FILE_NOT_FOUND         = QT_TRANSLATE_NOOP("ReaderController", "Book file not found. The archive may have been moved or deleted.");
 constexpr auto CANNOT_START_DEFAULT_READER = QT_TRANSLATE_NOOP("ReaderController", "Cannot start default reader. Will you specify the application manually?");
 constexpr auto CANNOT_START_READER         = QT_TRANSLATE_NOOP("ReaderController", "'%1' not found. Will you specify another application?");
 constexpr auto UNSUPPORTED                 = QT_TRANSLATE_NOOP("ReaderController", "Unsupported file type");
@@ -39,6 +40,13 @@ constexpr auto DIALOG_KEY = "Reader";
 constexpr auto DEFAULT    = "default";
 
 TR_DEF
+
+enum class OpenResult
+{
+	Success,
+	FileNotFound,
+	ReaderFailed
+};
 
 class ReaderProcess final : public QProcess
 {
@@ -58,10 +66,13 @@ private:
 
 } // namespace
 
-bool OpenDefaultReader(const QString& fileName, const QString& /*ext*/)
+OpenResult OpenDefaultReader(const QString& fileName, const QString& /*ext*/)
 {
-	if (!QFile::exists(fileName) || QFileInfo(fileName).size() == 0)
-		return false;
+	if (!QFile::exists(fileName))
+		return OpenResult::FileNotFound;
+
+	if (QFileInfo(fileName).size() == 0)
+		return OpenResult::FileNotFound;
 
 #ifdef Q_OS_MACOS
 	{
@@ -71,11 +82,11 @@ bool OpenDefaultReader(const QString& fileName, const QString& /*ext*/)
 		else
 			args << fileName;
 
-		return QProcess::startDetached(QStringLiteral("/usr/bin/open"), args);
+		return QProcess::startDetached(QStringLiteral("/usr/bin/open"), args) ? OpenResult::Success : OpenResult::ReaderFailed;
 	}
 #endif
 
-	return QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
+	return QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)) ? OpenResult::Success : OpenResult::ReaderFailed;
 }
 
 bool OpenFb2InBooks(const QString& fb2Path)
@@ -89,7 +100,7 @@ bool OpenFb2InBooks(const QString& fb2Path)
 	if (!HomeCompa::Util::IsEpubPath(epubPath) || !QFile::exists(epubPath))
 		return false;
 
-	return OpenDefaultReader(epubPath, QStringLiteral("epub"));
+	return OpenDefaultReader(epubPath, QStringLiteral("epub")) == OpenResult::Success;
 #else
 	(void)fb2Path;
 	return false;
@@ -164,8 +175,12 @@ void LaunchConfiguredReader(
 
 	if (reader == DEFAULT)
 	{
-		if (OpenDefaultReader(fileName, ext))
+		const auto result = OpenDefaultReader(fileName, ext);
+		if (result == OpenResult::Success)
 			return;
+
+		if (result == OpenResult::FileNotFound)
+			return uiFactory.ShowError(Tr(BOOK_FILE_NOT_FOUND));
 
 		settings.Remove(key);
 		if (uiFactory.ShowQuestion(Tr(CANNOT_START_DEFAULT_READER), QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes) != QMessageBox::Yes)

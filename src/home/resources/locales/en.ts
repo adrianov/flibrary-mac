@@ -5270,6 +5270,10 @@ Try again?</source>
         <translation></translation>
     </message>
     <message>
+        <source>Book file not found. The archive may have been moved or deleted.</source>
+        <translation></translation>
+    </message>
+    <message>
         <source>Cannot start default reader. Will you specify the application manually?</source>
         <translation></translation>
     </message>
