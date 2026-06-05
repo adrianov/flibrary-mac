@@ -87,9 +87,10 @@ int Category(const QString& s, const int emptyStringWeight) noexcept
 void QStringWrapper::SetLocale(const QString& locale)
 {
 	static constexpr std::pair<const char*, std::pair<QLocale::Language, FixCategoryGetter>> localeDescription[] {
-		{ "ru",   { QLocale::Russian, &FixCategoryCyr } },
-		{ "uk", { QLocale::Ukrainian, &FixCategoryCyr } },
-		{ "en",     { QLocale::C, &FixCategoryDefault } },
+		{ "ru",  { QLocale::Russian,   &FixCategoryCyr } },
+		{ "uk",  { QLocale::Ukrainian, &FixCategoryCyr } },
+		{ "en",  { QLocale::C,         &FixCategoryDefault } },
+		{ "tok", { QLocale::C,         &FixCategoryDefault } },
 	};
 #ifdef LOCALIZED_APPLICATION
 	static_assert(std::size(localeDescription) == std::size(Loc::LOCALES));

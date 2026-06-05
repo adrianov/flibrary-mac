@@ -339,8 +339,16 @@
         <translation>Комментарий</translation>
     </message>
     <message>
+        <source>Content</source>
+        <translation type="vanished">Содержание</translation>
+    </message>
+    <message>
         <source>Date, Time</source>
         <translation>Дата, время</translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="vanished">Описание</translation>
     </message>
     <message>
         <source>FileName</source>
@@ -4457,6 +4465,10 @@ Try again?</source>
     <message>
         <source>ru</source>
         <translation>&amp;Русский</translation>
+    </message>
+    <message>
+        <source>tok</source>
+        <translation>&amp;toki pona</translation>
     </message>
     <message>
         <source>uk</source>

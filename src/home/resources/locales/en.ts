@@ -4446,6 +4446,10 @@ Try again?</source>
         <translation>&amp;Русский</translation>
     </message>
     <message>
+        <source>tok</source>
+        <translation>&amp;toki pona</translation>
+    </message>
+    <message>
         <source>uk</source>
         <translation>&amp;Українська</translation>
     </message>

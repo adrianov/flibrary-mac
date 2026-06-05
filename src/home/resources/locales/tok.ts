@@ -1,217 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="uk_UA">
+<TS version="2.1" language="tok">
 <context>
     <name>AddCollectionDialog</name>
     <message>
         <source>Add</source>
-        <translation>Додати</translation>
+        <translation>pana</translation>
     </message>
     <message>
         <source>Add books missing from archives</source>
-        <translation>Додавати відсутні в архівах книги</translation>
+        <translation>pana lipu weka tan poki</translation>
     </message>
     <message>
         <source>Add new collection</source>
-        <translation>Додати нову колекцію</translation>
+        <translation>pana kulupu lipu sin</translation>
     </message>
     <message>
         <source>Add unindexed books</source>
-        <translation>Додавати неіндексовані книги</translation>
+        <translation>pana lipu sin ala</translation>
     </message>
     <message>
         <source>Additional</source>
-        <translation>Додатково</translation>
+        <translation>ante sin</translation>
     </message>
     <message>
         <source>Archive folder</source>
-        <translation>Папка з архівами</translation>
+        <translation>poki lipu awen</translation>
     </message>
     <message>
         <source>Archive type</source>
-        <translation>Тип архіву</translation>
+        <translation>nasin lipu awen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Collection archive folder</source>
-        <translation>Папка з архівами книг колекції</translation>
+        <translation>poki lipu kulupu</translation>
     </message>
     <message>
         <source>Collection database file name</source>
-        <translation>Назва файлу бази даних колекції</translation>
+        <translation>nimi lipu sona kulupu</translation>
     </message>
     <message>
         <source>Collection index files (*.inpx);;All files (*.*)</source>
-        <translation>Індексні файли колекції (*.inpx);;Усі файли (*.*)</translation>
+        <translation>lipu nasin kulupu (*.inpx);;lipu ale (*.*)</translation>
     </message>
     <message>
         <source>Collection title</source>
-        <translation>Найменування колекції</translation>
+        <translation>nimi kulupu lipu</translation>
     </message>
     <message>
         <source>Create new</source>
-        <translation>Створити нову</translation>
+        <translation>pali sin</translation>
     </message>
     <message>
         <source>Database file name</source>
-        <translation>Файл бази даних</translation>
+        <translation>nimi lipu sona</translation>
     </message>
     <message>
         <source>FLibrary database files (*.db *.sqlite *.sqlite3);;All files (*.*)</source>
-        <translation>Бази даних FLibrary (*.db *.sqlite *.sqlite3);;Всі файли (*.*)</translation>
+        <translation>lipu sona FLibrary;;lipu ale (*.*)</translation>
     </message>
     <message>
         <source>Index file</source>
-        <translation>Індексний файл</translation>
+        <translation>lipu nasin</translation>
     </message>
     <message>
         <source>Load annotations</source>
-        <translation>Завантажувати анотації</translation>
+        <translation>kama jo sona lili</translation>
     </message>
     <message>
         <source>Mark unindexed books as deleted</source>
-        <translation>Позначати неіндексовані книги як видалені</translation>
+        <translation>sitelen lipu sin ala li weka</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Назва</translation>
+        <translation>nimi</translation>
     </message>
     <message>
         <source>Open file dialog</source>
-        <translation>Відкрити діалогове вікно вибору файлу</translation>
+        <translation>lukin poki lipu</translation>
     </message>
     <message>
         <source>Open folder dialog</source>
-        <translation>Відкрити діалогове вікно вибору папки</translation>
+        <translation>lukin poki</translation>
     </message>
     <message>
         <source>Retrieve collection name from index file</source>
-        <translation>Отримати назву колекції з індексного файлу</translation>
+        <translation>kama nimi kulupu tan lipu nasin</translation>
     </message>
     <message>
         <source>Scan unindexed archives</source>
-        <translation>Сканувати неіндексовані архіви</translation>
+        <translation>alasa poki sin ala</translation>
     </message>
     <message>
         <source>Select additional data folder</source>
-        <translation>Виберіть папку з додатковими даними</translation>
+        <translation>wile poki sona sin</translation>
     </message>
     <message>
         <source>Select archives folder</source>
-        <translation>Виберіть папку з архівами</translation>
+        <translation>wile poki lipu awen</translation>
     </message>
     <message>
         <source>Select collection index file</source>
-        <translation>Виберіть індексний файл колекції</translation>
+        <translation>wile lipu nasin kulupu</translation>
     </message>
     <message>
         <source>Select database file</source>
-        <translation>Виберіть файл бази даних</translation>
+        <translation>wile lipu sona</translation>
     </message>
 </context>
 <context>
     <name>AlphabetPanel</name>
     <message>
         <source>Select language</source>
-        <translation>Виберіть мову</translation>
+        <translation>wile toki</translation>
     </message>
     <message>
         <source>Specify the language of the new alphabet</source>
-        <translation>Вкажіть мову нового алфавіту</translation>
+        <translation>toki pi sitelen sin</translation>
     </message>
     <message>
         <source>Specify the letters of the new alphabet</source>
-        <translation>Вкажіть літери нового алфавіту</translation>
+        <translation>sitelen pi sitelen sin</translation>
     </message>
     <message>
         <source>Type letters</source>
-        <translation>Наберіть літери</translation>
+        <translation>sitelen</translation>
     </message>
 </context>
 <context>
     <name>Annotation</name>
     <message>
         <source> or %1</source>
-        <translation> або %1</translation>
+        <translation> anu %1</translation>
     </message>
     <message>
         <source>%1 images out of %2 could not be saved</source>
-        <translation>%1 зображень із %2 зберегти не вдалося</translation>
+        <translation>sitelen %1 / %2 li ken ala awen</translation>
     </message>
     <message>
         <source>%1 out of %2 images were saved</source>
-        <translation>Збережено %1 зображення з %2</translation>
+        <translation>sitelen %1 / %2 li awen</translation>
     </message>
     <message>
         <source>%L1 letters (%2%3 pages, %2%L4 words)</source>
-        <translation>%L1 букв (%2%3 страниц, %2%L4 слов)</translation>
+        <translation>sitelen %L1 (%2%3 lipu, %2%L4 nimi)</translation>
     </message>
     <message>
         <source>, translated from %1</source>
-        <translation>, мова оригіналу %1</translation>
+        <translation>, tan toki %1</translation>
     </message>
     <message>
         <source>All %1 images were successfully saved</source>
-        <translation>Усі %1 зображення успішно збережено</translation>
+        <translation>sitelen ale %1 li awen pona</translation>
     </message>
     <message>
         <source>Archive</source>
-        <translation>В архіві</translation>
+        <translation>poki lipu</translation>
     </message>
     <message>
         <source>Archives:</source>
-        <translation>Архів:</translation>
+        <translation>poki lipu:</translation>
     </message>
     <message>
         <source>AsIs</source>
-        <translation>Як є</translation>
+        <translation>nasin sama</translation>
     </message>
     <message>
         <source>Authors:</source>
-        <translation>Автори:</translation>
+        <translation>jan pali:</translation>
     </message>
     <message>
         <source>Cannot open %1</source>
-        <translation>Неможливо відкрити %1</translation>
+        <translation>ken ala lukin %1</translation>
     </message>
     <message>
         <source>Cannot save image to %1</source>
-        <translation>Не вдалося зберегти зображення у %1</translation>
+        <translation>ken ala awen sitelen tawa %1</translation>
     </message>
     <message>
         <source>Content</source>
-        <translation>Зміст</translation>
+        <translation>insa</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation>Метадані</translation>
+        <translation>sona</translation>
     </message>
     <message>
         <source>Export statistics:</source>
-        <translation>Статистика експорту:</translation>
+        <translation>nanpa pana weka:</translation>
     </message>
     <message>
         <source>File is empty</source>
-        <translation>Файл порожній</translation>
+        <translation>lipu li kama ala</translation>
     </message>
     <message>
         <source>File:</source>
-        <translation>Файл:</translation>
+        <translation>lipu:</translation>
     </message>
     <message>
         <source>Genres:</source>
-        <translation>Жанри:</translation>
+        <translation>nasin:</translation>
     </message>
     <message>
         <source>Groups:</source>
-        <translation>Групи:</translation>
+        <translation>kulupu:</translation>
     </message>
     <message>
         <source>Images:</source>
-        <translation>Зображення:</translation>
+        <translation>sitelen:</translation>
     </message>
     <message>
         <source>Inpx</source>
@@ -219,5584 +219,5574 @@
     </message>
     <message>
         <source>Jpeg images (*.jpg *.jpeg);;PNG images (*.png);;All files (*.*)</source>
-        <translation>Jpeg зображення (*.jpg *.jpeg);;PNG зображення (*.png);;Всі файли (*.*)</translation>
+        <translation>sitelen Jpeg;;sitelen PNG;;lipu ale (*.*)</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Ключові слова:</translation>
+        <translation>nimi lawa:</translation>
     </message>
     <message>
         <source>Keywords: %1</source>
-        <translation>Ключові слова: %1</translation>
+        <translation>nimi lawa: %1</translation>
     </message>
     <message>
         <source>Languages:</source>
-        <translation>Мова:</translation>
+        <translation>toki:</translation>
     </message>
     <message>
         <source>My rate:</source>
-        <translation>Мій рейтинг:</translation>
+        <translation>pona mi:</translation>
     </message>
     <message>
         <source>No structured metadata in the file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">sona lipu li lon ala</translation>
     </message>
     <message>
         <source>PublishYear:</source>
-        <translation>Рік видання:</translation>
+        <translation>tenpo sike:</translation>
     </message>
     <message>
         <source>Rate:</source>
-        <translation>Рейтинг:</translation>
+        <translation>pona:</translation>
     </message>
     <message>
         <source>Read</source>
-        <translation>Читати</translation>
+        <translation>lukin</translation>
     </message>
     <message>
-        <source>Readers&apos; Reviews</source>
-        <translation>Відгуки читачів</translation>
+        <source>Readers' Reviews</source>
+        <translation>toki pi jan lukin</translation>
     </message>
     <message>
         <source>Save &amp;all images (%1)...</source>
-        <translation>Зберегти &amp;усі зображення (%1)...</translation>
+        <translation>awen &amp;sitelen ale (%1)...</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation>Скрипт</translation>
+        <translation>nasin pali</translation>
     </message>
     <message>
         <source>Select image file name</source>
-        <translation>Виберіть назву файлу зображення</translation>
+        <translation>wile nimi lipu sitelen</translation>
     </message>
     <message>
         <source>Select images folder</source>
-        <translation>Вкажіть папку для збереження зображень</translation>
+        <translation>wile poki sitelen</translation>
     </message>
     <message>
         <source>Series:</source>
-        <translation>Серія:</translation>
+        <translation>open:</translation>
     </message>
     <message>
         <source>Show content</source>
-        <translation>Показати зміст</translation>
+        <translation>lukin insa</translation>
     </message>
     <message>
         <source>Show file metadata</source>
-        <translation>Показати метадані</translation>
+        <translation>lukin sona lipu</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Розмір:</translation>
+        <translation>suli:</translation>
     </message>
     <message>
         <source>Source:</source>
-        <translation>Джерело:</translation>
+        <translation>tan:</translation>
     </message>
     <message>
         <source>Translators:</source>
-        <translation>Переклад:</translation>
+        <translation>jan ante toki:</translation>
     </message>
     <message>
         <source>Updates:</source>
-        <translation>Оновлено:</translation>
+        <translation>sin:</translation>
     </message>
     <message>
         <source>cover</source>
-        <translation>Обкладинка</translation>
+        <translation>lukin lawa</translation>
     </message>
 </context>
 <context>
     <name>AnnotationWidget</name>
     <message>
         <source>&amp;Copy image</source>
-        <translation>&amp;Копіювати зображення</translation>
+        <translation>&amp;sama sitelen</translation>
     </message>
     <message>
         <source>&amp;Open image</source>
-        <translation>&amp;Відкрити зображення</translation>
+        <translation>&amp;lukin sitelen</translation>
     </message>
     <message>
         <source>&amp;Save image as...</source>
-        <translation>&amp;Зберегти зображення як...</translation>
+        <translation>&amp;awen sitelen nimi sin...</translation>
     </message>
 </context>
 <context>
     <name>AuthorReview</name>
     <message>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>pini</translation>
     </message>
 </context>
 <context>
     <name>Book</name>
     <message>
         <source>Author</source>
-        <translation>Автор</translation>
+        <translation>jan pali</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation>Коментар</translation>
-    </message>
-    <message>
-        <source>Content</source>
-        <translation type="vanished">Зміст</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>Date, Time</source>
-        <translation>Дата, час</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="vanished">Опис</translation>
+        <translation>tenpo</translation>
     </message>
     <message>
         <source>FileName</source>
-        <translation>Файл</translation>
+        <translation>lipu</translation>
     </message>
     <message>
         <source>Folder</source>
-        <translation>Папка</translation>
+        <translation>poki</translation>
     </message>
     <message>
         <source>Genre</source>
-        <translation>Жанр</translation>
+        <translation>nasin</translation>
     </message>
     <message>
         <source>Lang</source>
-        <translation>Мова</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>LibRate</source>
-        <translation>Рейтинг</translation>
+        <translation>pona pi kulupu</translation>
     </message>
     <message>
         <source>Reader</source>
-        <translation>Читач</translation>
+        <translation>jan lukin</translation>
     </message>
     <message>
         <source>SeqNumber</source>
-        <translation>№</translation>
+        <translation>#</translation>
     </message>
     <message>
         <source>Series</source>
-        <translation>Серія</translation>
+        <translation>open</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Розмір</translation>
+        <translation>suli</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation>Назва</translation>
+        <translation>nimi</translation>
     </message>
     <message>
         <source>UpdateDate</source>
-        <translation>Оновлено</translation>
+        <translation>tenpo sin</translation>
     </message>
     <message>
         <source>UserRate</source>
-        <translation>Мій рейтинг</translation>
+        <translation>pona mi</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation>Рік</translation>
+        <translation>tenpo sike</translation>
     </message>
-</context>
+<message><source>Content</source><translation>insa</translation></message><message><source>Description</source><translation>sona</translation></message></context>
 <context>
     <name>BookContextMenu</name>
     <message>
         <source>&amp;Add to</source>
-        <translation>&amp;Додати до</translation>
+        <translation>&amp;pana tawa</translation>
     </message>
     <message>
         <source>&amp;All</source>
-        <translation>&amp;Усі</translation>
+        <translation>&amp;ale</translation>
     </message>
     <message>
         <source>&amp;Check</source>
-        <translation>Поз&amp;начка</translation>
+        <translation>&amp;wile</translation>
     </message>
     <message>
         <source>&amp;Delete permanently</source>
-        <translation>Видалит&amp;и назавжди</translation>
+        <translation>&amp;weka</translation>
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation>&amp;Групи</translation>
+        <translation>&amp;kulupu</translation>
     </message>
     <message>
         <source>&amp;Mark as read</source>
-        <translation>&amp;Прочитано</translation>
+        <translation>&amp;sitelen lukin pini</translation>
     </message>
     <message>
         <source>&amp;Move to</source>
-        <translation>&amp;Перемістити до</translation>
+        <translation>&amp;tawa</translation>
     </message>
     <message>
         <source>&amp;My rate</source>
-        <translation>&amp;Мій рейтинг</translation>
+        <translation>&amp;pona mi</translation>
     </message>
     <message>
         <source>&amp;New group...</source>
-        <translation>&amp;Нова група...</translation>
+        <translation>&amp;kulupu sin...</translation>
     </message>
     <message>
         <source>&amp;Read</source>
-        <translation>&amp;Читати</translation>
+        <translation>&amp;lukin</translation>
     </message>
     <message>
         <source>&amp;Remove from</source>
-        <translation>&amp;Видалити з</translation>
+        <translation>&amp;weka tan</translation>
     </message>
     <message>
         <source>&amp;Remove read mark</source>
-        <translation>&amp;Видалити мітку прочитаного</translation>
+        <translation>&amp;weka sitelen lukin</translation>
     </message>
     <message>
         <source>&amp;Tree</source>
-        <translation>&amp;Дерево</translation>
+        <translation>&amp;kasi nasin</translation>
     </message>
     <message>
         <source>&amp;Undo deletion</source>
-        <translation>Скасувати &amp;видалення</translation>
+        <translation>&amp;ala weka</translation>
     </message>
     <message>
         <source>&amp;Unpack</source>
-        <translation>&amp;Розпакувати</translation>
+        <translation>&amp;weka poki</translation>
     </message>
     <message>
         <source>Are you sure you want to change the language of the books to %1?</source>
-        <translation>Ви впевнені, що хочете, щоб мовою цих книг була %1?</translation>
+        <translation>sina wile ante toki lipu tawa %1?</translation>
     </message>
     <message>
         <source>As &amp;epub</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">nasin &amp;epub</translation>
     </message>
     <message>
         <source>As &amp;inpx collection</source>
-        <translation>Як &amp;inpx-колекцію</translation>
+        <translation>nasin &amp;inpx</translation>
     </message>
     <message>
         <source>As &amp;original format</source>
-        <translation>В &amp;оригінальному форматі</translation>
+        <translation>nasin &amp;open</translation>
     </message>
     <message>
         <source>As &amp;original format (%1)</source>
-        <translation>В &amp;оригінальному форматі (%1)</translation>
+        <translation>nasin &amp;open (%1)</translation>
     </message>
     <message>
         <source>As &amp;zip archive</source>
-        <translation>У &amp;zip-архіві</translation>
+        <translation>nasin &amp;zip</translation>
     </message>
     <message>
         <source>Books %1 failed</source>
-        <translation>Неможливо %1 книгу</translation>
+        <translation>lipu %1 li pakala</translation>
     </message>
     <message>
         <source>C&amp;ollapse</source>
-        <translation>З&amp;горнути</translation>
+        <translation>l&amp;ili</translation>
     </message>
     <message>
         <source>Calculate</source>
-        <translation>Обчислити</translation>
+        <translation>nanpa</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Cannot set language of books</source>
-        <translation>Не вдалося змінити мову книг</translation>
+        <translation>ken ala ante toki lipu</translation>
     </message>
     <message>
         <source>Cannot set rate</source>
-        <translation>Не вдалося оцінити</translation>
+        <translation>ken ala ante pona</translation>
     </message>
     <message>
         <source>Change language</source>
-        <translation>Змінити мову</translation>
+        <translation>ante toki</translation>
     </message>
     <message>
         <source>Compare</source>
-        <translation>Порівняти</translation>
+        <translation>lukin sama</translation>
     </message>
     <message>
         <source>E&amp;xpand</source>
-        <translation>Ро&amp;згорнути</translation>
+        <translation>s&amp;uli</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation>&amp;Експорт</translation>
+        <translation>p&amp;ana weka</translation>
     </message>
     <message>
         <source>Generate inde&amp;x file (*.inpx)</source>
-        <translation>Створити інде&amp;кс (*.inpx)</translation>
+        <translation>pali lipu &amp;nasin (*.inpx)</translation>
     </message>
     <message>
         <source>Hash</source>
-        <translation>Хеш</translation>
+        <translation>nanpa</translation>
     </message>
     <message>
         <source>No rating</source>
-        <translation>Без оцінки</translation>
+        <translation>pona ala</translation>
     </message>
     <message>
         <source>Overwrite</source>
-        <translation>Перезаписати</translation>
+        <translation>ante lipu</translation>
     </message>
     <message>
         <source>R&amp;emove</source>
-        <translation>&amp;Видалити</translation>
+        <translation>w&amp;eka</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Перейменувати</translation>
+        <translation>ante nimi</translation>
     </message>
     <message>
         <source>Select destination folder</source>
-        <translation>Вкажіть папку</translation>
+        <translation>wile poki tawa</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation>Пропустити</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>The result of this operation cannot be undone. Are you sure you want to delete the books permanently?</source>
-        <translation>Результат цієї операції не можна скасувати. Впевнені, що хочете видалити ці книги назавжди?</translation>
+        <translation>pali ni li ken ala ante. sina wile weka lipu?</translation>
     </message>
     <message>
         <source>What to do with the same named files?</source>
-        <translation>Що робити з однойменними файлами?</translation>
+        <translation>pali seme kepeken lipu nimi sama?</translation>
     </message>
     <message>
         <source>removing</source>
-        <translation>видалити</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>restoring</source>
-        <translation>відновити</translation>
+        <translation>kama sin</translation>
     </message>
 </context>
 <context>
     <name>Books</name>
     <message>
         <source>List</source>
-        <translation>Список</translation>
+        <translation>lipu</translation>
     </message>
     <message>
         <source>Tree</source>
-        <translation>Дерево</translation>
+        <translation>kasi nasin</translation>
     </message>
 </context>
 <context>
     <name>CollectionCleaner</name>
     <message>
         <source> bytes</source>
-        <translation> байт</translation>
+        <translation> nanpa lili</translation>
     </message>
     <message>
         <source> permanently, without the possibility of recovery</source>
-        <translation> назавжди, без можливості відновлення</translation>
+        <translation> weka, ken ala kama sin</translation>
     </message>
     <message>
         <source>%1 book(s) deleted</source>
-        <translation>Видалено книг: %1</translation>
+        <translation>lipu %1 li weka</translation>
     </message>
     <message>
         <source>%1 book(s) deleted permanently</source>
-        <translation>Видалено книг: %1</translation>
+        <translation>lipu %1 li weka</translation>
     </message>
     <message>
         <source>Analyze collection</source>
-        <translation>Аналіз колекції</translation>
+        <translation>lukin kulupu lipu</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Caution! The language of the book is determined by the description in the index file. Please note that there are errors in these descriptions. Many books contain texts in languages other than those specified in the index file.</source>
-        <translation>Обережно! Мова книги визначається за описом в індексному файлі. Звертаємо вашу увагу на помилки у цих описах. Багато книг містять тексти мовами, відмінними від зазначеного в індексному файлі.</translation>
+        <translation>o sona! toki lipu li kama tan lipu nasin. lipu mute li jo e toki ante.</translation>
     </message>
     <message>
         <source>Check all</source>
-        <translation>Виділити все</translation>
+        <translation>wile ale</translation>
     </message>
     <message>
         <source>Collection Cleaner</source>
-        <translation>Очищення колекції</translation>
+        <translation>weka ike kulupu lipu</translation>
     </message>
     <message>
         <source>Delete books by genre</source>
-        <translation>Видалити книги вказаних жанрів</translation>
+        <translation>weka lipu nasin</translation>
     </message>
     <message>
         <source>Delete books by language</source>
-        <translation>Видалити книги з вказаними мовами</translation>
+        <translation>weka lipu toki</translation>
     </message>
     <message>
         <source>Delete books larger than</source>
-        <translation>Видалити книги більше ніж</translation>
+        <translation>weka lipu suli mute</translation>
     </message>
     <message>
         <source>Delete books marked as deleted</source>
-        <translation>Видалити книги, позначені як видалені</translation>
+        <translation>weka lipu sitelen weka</translation>
     </message>
     <message>
         <source>Delete books smaller than</source>
-        <translation>Видалити книги менше ніж</translation>
+        <translation>weka lipu lili mute</translation>
     </message>
     <message>
         <source>Delete forever, along with book files from archives</source>
-        <translation>Видалити назавжди разом із файлами книг з архівів</translation>
+        <translation>weka ale</translation>
     </message>
     <message>
         <source>Find and remove duplicate books</source>
-        <translation>Знайти та видалити дублікати книг</translation>
+        <translation>alasa weka lipu sama</translation>
     </message>
     <message>
         <source>Invert checks</source>
-        <translation>Інвертувати виділення</translation>
+        <translation>ante wile</translation>
     </message>
     <message>
         <source>Match full</source>
-        <translation>Повний збіг</translation>
+        <translation>sama ale</translation>
     </message>
     <message>
         <source>Match partial</source>
-        <translation>Частковий збіг</translation>
+        <translation>sama lili</translation>
     </message>
     <message>
         <source>No books were found in the collection according to the specified criteria</source>
-        <translation>За вказаними критеріями в колекції не знайдено жодної книги</translation>
+        <translation>lipu ala li kama</translation>
     </message>
     <message>
         <source>Read random book</source>
-        <translation>Читати випадкову книгу</translation>
+        <translation>lukin lipu nasa</translation>
     </message>
     <message>
         <source>Remove books duplicated by compilations</source>
-        <translation>Видалити книги, дубльовані збірниками</translation>
+        <translation>weka lipu sama kulupu</translation>
     </message>
     <message>
         <source>Remove completely duplicated compilations</source>
-        <translation>Видалити збірники, що повністю дублюються</translation>
+        <translation>weka kulupu sama</translation>
     </message>
     <message>
         <source>Remove rated less than</source>
-        <translation>Видалити з рейтингом нижче</translation>
+        <translation>weka lipu pona lili</translation>
     </message>
     <message>
         <source>Remove unrated books</source>
-        <translation>Видалити книги без рейтингу</translation>
+        <translation>weka lipu pona ala</translation>
     </message>
     <message>
         <source>Removes books that have at least one genre in the set of marked ones</source>
-        <translation>Видаляє книги, що мають хоча б один жанр у наборі зазначених</translation>
+        <translation>weka lipu nasin wile</translation>
     </message>
     <message>
         <source>Removes books whose genres are all included in the set of marked ones</source>
-        <translation>Видаляє книги, всі жанри яких входять до набору зазначених</translation>
+        <translation>weka lipu nasin ale wile</translation>
     </message>
     <message>
         <source>Strange values for minimum and maximum book sizes. Do you want to delete all books?</source>
-        <translation>Дивні значення для мінімального та максимального розмірів книг. Ви хочете видалити всі книги?</translation>
+        <translation>suli lili en suli mute li nasa. sina wile weka lipu ale?</translation>
     </message>
     <message>
         <source>There are %1 book(s) found in the collection matching your criteria. Are you sure you want to delete them%2?</source>
-        <translation>У колекції знайдено %1 книг, які відповідають вашим критеріям. Ви впевнені, що хочете видалити їх%2?</translation>
+        <translation>lipu %1 li kama. sina wile weka%2?</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation>Зняти виділення</translation>
+        <translation>wile ala ale</translation>
     </message>
     <message>
         <source>Wait. Collection analysis in progress...</source>
-        <translation>Чекайте. Триває аналіз колекції...</translation>
+        <translation>o awen. lukin kulupu li tawa...</translation>
     </message>
 </context>
 <context>
     <name>CollectionController</name>
     <message>
-        <source>&quot;%1&quot; collection %2. Added:&lt;p&gt;
+        <source>"%1" collection %2. Added:&lt;p&gt;
 &lt;table&gt;
-&lt;tr&gt;&lt;td&gt;Archives:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%3&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Authors:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%4&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Series:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%5&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Books:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%6&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Keywords:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%7&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Archives:&lt;/td&gt;&lt;td align='right'&gt;%3&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Authors:&lt;/td&gt;&lt;td align='right'&gt;%4&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Series:&lt;/td&gt;&lt;td align='right'&gt;%5&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Books:&lt;/td&gt;&lt;td align='right'&gt;%6&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Keywords:&lt;/td&gt;&lt;td align='right'&gt;%7&lt;/td&gt;&lt;/tr&gt;
 %8
 &lt;/table&gt;%9</source>
-        <translation>Колекція %1 %2. Додано:&lt;p&gt;
+        <translation>"%1" %2. pana sin:&lt;p&gt;
 &lt;table&gt;
-&lt;tr&gt;&lt;td&gt;Архіви:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%3&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Автори:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%4&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Серії:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%5&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Книги:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%6&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Ключові слова:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%7&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;poki:&lt;/td&gt;&lt;td align='right'&gt;%3&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;jan pali:&lt;/td&gt;&lt;td align='right'&gt;%4&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;open:&lt;/td&gt;&lt;td align='right'&gt;%5&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;lipu:&lt;/td&gt;&lt;td align='right'&gt;%6&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;nimi lawa:&lt;/td&gt;&lt;td align='right'&gt;%7&lt;/td&gt;&lt;/tr&gt;
 %8
 &lt;/table&gt;%9</translation>
     </message>
     <message>
-        <source>&lt;p&gt;&lt;p&gt;Warning! A change to previous data was detected, it is recommended to recreate the collection again. Don&apos;t forget to save user data&lt;/p&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;p&gt;Увага! Виявлено зміни в раніше збережених даних. Радимо створити колекцію заново. Не забудьте зберегти дані користувача&lt;/p&gt;&lt;/p&gt;</translation>
+        <source>&lt;p&gt;&lt;p&gt;Warning! A change to previous data was detected, it is recommended to recreate the collection again. Don't forget to save user data&lt;/p&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;p&gt;o sona! ante li kama. o pali kulupu sin. o awen sona jan.&lt;/p&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;tr&gt;&lt;td&gt;Genres:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%1&lt;/td&gt;&lt;/tr&gt;</source>
-        <translation>&lt;tr&gt;&lt;td&gt;Жанры:&lt;/td&gt;&lt;td align=&apos;right&apos;&gt;%1&lt;/td&gt;&lt;/tr&gt;</translation>
+        <source>&lt;tr&gt;&lt;td&gt;Genres:&lt;/td&gt;&lt;td align='right'&gt;%1&lt;/td&gt;&lt;/tr&gt;</source>
+        <translation>&lt;tr&gt;&lt;td&gt;nasin:&lt;/td&gt;&lt;td align='right'&gt;%1&lt;/td&gt;&lt;/tr&gt;</translation>
     </message>
     <message>
         <source>Are you sure you want to delete the collection?</source>
-        <translation>Впевнені, що хочете видалити колекцію?</translation>
+        <translation>sina wile weka kulupu lipu?</translation>
     </message>
     <message>
         <source>Corrupted archives detected:
 %1</source>
-        <translation>Виявлено пошкоджені архіви
+        <translation>poki pakala:
 %1</translation>
     </message>
     <message>
         <source>Delete collection database as well?</source>
-        <translation>Базу даних колекції також видалити?</translation>
+        <translation>weka lipu sona kulupu kin?</translation>
     </message>
     <message>
-        <source>Don&apos;t ask anymore</source>
-        <translation>Більше не питати</translation>
+        <source>Don't ask anymore</source>
+        <translation>o toki ala sin</translation>
     </message>
     <message>
         <source>Keep your user data?</source>
-        <translation>Зберегти ваші дані користувача?</translation>
+        <translation>o awen sona jan?</translation>
     </message>
     <message>
         <source>Looks like the collection has been updated. Apply changes?</source>
-        <translation>Схоже, колекція оновлена. Застосувати зміни?</translation>
+        <translation>kulupu li sin. o pali ante?</translation>
     </message>
     <message>
         <source>No updates found</source>
-        <translation>Оновлень не знайдено</translation>
+        <translation>sin ala</translation>
     </message>
     <message>
         <source>No write access to %1</source>
-        <translation>Немає доступу до запису в %1</translation>
+        <translation>ken ala sitelen tawa %1</translation>
     </message>
     <message>
         <source>The collection was not %1 due to errors. See log.</source>
-        <translation>Колекція не була %1 через помилки. Подробиці у журналі.</translation>
+        <translation>kulupu li %1 ala tan pakala. o lukin lipu toki.</translation>
     </message>
     <message>
         <source>The existing database file will be overwritten. Continue?</source>
-        <translation>Існуючий файл бази даних буде перезаписано.
-Продовжити?</translation>
+        <translation>lipu sona li ante. o tawa?</translation>
     </message>
     <message>
         <source>created</source>
-        <translation>створена</translation>
+        <translation>pali</translation>
     </message>
     <message>
         <source>updated</source>
-        <translation>оновлена</translation>
+        <translation>sin</translation>
     </message>
 </context>
 <context>
     <name>CollectionStatistics</name>
     <message>
         <source>Additional info: %1</source>
-        <translation>Додатково: %1</translation>
+        <translation>sona sin: %1</translation>
     </message>
     <message>
         <source>Authors:</source>
-        <translation>Автори:</translation>
+        <translation>jan pali:</translation>
     </message>
     <message>
         <source>Books:</source>
-        <translation>Книги:</translation>
+        <translation>lipu:</translation>
     </message>
     <message>
         <source>Collection statistics:</source>
-        <translation>Статистика колекції:</translation>
+        <translation>nanpa kulupu lipu:</translation>
     </message>
     <message>
         <source>Database: %1</source>
-        <translation>База даних: %1</translation>
+        <translation>lipu sona: %1</translation>
     </message>
     <message>
         <source>Deleted books:</source>
-        <translation>Видалено книг:</translation>
+        <translation>lipu weka:</translation>
     </message>
     <message>
         <source>Folder: %1</source>
-        <translation>Папка: %1</translation>
+        <translation>poki: %1</translation>
     </message>
     <message>
         <source>Index file: %1</source>
-        <translation>Індексний файл: %1</translation>
+        <translation>lipu nasin: %1</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Ключові слова:</translation>
+        <translation>nimi lawa:</translation>
     </message>
     <message>
         <source>Name: %1</source>
-        <translation>Назва: %1</translation>
+        <translation>nimi: %1</translation>
     </message>
     <message>
         <source>Series:</source>
-        <translation>Серія:</translation>
+        <translation>open:</translation>
     </message>
 </context>
 <context>
     <name>CommandLine</name>
     <message>
         <source>%1: e-book cataloger</source>
-        <translation>%1: каталогізатор електронних книг</translation>
+        <translation>%1: lipu pi lipu sona</translation>
     </message>
     <message>
         <source>Input file</source>
-        <translation>Вхідний файл</translation>
+        <translation>lipu kama</translation>
     </message>
 </context>
 <context>
     <name>Common</name>
     <message>
         <source>Anonymous</source>
-        <translation>Анонім</translation>
+        <translation>jan ala nimi</translation>
     </message>
     <message>
-        <source>Don&apos;t ask again</source>
-        <translation>Більше не запитувати</translation>
+        <source>Don't ask again</source>
+        <translation>o toki ala sin</translation>
     </message>
     <message>
         <source>Error!</source>
-        <translation>Помилка!</translation>
+        <translation>pakala!</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>Інформація</translation>
+        <translation>sona</translation>
     </message>
     <message>
         <source>Question</source>
-        <translation>Питання</translation>
+        <translation>toki wile</translation>
     </message>
     <message>
         <source>Warning!</source>
-        <translation>Увага!</translation>
+        <translation>o sona!</translation>
     </message>
     <message>
         <source>You must restart the application to apply the changes.
 Restart now?</source>
-        <translation>Для застосування змін необхідно перезапустити програму.
-Перезапустити зараз?</translation>
+        <translation>o open sin. o open sin?</translation>
     </message>
 </context>
 <context>
     <name>ContextMenu</name>
     <message>
         <source>&amp;Check all</source>
-        <translation>Відзначити &amp;все</translation>
+        <translation>&amp;wile ale</translation>
     </message>
     <message>
         <source>&amp;Collapse all</source>
-        <translation>&amp;Згорнути все</translation>
+        <translation>&amp;lili ale</translation>
     </message>
     <message>
         <source>&amp;Expand all</source>
-        <translation>&amp;Розгорнути все</translation>
+        <translation>&amp;suli ale</translation>
     </message>
     <message>
         <source>&amp;Invert</source>
-        <translation>&amp;Інвертувати позначку</translation>
+        <translation>&amp;ante</translation>
     </message>
     <message>
         <source>&amp;Uncheck all</source>
-        <translation>Зн&amp;яти всі позначки</translation>
+        <translation>&amp;wile ala ale</translation>
     </message>
 </context>
 <context>
     <name>Dialog</name>
     <message>
-        <source>&lt;p&gt;Personal &lt;a href=&apos;%1&apos;&gt;%2&lt;/a&gt; build&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Персональна збірка &lt;a href=&apos;%1&apos;&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
+        <source>&lt;p&gt;Personal &lt;a href='%1'&gt;%2&lt;/a&gt; build&lt;/p&gt;</source>
+        <translation>&lt;p&gt;pali jan &lt;a href='%1'&gt;%2&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;tr&gt;&lt;td style=&apos;text-align: center&apos;&gt;Components / Libraries&lt;/td&gt;&lt;/tr&gt;</source>
-        <translation>&lt;tr&gt;&lt;td style=&apos;text-align: center&apos;&gt;Компоненти / Бібліотеки&lt;/td&gt;&lt;/tr&gt;</translation>
+        <source>&lt;tr&gt;&lt;td style='text-align: center'&gt;Components / Libraries&lt;/td&gt;&lt;/tr&gt;</source>
+        <translation>&lt;tr&gt;&lt;td style='text-align: center'&gt;ijo / lipu&lt;/td&gt;&lt;/tr&gt;</translation>
     </message>
     <message>
         <source>About FLibrary</source>
-        <translation>Про FLibrary</translation>
+        <translation>seme FLibrary</translation>
     </message>
     <message>
         <source>Another e-library book cataloger</source>
-        <translation>Ще один каталогізатор електронної бібліотеки</translation>
+        <translation>lipu pi lipu sona</translation>
     </message>
     <message>
         <source>Cleanup recent books list</source>
-        <translation>Очистити список недавніх книг</translation>
+        <translation>weka lipu pini lili</translation>
     </message>
     <message>
         <source>Distributed under license %1</source>
-        <translation>Розповсюджується за ліцензією %1</translation>
+        <translation>nasin lon %1</translation>
     </message>
     <message>
         <source>The program version has been copied to the clipboard</source>
-        <translation>Версія програми скопійована до буфера обміну</translation>
+        <translation>nanpa sin li kama lon poki</translation>
     </message>
     <message>
         <source>Version: %1 (%2) %3</source>
-        <translation>Версія: %1 (%2) %3</translation>
+        <translation>nanpa sin: %1 (%2) %3</translation>
     </message>
 </context>
 <context>
     <name>Error</name>
     <message>
         <source>Additional info folder not found</source>
-        <translation>Папка з додатковою інформацією не знайдена</translation>
+        <translation>poki sona sin li lon ala</translation>
     </message>
     <message>
         <source>Archive folder cannot be empty</source>
-        <translation>Папка з архівами не може бути порожньою</translation>
+        <translation>poki lipu o lon</translation>
     </message>
     <message>
         <source>Archive folder name cannot be empty</source>
-        <translation>Шлях до архівів не може бути порожнім</translation>
+        <translation>nimi poki lipu o lon</translation>
     </message>
     <message>
         <source>Archive folder not found</source>
-        <translation>Папку з архівами не знайдено</translation>
+        <translation>poki lipu li lon ala</translation>
     </message>
     <message>
         <source>Author not specified</source>
-        <translation>Автора не вказано</translation>
+        <translation>jan pali li lon ala</translation>
     </message>
     <message>
         <source>Bad database file extension (.inpx)</source>
-        <translation>Неправильне розширення для файлу бази даних (.inpx)</translation>
+        <translation>nimi lipu sona li ike (.inpx)</translation>
     </message>
     <message>
         <source>Cannot create database folder %1</source>
-        <translation>Неможливо створити папку %1</translation>
+        <translation>ken ala pali poki sona %1</translation>
     </message>
     <message>
         <source>Database file not found</source>
-        <translation>База даних не знайдена</translation>
+        <translation>lipu sona li lon ala</translation>
     </message>
     <message>
         <source>Index file (*.inpx) not found</source>
-        <translation>Індексний файл (*.inpx) не знайдено</translation>
+        <translation>lipu nasin li lon ala</translation>
     </message>
     <message>
         <source>Name cannot be empty</source>
-        <translation>Назва не може бути порожньою</translation>
+        <translation>nimi o lon</translation>
     </message>
     <message>
         <source>Retrieving books had errors</source>
-        <translation>Книжки отримані з помилками</translation>
+        <translation>kama jo lipu li pakala</translation>
     </message>
     <message>
         <source>Same named collection has already been added</source>
-        <translation>Колекція з такою ж назвою вже додана</translation>
+        <translation>kulupu nimi sama li lon</translation>
     </message>
     <message>
         <source>This collection has already been added: %1</source>
-        <translation>Ця колекція вже додана під назвою: %1</translation>
+        <translation>kulupu ni li lon: %1</translation>
     </message>
     <message>
         <source>You must specify the collection database file</source>
-        <translation>Необхідно вказати файл бази даних колекції</translation>
+        <translation>o toki lipu sona kulupu</translation>
     </message>
 </context>
 <context>
     <name>Export</name>
     <message>
         <source>Index files (*.inpx);;All files (*.*)</source>
-        <translation>Індексні файли (*.inpx);;Всі файли (*.*)</translation>
+        <translation>lipu nasin (*.inpx);;lipu ale (*.*)</translation>
     </message>
     <message>
         <source>Save index file</source>
-        <translation>Зберегти індексний файл</translation>
+        <translation>awen lipu nasin</translation>
     </message>
 </context>
 <context>
     <name>FilterModel</name>
     <message>
         <source>Books filtered</source>
-        <translation>Книги відфільтровані</translation>
+        <translation>lipu li weka ike</translation>
     </message>
     <message>
         <source>Hidden</source>
-        <translation>Приховано</translation>
+        <translation>lon ala</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation>Назва</translation>
+        <translation>nimi</translation>
     </message>
 </context>
 <context>
     <name>FilterSettingsDialog</name>
     <message>
         <source>All items shown</source>
-        <translation>Показано всі елементи</translation>
+        <translation>ijo ale li lon</translation>
     </message>
     <message>
         <source>And</source>
-        <translation>I</translation>
+        <translation>en</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Застосувати</translation>
+        <translation>pali</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Checked items shown</source>
-        <translation>Показано зазначені елементи</translation>
+        <translation>ijo wile li lon</translation>
     </message>
     <message>
         <source>Filter enabled</source>
-        <translation>Фільтр увімкнено</translation>
+        <translation>weka ike li open</translation>
     </message>
     <message>
         <source>Filter settings</source>
-        <translation>Налаштування фільтра</translation>
+        <translation>nasin weka ike</translation>
     </message>
     <message>
         <source>Hide items whose books are all filtered</source>
-        <translation>Приховати елементи, усі книги яких відфільтровані</translation>
+        <translation>weka ijo lipu ale weka</translation>
     </message>
     <message>
         <source>Hide rated higher than</source>
-        <translation>Приховати з рейтингом вище</translation>
+        <translation>weka lipu pona suli</translation>
     </message>
     <message>
         <source>Hide rated lower than</source>
-        <translation>Приховати з рейтингом нижче</translation>
+        <translation>weka lipu pona lili</translation>
     </message>
     <message>
         <source>Hide unrated books</source>
-        <translation>Приховати без рейтингу</translation>
+        <translation>weka lipu pona ala</translation>
     </message>
     <message>
         <source>Or</source>
-        <translation>Або</translation>
+        <translation>anu</translation>
     </message>
     <message>
         <source>Rate</source>
-        <translation>Рейтинг</translation>
+        <translation>pona</translation>
     </message>
     <message>
         <source>Show all items</source>
-        <translation>Показати всі елементи</translation>
+        <translation>lukin ijo ale</translation>
     </message>
     <message>
         <source>Show checked only</source>
-        <translation>Показати лише відмічені</translation>
+        <translation>lukin ijo wile</translation>
     </message>
     <message>
         <source>Show unchecked only</source>
-        <translation>Показати лише невідмічені</translation>
+        <translation>lukin ijo wile ala</translation>
     </message>
     <message>
         <source>Unchecked items shown</source>
-        <translation>Показано невідмічені елементи</translation>
+        <translation>ijo wile ala li lon</translation>
     </message>
 </context>
 <context>
     <name>Genre</name>
     <message>
         <source>about_musicians</source>
-        <translation>Музиканти. Композитори. Художники</translation>
+        <translation>jan kalama</translation>
     </message>
     <message>
         <source>accounting</source>
-        <translation>Бухоблік. Оподаткування. Аудит</translation>
+        <translation>nanpa mani</translation>
     </message>
     <message>
         <source>adv_animal</source>
-        <translation>Природа та тварини</translation>
+        <translation>soweli en kasi</translation>
     </message>
     <message>
         <source>adv_geo</source>
-        <translation>Подорожі та географія</translation>
+        <translation>tawa ma ante</translation>
     </message>
     <message>
         <source>adv_history</source>
-        <translation>Історичні пригоди</translation>
+        <translation>tenpo pini</translation>
     </message>
     <message>
         <source>adv_indian</source>
-        <translation>Пригоди. Iндіанці</translation>
+        <translation>jan pi ma Intu</translation>
     </message>
     <message>
         <source>adv_maritime</source>
-        <translation>Морські пригоди</translation>
+        <translation>tawa telo</translation>
     </message>
     <message>
         <source>adv_modern</source>
-        <translation>Сучасне</translation>
+        <translation>tenpo ni</translation>
     </message>
     <message>
         <source>adv_story</source>
-        <translation>Історії</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>adv_western</source>
-        <translation>Вестерн</translation>
+        <translation>ma sike</translation>
     </message>
     <message>
         <source>adventure</source>
-        <translation>Пригоди</translation>
+        <translation>tawa wawa</translation>
     </message>
     <message>
         <source>adventure_all_root</source>
-        <translation>Пригоди</translation>
+        <translation>tawa wawa</translation>
     </message>
     <message>
         <source>adventure_fantasy</source>
-        <translation>Пригодницьке фентезі</translation>
+        <translation>tawa wawa nasa</translation>
     </message>
     <message>
         <source>antique</source>
-        <translation>Старовинна література</translation>
+        <translation>lipu pi tenpo pini</translation>
     </message>
     <message>
         <source>antique_all</source>
-        <translation>Старовинна література: інше</translation>
+        <translation>tenpo pini: ante</translation>
     </message>
     <message>
         <source>antique_all_root</source>
-        <translation>Старовинне</translation>
+        <translation>lipu tenpo pini</translation>
     </message>
     <message>
         <source>antique_ant</source>
-        <translation>Антична література</translation>
+        <translation>tenpo pini</translation>
     </message>
     <message>
         <source>antique_east</source>
-        <translation>Давньосхідна література</translation>
+        <translation>ma sin pi tenpo pini</translation>
     </message>
     <message>
         <source>antique_european</source>
-        <translation>Європейська старовинна література</translation>
+        <translation>ma Elopa</translation>
     </message>
     <message>
         <source>antique_myths</source>
-        <translation>Міфи. Легенди. Епос</translation>
+        <translation>toki nasa pi tenpo pini</translation>
     </message>
     <message>
         <source>antique_russian</source>
-        <translation>Давньоруська література</translation>
+        <translation>lipu Losi pi tenpo pini</translation>
     </message>
     <message>
         <source>antiscience_all_root</source>
-        <translation>Антинаука. Мракобісся</translation>
+        <translation>ike sona</translation>
     </message>
     <message>
         <source>aphorisms</source>
-        <translation>Афоризми</translation>
+        <translation>toki lili sona</translation>
     </message>
     <message>
         <source>architecture_book</source>
-        <translation>Архітектура</translation>
+        <translation>tomo pali</translation>
     </message>
     <message>
         <source>art_all_root</source>
-        <translation>Мистецтво</translation>
+        <translation>sitelen</translation>
     </message>
     <message>
         <source>art_criticism</source>
-        <translation>Критика</translation>
+        <translation>lukin sitelen</translation>
     </message>
     <message>
         <source>art_world_culture</source>
-        <translation>Світова культура</translation>
+        <translation>nasin ma ale</translation>
     </message>
     <message>
         <source>asian_fantasy</source>
-        <translation>Азіатське фентезі</translation>
+        <translation>nasa pi ma Esi</translation>
     </message>
     <message>
         <source>astrology</source>
-        <translation>Астрологія</translation>
+        <translation>sona sike</translation>
     </message>
     <message>
         <source>auto_business</source>
-        <translation>Автосправа</translation>
+        <translation>ilo tawa mani</translation>
     </message>
     <message>
         <source>auto_regulations</source>
-        <translation>Автомобілі та ПДР</translation>
+        <translation>nasin ilo tawa</translation>
     </message>
     <message>
         <source>banking</source>
-        <translation>Банківська справа</translation>
+        <translation>tomo mani</translation>
     </message>
     <message>
         <source>boyar_anime</source>
-        <translation>Бояр-аніме</translation>
+        <translation>sitelen Nijon nasa</translation>
     </message>
     <message>
         <source>busines</source>
-        <translation>Різне</translation>
+        <translation>ante</translation>
     </message>
     <message>
         <source>busines_all_root</source>
-        <translation>Ділова література</translation>
+        <translation>pali mani</translation>
     </message>
     <message>
         <source>child_adv</source>
-        <translation>Дитячі пригоди</translation>
+        <translation>tawa wawa</translation>
     </message>
     <message>
         <source>child_adv_animal</source>
-        <translation>Про тварин та природу</translation>
+        <translation>soweli en kasi</translation>
     </message>
     <message>
         <source>child_classical</source>
-        <translation>Класична література</translation>
+        <translation>pona pi tenpo pini</translation>
     </message>
     <message>
         <source>child_det</source>
-        <translation>Дитячі гостросюжетні</translation>
+        <translation>alasa ike jan lili</translation>
     </message>
     <message>
         <source>child_det_animal_detectives</source>
-        <translation>Дитячі детективи: тварини-детективи</translation>
+        <translation>alasa ike: soweli</translation>
     </message>
     <message>
         <source>child_det_children_detectives</source>
-        <translation>Дитячі детективи: діти-детективи</translation>
+        <translation>alasa ike: jan lili</translation>
     </message>
     <message>
         <source>child_det_other</source>
-        <translation>Дитячі детективи: інше</translation>
+        <translation>alasa ike: ante</translation>
     </message>
     <message>
         <source>child_dramaturgy</source>
-        <translation>Драматургія для дітей та підлітків</translation>
+        <translation>sitelen tawa jan lili</translation>
     </message>
     <message>
         <source>child_education</source>
-        <translation>Дитяча освітня література</translation>
+        <translation>sona</translation>
     </message>
     <message>
         <source>child_folklore</source>
-        <translation>Дитячий фольклор</translation>
+        <translation>toki pi jan lili</translation>
     </message>
     <message>
         <source>child_prose</source>
-        <translation>Дитяча проза</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>child_prose_history</source>
-        <translation>Військова та історична література</translation>
+        <translation>tenpo pini</translation>
     </message>
     <message>
         <source>child_prose_humor</source>
-        <translation>Дитяча проза: гумористична</translation>
+        <translation>toki musi</translation>
     </message>
     <message>
         <source>child_prose_romantic</source>
-        <translation>Романтичне</translation>
+        <translation>olin</translation>
     </message>
     <message>
         <source>child_sf</source>
-        <translation>Дитяча фантастика</translation>
+        <translation>ma nasa</translation>
     </message>
     <message>
         <source>child_sf_fantasy</source>
-        <translation>Фентезі</translation>
+        <translation>ma nasa</translation>
     </message>
     <message>
         <source>child_sf_horror</source>
-        <translation>Жахи та містика</translation>
+        <translation>monsuta</translation>
     </message>
     <message>
         <source>child_sf_hronoopera</source>
-        <translation>Темпоральна фантастика. Попаданцi</translation>
+        <translation>tenpo nasa</translation>
     </message>
     <message>
         <source>child_sf_space</source>
-        <translation>Космічні пригоди. Прибульці</translation>
+        <translation>sewi</translation>
     </message>
     <message>
         <source>child_tale</source>
-        <translation>Казка</translation>
+        <translation>toki nasa lili</translation>
     </message>
     <message>
         <source>child_tale_foreign_writers</source>
-        <translation>Казки зарубіжних письменників</translation>
+        <translation>toki nasa pi ma ante</translation>
     </message>
     <message>
         <source>child_tale_rus</source>
-        <translation>Російські казки</translation>
+        <translation>toki nasa Losi</translation>
     </message>
     <message>
         <source>child_tale_russian_writers</source>
-        <translation>Казки російських письменників</translation>
+        <translation>toki nasa pi jan Losi</translation>
     </message>
     <message>
         <source>child_verse</source>
-        <translation>Дитячі вірші</translation>
+        <translation>kalama sitelen</translation>
     </message>
     <message>
         <source>children</source>
-        <translation>Дитяча література</translation>
+        <translation>jan lili</translation>
     </message>
     <message>
         <source>children_all_root</source>
-        <translation>Дитяче</translation>
+        <translation>jan lili</translation>
     </message>
     <message>
         <source>cine</source>
-        <translation>Кіно</translation>
+        <translation>sitelen tawa</translation>
     </message>
     <message>
         <source>comedy</source>
-        <translation>Комедія</translation>
+        <translation>musi</translation>
     </message>
     <message>
         <source>comics</source>
-        <translation>Комікси</translation>
+        <translation>sitelen toki</translation>
     </message>
     <message>
         <source>comp_all</source>
-        <translation>Комп&apos;ютери: інше</translation>
+        <translation>ilo sona: ante</translation>
     </message>
     <message>
         <source>comp_db</source>
-        <translation>Бази даних</translation>
+        <translation>lipu sona</translation>
     </message>
     <message>
         <source>comp_dsp</source>
-        <translation>Цифрова обробка сигналів</translation>
+        <translation>kalama ilo</translation>
     </message>
     <message>
         <source>comp_hard</source>
-        <translation>ПК залізо</translation>
+        <translation>ijo ilo</translation>
     </message>
     <message>
         <source>comp_osnet</source>
-        <translation>ОС та Мережі</translation>
+        <translation>nasin ilo</translation>
     </message>
     <message>
         <source>comp_programming</source>
-        <translation>Програмування</translation>
+        <translation>pali ilo</translation>
     </message>
     <message>
         <source>comp_soft</source>
-        <translation>Програми</translation>
+        <translation>nasin ilo sona</translation>
     </message>
     <message>
         <source>comp_www</source>
-        <translation>Інтернет</translation>
+        <translation>linja sona</translation>
     </message>
     <message>
         <source>computer_translation</source>
-        <translation>Машинний переклад</translation>
+        <translation>ante toki ilo</translation>
     </message>
     <message>
         <source>computers</source>
-        <translation>Білякомп&apos;ютерна література</translation>
+        <translation>ilo sona</translation>
     </message>
     <message>
         <source>computers_all_root</source>
-        <translation>Комп&apos;ютери та Інтернет</translation>
+        <translation>ilo sona en linja</translation>
     </message>
     <message>
         <source>culture_all</source>
-        <translation>Культура: інше</translation>
+        <translation>nasin: ante</translation>
     </message>
     <message>
         <source>dark_fantasy</source>
-        <translation>Темне фентезі</translation>
+        <translation>nasa pimeja</translation>
     </message>
     <message>
         <source>design</source>
-        <translation>Мистецтво та Дизайн</translation>
+        <translation>pali sitelen</translation>
     </message>
     <message>
         <source>det_action</source>
-        <translation>Бойовик</translation>
+        <translation>pali wawa</translation>
     </message>
     <message>
         <source>det_all</source>
-        <translation>Детектив: інше</translation>
+        <translation>alasa ike: ante</translation>
     </message>
     <message>
         <source>det_artifact</source>
-        <translation>Артефакт-детективи</translation>
+        <translation>alasa ijo</translation>
     </message>
     <message>
         <source>det_classic</source>
-        <translation>Класичний детектив</translation>
+        <translation>alasa ike pona</translation>
     </message>
     <message>
         <source>det_cozy</source>
-        <translation>Жіночий детективний роман</translation>
+        <translation>alasa ike meli</translation>
     </message>
     <message>
         <source>det_crime</source>
-        <translation>Кримінальний детектив</translation>
+        <translation>alasa ike</translation>
     </message>
     <message>
         <source>det_espionage</source>
-        <translation>Шпигунський детектив</translation>
+        <translation>alasa awen</translation>
     </message>
     <message>
         <source>det_hard</source>
-        <translation>Крутий детектив</translation>
+        <translation>ike wawa</translation>
     </message>
     <message>
         <source>det_history</source>
-        <translation>Історичний детектив</translation>
+        <translation>alasa ike tenpo pini</translation>
     </message>
     <message>
         <source>det_irony</source>
-        <translation>Іронічний детектив</translation>
+        <translation>alasa ike musi</translation>
     </message>
     <message>
         <source>det_maniac</source>
-        <translation>Маньяки</translation>
+        <translation>jan pakala</translation>
     </message>
     <message>
         <source>det_police</source>
-        <translation>Поліцейський детектив</translation>
+        <translation>jan lawa</translation>
     </message>
     <message>
         <source>det_political</source>
-        <translation>Політичний детектив</translation>
+        <translation>alasa ike pi lawa ma</translation>
     </message>
     <message>
         <source>det_su</source>
-        <translation>Радянський детектив</translation>
+        <translation>alasa ike Soweto</translation>
     </message>
     <message>
         <source>detective</source>
-        <translation>Детектив</translation>
+        <translation>alasa ike</translation>
     </message>
     <message>
         <source>detective_all_root</source>
-        <translation>Детективи та Трилери</translation>
+        <translation>alasa ike</translation>
     </message>
     <message>
         <source>diafilm</source>
-        <translation>Діафільми</translation>
+        <translation>sitelen tawa lili</translation>
     </message>
     <message>
         <source>dissident</source>
-        <translation>Антирадянська література</translation>
+        <translation>jan ante nasin</translation>
     </message>
     <message>
         <source>dorama</source>
-        <translation>Дорама</translation>
+        <translation>sitelen tawa Nijon</translation>
     </message>
     <message>
         <source>drama</source>
-        <translation>Драма</translation>
+        <translation>sitelen tawa ike</translation>
     </message>
     <message>
         <source>drama_antique</source>
-        <translation>Класична драма</translation>
+        <translation>tenpo pini</translation>
     </message>
     <message>
         <source>dramaturgy</source>
-        <translation>Драматургія</translation>
+        <translation>sitelen tawa</translation>
     </message>
     <message>
         <source>dystopian</source>
-        <translation>Антиутопія</translation>
+        <translation>ma ike</translation>
     </message>
     <message>
         <source>economics</source>
-        <translation>Економіка</translation>
+        <translation>pali mani</translation>
     </message>
     <message>
         <source>economics_ref</source>
-        <translation>Довідники</translation>
+        <translation>sona pali mani</translation>
     </message>
     <message>
         <source>epic</source>
-        <translation>Булини</translation>
+        <translation>toki suli</translation>
     </message>
     <message>
         <source>epic_all_root</source>
-        <translation>Фольклор</translation>
+        <translation>toki pi jan pini</translation>
     </message>
     <message>
         <source>epic_poetry</source>
-        <translation>Епічна поезія</translation>
+        <translation>kalama suli</translation>
     </message>
     <message>
         <source>epistolary_fiction</source>
-        <translation>Епістолярна проза</translation>
+        <translation>lipu toki</translation>
     </message>
     <message>
         <source>equ_history</source>
-        <translation>Історія техніки</translation>
+        <translation>tenpo pini pi ilo</translation>
     </message>
     <message>
         <source>essay</source>
-        <translation>Есе</translation>
+        <translation>toki sona</translation>
     </message>
     <message>
         <source>everyday_fantasy</source>
-        <translation>Побутове фентезі</translation>
+        <translation>nasa pi tenpo ni</translation>
     </message>
     <message>
         <source>experimental_poetry</source>
-        <translation>Експериментальна поезія</translation>
+        <translation>kalama sin</translation>
     </message>
     <message>
         <source>extravaganza</source>
-        <translation>Феєрія</translation>
+        <translation>musi nasa</translation>
     </message>
     <message>
         <source>fable</source>
-        <translation>Байки</translation>
+        <translation>toki soweli</translation>
     </message>
     <message>
         <source>fairy_fantasy</source>
-        <translation>Казкове фентезі</translation>
+        <translation>nasa pi toki lili</translation>
     </message>
     <message>
         <source>family</source>
-        <translation>Інше</translation>
+        <translation>ante</translation>
     </message>
     <message>
         <source>fan_translation</source>
-        <translation>Аматорський переклад</translation>
+        <translation>ante toki jan</translation>
     </message>
     <message>
         <source>fanfiction</source>
-        <translation>Фанфік</translation>
+        <translation>toki pi jan ante</translation>
     </message>
     <message>
         <source>fantasy_all_root</source>
-        <translation>Фентезі</translation>
+        <translation>nasa</translation>
     </message>
     <message>
         <source>fantasy_alt_hist</source>
-        <translation>Альтернативна історія. Фентезі</translation>
+        <translation>tenpo pini ante</translation>
     </message>
     <message>
         <source>fantasy_det</source>
-        <translation>Фантастичний детектив</translation>
+        <translation>alasa ike nasa</translation>
     </message>
     <message>
         <source>folk_songs</source>
-        <translation>Народні пісні</translation>
+        <translation>kalama pi jan mute</translation>
     </message>
     <message>
         <source>folk_tale</source>
-        <translation>Народні казки</translation>
+        <translation>toki pi jan mute</translation>
     </message>
     <message>
         <source>folklore</source>
-        <translation>Фольклор: інше</translation>
+        <translation>toki pi jan mute: ante</translation>
     </message>
     <message>
         <source>foreign_all_root</source>
-        <translation>Іноземна література</translation>
+        <translation>lipu pi ma ante</translation>
     </message>
     <message>
         <source>foreign_antique</source>
-        <translation>Класика</translation>
+        <translation>tenpo pini pi ma ante</translation>
     </message>
     <message>
         <source>foreign_children</source>
-        <translation>Для дітей</translation>
+        <translation>jan lili pi ma ante</translation>
     </message>
     <message>
         <source>foreign_language</source>
-        <translation>Іноземні мови</translation>
+        <translation>toki ante</translation>
     </message>
     <message>
         <source>foreign_prose</source>
-        <translation>Проза</translation>
+        <translation>toki pi ma ante</translation>
     </message>
     <message>
         <source>foreign_sf</source>
-        <translation>Зарубіжна фантастика</translation>
+        <translation>nasa pi ma ante</translation>
     </message>
     <message>
         <source>geo_guides</source>
-        <translation>Путівники</translation>
+        <translation>nasin ma</translation>
     </message>
     <message>
         <source>global_economy</source>
-        <translation>Зовнішньоекономічна діяльність</translation>
+        <translation>pali mani ma ale</translation>
     </message>
     <message>
         <source>gothic_novel</source>
-        <translation>Готичний роман</translation>
+        <translation>toki pimeja</translation>
     </message>
     <message>
         <source>great_story</source>
-        <translation>Повість</translation>
+        <translation>toki suli</translation>
     </message>
     <message>
         <source>historical_fantasy</source>
-        <translation>Історичне фентезі</translation>
+        <translation>nasa tenpo pini</translation>
     </message>
     <message>
         <source>home</source>
-        <translation>Домоводство</translation>
+        <translation>tomo</translation>
     </message>
     <message>
         <source>home_all_root</source>
-        <translation>Домоводство (Будинок та сім&apos;я)</translation>
+        <translation>tomo en kulupu</translation>
     </message>
     <message>
         <source>home_collecting</source>
-        <translation>Колекціонування</translation>
+        <translation>kama jo</translation>
     </message>
     <message>
         <source>home_cooking</source>
-        <translation>Кулінарія</translation>
+        <translation>moku pali</translation>
     </message>
     <message>
         <source>home_crafts</source>
-        <translation>Хобі та ремесла</translation>
+        <translation>pali luka</translation>
     </message>
     <message>
         <source>home_diy</source>
-        <translation>Зроби сам</translation>
+        <translation>pali sina</translation>
     </message>
     <message>
         <source>home_entertain</source>
-        <translation>Розваги</translation>
+        <translation>musi</translation>
     </message>
     <message>
         <source>home_garden</source>
-        <translation>Сад та город</translation>
+        <translation>kasi tomo</translation>
     </message>
     <message>
         <source>home_health</source>
-        <translation>Здоров&apos;я</translation>
+        <translation>sijelo pona</translation>
     </message>
     <message>
         <source>home_pets</source>
-        <translation>Домашні тварини</translation>
+        <translation>soweli tomo</translation>
     </message>
     <message>
         <source>home_sex</source>
-        <translation>Еротика. Секс</translation>
+        <translation>unpa</translation>
     </message>
     <message>
         <source>home_sport</source>
-        <translation>Спорт</translation>
+        <translation>pali sijelo</translation>
     </message>
     <message>
         <source>hronoopera</source>
-        <translation>Хроноопера</translation>
+        <translation>tenpo nasa</translation>
     </message>
     <message>
         <source>humor</source>
-        <translation>Гумор</translation>
+        <translation>musi</translation>
     </message>
     <message>
         <source>humor_all</source>
-        <translation>Гумор: інше</translation>
+        <translation>musi: ante</translation>
     </message>
     <message>
         <source>humor_all_root</source>
-        <translation>Гумор</translation>
+        <translation>musi</translation>
     </message>
     <message>
         <source>humor_anecdote</source>
-        <translation>Анекдоти</translation>
+        <translation>toki musi lili</translation>
     </message>
     <message>
         <source>humor_prose</source>
-        <translation>Гумористична проза</translation>
+        <translation>toki musi</translation>
     </message>
     <message>
         <source>humor_satire</source>
-        <translation>Сатира</translation>
+        <translation>musi ike</translation>
     </message>
     <message>
         <source>humor_verse</source>
-        <translation>Гумористичні вірші</translation>
+        <translation>kalama musi</translation>
     </message>
     <message>
         <source>in_verse</source>
-        <translation>У віршах</translation>
+        <translation>kalama</translation>
     </message>
     <message>
         <source>industries</source>
-        <translation>Галузеві видання</translation>
+        <translation>pali</translation>
     </message>
     <message>
         <source>job_hunting</source>
-        <translation>Пошук роботи. Кар&apos;єра</translation>
+        <translation>alasa pali</translation>
     </message>
     <message>
         <source>limerick</source>
-        <translation>Частівки (дрібушки). Примовки. Потішки</translation>
+        <translation>kalama musi lili</translation>
     </message>
     <message>
         <source>literature_18</source>
-        <translation>18-е століття</translation>
+        <translation>lipu tenpo sike 18</translation>
     </message>
     <message>
         <source>literature_19</source>
-        <translation>19-е століття</translation>
+        <translation>lipu tenpo sike 19</translation>
     </message>
     <message>
         <source>literature_20</source>
-        <translation>20-е століття</translation>
+        <translation>lipu tenpo sike 20</translation>
     </message>
     <message>
         <source>love</source>
-        <translation>Про кохання</translation>
+        <translation>olin</translation>
     </message>
     <message>
         <source>love_all</source>
-        <translation>Про кохання: інше</translation>
+        <translation>olin: ante</translation>
     </message>
     <message>
         <source>love_all_root</source>
-        <translation>Любовні романи</translation>
+        <translation>olin</translation>
     </message>
     <message>
         <source>love_contemporary</source>
-        <translation>Сучасні любовні романи</translation>
+        <translation>olin tenpo ni</translation>
     </message>
     <message>
         <source>love_detective</source>
-        <translation>Гостросюжетні любовні романи</translation>
+        <translation>olin alasa</translation>
     </message>
     <message>
         <source>love_erotica</source>
-        <translation>Еротика</translation>
+        <translation>unpa</translation>
     </message>
     <message>
         <source>love_hard</source>
-        <translation>Порно</translation>
+        <translation>olin wawa</translation>
     </message>
     <message>
         <source>love_history</source>
-        <translation>Історичні любовні романи</translation>
+        <translation>olin tenpo pini</translation>
     </message>
     <message>
         <source>love_sf</source>
-        <translation>Любовно-фантастичні романи</translation>
+        <translation>olin nasa</translation>
     </message>
     <message>
         <source>love_short</source>
-        <translation>Короткі любовні романи</translation>
+        <translation>olin lili</translation>
     </message>
     <message>
         <source>lyrics</source>
-        <translation>Лірика</translation>
+        <translation>kalama olin</translation>
     </message>
     <message>
         <source>magic_school</source>
-        <translation>Магічна академія</translation>
+        <translation>tomo sona nasa</translation>
     </message>
     <message>
         <source>management</source>
-        <translation>Управління. Підбір персоналу</translation>
+        <translation>lawa pali</translation>
     </message>
     <message>
         <source>marketing</source>
-        <translation>Маркетинг. PR. Реклама</translation>
+        <translation>pana mani</translation>
     </message>
     <message>
         <source>military</source>
-        <translation>Військова справа: інше</translation>
+        <translation>utala: ante</translation>
     </message>
     <message>
         <source>military_all_root</source>
-        <translation>Військове</translation>
+        <translation>utala</translation>
     </message>
     <message>
         <source>military_arts</source>
-        <translation>Бойові мистецтва</translation>
+        <translation>nasin utala</translation>
     </message>
     <message>
         <source>military_history</source>
-        <translation>Військова історія</translation>
+        <translation>tenpo pini utala</translation>
     </message>
     <message>
         <source>military_special</source>
-        <translation>Особливе</translation>
+        <translation>utala awen</translation>
     </message>
     <message>
         <source>military_weapon</source>
-        <translation>Зброя</translation>
+        <translation>ilo utala</translation>
     </message>
     <message>
         <source>modern_tale</source>
-        <translation>Сучасна казка</translation>
+        <translation>toki nasa tenpo ni</translation>
     </message>
     <message>
         <source>music</source>
-        <translation>Музика</translation>
+        <translation>kalama</translation>
     </message>
     <message>
         <source>mystery</source>
-        <translation>Містерія</translation>
+        <translation>awen sona</translation>
     </message>
     <message>
         <source>network_literature</source>
-        <translation>Мережева література</translation>
+        <translation>lipu linja</translation>
     </message>
     <message>
         <source>nonf_all</source>
-        <translation>Документалістика</translation>
+        <translation>sona lon</translation>
     </message>
     <message>
         <source>nonf_biography</source>
-        <translation>Біографії та Мемуари</translation>
+        <translation>toki jan</translation>
     </message>
     <message>
         <source>nonf_biography_celebrities</source>
-        <translation>Зірки кіно. Театру. Балет. Шоу-бізнесу</translation>
+        <translation>jan suli sitelen</translation>
     </message>
     <message>
         <source>nonf_biography_historical</source>
-        <translation>Історичні особи</translation>
+        <translation>jan suli pi tenpo pini</translation>
     </message>
     <message>
         <source>nonf_biography_military_figures</source>
-        <translation>Військові мемуари</translation>
+        <translation>jan utala</translation>
     </message>
     <message>
         <source>nonf_biography_writers</source>
-        <translation>Письменники. Поети. Драматурги</translation>
+        <translation>jan pali lipu</translation>
     </message>
     <message>
         <source>nonf_criticism</source>
-        <translation>Критика</translation>
+        <translation>lukin sona</translation>
     </message>
     <message>
         <source>nonf_military</source>
-        <translation>Військова документалістика та аналітика</translation>
+        <translation>utala</translation>
     </message>
     <message>
         <source>nonf_publicism</source>
-        <translation>Публіцистика</translation>
+        <translation>toki ma</translation>
     </message>
     <message>
         <source>nonfiction</source>
-        <translation>Документальна література</translation>
+        <translation>sona lon</translation>
     </message>
     <message>
         <source>nonfiction_all_root</source>
-        <translation>Документальна література</translation>
+        <translation>sona lon</translation>
     </message>
     <message>
         <source>notes</source>
-        <translation>Партитури</translation>
+        <translation>sitelen kalama</translation>
     </message>
     <message>
         <source>notes_all_root</source>
-        <translation>Ноти та партитури</translation>
+        <translation>sitelen kalama</translation>
     </message>
     <message>
         <source>nsf</source>
-        <translation>Ненаукова фантастика</translation>
+        <translation>nasa ala</translation>
     </message>
     <message>
         <source>org_behavior</source>
-        <translation>Корпоративна культура</translation>
+        <translation>nasin kulupu pali</translation>
     </message>
     <message>
         <source>other</source>
-        <translation>Інше</translation>
+        <translation>ante</translation>
     </message>
     <message>
         <source>other_all_root</source>
-        <translation>Інше</translation>
+        <translation>ante</translation>
     </message>
     <message>
         <source>painting</source>
-        <translation>Образотворче мистецтво</translation>
+        <translation>sitelen kule</translation>
     </message>
     <message>
         <source>palindromes</source>
-        <translation>Паліндроми</translation>
+        <translation>nimi sama</translation>
     </message>
     <message>
         <source>palmistry</source>
-        <translation>Хіромантія</translation>
+        <translation>sona luka</translation>
     </message>
     <message>
         <source>paper_work</source>
-        <translation>Діловодство</translation>
+        <translation>lipu pali</translation>
     </message>
     <message>
         <source>periodic</source>
-        <translation>Журнали</translation>
+        <translation>lipu tenpo</translation>
     </message>
     <message>
         <source>periodic_all_root</source>
-        <translation>Періодика</translation>
+        <translation>lipu tenpo</translation>
     </message>
     <message>
         <source>personal_finance</source>
-        <translation>Особисті фінанси</translation>
+        <translation>mani jan</translation>
     </message>
     <message>
         <source>poem</source>
-        <translation>Поеми</translation>
+        <translation>kalama sitelen</translation>
     </message>
     <message>
         <source>poetry</source>
-        <translation>Поезія</translation>
+        <translation>kalama sitelen</translation>
     </message>
     <message>
         <source>poetry_all</source>
-        <translation>Поезія: інше</translation>
+        <translation>kalama: ante</translation>
     </message>
     <message>
         <source>poetry_all_root</source>
-        <translation>Поезія. Драматургія</translation>
+        <translation>kalama sitelen</translation>
     </message>
     <message>
         <source>poetry_classical</source>
-        <translation>Класика</translation>
+        <translation>kalama pona</translation>
     </message>
     <message>
         <source>poetry_east</source>
-        <translation>Схід</translation>
+        <translation>kalama pi ma Esi</translation>
     </message>
     <message>
         <source>poetry_modern</source>
-        <translation>Сучасна</translation>
+        <translation>kalama tenpo ni</translation>
     </message>
     <message>
         <source>poetry_rus_classical</source>
-        <translation>Російська класика</translation>
+        <translation>kalama Losi pona</translation>
     </message>
     <message>
         <source>poetry_rus_modern</source>
-        <translation>Російська сучасна</translation>
+        <translation>kalama Losi tenpo ni</translation>
     </message>
     <message>
         <source>popadancy</source>
-        <translation>Попаданці</translation>
+        <translation>jan nasa</translation>
     </message>
     <message>
         <source>popular_business</source>
-        <translation>Про бізнес популярно</translation>
+        <translation>pali mani lili</translation>
     </message>
     <message>
         <source>prose</source>
-        <translation>Проза</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>prose_abs</source>
-        <translation>Абс</translation>
+        <translation>toki wawa</translation>
     </message>
     <message>
         <source>prose_all</source>
-        <translation>Проза: інше</translation>
+        <translation>toki: ante</translation>
     </message>
     <message>
         <source>prose_all_root</source>
-        <translation>Проза</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>prose_classic</source>
-        <translation>Класична проза</translation>
+        <translation>toki pona</translation>
     </message>
     <message>
         <source>prose_contemporary</source>
-        <translation>Сучасна проза</translation>
+        <translation>toki tenpo ni</translation>
     </message>
     <message>
         <source>prose_counter</source>
-        <translation>Контркультура</translation>
+        <translation>nasin ante</translation>
     </message>
     <message>
         <source>prose_epic</source>
-        <translation>Епопея</translation>
+        <translation>toki suli</translation>
     </message>
     <message>
         <source>prose_game</source>
-        <translation>Ігри</translation>
+        <translation>musi</translation>
     </message>
     <message>
         <source>prose_history</source>
-        <translation>Історична проза</translation>
+        <translation>toki tenpo pini</translation>
     </message>
     <message>
         <source>prose_magic</source>
-        <translation>Магічний реалізм</translation>
+        <translation>nasa</translation>
     </message>
     <message>
         <source>prose_military</source>
-        <translation>Про війну</translation>
+        <translation>toki utala</translation>
     </message>
     <message>
         <source>prose_neformatny</source>
-        <translation>Неформат</translation>
+        <translation>nasin ante</translation>
     </message>
     <message>
         <source>prose_rus_classic</source>
-        <translation>Російська класична проза</translation>
+        <translation>toki Losi pona</translation>
     </message>
     <message>
         <source>prose_sentimental</source>
-        <translation>Сентиментальна проза</translation>
+        <translation>toki olin</translation>
     </message>
     <message>
         <source>prose_su_classics</source>
-        <translation>Радянська класична проза</translation>
+        <translation>toki Soweto pona</translation>
     </message>
     <message>
         <source>proverbs</source>
-        <translation>Прислів&apos;я. Приказки</translation>
+        <translation>toki sona lili</translation>
     </message>
     <message>
         <source>psy_childs</source>
-        <translation>Дитяча психологія</translation>
+        <translation>sona jan lili</translation>
     </message>
     <message>
         <source>psy_sex_and_family</source>
-        <translation>Секс та сімейна психологія</translation>
+        <translation>sona unpa en kulupu</translation>
     </message>
     <message>
         <source>psy_theraphy</source>
-        <translation>Психотерапія</translation>
+        <translation>pona sijelo</translation>
     </message>
     <message>
         <source>real_estate</source>
-        <translation>Нерухомість</translation>
+        <translation>tomo mani</translation>
     </message>
     <message>
         <source>ref_dict</source>
-        <translation>Словники</translation>
+        <translation>lipu nimi</translation>
     </message>
     <message>
         <source>ref_encyc</source>
-        <translation>Енциклопедії</translation>
+        <translation>lipu sona ale</translation>
     </message>
     <message>
         <source>ref_guide</source>
-        <translation>Керівництва</translation>
+        <translation>lipu nasin</translation>
     </message>
     <message>
         <source>ref_ref</source>
-        <translation>Довідники</translation>
+        <translation>lipu sona</translation>
     </message>
     <message>
         <source>reference</source>
-        <translation>Довідкова література</translation>
+        <translation>lipu sona</translation>
     </message>
     <message>
         <source>reference_all_root</source>
-        <translation>Довідкова література</translation>
+        <translation>lipu sona</translation>
     </message>
     <message>
         <source>religion</source>
-        <translation>Релігія</translation>
+        <translation>nasin sewi</translation>
     </message>
     <message>
         <source>religion_all</source>
-        <translation>Релігія: інше</translation>
+        <translation>nasin sewi: ante</translation>
     </message>
     <message>
         <source>religion_all_root</source>
-        <translation>Релігія та духовність</translation>
+        <translation>nasin sewi</translation>
     </message>
     <message>
         <source>religion_budda</source>
-        <translation>Буддизм</translation>
+        <translation>nasin Puta</translation>
     </message>
     <message>
         <source>religion_catholicism</source>
-        <translation>Католицизм</translation>
+        <translation>nasin Kato</translation>
     </message>
     <message>
         <source>religion_christianity</source>
-        <translation>Християнство</translation>
+        <translation>nasin Jesu</translation>
     </message>
     <message>
         <source>religion_esoterics</source>
-        <translation>Езотерика</translation>
+        <translation>sona awen</translation>
     </message>
     <message>
         <source>religion_hinduism</source>
-        <translation>Індуїзм</translation>
+        <translation>nasin Hinu</translation>
     </message>
     <message>
         <source>religion_islam</source>
-        <translation>Іслам</translation>
+        <translation>nasin Islami</translation>
     </message>
     <message>
         <source>religion_judaism</source>
-        <translation>Юдаїзм</translation>
+        <translation>nasin Juta</translation>
     </message>
     <message>
         <source>religion_orthodoxy</source>
-        <translation>Православ&apos;я</translation>
+        <translation>nasin Jesu pi ma Losi</translation>
     </message>
     <message>
         <source>religion_paganism</source>
-        <translation>Язичництво (поганство)</translation>
+        <translation>nasin sewi pi tenpo pini</translation>
     </message>
     <message>
         <source>religion_protestantism</source>
-        <translation>Протестантизм</translation>
+        <translation>nasin Plosetan</translation>
     </message>
     <message>
         <source>religion_rel</source>
-        <translation>Релігійна література</translation>
+        <translation>lipu nasin sewi</translation>
     </message>
     <message>
         <source>religion_self</source>
-        <translation>Самовдосконалення</translation>
+        <translation>pona sina</translation>
     </message>
     <message>
         <source>riddles</source>
-        <translation>Загадки</translation>
+        <translation>toki seme</translation>
     </message>
     <message>
         <source>roman</source>
-        <translation>Роман</translation>
+        <translation>toki suli</translation>
     </message>
     <message>
         <source>russian_fantasy</source>
-        <translation>Російське фентезі</translation>
+        <translation>nasa Losi</translation>
     </message>
     <message>
         <source>sagas</source>
-        <translation>Сімейний роман/Сімейна сага</translation>
+        <translation>toki kulupu</translation>
     </message>
     <message>
         <source>scenarios</source>
-        <translation>Сценарії</translation>
+        <translation>nasin sitelen tawa</translation>
     </message>
     <message>
         <source>sci_abstract</source>
-        <translation>Реферати</translation>
+        <translation>sona lili</translation>
     </message>
     <message>
         <source>sci_all</source>
-        <translation>Наукова література: інше</translation>
+        <translation>sona: ante</translation>
     </message>
     <message>
         <source>sci_anachem</source>
-        <translation>Аналітична хімія</translation>
+        <translation>sona ijo lili</translation>
     </message>
     <message>
         <source>sci_biochem</source>
-        <translation>Біохімія</translation>
+        <translation>sona sijelo ijo</translation>
     </message>
     <message>
         <source>sci_biology</source>
-        <translation>Біологія</translation>
+        <translation>sona sijelo</translation>
     </message>
     <message>
         <source>sci_biophys</source>
-        <translation>Біофізика</translation>
+        <translation>sona sijelo tawa</translation>
     </message>
     <message>
         <source>sci_botany</source>
-        <translation>Ботаніка</translation>
+        <translation>sona kasi</translation>
     </message>
     <message>
         <source>sci_build</source>
-        <translation>Будівництво та опір матеріаалів</translation>
+        <translation>pali tomo</translation>
     </message>
     <message>
         <source>sci_business</source>
-        <translation>Ділова література</translation>
+        <translation>lipu pali mani</translation>
     </message>
     <message>
         <source>sci_chem</source>
-        <translation>Хімія</translation>
+        <translation>sona ijo</translation>
     </message>
     <message>
         <source>sci_cosmos</source>
-        <translation>Астрономія та Космос</translation>
+        <translation>sona sewi</translation>
     </message>
     <message>
         <source>sci_crib</source>
-        <translation>Шпаргалки</translation>
+        <translation>lipu lili sona</translation>
     </message>
     <message>
         <source>sci_culture</source>
-        <translation>Культурологія</translation>
+        <translation>sona nasin</translation>
     </message>
     <message>
         <source>sci_ecology</source>
-        <translation>Екологія</translation>
+        <translation>sona ma</translation>
     </message>
     <message>
         <source>sci_economy</source>
-        <translation>Економіка</translation>
+        <translation>sona mani</translation>
     </message>
     <message>
         <source>sci_geo</source>
-        <translation>Геологія та географія</translation>
+        <translation>sona ma ale</translation>
     </message>
     <message>
         <source>sci_history</source>
-        <translation>Історія</translation>
+        <translation>sona tenpo pini</translation>
     </message>
     <message>
         <source>sci_juris</source>
-        <translation>Юриспруденція</translation>
+        <translation>sona nasin lawa</translation>
     </message>
     <message>
         <source>sci_linguistic</source>
-        <translation>Мовазнавство</translation>
+        <translation>sona toki</translation>
     </message>
     <message>
         <source>sci_math</source>
-        <translation>Математика</translation>
+        <translation>sona nanpa</translation>
     </message>
     <message>
         <source>sci_medicine</source>
-        <translation>Медицина</translation>
+        <translation>sona sijelo</translation>
     </message>
     <message>
         <source>sci_medicine_alternative</source>
-        <translation>Альтернативна медицина</translation>
+        <translation>pona sijelo ante</translation>
     </message>
     <message>
         <source>sci_metal</source>
-        <translation>Металургія</translation>
+        <translation>sona kiwen</translation>
     </message>
     <message>
         <source>sci_orgchem</source>
-        <translation>Органічна хімія</translation>
+        <translation>sona ijo sijelo</translation>
     </message>
     <message>
         <source>sci_oriental</source>
-        <translation>Східнознавство</translation>
+        <translation>sona ma Esi</translation>
     </message>
     <message>
         <source>sci_pedagogy</source>
-        <translation>Педагогіка</translation>
+        <translation>sona pana sona</translation>
     </message>
     <message>
         <source>sci_philology</source>
-        <translation>Філологія</translation>
+        <translation>sona toki lipu</translation>
     </message>
     <message>
         <source>sci_philosophy</source>
-        <translation>Філософія</translation>
+        <translation>sona pi nasin lon</translation>
     </message>
     <message>
         <source>sci_phys</source>
-        <translation>Фізика</translation>
+        <translation>sona tawa</translation>
     </message>
     <message>
         <source>sci_physchem</source>
-        <translation>Фізична хімія</translation>
+        <translation>sona tawa ijo</translation>
     </message>
     <message>
         <source>sci_politics</source>
-        <translation>Політика</translation>
+        <translation>sona lawa ma</translation>
     </message>
     <message>
         <source>sci_popular</source>
-        <translation>Наукпоп</translation>
+        <translation>sona lili</translation>
     </message>
     <message>
         <source>sci_psychology</source>
-        <translation>Психологія</translation>
+        <translation>sona pilin</translation>
     </message>
     <message>
         <source>sci_psychology_popular</source>
-        <translation>Популярна психологія</translation>
+        <translation>sona pilin lili</translation>
     </message>
     <message>
         <source>sci_radio</source>
-        <translation>Радіоелектроніка</translation>
+        <translation>sona kalama ilo</translation>
     </message>
     <message>
         <source>sci_religion</source>
-        <translation>Релігієзнавство</translation>
+        <translation>sona nasin sewi</translation>
     </message>
     <message>
         <source>sci_social_studies</source>
-        <translation>Суспільствознавство</translation>
+        <translation>sona jan mute</translation>
     </message>
     <message>
         <source>sci_state</source>
-        <translation>Держава та право</translation>
+        <translation>sona lawa</translation>
     </message>
     <message>
         <source>sci_tech</source>
-        <translation>Технічні науки</translation>
+        <translation>sona ilo</translation>
     </message>
     <message>
         <source>sci_textbook</source>
-        <translation>Підручники</translation>
+        <translation>lipu sona</translation>
     </message>
     <message>
         <source>sci_theories</source>
-        <translation>Теорії</translation>
+        <translation>nasin sona</translation>
     </message>
     <message>
         <source>sci_transport</source>
-        <translation>Транспорт та авіація</translation>
+        <translation>sona ilo tawa</translation>
     </message>
     <message>
         <source>sci_veterinary</source>
-        <translation>Ветеринарія</translation>
+        <translation>sona soweli</translation>
     </message>
     <message>
         <source>sci_zoo</source>
-        <translation>Зоологія</translation>
+        <translation>sona soweli ale</translation>
     </message>
     <message>
         <source>science</source>
-        <translation>Наукова література</translation>
+        <translation>sona</translation>
     </message>
     <message>
         <source>science_all_root</source>
-        <translation>Наука. Освіта</translation>
+        <translation>sona</translation>
     </message>
     <message>
         <source>screenplays</source>
-        <translation>Кіносценарії</translation>
+        <translation>nasin sitelen tawa</translation>
     </message>
     <message>
         <source>sf</source>
-        <translation>Наукова Фантастика</translation>
+        <translation>ma nasa</translation>
     </message>
     <message>
         <source>sf_action</source>
-        <translation>Бойова фантастика</translation>
+        <translation>pali wawa</translation>
     </message>
     <message>
         <source>sf_all_root</source>
-        <translation>Фантастика</translation>
+        <translation>nasa</translation>
     </message>
     <message>
         <source>sf_cyberpunk</source>
-        <translation>Кіберпанк</translation>
+        <translation>ilo nasa</translation>
     </message>
     <message>
         <source>sf_detective</source>
-        <translation>Детективна фантастика</translation>
+        <translation>alasa nasa</translation>
     </message>
     <message>
         <source>sf_epic</source>
-        <translation>Епічна фантастика</translation>
+        <translation>nasa suli</translation>
     </message>
     <message>
         <source>sf_etc</source>
-        <translation>Фантастика: інше</translation>
+        <translation>nasa: ante</translation>
     </message>
     <message>
         <source>sf_fantasy</source>
-        <translation>Фентезі</translation>
+        <translation>nasa</translation>
     </message>
     <message>
         <source>sf_fantasy_city</source>
-        <translation>Міське фентезі</translation>
+        <translation>nasa tomo</translation>
     </message>
     <message>
         <source>sf_fantasy_irony</source>
-        <translation>Іронічне фентезі</translation>
+        <translation>nasa musi</translation>
     </message>
     <message>
         <source>sf_heroic</source>
-        <translation>Героїчна фантастика</translation>
+        <translation>nasa wawa</translation>
     </message>
     <message>
         <source>sf_history</source>
-        <translation>Альтернативна історія</translation>
+        <translation>tenpo pini ante</translation>
     </message>
     <message>
         <source>sf_horror</source>
-        <translation>Жахи та Містика</translation>
+        <translation>monsuta</translation>
     </message>
     <message>
         <source>sf_humor</source>
-        <translation>Гумористична фантастика</translation>
+        <translation>nasa musi</translation>
     </message>
     <message>
         <source>sf_industrial_magic</source>
-        <translation>Виробнича магія</translation>
+        <translation>pali nasa</translation>
     </message>
     <message>
         <source>sf_irony</source>
-        <translation>Іронічна фантастика</translation>
+        <translation>nasa musi</translation>
     </message>
     <message>
         <source>sf_litrpg</source>
-        <translation>РПГ</translation>
+        <translation>musi ilo</translation>
     </message>
     <message>
         <source>sf_mystic</source>
-        <translation>Містика</translation>
+        <translation>sona awen</translation>
     </message>
     <message>
         <source>sf_postapocalyptic</source>
-        <translation>Постапокаліпсис</translation>
+        <translation>tenpo pini pakala</translation>
     </message>
     <message>
         <source>sf_realrpg</source>
-        <translation>РеалРПГ</translation>
+        <translation>musi lon</translation>
     </message>
     <message>
         <source>sf_social</source>
-        <translation>Соціально-психологічна фантастика</translation>
+        <translation>nasa pi jan mute</translation>
     </message>
     <message>
         <source>sf_space</source>
-        <translation>Космічна фантастика</translation>
+        <translation>ma sewi</translation>
     </message>
     <message>
         <source>sf_space_opera</source>
-        <translation>Космоопера</translation>
+        <translation>toki ma sewi</translation>
     </message>
     <message>
         <source>sf_stimpank</source>
-        <translation>Стімпанк</translation>
+        <translation>ilo sin pi tenpo pini</translation>
     </message>
     <message>
         <source>sf_su</source>
-        <translation>Радянська фантастика</translation>
+        <translation>nasa Soweto</translation>
     </message>
     <message>
         <source>sf_technofantasy</source>
-        <translation>Технофентезі</translation>
+        <translation>nasa ilo</translation>
     </message>
     <message>
         <source>short_story</source>
-        <translation>Розповідь</translation>
+        <translation>toki lili</translation>
     </message>
     <message>
         <source>slavic_fantasy</source>
-        <translation>Слов&apos;янське фентезі</translation>
+        <translation>nasa pi ma Silawi</translation>
     </message>
     <message>
         <source>small_business</source>
-        <translation>Малий бізнес</translation>
+        <translation>pali mani lili</translation>
     </message>
     <message>
         <source>song_poetry</source>
-        <translation>Пісенна поезія</translation>
+        <translation>kalama toki</translation>
     </message>
     <message>
         <source>stock</source>
-        <translation>Цінні папери. Iнвестиції</translation>
+        <translation>pana mani</translation>
     </message>
     <message>
         <source>story</source>
-        <translation>Новела</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>tale_chivalry</source>
-        <translation>Про лицарів</translation>
+        <translation>toki pi jan wawa</translation>
     </message>
     <message>
         <source>tbg_computers</source>
-        <translation>Про комп&apos;ютери</translation>
+        <translation>sona ilo</translation>
     </message>
     <message>
         <source>tbg_higher</source>
-        <translation>Вища освіта</translation>
+        <translation>sona suli</translation>
     </message>
     <message>
         <source>tbg_school</source>
-        <translation>Школа</translation>
+        <translation>sona tomo</translation>
     </message>
     <message>
         <source>tbg_secondary</source>
-        <translation>Додаткова освіта</translation>
+        <translation>sona sin</translation>
     </message>
     <message>
         <source>tech</source>
-        <translation>Техніка</translation>
+        <translation>ilo</translation>
     </message>
     <message>
         <source>tech_all</source>
-        <translation>Техніка: інше</translation>
+        <translation>ilo: ante</translation>
     </message>
     <message>
         <source>tech_all_root</source>
-        <translation>Техніка</translation>
+        <translation>ilo</translation>
     </message>
     <message>
         <source>theatre</source>
-        <translation>Театр</translation>
+        <translation>sitelen tawa tomo</translation>
     </message>
     <message>
         <source>thriller</source>
-        <translation>Трилер</translation>
+        <translation>monsuta</translation>
     </message>
     <message>
         <source>thriller_legal</source>
-        <translation>Юридичний трилер</translation>
+        <translation>monsuta nasin lawa</translation>
     </message>
     <message>
         <source>thriller_medical</source>
-        <translation>Медичний трилер</translation>
+        <translation>monsuta sijelo</translation>
     </message>
     <message>
         <source>thriller_mystery</source>
-        <translation>Містичний трилер</translation>
+        <translation>monsuta awen</translation>
     </message>
     <message>
         <source>thriller_psychology</source>
-        <translation>Психологічний трилер</translation>
+        <translation>monsuta pilin</translation>
     </message>
     <message>
         <source>thriller_techno</source>
-        <translation>Техно-трилер</translation>
+        <translation>monsuta ilo</translation>
     </message>
     <message>
         <source>trade</source>
-        <translation>Торгівля</translation>
+        <translation>esun</translation>
     </message>
     <message>
         <source>tragedy</source>
-        <translation>Трагедія</translation>
+        <translation>toki ike</translation>
     </message>
     <message>
         <source>travel_notes</source>
-        <translation>Дорожні нотатки</translation>
+        <translation>toki tawa</translation>
     </message>
     <message>
         <source>unfinished</source>
-        <translation>Недописане</translation>
+        <translation>pini ala</translation>
     </message>
     <message>
         <source>unknown_root</source>
-        <translation>Жанри не з довідника</translation>
+        <translation>sona ala</translation>
     </message>
     <message>
         <source>unordered</source>
-        <translation>Невідсортоване</translation>
+        <translation>nasin ala</translation>
     </message>
     <message>
         <source>utopia</source>
-        <translation>Утопія</translation>
+        <translation>ma pona</translation>
     </message>
     <message>
         <source>vaudeville</source>
-        <translation>Водевіль</translation>
+        <translation>musi kalama</translation>
     </message>
     <message>
         <source>vers_libre</source>
-        <translation>Верлібри</translation>
+        <translation>kalama weka</translation>
     </message>
     <message>
         <source>visual_poetry</source>
-        <translation>Візуальна поезія</translation>
+        <translation>sitelen kalama</translation>
     </message>
     <message>
         <source>ya</source>
-        <translation>Підліткова література</translation>
+        <translation>jan sin</translation>
     </message>
 </context>
 <context>
     <name>GroupController</name>
     <message>
         <source>Cannot add book to group</source>
-        <translation>Не вдалося додати книгу до групи</translation>
+        <translation>ken ala pana lipu tawa kulupu</translation>
     </message>
     <message>
         <source>Cannot create group</source>
-        <translation>Не вдалося створити групу</translation>
+        <translation>ken ala pali kulupu</translation>
     </message>
     <message>
         <source>Cannot remove books from group</source>
-        <translation>Не вдалося видалити книгу з групи</translation>
+        <translation>ken ala weka lipu tan kulupu</translation>
     </message>
     <message>
         <source>Cannot remove groups</source>
-        <translation>Не вдалося видалити групу</translation>
+        <translation>ken ala weka kulupu</translation>
     </message>
     <message>
         <source>Cannot rename group</source>
-        <translation>Не вдалося перейменувати групу</translation>
+        <translation>ken ala ante nimi kulupu</translation>
     </message>
     <message>
         <source>Delete the selected groups (%1)?</source>
-        <translation>Ви впевнені, що хочете видалити групи (%1)?</translation>
+        <translation>weka kulupu wile (%1)?</translation>
     </message>
     <message>
         <source>Group %1 already exists.
 Try again?</source>
-        <translation>Група %1 вже є.
-Спробуєте ще раз?</translation>
+        <translation>kulupu %1 li lon.
+o pali sin?</translation>
     </message>
     <message>
         <source>Group name</source>
-        <translation>Назва групи</translation>
+        <translation>nimi kulupu</translation>
     </message>
     <message>
         <source>Group name too long.
 Try again?</source>
-        <translation>Назва групи занадто довга.
-Спробуйте ще раз?</translation>
+        <translation>nimi kulupu li suli.
+o pali sin?</translation>
     </message>
     <message>
         <source>Input new group name</source>
-        <translation>Вкажіть назву нової групи</translation>
+        <translation>o sitelen nimi kulupu sin</translation>
     </message>
     <message>
         <source>New group</source>
-        <translation>Нова група</translation>
+        <translation>kulupu sin</translation>
     </message>
 </context>
 <context>
     <name>HomeCompa::Flibrary::MigrateWindow</name>
     <message>
         <source>The database migration process is in progress...</source>
-        <translation>Йде процес міграції бази даних...</translation>
+        <translation>ante lipu sona li tawa...</translation>
     </message>
 </context>
 <context>
     <name>HomeCompa::Flibrary::QueryWindow</name>
     <message>
         <source>Affected rows: %1</source>
-        <translation>Рядки, на які це впливає: %1</translation>
+        <translation>nasin ante: %1</translation>
     </message>
 </context>
 <context>
     <name>HotkeyDialog</name>
     <message>
         <source>Hotkey settings</source>
-        <translation>Налаштування гарячих клавіш</translation>
+        <translation>nasin luka pi sona</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>Скинути</translation>
+        <translation>sin</translation>
     </message>
 </context>
 <context>
     <name>HotkeyManager</name>
     <message>
         <source>Book</source>
-        <translation>Книга</translation>
+        <translation>lipu</translation>
     </message>
 </context>
 <context>
     <name>JokeRequester</name>
     <message>
-        <source>&lt;center&gt;&lt;b&gt;Warning!&lt;/b&gt;&lt;/center&gt;&lt;br/&gt;&lt;/br&gt;Jokes in this section may be rude, unsafe for work environment, religiously or politically offensive, sexist, or explicit. By clicking &quot;Yes&quot; you accept all responsibility for reading them. Otherwise you must click &quot;No&quot;.&lt;br/&gt;&lt;br/&gt;Do you still want to read such jokes?</source>
-        <translation>&lt;center&gt;&lt;b&gt;Увага!&lt;/b&gt;&lt;/center&gt;&lt;br/&gt;&lt;/br&gt;Жарти в цьому розділі можуть містити грубі вирази, бути неприйнятними для перегляду на робочому місці, ображати релігійні чи політичні переконання, мати сексистський характер або містити відверті сцени. Натискаючи «Так», ви берете на себе повну відповідальність за їх перегляд. В іншому випадку ви повинні натиснути «Ні».&lt;br/&gt;&lt;br/&gt;Ви все ще хочете читати такі жарти?</translation>
+        <source>&lt;center&gt;&lt;b&gt;Warning!&lt;/b&gt;&lt;/center&gt;&lt;br/&gt;&lt;/br&gt;Jokes in this section may be rude, unsafe for work environment, religiously or politically offensive, sexist, or explicit. By clicking "Yes" you accept all responsibility for reading them. Otherwise you must click "No".&lt;br/&gt;&lt;br/&gt;Do you still want to read such jokes?</source>
+        <translation>&lt;center&gt;&lt;b&gt;o sona!&lt;/b&gt;&lt;/center&gt;&lt;br/&gt;toki nasa ni li ken ike. sina ken jo e pakala. sina wile lukin?</translation>
     </message>
     <message>
         <source>CatFacts</source>
-        <translation>Факти про котиків</translation>
+        <translation>sona soweli</translation>
     </message>
     <message>
         <source>CatPictures</source>
-        <translation>Зображення з котиками</translation>
+        <translation>sitelen soweli</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation>Категорія</translation>
+        <translation>kulupu</translation>
     </message>
     <message>
         <source>Christmas</source>
-        <translation>Різдво</translation>
+        <translation>tenpo Kesi</translation>
     </message>
     <message>
         <source>ChuckNorrisFacts</source>
-        <translation>Факти про Чака Норріса</translation>
+        <translation>sona pi jan wawa</translation>
     </message>
     <message>
         <source>DadJokes</source>
-        <translation>Жарти від баті</translation>
+        <translation>toki musi pi jan papa</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation>Чорний гумор</translation>
+        <translation>pimeja</translation>
     </message>
     <message>
         <source>DogPictures</source>
-        <translation>Картинки із собачками</translation>
+        <translation>sitelen soweli telo</translation>
     </message>
     <message>
         <source>FoxPictures</source>
-        <translation>Картинки з лисицями</translation>
+        <translation>sitelen soweli loje</translation>
     </message>
     <message>
         <source>From dad</source>
-        <translation>Від баті</translation>
+        <translation>tan jan papa</translation>
     </message>
     <message>
         <source>Important fact about Chuck Norris</source>
-        <translation>Важливий факт про Чака Норріса</translation>
+        <translation>sona pi jan lawa</translation>
     </message>
     <message>
         <source>Interesting fact about cats</source>
-        <translation>Цікавий факт про котів</translation>
+        <translation>sona pi soweli</translation>
     </message>
     <message>
         <source>Jokes</source>
-        <translation>Різні жарти</translation>
+        <translation>toki musi ale</translation>
     </message>
     <message>
         <source>Misc</source>
-        <translation>Різне</translation>
+        <translation>nasa</translation>
     </message>
     <message>
         <source>One more useless fact</source>
-        <translation>Ще один непотрібний факт</translation>
+        <translation>sona ala sin</translation>
     </message>
     <message>
         <source>Programming</source>
-        <translation>Програмування</translation>
+        <translation>pali ilo</translation>
     </message>
     <message>
         <source>Pun</source>
-        <translation>Каламбур</translation>
+        <translation>toki nasa</translation>
     </message>
     <message>
         <source>PunchlineJokes</source>
-        <translation>Жарти - панчлайни</translation>
+        <translation>toki musi</translation>
     </message>
     <message>
         <source>QuotePics</source>
-        <translation>Цитати в картинці</translation>
+        <translation>sitelen toki</translation>
     </message>
     <message>
         <source>Quotes</source>
-        <translation>Цитати</translation>
+        <translation>toki ante</translation>
     </message>
     <message>
         <source>Spooky</source>
-        <translation>Страшилки</translation>
+        <translation>monsuta</translation>
     </message>
     <message>
         <source>UselessFacts</source>
-        <translation>Некорисні факти</translation>
+        <translation>sona ala</translation>
     </message>
 </context>
 <context>
     <name>Language</name>
     <message>
         <source>Abkhazian</source>
-        <translation>Абхазька</translation>
+        <translation>toki Apkasi</translation>
     </message>
     <message>
         <source>Achinese</source>
-        <translation>Ахінська</translation>
+        <translation>toki Asin</translation>
     </message>
     <message>
         <source>Acoli</source>
-        <translation>Аколі</translation>
+        <translation>toki Akoli</translation>
     </message>
     <message>
         <source>Adangme</source>
-        <translation>Адангме</translation>
+        <translation>toki Atanme</translation>
     </message>
     <message>
         <source>Adygei</source>
-        <translation>Адигейська</translation>
+        <translation>toki Atike</translation>
     </message>
     <message>
         <source>Afar</source>
-        <translation>Афарська</translation>
+        <translation>toki Apa</translation>
     </message>
     <message>
         <source>Afrihili</source>
-        <translation>Африхілі</translation>
+        <translation>toki Apili</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation>Африкаанс</translation>
+        <translation>toki Apikan</translation>
     </message>
     <message>
         <source>Ainu</source>
-        <translation>Айнська</translation>
+        <translation>toki Ainu</translation>
     </message>
     <message>
         <source>Akan</source>
-        <translation>Аканська</translation>
+        <translation>toki Akan</translation>
     </message>
     <message>
         <source>Akkadian</source>
-        <translation>Аккадська</translation>
+        <translation>toki Akati</translation>
     </message>
     <message>
         <source>Albanian</source>
-        <translation>Албанська</translation>
+        <translation>toki Alipani</translation>
     </message>
     <message>
         <source>Aleut</source>
-        <translation>Алеутська</translation>
+        <translation>toki Alote</translation>
     </message>
     <message>
         <source>Amharic</source>
-        <translation>Амхарська</translation>
+        <translation>toki Amalika</translation>
     </message>
     <message>
         <source>Ancient Egyptian</source>
-        <translation>Давньоєгипетська</translation>
+        <translation>toki Mesiko pi tenpo pini</translation>
     </message>
     <message>
         <source>Ancient Greek</source>
-        <translation>Давньогрецька</translation>
+        <translation>toki Losi pi tenpo pini</translation>
     </message>
     <message>
         <source>Angika</source>
-        <translation>Ангіка</translation>
+        <translation>toki Anika</translation>
     </message>
     <message>
         <source>Arabic</source>
-        <translation>Арабська</translation>
+        <translation>toki Alapi</translation>
     </message>
     <message>
         <source>Aragonese</source>
-        <translation>Арагонська</translation>
+        <translation>toki Alakoni</translation>
     </message>
     <message>
         <source>Arapaho</source>
-        <translation>Арапахо</translation>
+        <translation>toki Alapao</translation>
     </message>
     <message>
         <source>Arawak</source>
-        <translation>Аравак</translation>
+        <translation>toki Alawak</translation>
     </message>
     <message>
         <source>Armenian</source>
-        <translation>Вірменська</translation>
+        <translation>toki Ameleni</translation>
     </message>
     <message>
         <source>Aromanian</source>
-        <translation>Арумунська</translation>
+        <translation>toki Alomani</translation>
     </message>
     <message>
         <source>Assamese</source>
-        <translation>Асамська</translation>
+        <translation>toki Asami</translation>
     </message>
     <message>
         <source>Asturleonese</source>
-        <translation>Астурлеонська</translation>
+        <translation>toki Astulia</translation>
     </message>
     <message>
         <source>Athapascan</source>
-        <translation>Атапаська</translation>
+        <translation>toki Atapaskan</translation>
     </message>
     <message>
         <source>Avaric</source>
-        <translation>Аварська</translation>
+        <translation>toki Awali</translation>
     </message>
     <message>
         <source>Avestan</source>
-        <translation>Авестійська</translation>
+        <translation>toki Awesta</translation>
     </message>
     <message>
         <source>Awadhi</source>
-        <translation>Авадхі</translation>
+        <translation>toki Awati</translation>
     </message>
     <message>
         <source>Aymara</source>
-        <translation>Аймара</translation>
+        <translation>toki Aimala</translation>
     </message>
     <message>
         <source>Azerbaijani</source>
-        <translation>Азербайджанська</translation>
+        <translation>toki Asepajan</translation>
     </message>
     <message>
         <source>Balinese</source>
-        <translation>Балійська</translation>
+        <translation>toki Pali</translation>
     </message>
     <message>
         <source>Baluchi</source>
-        <translation>Белуджська</translation>
+        <translation>toki Palusi</translation>
     </message>
     <message>
         <source>Bambara</source>
-        <translation>Бамбара</translation>
+        <translation>toki Pampala</translation>
     </message>
     <message>
         <source>Basa</source>
-        <translation>Баса</translation>
+        <translation>toki Pasa</translation>
     </message>
     <message>
         <source>Bashkir</source>
-        <translation>Башкирська</translation>
+        <translation>toki Pasikili</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation>Баскська</translation>
+        <translation>toki Pask</translation>
     </message>
     <message>
         <source>Beja</source>
-        <translation>Беджа</translation>
+        <translation>toki Peja</translation>
     </message>
     <message>
         <source>Belarusian</source>
-        <translation>Білоруська</translation>
+        <translation>toki Pelolusi</translation>
     </message>
     <message>
         <source>Bemba</source>
-        <translation>Бемба</translation>
+        <translation>toki Pempa</translation>
     </message>
     <message>
         <source>Bengali</source>
-        <translation>Бенгальська</translation>
+        <translation>toki Penali</translation>
     </message>
     <message>
         <source>Bhojpuri</source>
-        <translation>Бходжпурі</translation>
+        <translation>toki Pojapuli</translation>
     </message>
     <message>
         <source>Bikol</source>
-        <translation>Бікольська</translation>
+        <translation>toki Pikol</translation>
     </message>
     <message>
         <source>Bilen</source>
-        <translation>Білен</translation>
+        <translation>toki Pilen</translation>
     </message>
     <message>
         <source>Bini</source>
-        <translation>Біні</translation>
+        <translation>toki Pini</translation>
     </message>
     <message>
         <source>Bislama</source>
-        <translation>Біслам</translation>
+        <translation>toki Pislama</translation>
     </message>
     <message>
         <source>Blissymbolics</source>
-        <translation>Блісімволіка</translation>
+        <translation>toki sitelen Plis</translation>
     </message>
     <message>
         <source>Bosnian</source>
-        <translation>Боснійська</translation>
+        <translation>toki Posuni</translation>
     </message>
     <message>
         <source>Braj</source>
-        <translation>Брадж</translation>
+        <translation>toki Palaja</translation>
     </message>
     <message>
         <source>Brauhi</source>
-        <translation>Брагуї</translation>
+        <translation>toki Palawi</translation>
     </message>
     <message>
         <source>Breton</source>
-        <translation>Бретонська</translation>
+        <translation>toki Peletan</translation>
     </message>
     <message>
         <source>Buginese</source>
-        <translation>Бугінська</translation>
+        <translation>toki Puki</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation>Болгарська</translation>
+        <translation>toki Pulakali</translation>
     </message>
     <message>
         <source>Buriat</source>
-        <translation>Бурятська</translation>
+        <translation>toki Puliat</translation>
     </message>
     <message>
         <source>Burmese</source>
-        <translation>Бірманська</translation>
+        <translation>toki Palama</translation>
     </message>
     <message>
         <source>Caddo</source>
-        <translation>Каддо</translation>
+        <translation>toki Kato</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation>Каталонська</translation>
+        <translation>toki Katalani</translation>
     </message>
     <message>
         <source>Cebuano</source>
-        <translation>Себуанська</translation>
+        <translation>toki Sepuwano</translation>
     </message>
     <message>
         <source>Central Khmer</source>
-        <translation>Центральнокхмерська</translation>
+        <translation>toki Kamelo</translation>
     </message>
     <message>
         <source>Chagatai</source>
-        <translation>Чагатайська</translation>
+        <translation>toki Sakatai</translation>
     </message>
     <message>
         <source>Chamorro</source>
-        <translation>Чаморро</translation>
+        <translation>toki Samolo</translation>
     </message>
     <message>
         <source>Chechen</source>
-        <translation>Чеченська</translation>
+        <translation>toki Sesen</translation>
     </message>
     <message>
         <source>Cherokee</source>
-        <translation>Черокі</translation>
+        <translation>toki Seloki</translation>
     </message>
     <message>
         <source>Cheyenne</source>
-        <translation>Шайєнська</translation>
+        <translation>toki Saijen</translation>
     </message>
     <message>
         <source>Chibcha</source>
-        <translation>Чибча</translation>
+        <translation>toki Sipsa</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation>Китайська</translation>
+        <translation>toki Sonko</translation>
     </message>
     <message>
         <source>Chinook</source>
-        <translation>Чінук</translation>
+        <translation>toki Sinuk</translation>
     </message>
     <message>
         <source>Chipewyan</source>
-        <translation>Чипевська</translation>
+        <translation>toki Sipewijan</translation>
     </message>
     <message>
         <source>Choctaw</source>
-        <translation>Чокто</translation>
+        <translation>toki Soktaw</translation>
     </message>
     <message>
         <source>Church Slavic</source>
-        <translation>Церковнослов&apos;янська</translation>
+        <translation>toki Silawi pi tomo lawa</translation>
     </message>
     <message>
         <source>Chuukese</source>
-        <translation>Чукотська</translation>
+        <translation>toki Suke</translation>
     </message>
     <message>
         <source>Chuvash</source>
-        <translation>Чуваська</translation>
+        <translation>toki Suwasi</translation>
     </message>
     <message>
         <source>Classical Syriac</source>
-        <translation>Класична сирійська</translation>
+        <translation>toki Silia pi tenpo pini</translation>
     </message>
     <message>
         <source>Coptic</source>
-        <translation>Коптська</translation>
+        <translation>toki Kopiti</translation>
     </message>
     <message>
         <source>Cornish</source>
-        <translation>Корнська</translation>
+        <translation>toki Kolonisi</translation>
     </message>
     <message>
         <source>Corsican</source>
-        <translation>Корсиканська</translation>
+        <translation>toki Kolsika</translation>
     </message>
     <message>
         <source>Cree</source>
-        <translation>Крі</translation>
+        <translation>toki Kili</translation>
     </message>
     <message>
         <source>Creek</source>
-        <translation>Крикська</translation>
+        <translation>toki Kiliki</translation>
     </message>
     <message>
         <source>Crimean Tatar</source>
-        <translation>Кримськотатарська</translation>
+        <translation>toki Talala pi Kilima</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation>Хорватська</translation>
+        <translation>toki Kolowasi</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation>Чеська</translation>
+        <translation>toki Sesi</translation>
     </message>
     <message>
         <source>Dakota</source>
-        <translation>Дакотська</translation>
+        <translation>toki Takota</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation>Датська</translation>
+        <translation>toki Tanisi</translation>
     </message>
     <message>
         <source>Dargwa</source>
-        <translation>Даргиинська</translation>
+        <translation>toki Talakwa</translation>
     </message>
     <message>
         <source>Delaware</source>
-        <translation>Делаверська</translation>
+        <translation>toki Telawela</translation>
     </message>
     <message>
         <source>Dinka</source>
-        <translation>Дінка</translation>
+        <translation>toki Tinka</translation>
     </message>
     <message>
         <source>Divehi</source>
-        <translation>Дивехі</translation>
+        <translation>toki Tiwehi</translation>
     </message>
     <message>
         <source>Dogri</source>
-        <translation>Догрі</translation>
+        <translation>toki Tokeli</translation>
     </message>
     <message>
         <source>Dogrib</source>
-        <translation>Догрібська</translation>
+        <translation>toki Tokelip</translation>
     </message>
     <message>
         <source>Duala</source>
-        <translation>Дуала</translation>
+        <translation>toki Tuwala</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation>Нідерландська</translation>
+        <translation>toki Netelan</translation>
     </message>
     <message>
         <source>Dyula</source>
-        <translation>Дюла</translation>
+        <translation>toki Tuwula</translation>
     </message>
     <message>
         <source>Dzongkha</source>
-        <translation>Дзонгха</translation>
+        <translation>toki Sonka</translation>
     </message>
     <message>
         <source>Eastern Frisian</source>
-        <translation>Східнофризька</translation>
+        <translation>toki Plisiani</translation>
     </message>
     <message>
         <source>Efik</source>
-        <translation>Ефік</translation>
+        <translation>toki Epik</translation>
     </message>
     <message>
         <source>Ekajuk</source>
-        <translation>Екаджукська</translation>
+        <translation>toki Ekajuk</translation>
     </message>
     <message>
         <source>Elamite</source>
-        <translation>Еламська</translation>
+        <translation>toki Elami</translation>
     </message>
     <message>
         <source>English</source>
-        <translation>Англійська</translation>
+        <translation>toki Inli</translation>
     </message>
     <message>
         <source>Erzya</source>
-        <translation>Ерзянська</translation>
+        <translation>toki Elsia</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation>Есперанто</translation>
+        <translation>toki Esipelanto</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation>Естонська</translation>
+        <translation>toki Esutoni</translation>
     </message>
     <message>
         <source>Evenki</source>
-        <translation>Евенкійська</translation>
+        <translation>toki Ewenki</translation>
     </message>
     <message>
         <source>Ewe</source>
-        <translation>Еве</translation>
+        <translation>toki Ewe</translation>
     </message>
     <message>
         <source>Ewondo</source>
-        <translation>Евондо</translation>
+        <translation>toki Ewonto</translation>
     </message>
     <message>
         <source>Fang</source>
-        <translation>Фанг</translation>
+        <translation>toki Pan</translation>
     </message>
     <message>
         <source>Fanti</source>
-        <translation>Фанті</translation>
+        <translation>toki Panti</translation>
     </message>
     <message>
         <source>Faroese</source>
-        <translation>Фарерська</translation>
+        <translation>toki Pelo</translation>
     </message>
     <message>
         <source>Fijian</source>
-        <translation>Фіджійська</translation>
+        <translation>toki Pisi</translation>
     </message>
     <message>
         <source>Filipino</source>
-        <translation>Філіппінська</translation>
+        <translation>toki Pilipino</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation>Фінська</translation>
+        <translation>toki Pinen</translation>
     </message>
     <message>
         <source>Fon</source>
-        <translation>Фон</translation>
+        <translation>toki Pon</translation>
     </message>
     <message>
         <source>French</source>
-        <translation>Французька</translation>
+        <translation>toki Panse</translation>
     </message>
     <message>
         <source>Friulian</source>
-        <translation>Фріульська</translation>
+        <translation>toki Pliuli</translation>
     </message>
     <message>
         <source>Fulah</source>
-        <translation>Фула</translation>
+        <translation>toki Pula</translation>
     </message>
     <message>
         <source>Ga</source>
-        <translation>Га</translation>
+        <translation>toki Ka</translation>
     </message>
     <message>
         <source>Gaelic</source>
-        <translation>Гельська</translation>
+        <translation>toki Kalike</translation>
     </message>
     <message>
         <source>Galibi Carib</source>
-        <translation>Галібі Карибська</translation>
+        <translation>toki Kalipi Kalipi</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation>Галицька</translation>
+        <translation>toki Kalisija</translation>
     </message>
     <message>
         <source>Ganda</source>
-        <translation>Ганда</translation>
+        <translation>toki Kanta</translation>
     </message>
     <message>
         <source>Gayo</source>
-        <translation>Гайо</translation>
+        <translation>toki Kajo</translation>
     </message>
     <message>
         <source>Gbaya</source>
-        <translation>Гбая</translation>
+        <translation>toki Kpaja</translation>
     </message>
     <message>
         <source>Geez</source>
-        <translation>Геез</translation>
+        <translation>toki Kies</translation>
     </message>
     <message>
         <source>Georgian</source>
-        <translation>Грузинська</translation>
+        <translation>toki Kolia</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Німецька</translation>
+        <translation>toki Telepi</translation>
     </message>
     <message>
         <source>Gilbertese</source>
-        <translation>Гільбертська</translation>
+        <translation>toki Kilipasi</translation>
     </message>
     <message>
         <source>Gondi</source>
-        <translation>Гонді</translation>
+        <translation>toki Konti</translation>
     </message>
     <message>
         <source>Gorontalo</source>
-        <translation>Горонтало</translation>
+        <translation>toki Koliontalo</translation>
     </message>
     <message>
         <source>Gothic</source>
-        <translation>Готична</translation>
+        <translation>toki Koti</translation>
     </message>
     <message>
         <source>Grebo</source>
-        <translation>Гребська</translation>
+        <translation>toki Klepo</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation>Грецька</translation>
+        <translation>toki Losi</translation>
     </message>
     <message>
         <source>Greenlandic</source>
-        <translation>Гренландська</translation>
+        <translation>toki Kalaallit</translation>
     </message>
     <message>
         <source>Guarani</source>
-        <translation>Гуарані</translation>
+        <translation>toki Kalani</translation>
     </message>
     <message>
         <source>Gujarati</source>
-        <translation>Гуджараті</translation>
+        <translation>toki Kujalaiti</translation>
     </message>
     <message>
-        <source>Gwich&apos;in</source>
-        <translation>Гвічін</translation>
+        <source>Gwich'in</source>
+        <translation>toki Kwisi</translation>
     </message>
     <message>
         <source>Haida</source>
-        <translation>Хайда</translation>
+        <translation>toki Haita</translation>
     </message>
     <message>
         <source>Haitian</source>
-        <translation>Гаїтянська</translation>
+        <translation>toki Haiti</translation>
     </message>
     <message>
         <source>Hausa</source>
-        <translation>Хауса</translation>
+        <translation>toki Hawusa</translation>
     </message>
     <message>
         <source>Hawaiian</source>
-        <translation>Гавайська</translation>
+        <translation>toki Hawaii</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation>Іврит</translation>
+        <translation>toki Epelo</translation>
     </message>
     <message>
         <source>Herero</source>
-        <translation>Гереро</translation>
+        <translation>toki Helelo</translation>
     </message>
     <message>
         <source>Hiligaynon</source>
-        <translation>Хілігайнонська</translation>
+        <translation>toki Hilikainon</translation>
     </message>
     <message>
         <source>Hindi</source>
-        <translation>Хінді</translation>
+        <translation>toki Hinti</translation>
     </message>
     <message>
         <source>Hiri Motu</source>
-        <translation>Хірі Моту</translation>
+        <translation>toki Hili Motu</translation>
     </message>
     <message>
         <source>Hittite</source>
-        <translation>Хетська</translation>
+        <translation>toki Hiti</translation>
     </message>
     <message>
         <source>Hmong</source>
-        <translation>Хмонг</translation>
+        <translation>toki Hmoni</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation>Угорська</translation>
+        <translation>toki Sankali</translation>
     </message>
     <message>
         <source>Hupa</source>
-        <translation>Хупа</translation>
+        <translation>toki Hupa</translation>
     </message>
     <message>
         <source>Iban</source>
-        <translation>Iбан</translation>
+        <translation>toki Ipa</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation>Ісландська</translation>
+        <translation>toki Islan</translation>
     </message>
     <message>
         <source>Ido</source>
-        <translation>Ідо</translation>
+        <translation>toki Ito</translation>
     </message>
     <message>
         <source>Igbo</source>
-        <translation>Ігбо</translation>
+        <translation>toki Ikpo</translation>
     </message>
     <message>
         <source>Iloko</source>
-        <translation>Ілоко</translation>
+        <translation>toki Iloko</translation>
     </message>
     <message>
         <source>Imperial Aramaic</source>
-        <translation>Імперська арамейська</translation>
+        <translation>toki Alama pi lawa</translation>
     </message>
     <message>
         <source>Inari Sami</source>
-        <translation>Інарі саамська</translation>
+        <translation>toki Inali Sami</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation>Індонезійська</translation>
+        <translation>toki Intonesija</translation>
     </message>
     <message>
         <source>Ingush</source>
-        <translation>Інгуська</translation>
+        <translation>toki Inkusi</translation>
     </message>
     <message>
         <source>Interlingua</source>
-        <translation>Інтерлінгва</translation>
+        <translation>toki Intelinwa</translation>
     </message>
     <message>
         <source>Interlingue</source>
-        <translation>Міжмовна</translation>
+        <translation>toki Intelinwe</translation>
     </message>
     <message>
         <source>Inuktitut</source>
-        <translation>Інуктитутська</translation>
+        <translation>toki Inuktitut</translation>
     </message>
     <message>
         <source>Inupiaq</source>
-        <translation>Iнупіак</translation>
+        <translation>toki Inupiaq</translation>
     </message>
     <message>
         <source>Irish</source>
-        <translation>Ірландська</translation>
+        <translation>toki Iselani</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation>Італійська</translation>
+        <translation>toki Italija</translation>
     </message>
     <message>
         <source>Japanese</source>
-        <translation>Японська</translation>
+        <translation>toki Nijon</translation>
     </message>
     <message>
         <source>Javanese</source>
-        <translation>Яванська</translation>
+        <translation>toki Jawa</translation>
     </message>
     <message>
         <source>Judeo-Arabic</source>
-        <translation>Єврейсько-арабська</translation>
+        <translation>toki Alapi Juta</translation>
     </message>
     <message>
         <source>Judeo-Persian</source>
-        <translation>Єврейсько-перська</translation>
+        <translation>toki Pelesa Juta</translation>
     </message>
     <message>
         <source>Kabardian</source>
-        <translation>Кабардинська</translation>
+        <translation>toki Kapaliani</translation>
     </message>
     <message>
         <source>Kabyle</source>
-        <translation>Кабільська</translation>
+        <translation>toki Kapili</translation>
     </message>
     <message>
         <source>Kachin</source>
-        <translation>Качинська</translation>
+        <translation>toki Kasin</translation>
     </message>
     <message>
         <source>Kalmyk</source>
-        <translation>Калмицька</translation>
+        <translation>toki Kalmik</translation>
     </message>
     <message>
         <source>Kamba</source>
-        <translation>Камба</translation>
+        <translation>toki Kampa</translation>
     </message>
     <message>
         <source>Kannada</source>
-        <translation>Каннада</translation>
+        <translation>toki Kanata</translation>
     </message>
     <message>
         <source>Kanuri</source>
-        <translation>Канурі</translation>
+        <translation>toki Kanuli</translation>
     </message>
     <message>
         <source>Kara-Kalpak</source>
-        <translation>Каракалпакська</translation>
+        <translation>toki Kala Kalpak</translation>
     </message>
     <message>
         <source>Karachay-Balkar</source>
-        <translation>Карачаєво-Балкарська</translation>
+        <translation>toki Kalasai Palkal</translation>
     </message>
     <message>
         <source>Karelian</source>
-        <translation>Карельська</translation>
+        <translation>toki Kalelia</translation>
     </message>
     <message>
         <source>Kashmiri</source>
-        <translation>Кашмірська</translation>
+        <translation>toki Kasmili</translation>
     </message>
     <message>
         <source>Kashubian</source>
-        <translation>Кашубська</translation>
+        <translation>toki Kasupian</translation>
     </message>
     <message>
         <source>Kawi</source>
-        <translation>Каві</translation>
+        <translation>toki Kawi</translation>
     </message>
     <message>
         <source>Kazakh</source>
-        <translation>Казахська</translation>
+        <translation>toki Kasak</translation>
     </message>
     <message>
         <source>Khasi</source>
-        <translation>Хасі</translation>
+        <translation>toki Kasi</translation>
     </message>
     <message>
         <source>Khotanese</source>
-        <translation>Хотанська</translation>
+        <translation>toki Kotanese</translation>
     </message>
     <message>
         <source>Kikuyu</source>
-        <translation>Кікую</translation>
+        <translation>toki Kikuju</translation>
     </message>
     <message>
         <source>Kimbundu</source>
-        <translation>Кімбунду</translation>
+        <translation>toki Kimpuntu</translation>
     </message>
     <message>
         <source>Kinyarwanda</source>
-        <translation>Кіньяруанда</translation>
+        <translation>toki Kijalwanta</translation>
     </message>
     <message>
         <source>Klingon</source>
-        <translation>Клінгонська</translation>
+        <translation>toki Klinkon</translation>
     </message>
     <message>
         <source>Komi</source>
-        <translation>Комі</translation>
+        <translation>toki Komi</translation>
     </message>
     <message>
         <source>Kongo</source>
-        <translation>Конго</translation>
+        <translation>toki Kono</translation>
     </message>
     <message>
         <source>Konkani</source>
-        <translation>Конкані</translation>
+        <translation>toki Konkani</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation>Корейська</translation>
+        <translation>toki Kolia</translation>
     </message>
     <message>
         <source>Kosraean</source>
-        <translation>Косрайська</translation>
+        <translation>toki Kosile</translation>
     </message>
     <message>
         <source>Kpelle</source>
-        <translation>Кпельська</translation>
+        <translation>toki Kpele</translation>
     </message>
     <message>
         <source>Kuanyama</source>
-        <translation>Куаньяма</translation>
+        <translation>toki Kwanjama</translation>
     </message>
     <message>
         <source>Kumyk</source>
-        <translation>Кумицька</translation>
+        <translation>toki Kumik</translation>
     </message>
     <message>
         <source>Kurdish</source>
-        <translation>Курдська</translation>
+        <translation>toki Kuliti</translation>
     </message>
     <message>
         <source>Kurukh</source>
-        <translation>Курух</translation>
+        <translation>toki Kuluk</translation>
     </message>
     <message>
         <source>Kutenai</source>
-        <translation>Кутенай</translation>
+        <translation>toki Kutenai</translation>
     </message>
     <message>
         <source>Kyrgyz</source>
-        <translation>Киргизька</translation>
+        <translation>toki Kiliis</translation>
     </message>
     <message>
         <source>Ladino</source>
-        <translation>Ладіно</translation>
+        <translation>toki Latino</translation>
     </message>
     <message>
         <source>Lahnda</source>
-        <translation>Ланда</translation>
+        <translation>toki Lanta</translation>
     </message>
     <message>
         <source>Lamba</source>
-        <translation>Ламба</translation>
+        <translation>toki Lampa</translation>
     </message>
     <message>
         <source>Lao</source>
-        <translation>Лаоська</translation>
+        <translation>toki Lao</translation>
     </message>
     <message>
         <source>Latin</source>
-        <translation>Латинська</translation>
+        <translation>toki Laten</translation>
     </message>
     <message>
         <source>Latvian</source>
-        <translation>Латиська</translation>
+        <translation>toki Latwija</translation>
     </message>
     <message>
         <source>Lezghian</source>
-        <translation>Лезгинська</translation>
+        <translation>toki Leski</translation>
     </message>
     <message>
         <source>Limburgish</source>
-        <translation>Лімбурзька</translation>
+        <translation>toki Limupuliki</translation>
     </message>
     <message>
         <source>Lingala</source>
-        <translation>Лінгала</translation>
+        <translation>toki Linkala</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation>Литовська</translation>
+        <translation>toki Lituwanija</translation>
     </message>
     <message>
         <source>Lojban</source>
-        <translation>Ложбан</translation>
+        <translation>toki Lojan</translation>
     </message>
     <message>
         <source>Low German</source>
-        <translation>Нижньонімецька</translation>
+        <translation>toki Telepi lili</translation>
     </message>
     <message>
         <source>Lower Sorbian</source>
-        <translation>Нижньолужицька</translation>
+        <translation>toki Solapi lili</translation>
     </message>
     <message>
         <source>Lozi</source>
-        <translation>Лозі</translation>
+        <translation>toki Losi</translation>
     </message>
     <message>
         <source>Luba-Katanga</source>
-        <translation>Луба-катанга</translation>
+        <translation>toki Lupu Katanka</translation>
     </message>
     <message>
         <source>Luba-Lulua</source>
-        <translation>Луба-лулуа</translation>
+        <translation>toki Lupu Lulwa</translation>
     </message>
     <message>
         <source>Luiseno</source>
-        <translation>Луїзено</translation>
+        <translation>toki Luiseno</translation>
     </message>
     <message>
         <source>Lule Sami</source>
-        <translation>Лулесаамська</translation>
+        <translation>toki Lule Sami</translation>
     </message>
     <message>
         <source>Lunda</source>
-        <translation>Лунда</translation>
+        <translation>toki Lunta</translation>
     </message>
     <message>
         <source>Luo</source>
-        <translation>Луо</translation>
+        <translation>toki Luwo</translation>
     </message>
     <message>
         <source>Lushai</source>
-        <translation>Лушай</translation>
+        <translation>toki Lusai</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
-        <translation>Люксембурзька</translation>
+        <translation>toki Luksempu</translation>
     </message>
     <message>
         <source>Macedonian</source>
-        <translation>Македонська</translation>
+        <translation>toki Masitoni</translation>
     </message>
     <message>
         <source>Madurese</source>
-        <translation>Мадурська</translation>
+        <translation>toki Matula</translation>
     </message>
     <message>
         <source>Magahi</source>
-        <translation>Магахі</translation>
+        <translation>toki Makahi</translation>
     </message>
     <message>
         <source>Maithili</source>
-        <translation>Майтілі</translation>
+        <translation>toki Maitili</translation>
     </message>
     <message>
         <source>Makasar</source>
-        <translation>Макасарська</translation>
+        <translation>toki Makasa</translation>
     </message>
     <message>
         <source>Malagasy</source>
-        <translation>Малагасійська</translation>
+        <translation>toki Malakasi</translation>
     </message>
     <message>
         <source>Malay</source>
-        <translation>Малайська</translation>
+        <translation>toki Malei</translation>
     </message>
     <message>
         <source>Malayalam</source>
-        <translation>Малаялам</translation>
+        <translation>toki Malajalam</translation>
     </message>
     <message>
         <source>Maltese</source>
-        <translation>Мальтійська</translation>
+        <translation>toki Malta</translation>
     </message>
     <message>
         <source>Manchu</source>
-        <translation>Маньчжурська</translation>
+        <translation>toki Mansu</translation>
     </message>
     <message>
         <source>Mandar</source>
-        <translation>Мандарська</translation>
+        <translation>toki Manala</translation>
     </message>
     <message>
         <source>Mandingo</source>
-        <translation>Мандинго</translation>
+        <translation>toki Mantinko</translation>
     </message>
     <message>
         <source>Manipuri</source>
-        <translation>Маніпурі</translation>
+        <translation>toki Manipuli</translation>
     </message>
     <message>
         <source>Manx</source>
-        <translation>Менська</translation>
+        <translation>toki Manks</translation>
     </message>
     <message>
         <source>Maori</source>
-        <translation>Маорі</translation>
+        <translation>toki Maoli</translation>
     </message>
     <message>
         <source>Mapudungun</source>
-        <translation>Мапудунгун</translation>
+        <translation>toki Mapuse</translation>
     </message>
     <message>
         <source>Marathi</source>
-        <translation>Маратхі</translation>
+        <translation>toki Malati</translation>
     </message>
     <message>
         <source>Mari</source>
-        <translation>Марійська</translation>
+        <translation>toki Mali</translation>
     </message>
     <message>
         <source>Marshallese</source>
-        <translation>Маршалльська</translation>
+        <translation>toki Masali</translation>
     </message>
     <message>
         <source>Marwari</source>
-        <translation>Марварі</translation>
+        <translation>toki Malwali</translation>
     </message>
     <message>
         <source>Masai</source>
-        <translation>Масаї</translation>
+        <translation>toki Masai</translation>
     </message>
     <message>
         <source>Mende</source>
-        <translation>Менде</translation>
+        <translation>toki Menti</translation>
     </message>
     <message>
         <source>Micmac</source>
-        <translation>Мікмак</translation>
+        <translation>toki Mikmak</translation>
     </message>
     <message>
         <source>Middle Dutch</source>
-        <translation>Середньонідерландська</translation>
+        <translation>toki Netelan pi tenpo pini</translation>
     </message>
     <message>
         <source>Middle English</source>
-        <translation>Середньоанглійська</translation>
+        <translation>toki Inli pi tenpo pini</translation>
     </message>
     <message>
         <source>Middle French</source>
-        <translation>Середньофранцузька</translation>
+        <translation>toki Panse pi tenpo pini</translation>
     </message>
     <message>
         <source>Middle High German</source>
-        <translation>Середньоверхньонімецька</translation>
+        <translation>toki Telepi pi tenpo pini</translation>
     </message>
     <message>
         <source>Middle Irish</source>
-        <translation>Середньоірландська</translation>
+        <translation>toki Iselani pi tenpo pini</translation>
     </message>
     <message>
         <source>Minangkabau</source>
-        <translation>Мінангкабау</translation>
+        <translation>toki Minankapaw</translation>
     </message>
     <message>
         <source>Mirandese</source>
-        <translation>Мірандська</translation>
+        <translation>toki Milante</translation>
     </message>
     <message>
         <source>Mohawk</source>
-        <translation>Могавк</translation>
+        <translation>toki Mohok</translation>
     </message>
     <message>
         <source>Moksha</source>
-        <translation>Мокшанська</translation>
+        <translation>toki Moksa</translation>
     </message>
     <message>
         <source>Mongo</source>
-        <translation>Монго</translation>
+        <translation>toki Mono</translation>
     </message>
     <message>
         <source>Mongolian</source>
-        <translation>Монгольська</translation>
+        <translation>toki Monkoli</translation>
     </message>
     <message>
         <source>Montenegrin</source>
-        <translation>Чорногорська</translation>
+        <translation>toki Monteneklo</translation>
     </message>
     <message>
         <source>Mossi</source>
-        <translation>Мосі</translation>
+        <translation>toki Mosi</translation>
     </message>
     <message>
         <source>Multiple languages</source>
-        <translation>Кілька мов</translation>
+        <translation>toki mute</translation>
     </message>
     <message>
-        <source>N&apos;Ko</source>
-        <translation>Нко</translation>
+        <source>N'Ko</source>
+        <translation>toki Nko</translation>
     </message>
     <message>
         <source>Nauru</source>
-        <translation>Науру</translation>
+        <translation>toki Naulu</translation>
     </message>
     <message>
         <source>Navajo</source>
-        <translation>Навахо</translation>
+        <translation>toki Nawao</translation>
     </message>
     <message>
         <source>Ndonga</source>
-        <translation>Ндонга</translation>
+        <translation>toki Ntona</translation>
     </message>
     <message>
         <source>Neapolitan</source>
-        <translation>Неаполітанська</translation>
+        <translation>toki Napoli</translation>
     </message>
     <message>
         <source>Nepali</source>
-        <translation>Непальська</translation>
+        <translation>toki Nepali</translation>
     </message>
     <message>
         <source>Newari</source>
-        <translation>Неварська</translation>
+        <translation>toki Newali</translation>
     </message>
     <message>
         <source>Nias</source>
-        <translation>Ніас</translation>
+        <translation>toki Nias</translation>
     </message>
     <message>
         <source>Niuean</source>
-        <translation>Ніуеанська</translation>
+        <translation>toki Niwe</translation>
     </message>
     <message>
         <source>Nogai</source>
-        <translation>Ногайська</translation>
+        <translation>toki Nokai</translation>
     </message>
     <message>
         <source>North Ndebele</source>
-        <translation>Північнондебелська</translation>
+        <translation>toki Ntepele suli</translation>
     </message>
     <message>
         <source>Northern Frisian</source>
-        <translation>Північнофризька</translation>
+        <translation>toki Plisiani suli</translation>
     </message>
     <message>
         <source>Northern Sami</source>
-        <translation>Північносаамська</translation>
+        <translation>toki Sami suli</translation>
     </message>
     <message>
         <source>Northern Sotho</source>
-        <translation>Північна сото</translation>
+        <translation>toki Soto suli</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation>Норвезька</translation>
+        <translation>toki Noweleja</translation>
     </message>
     <message>
         <source>Norwegian Bokmål</source>
-        <translation>Норвезька букмол</translation>
+        <translation>toki Noweleja Pokmol</translation>
     </message>
     <message>
         <source>Norwegian Nynorsk</source>
-        <translation>Норвезька нюнорск</translation>
+        <translation>toki Noweleja Nunolsk</translation>
     </message>
     <message>
         <source>Nyamwezi</source>
-        <translation>Ньямвезі</translation>
+        <translation>toki Njamwesi</translation>
     </message>
     <message>
         <source>Nyanja</source>
-        <translation>Ньянджа</translation>
+        <translation>toki Njanja</translation>
     </message>
     <message>
         <source>Nyankole</source>
-        <translation>Нянкольська</translation>
+        <translation>toki Njankole</translation>
     </message>
     <message>
         <source>Nyoro</source>
-        <translation>Ньйоро</translation>
+        <translation>toki Njolo</translation>
     </message>
     <message>
         <source>Nzima</source>
-        <translation>Нзіма</translation>
+        <translation>toki Nsima</translation>
     </message>
     <message>
         <source>Occitan</source>
-        <translation>Окситанська</translation>
+        <translation>toki Oksitan</translation>
     </message>
     <message>
         <source>Ojibwa</source>
-        <translation>Оджибва</translation>
+        <translation>toki Ojipwe</translation>
     </message>
     <message>
         <source>Old English</source>
-        <translation>Староанглійська</translation>
+        <translation>toki Inli pi tenpo pini mute</translation>
     </message>
     <message>
         <source>Old French</source>
-        <translation>Старофранцузька</translation>
+        <translation>toki Panse pi tenpo pini mute</translation>
     </message>
     <message>
         <source>Old High German</source>
-        <translation>Давньоверхньонімецька</translation>
+        <translation>toki Telepi pi tenpo pini mute</translation>
     </message>
     <message>
         <source>Old Irish</source>
-        <translation>Староірландська</translation>
+        <translation>toki Iselani pi tenpo pini mute</translation>
     </message>
     <message>
         <source>Old Newari</source>
-        <translation>Давньоневарська</translation>
+        <translation>toki Newali pi tenpo pini mute</translation>
     </message>
     <message>
         <source>Old Norse</source>
-        <translation>Давньоскандинавська</translation>
+        <translation>toki Noles pi tenpo pini mute</translation>
     </message>
     <message>
         <source>Old Occitan</source>
-        <translation>Староокситанська</translation>
+        <translation>toki Oksitan pi tenpo pini mute</translation>
     </message>
     <message>
         <source>Old Persian</source>
-        <translation>Давньоперська</translation>
+        <translation>toki Pelesa pi tenpo pini mute</translation>
     </message>
     <message>
         <source>Oriya</source>
-        <translation>Орійська</translation>
+        <translation>toki Olija</translation>
     </message>
     <message>
         <source>Oromo</source>
-        <translation>Оромо</translation>
+        <translation>toki Olomo</translation>
     </message>
     <message>
         <source>Osage</source>
-        <translation>Осейдж</translation>
+        <translation>toki Osaje</translation>
     </message>
     <message>
         <source>Ossetian</source>
-        <translation>Осетинська</translation>
+        <translation>toki Oseti</translation>
     </message>
     <message>
         <source>Ottoman Turkish</source>
-        <translation>Османська турецька</translation>
+        <translation>toki Tuki pi lawa Otoman</translation>
     </message>
     <message>
         <source>Pahlavi</source>
-        <translation>Пехлеві</translation>
+        <translation>toki Palawi</translation>
     </message>
     <message>
         <source>Palauan</source>
-        <translation>Палауська</translation>
+        <translation>toki Palau</translation>
     </message>
     <message>
         <source>Pali</source>
-        <translation>Палійська</translation>
+        <translation>toki Pali</translation>
     </message>
     <message>
         <source>Pampanga</source>
-        <translation>Пампанга</translation>
+        <translation>toki Pampanka</translation>
     </message>
     <message>
         <source>Pangasinan</source>
-        <translation>Пангасінська</translation>
+        <translation>toki Pankasina</translation>
     </message>
     <message>
         <source>Panjabi</source>
-        <translation>Панджабі</translation>
+        <translation>toki Punjapi</translation>
     </message>
     <message>
         <source>Papiamento</source>
-        <translation>Пап&apos;яменто</translation>
+        <translation>toki Papiamento</translation>
     </message>
     <message>
         <source>Persian</source>
-        <translation>Перська</translation>
+        <translation>toki Pelesa</translation>
     </message>
     <message>
         <source>Phoenician</source>
-        <translation>Фінікійська</translation>
+        <translation>toki Penisija</translation>
     </message>
     <message>
         <source>Pohnpeian</source>
-        <translation>Понпейська</translation>
+        <translation>toki Ponpei</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation>Польська</translation>
+        <translation>toki Polani</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation>Португальська</translation>
+        <translation>toki Polutuka</translation>
     </message>
     <message>
         <source>Pushto</source>
-        <translation>Пушту</translation>
+        <translation>toki Pasto</translation>
     </message>
     <message>
         <source>Quechua</source>
-        <translation>Кечуа</translation>
+        <translation>toki Kesua</translation>
     </message>
     <message>
         <source>Rajasthani</source>
-        <translation>Раджастанська</translation>
+        <translation>toki Lajastani</translation>
     </message>
     <message>
         <source>Rapanui</source>
-        <translation>Рапануйська</translation>
+        <translation>toki Lapanui</translation>
     </message>
     <message>
         <source>Rarotongan</source>
-        <translation>Раротонганська</translation>
+        <translation>toki Lalotonka</translation>
     </message>
     <message>
         <source>Romanian, Moldavian</source>
-        <translation>Румунська, Молдавська</translation>
+        <translation>toki Lomani</translation>
     </message>
     <message>
         <source>Romansh</source>
-        <translation>Ретороманська</translation>
+        <translation>toki Lomansa</translation>
     </message>
     <message>
         <source>Romany</source>
-        <translation>Ромська</translation>
+        <translation>toki Lomani</translation>
     </message>
     <message>
         <source>Rundi</source>
-        <translation>Рунді</translation>
+        <translation>toki Lundi</translation>
     </message>
     <message>
         <source>Rusinian</source>
-        <translation>Русинська</translation>
+        <translation>toki Lusini</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation>Російська</translation>
+        <translation>toki Losi</translation>
     </message>
     <message>
         <source>Samaritan Aramaic</source>
-        <translation>Самаритянська арамейська мова</translation>
+        <translation>toki Alama pi Samalita</translation>
     </message>
     <message>
         <source>Samoan</source>
-        <translation>Самоанська</translation>
+        <translation>toki Samoa</translation>
     </message>
     <message>
         <source>Sandawe</source>
-        <translation>Сандаве</translation>
+        <translation>toki Santawe</translation>
     </message>
     <message>
         <source>Sango</source>
-        <translation>Санго</translation>
+        <translation>toki Sanko</translation>
     </message>
     <message>
         <source>Sanskrit</source>
-        <translation>Санскрит</translation>
+        <translation>toki Sansukilita</translation>
     </message>
     <message>
         <source>Santali</source>
-        <translation>Санталі</translation>
+        <translation>toki Santali</translation>
     </message>
     <message>
         <source>Sardinian</source>
-        <translation>Сардинська</translation>
+        <translation>toki Salitinja</translation>
     </message>
     <message>
         <source>Sasak</source>
-        <translation>Сасацька</translation>
+        <translation>toki Sasak</translation>
     </message>
     <message>
         <source>Scots</source>
-        <translation>Шотландська</translation>
+        <translation>toki Skotilani</translation>
     </message>
     <message>
         <source>Selkup</source>
-        <translation>Селькупська</translation>
+        <translation>toki Selkupi</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation>Сербська</translation>
+        <translation>toki Selupija</translation>
     </message>
     <message>
         <source>Serer</source>
-        <translation>Серерська</translation>
+        <translation>toki Sele</translation>
     </message>
     <message>
         <source>Shan</source>
-        <translation>Шанська</translation>
+        <translation>toki San</translation>
     </message>
     <message>
         <source>Shona</source>
-        <translation>Шона</translation>
+        <translation>toki Sona</translation>
     </message>
     <message>
         <source>Sichuan Yi</source>
-        <translation>Сичуань І</translation>
+        <translation>toki Sisuwan Ji</translation>
     </message>
     <message>
         <source>Sicilian</source>
-        <translation>Сицилійська</translation>
+        <translation>toki Sisili</translation>
     </message>
     <message>
         <source>Sidamo</source>
-        <translation>Сідамо</translation>
+        <translation>toki Sitamo</translation>
     </message>
     <message>
         <source>Siksika</source>
-        <translation>Сіксика</translation>
+        <translation>toki Siksika</translation>
     </message>
     <message>
         <source>Sindhi</source>
-        <translation>Сіндхі</translation>
+        <translation>toki Sinti</translation>
     </message>
     <message>
         <source>Sinhalese</source>
-        <translation>Сингальська</translation>
+        <translation>toki Sinhala</translation>
     </message>
     <message>
         <source>Skolt Sami</source>
-        <translation>Сколт-саамский</translation>
+        <translation>toki Skolt Sami</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation>Словацька</translation>
+        <translation>toki Slowaki</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation>Словенська</translation>
+        <translation>toki Slowenija</translation>
     </message>
     <message>
         <source>Sogdian</source>
-        <translation>Согдійська</translation>
+        <translation>toki Soktiani</translation>
     </message>
     <message>
         <source>Somali</source>
-        <translation>Сомалійська</translation>
+        <translation>toki Somali</translation>
     </message>
     <message>
         <source>Soninke</source>
-        <translation>Сонінке</translation>
+        <translation>toki Soninke</translation>
     </message>
     <message>
         <source>South Ndebele</source>
-        <translation>Південно-ндебелська</translation>
+        <translation>toki Ntepele lili</translation>
     </message>
     <message>
         <source>Southern Altai</source>
-        <translation>Південноалтайська</translation>
+        <translation>toki Altai lili</translation>
     </message>
     <message>
         <source>Southern Sami</source>
-        <translation>Південносаамська</translation>
+        <translation>toki Sami lili</translation>
     </message>
     <message>
         <source>Southern Sotho</source>
-        <translation>Південна сото</translation>
+        <translation>toki Soto lili</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation>Іспанська</translation>
+        <translation>toki Esepanja</translation>
     </message>
     <message>
         <source>Sranan Tongo</source>
-        <translation>Сранан тонго</translation>
+        <translation>toki Sulanan Tono</translation>
     </message>
     <message>
         <source>Standard Moroccan Tamazight</source>
-        <translation>Стандартна марокканська тамазігхт</translation>
+        <translation>toki Tamasis pi Moloko</translation>
     </message>
     <message>
         <source>Sukuma</source>
-        <translation>Сукума</translation>
+        <translation>toki Sukuma</translation>
     </message>
     <message>
         <source>Sumerian</source>
-        <translation>Шумерська</translation>
+        <translation>toki Sumeli</translation>
     </message>
     <message>
         <source>Sundanese</source>
-        <translation>Сунданська</translation>
+        <translation>toki Suntanese</translation>
     </message>
     <message>
         <source>Susu</source>
-        <translation>Сусу</translation>
+        <translation>toki Susu</translation>
     </message>
     <message>
         <source>Swahili</source>
-        <translation>Суахілі</translation>
+        <translation>toki Swahili</translation>
     </message>
     <message>
         <source>Swati</source>
-        <translation>Сваті</translation>
+        <translation>toki Swati</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation>Шведська</translation>
+        <translation>toki Suweti</translation>
     </message>
     <message>
         <source>Swiss German</source>
-        <translation>Швейцарська німецька</translation>
+        <translation>toki Telepi pi Swisa</translation>
     </message>
     <message>
         <source>Syriac</source>
-        <translation>Сирійська</translation>
+        <translation>toki Silia</translation>
     </message>
     <message>
         <source>Tagalog</source>
-        <translation>Тагальська</translation>
+        <translation>toki Takalo</translation>
     </message>
     <message>
         <source>Tahitian</source>
-        <translation>Таїтянська</translation>
+        <translation>toki Tahiti</translation>
     </message>
     <message>
         <source>Tajik</source>
-        <translation>Таджицька</translation>
+        <translation>toki Tajik</translation>
     </message>
     <message>
         <source>Tamashek</source>
-        <translation>Тамашека</translation>
+        <translation>toki Tamasek</translation>
     </message>
     <message>
         <source>Tamil</source>
-        <translation>Тамільська</translation>
+        <translation>toki Tamili</translation>
     </message>
     <message>
         <source>Tatar</source>
-        <translation>Татарська</translation>
+        <translation>toki Talala</translation>
     </message>
     <message>
         <source>Telugu</source>
-        <translation>Телугу</translation>
+        <translation>toki Teluku</translation>
     </message>
     <message>
         <source>Tereno</source>
-        <translation>Теренська</translation>
+        <translation>toki Teleno</translation>
     </message>
     <message>
         <source>Tetum</source>
-        <translation>Тетум</translation>
+        <translation>toki Tetum</translation>
     </message>
     <message>
         <source>Thai</source>
-        <translation>Тайська</translation>
+        <translation>toki Tai</translation>
     </message>
     <message>
         <source>Tibetan</source>
-        <translation>Тибетська</translation>
+        <translation>toki Tipeti</translation>
     </message>
     <message>
         <source>Tigre</source>
-        <translation>Тигрська</translation>
+        <translation>toki Tikle</translation>
     </message>
     <message>
         <source>Tigrinya</source>
-        <translation>Тигринья</translation>
+        <translation>toki Tikilinja</translation>
     </message>
     <message>
         <source>Timne</source>
-        <translation>Тимненська</translation>
+        <translation>toki Timne</translation>
     </message>
     <message>
         <source>Tiv</source>
-        <translation>Тівська</translation>
+        <translation>toki Tiw</translation>
     </message>
     <message>
         <source>Tlingit</source>
-        <translation>Тлінгіт</translation>
+        <translation>toki Tlinkit</translation>
     </message>
     <message>
         <source>Tok Pisin</source>
-        <translation>Ток-пісинська</translation>
+        <translation>toki Pisin</translation>
     </message>
     <message>
         <source>Tokelau</source>
-        <translation>Токелау</translation>
+        <translation>toki Tokelau</translation>
     </message>
     <message>
         <source>Tonga (Nyasa)</source>
-        <translation>Тонга (ньяса)</translation>
+        <translation>toki Tona (Njasa)</translation>
     </message>
     <message>
         <source>Tonga Islands</source>
-        <translation>Мова островів Тонга</translation>
+        <translation>toki Tona (motu)</translation>
     </message>
     <message>
         <source>Tsimshian</source>
-        <translation>Цимшійська</translation>
+        <translation>toki Simsia</translation>
     </message>
     <message>
         <source>Tsonga</source>
-        <translation>Тсонга</translation>
+        <translation>toki Sona</translation>
     </message>
     <message>
         <source>Tswana</source>
-        <translation>Тсвана</translation>
+        <translation>toki Swana</translation>
     </message>
     <message>
         <source>Tumbuka</source>
-        <translation>Тумбука</translation>
+        <translation>toki Tumpuka</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation>Турецька</translation>
+        <translation>toki Tuki</translation>
     </message>
     <message>
         <source>Turkmen</source>
-        <translation>Туркменська</translation>
+        <translation>toki Tukmen</translation>
     </message>
     <message>
         <source>Tuvalu</source>
-        <translation>Тувалу</translation>
+        <translation>toki Tuwalu</translation>
     </message>
     <message>
         <source>Tuvinian</source>
-        <translation>Тувинська</translation>
+        <translation>toki Tuwini</translation>
     </message>
     <message>
         <source>Twi</source>
-        <translation>Тві</translation>
+        <translation>toki Chwi</translation>
     </message>
     <message>
         <source>Udmurt</source>
-        <translation>Удмуртська</translation>
+        <translation>toki Utmuliti</translation>
     </message>
     <message>
         <source>Ugaritic</source>
-        <translation>Угаритська</translation>
+        <translation>toki Ukaliti</translation>
     </message>
     <message>
         <source>Uighur</source>
-        <translation>Уйгурська</translation>
+        <translation>toki Wikul</translation>
     </message>
     <message>
         <source>Ukrainian</source>
-        <translation>Українська</translation>
+        <translation>toki Ukela</translation>
     </message>
     <message>
         <source>Umbundu</source>
-        <translation>Умбунду</translation>
+        <translation>toki Umpuntu</translation>
     </message>
     <message>
         <source>Upper Sorbian</source>
-        <translation>Верхньолужицька</translation>
+        <translation>toki Solapi suli</translation>
     </message>
     <message>
         <source>Urdu</source>
-        <translation>Урду</translation>
+        <translation>toki Ultu</translation>
     </message>
     <message>
         <source>Uzbek</source>
-        <translation>Узбецька</translation>
+        <translation>toki Uspeki</translation>
     </message>
     <message>
         <source>Vai</source>
-        <translation>Ваї</translation>
+        <translation>toki Wai</translation>
     </message>
     <message>
         <source>Venda</source>
-        <translation>Венда</translation>
+        <translation>toki Wenta</translation>
     </message>
     <message>
         <source>Vietnamese</source>
-        <translation>В&apos;єтнамська</translation>
+        <translation>toki Wietnam</translation>
     </message>
     <message>
         <source>Volapuk</source>
-        <translation>Волапюк</translation>
+        <translation>toki Wolapuk</translation>
     </message>
     <message>
         <source>Votic</source>
-        <translation>Вотична</translation>
+        <translation>toki Woti</translation>
     </message>
     <message>
         <source>Walloon</source>
-        <translation>Валлонська</translation>
+        <translation>toki Walon</translation>
     </message>
     <message>
         <source>Waray</source>
-        <translation>Варайська</translation>
+        <translation>toki Wala</translation>
     </message>
     <message>
         <source>Washo</source>
-        <translation>Вашо</translation>
+        <translation>toki Waso</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation>Валлійська</translation>
+        <translation>toki Kimli</translation>
     </message>
     <message>
         <source>Western Frisian</source>
-        <translation>Західнофризька</translation>
+        <translation>toki Plisiani lili</translation>
     </message>
     <message>
         <source>Wolaitta</source>
-        <translation>Волайта</translation>
+        <translation>toki Wolaita</translation>
     </message>
     <message>
         <source>Wolof</source>
-        <translation>Волоф</translation>
+        <translation>toki Wolop</translation>
     </message>
     <message>
         <source>Xhosa</source>
-        <translation>Коса</translation>
+        <translation>toki Kosa</translation>
     </message>
     <message>
         <source>Yakut</source>
-        <translation>Якутська</translation>
+        <translation>toki Jakutu</translation>
     </message>
     <message>
         <source>Yao</source>
-        <translation>Яо</translation>
+        <translation>toki Jao</translation>
     </message>
     <message>
         <source>Yapese</source>
-        <translation>Япська</translation>
+        <translation>toki Japi</translation>
     </message>
     <message>
         <source>Yiddish</source>
-        <translation>Ідиш</translation>
+        <translation>toki Jitisi</translation>
     </message>
     <message>
         <source>Yoruba</source>
-        <translation>Йоруба</translation>
+        <translation>toki Joupa</translation>
     </message>
     <message>
         <source>Zapotec</source>
-        <translation>Сапотекська</translation>
+        <translation>toki Sapotek</translation>
     </message>
     <message>
         <source>Zazaki</source>
-        <translation>Зазакійська</translation>
+        <translation>toki Sasaki</translation>
     </message>
     <message>
         <source>Zenaga</source>
-        <translation>Зенага</translation>
+        <translation>toki Senaka</translation>
     </message>
     <message>
         <source>Zhuang</source>
-        <translation>Чжуан</translation>
+        <translation>toki Swank</translation>
     </message>
     <message>
         <source>Zulu</source>
-        <translation>Зулу</translation>
+        <translation>toki Sulu</translation>
     </message>
     <message>
         <source>Zuni</source>
-        <translation>Зуні</translation>
+        <translation>toki Suni</translation>
     </message>
     <message>
         <source>[Undetermined]</source>
-        <translation>[Невизначений]</translation>
+        <translation>[sona ala]</translation>
     </message>
     <message>
         <source>en</source>
-        <translation>&amp;English</translation>
+        <translation>&amp;toki Inli</translation>
     </message>
     <message>
         <source>ru</source>
-        <translation>&amp;Русский</translation>
+        <translation>&amp;toki Losi</translation>
+    </message>
+    <message>
+        <source>uk</source>
+        <translation>&amp;toki Lukale</translation>
     </message>
     <message>
         <source>tok</source>
         <translation>&amp;toki pona</translation>
-    </message>
-    <message>
-        <source>uk</source>
-        <translation>&amp;Українська</translation>
     </message>
 </context>
 <context>
     <name>LanguageModel</name>
     <message>
         <source>Code</source>
-        <translation>Код</translation>
+        <translation>nimi lili</translation>
     </message>
     <message>
         <source>Count</source>
-        <translation>Кількість</translation>
+        <translation>nanpa</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation>Мова</translation>
+        <translation>toki</translation>
     </message>
 </context>
 <context>
     <name>Logging</name>
     <message>
         <source>DEBUG</source>
-        <translation>Налагодження</translation>
+        <translation>alasa pakala</translation>
     </message>
     <message>
         <source>ERROR</source>
-        <translation>Помилки</translation>
+        <translation>pakala</translation>
     </message>
     <message>
         <source>FATAL</source>
-        <translation>Фатальні помилки</translation>
+        <translation>moli</translation>
     </message>
     <message>
         <source>INFO</source>
-        <translation>Інформація</translation>
+        <translation>sona</translation>
     </message>
     <message>
         <source>NONE</source>
-        <translation>Приховати всі записи</translation>
+        <translation>ala</translation>
     </message>
     <message>
         <source>VERB</source>
-        <translation>Детальна інформація</translation>
+        <translation>toki mute</translation>
     </message>
     <message>
         <source>WARN</source>
-        <translation>Попередження</translation>
+        <translation>o sona</translation>
     </message>
 </context>
 <context>
     <name>Main</name>
     <message>
         <source>In that case, before restarting the program please manually delete the collection database file:&lt;br&gt;&lt;br&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;</source>
-        <translation>У такому разі перед перезапуском програми, будь ласка, вручну видаліть файл бази даних колекції:&lt;br&gt;&lt;br&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;</translation>
+        <translation>o weka lipu sona kulupu:&lt;br&gt;&lt;br&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;</translation>
     </message>
     <message>
-        <source>It looks like you&apos;re trying to use an older version of the app with a collection from the new version. This may cause instability. Are you sure you want to continue?</source>
-        <translation>Схоже, ви намагаєтеся використати стару версію програми з колекцією для нової версії. Робота у такому режимі може бути нестабільною. Впевнені, що хочете продовжити?</translation>
+        <source>It looks like you're trying to use an older version of the app with a collection from the new version. This may cause instability. Are you sure you want to continue?</source>
+        <translation>ilo ni li sin. kulupu li sin mute. pakala li ken kama. o tawa?</translation>
     </message>
     <message>
         <source>The collection database file could not be deleted. Please delete it manually before restarting the program:&lt;br&gt;&lt;br&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;</source>
-        <translation>Не вдалося видалити файл бази даних колекції. Будь ласка, видаліть його вручну перед перезапуском програми:&lt;br&gt;&lt;br&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;</translation>
+        <translation>ken ala weka lipu sona. o weka:&lt;br&gt;&lt;br&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>The database version is not supported. You need to save the user data and recreate the collection. Shall we do it?</source>
-        <translation>Ця версія бази даних не підтримується. Вам потрібно зберегти дані користувача та створити колекцію заново. Приступимо?</translation>
+        <translation>nanpa sin lipu sona li ken ala. o awen sona jan. o pali kulupu sin. o pali?</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source> or %1</source>
-        <translation> чи %1</translation>
+        <translation> anu %1</translation>
     </message>
     <message>
         <source>&amp;About...</source>
-        <translation>&amp;Про програму...</translation>
+        <translation>&amp;seme...</translation>
     </message>
     <message>
         <source>&amp;Add new alphabet...</source>
-        <translation>Додати новий &amp;алфавіт...</translation>
+        <translation>&amp;pana sitelen sin...</translation>
     </message>
     <message>
         <source>&amp;All settings...</source>
-        <translation>&amp;Усі налаштування...</translation>
+        <translation>&amp;nasin ale...</translation>
     </message>
     <message>
         <source>&amp;Annotation</source>
-        <translation>&amp;Анотація</translation>
+        <translation>&amp;sona lili</translation>
     </message>
     <message>
         <source>&amp;Author</source>
-        <translation>&amp;Автор</translation>
+        <translation>&amp;jan pali</translation>
     </message>
     <message>
         <source>&amp;Clear log</source>
-        <translation>О&amp;чистити журнал</translation>
+        <translation>&amp;weka toki</translation>
     </message>
     <message>
         <source>&amp;Collection</source>
-        <translation>Ко&amp;лекція</translation>
+        <translation>&amp;kulupu lipu</translation>
     </message>
     <message>
         <source>&amp;Color scheme</source>
-        <translation>&amp;Колірна схема</translation>
+        <translation>&amp;nasin kule</translation>
     </message>
     <message>
         <source>&amp;Content</source>
-        <translation>Зм&amp;іст</translation>
+        <translation>&amp;insa</translation>
     </message>
     <message>
         <source>&amp;Dark</source>
-        <translation>&amp;Темна</translation>
+        <translation>&amp;pimeja</translation>
     </message>
     <message>
         <source>&amp;Entertainment</source>
-        <translation>&amp;Розваги</translation>
+        <translation>&amp;musi</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation>&amp;Експорт</translation>
+        <translation>&amp;pana weka</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Файл</translation>
+        <translation>&amp;lipu</translation>
     </message>
     <message>
         <source>&amp;Filters...</source>
-        <translation>&amp;Фільтри...</translation>
+        <translation>&amp;weka ike...</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Шрифт</translation>
+        <translation>&amp;sitelen</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>&amp;Допомога</translation>
+        <translation>&amp;pona</translation>
     </message>
     <message>
         <source>&amp;Hide</source>
-        <translation>При&amp;ховати</translation>
+        <translation>&amp;pimeja</translation>
     </message>
     <message>
         <source>&amp;Language</source>
-        <translation>&amp;Мова</translation>
+        <translation>&amp;toki</translation>
     </message>
     <message>
         <source>&amp;Light</source>
-        <translation>&amp;Світла</translation>
+        <translation>&amp;suno</translation>
     </message>
     <message>
         <source>&amp;Log</source>
-        <translation>&amp;Журнал</translation>
+        <translation>&amp;toki pali</translation>
     </message>
     <message>
         <source>&amp;Metadata</source>
-        <translation>&amp;Метадані</translation>
+        <translation>&amp;sona lipu</translation>
     </message>
     <message>
         <source>&amp;Recent books</source>
-        <translation>&amp;Недавнi книги</translation>
+        <translation>&amp;lipu pini lili</translation>
     </message>
     <message>
         <source>&amp;Remove collection</source>
-        <translation>&amp;Видалити колекцію</translation>
+        <translation>&amp;weka kulupu lipu</translation>
     </message>
     <message>
         <source>&amp;Removed books</source>
-        <translation>Ви&amp;далені книги</translation>
+        <translation>&amp;lipu weka</translation>
     </message>
     <message>
         <source>&amp;Restore default values</source>
-        <translation>&amp;Відновити початкові значення</translation>
+        <translation>&amp;kama sin nasin</translation>
     </message>
     <message>
         <source>&amp;Scripts...</source>
-        <translation>&amp;Скрипти...</translation>
+        <translation>&amp;nasin pali...</translation>
     </message>
     <message>
         <source>&amp;Series</source>
-        <translation>&amp;Серія</translation>
+        <translation>&amp;open</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation>&amp;Налаштування</translation>
+        <translation>&amp;nasin</translation>
     </message>
     <message>
         <source>&amp;System</source>
-        <translation>Системн&amp;а</translation>
+        <translation>&amp;ilo</translation>
     </message>
     <message>
         <source>&amp;Test colors</source>
-        <translation>&amp;Кольори повідомлень</translation>
+        <translation>&amp;lukin kule</translation>
     </message>
     <message>
         <source>&amp;Theme</source>
-        <translation>&amp;Тема</translation>
+        <translation>&amp;nasin kule</translation>
     </message>
     <message>
         <source>&amp;Title</source>
-        <translation>На&amp;зва</translation>
+        <translation>&amp;nimi lipu</translation>
     </message>
     <message>
         <source>&amp;User data</source>
-        <translation>&amp;Дані користувача</translation>
+        <translation>&amp;sona jan</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Вигляд</translation>
+        <translation>&amp;lukin</translation>
     </message>
     <message>
         <source>A&amp;nnotation</source>
-        <translation>А&amp;нотація</translation>
+        <translation>s&amp;ona lili</translation>
     </message>
     <message>
         <source>About the author</source>
-        <translation>Про автора</translation>
+        <translation>sona pi jan pali</translation>
     </message>
     <message>
         <source>Add &amp;new collection...</source>
-        <translation>Додати &amp;нову колекцію...</translation>
+        <translation>pana &amp;kulupu lipu sin...</translation>
     </message>
     <message>
         <source>Add themes...</source>
-        <translation>Додати теми...</translation>
+        <translation>pana nasin kule...</translation>
     </message>
     <message>
         <source>Allow destructive operations</source>
-        <translation>Дозволити деструктивні операції</translation>
+        <translation>open pali weka</translation>
     </message>
     <message>
         <source>Alphabets</source>
-        <translation>Алфавіти</translation>
+        <translation>sitelen</translation>
     </message>
     <message>
         <source>Are you really sure?</source>
-        <translation>Ви дійсно впевнені?</translation>
+        <translation>sina wile lon?</translation>
     </message>
     <message>
         <source>Are you sure you want to delete all themes?</source>
-        <translation>Ви впевнені, що хочете видалити всі теми?</translation>
+        <translation>sina wile weka nasin kule ale?</translation>
     </message>
     <message>
         <source>Are you sure you want to return to default settings?</source>
-        <translation>Ви впевнені, що хочете повернутися до базових налаштувань?</translation>
+        <translation>sina wile kama sin nasin?</translation>
     </message>
     <message>
         <source>Book &amp;export template</source>
-        <translation>Шаблон &amp;експорту книг</translation>
+        <translation>nasin &amp;pana lipu</translation>
     </message>
     <message>
         <source>Book export template</source>
-        <translation>Шаблон експорту книг</translation>
+        <translation>nasin pana lipu</translation>
     </message>
     <message>
         <source>By allowing destructive operations, you assume responsibility for the possible loss of books you need. Are you sure?</source>
-        <translation>Дозволяючи деструктивні операції, ви берете відповідальність за можливу втрату потрібних вам книг. Ви впевнені?</translation>
+        <translation>sina ken weka lipu sina. sina wile?</translation>
     </message>
     <message>
         <source>Check for &amp;Updates</source>
-        <translation>&amp;Перевірити оновлення</translation>
+        <translation>alasa &amp;sin</translation>
     </message>
     <message>
         <source>Check for updates on &amp;startup</source>
-        <translation>Перевіряти оновлення на &amp;старті</translation>
+        <translation>alasa sin lon &amp;open</translation>
     </message>
     <message>
         <source>Cleaner...</source>
-        <translation>Очищення...</translation>
+        <translation>weka ike...</translation>
     </message>
     <message>
         <source>Co&amp;ver and illustrations</source>
-        <translation>&amp;Обкладинки та ілюстрації</translation>
+        <translation>l&amp;ukin lawa en sitelen</translation>
     </message>
     <message>
         <source>Convert to grayscale</source>
-        <translation>Перетворювати на відтінки сірого</translation>
+        <translation>ante tawa kule ala</translation>
     </message>
     <message>
         <source>Convert to j&amp;peg/png</source>
-        <translation>Конвертувати в j&amp;peg/png</translation>
+        <translation>ante tawa &amp;sitelen</translation>
     </message>
     <message>
         <source>Cover navigation &amp;buttons</source>
-        <translation>&amp;Кнопки навігації на обкладинці</translation>
+        <translation>luka &amp;tawa lukin lawa</translation>
     </message>
     <message>
         <source>Covers</source>
-        <translation>Обкладинки</translation>
+        <translation>lukin lawa</translation>
     </message>
     <message>
-        <source>Database file &quot;%1&quot; is probably corrupted</source>
-        <translation>Файл бази даних &quot;%1&quot; пошкоджено</translation>
+        <source>Database file "%1" is probably corrupted</source>
+        <translation>lipu sona "%1" li ken pakala</translation>
     </message>
     <message>
         <source>Delete all themes</source>
-        <translation>Видалити всі теми</translation>
+        <translation>weka nasin kule ale</translation>
     </message>
     <message>
         <source>Disable all</source>
-        <translation>Виключити все</translation>
+        <translation>pini ale</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>В&amp;ихід</translation>
+        <translation>p&amp;ini</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation>&amp;Експорт</translation>
+        <translation>p&amp;ana weka</translation>
     </message>
     <message>
         <source>Enable all</source>
-        <translation>Включити все</translation>
+        <translation>open ale</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Вихід</translation>
+        <translation>pini</translation>
     </message>
     <message>
         <source>Font &amp;settings...</source>
-        <translation>&amp;Налаштування шрифтів...</translation>
+        <translation>nasin &amp;sitelen...</translation>
     </message>
     <message>
         <source>Generate &amp;index (*.inpx)</source>
-        <translation>Генерувати &amp;індекс (*.inpx)</translation>
+        <translation>pali &amp;lipu nasin (*.inpx)</translation>
     </message>
     <message>
         <source>Go to the &amp;ReactApp web interface</source>
-        <translation>Перейти до веб-інтерфейсу &amp;ReactApp</translation>
+        <translation>tawa &amp;ReactApp</translation>
     </message>
     <message>
         <source>Go to the simple &amp;web interface</source>
-        <translation>Перейти до с&amp;прощеного веб-інтерфейсу</translation>
+        <translation>tawa &amp;linja lili</translation>
     </message>
     <message>
         <source>Hot&amp;keys...</source>
-        <translation>Гарячі &amp;клавіші...</translation>
+        <translation>luka &amp;sona...</translation>
     </message>
     <message>
         <source>Http server management</source>
-        <translation>Керування сервером Http</translation>
+        <translation>nasin tomo sona Http</translation>
     </message>
     <message>
         <source>I&amp;mport</source>
-        <translation>&amp;Імпорт</translation>
+        <translation>k&amp;ama</translation>
     </message>
     <message>
         <source>Illustrations</source>
-        <translation>Ілюстрації</translation>
+        <translation>sitelen</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation>Зображення</translation>
+        <translation>sitelen</translation>
     </message>
     <message>
         <source>Log &amp;verbosity level</source>
-        <translation>&amp;Рівень деталізації журналу</translation>
+        <translation>suli &amp;toki pali</translation>
     </message>
     <message>
         <source>Main menu</source>
-        <translation>Головне меню</translation>
+        <translation>nasin lawa</translation>
     </message>
     <message>
         <source>My export folder</source>
-        <translation>Моя папка для експорту</translation>
+        <translation>poki pana weka mi</translation>
     </message>
     <message>
         <source>Navigation</source>
-        <translation>Навігація</translation>
+        <translation>tawa</translation>
     </message>
     <message>
         <source>Open FLibrary</source>
-        <translation>Відкрити FLibrary</translation>
+        <translation>lukin FLibrary</translation>
     </message>
     <message>
         <source>Qt stylesheet files (*.%1 *.dll);;All files (*.*)</source>
-        <translation>Файли стилів Qt (*.%1 *.dll);;Всі файли (*.*)</translation>
+        <translation>lipu nasin kule Qt (*.%1);;lipu ale (*.*)</translation>
     </message>
     <message>
-        <source>Readers&apos; &amp;Reviews</source>
-        <translation>Відгуки &amp;читачів</translation>
+        <source>Readers' &amp;Reviews</source>
+        <translation>toki pi &amp;jan lukin</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Вилучати</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Rescan collection folder</source>
-        <translation>Додати нові книги</translation>
+        <translation>alasa lipu sin</translation>
     </message>
     <message>
         <source>Rewrite &amp;metadata</source>
-        <translation>Перезаписувати &amp;метадані</translation>
+        <translation>ante &amp;sona lipu</translation>
     </message>
     <message>
         <source>S&amp;tatus line</source>
-        <translation>Рядок &amp;статусу</translation>
+        <translation>nasin &amp;seme</translation>
     </message>
     <message>
         <source>Search &amp;bar by title</source>
-        <translation>Панель пошуку за &amp;назвою</translation>
+        <translation>alasa &amp;nimi lipu</translation>
     </message>
     <message>
         <source>Search &amp;by</source>
-        <translation>Пошук &amp;за</translation>
+        <translation>alasa &amp;kepeken</translation>
     </message>
     <message>
         <source>Search book by title</source>
-        <translation>Пошук книги за назвою</translation>
+        <translation>alasa lipu kepeken nimi</translation>
     </message>
     <message>
         <source>Select &amp;collection</source>
-        <translation>Вибрати &amp;колекцію</translation>
+        <translation>wile &amp;kulupu lipu</translation>
     </message>
     <message>
         <source>Select font</source>
-        <translation>Виберіть шрифт</translation>
+        <translation>wile sitelen</translation>
     </message>
     <message>
         <source>Select settings file</source>
-        <translation>Виберіть файл із налаштуваннями</translation>
+        <translation>wile lipu nasin</translation>
     </message>
     <message>
         <source>Select stylesheet files</source>
-        <translation>Виберіть файли зі стилями</translation>
+        <translation>wile lipu nasin kule</translation>
     </message>
     <message>
         <source>Server &amp;Management...</source>
-        <translation>&amp;Керування сервером...</translation>
+        <translation>nasin &amp;tomo sona...</translation>
     </message>
     <message>
         <source>Settings files (*.ini);;All files (*.*)</source>
-        <translation>Файли налаштувань (*.ini);;Усі файли (*.*)</translation>
+        <translation>lipu nasin (*.ini);;lipu ale (*.*)</translation>
     </message>
     <message>
         <source>Sho&amp;w</source>
-        <translation>Пока&amp;зати</translation>
+        <translation>l&amp;ukin</translation>
     </message>
     <message>
         <source>Show &amp;OPDS in browser</source>
-        <translation>Показати &amp;OPDS у браузері</translation>
+        <translation>lukin &amp;OPDS</translation>
     </message>
     <message>
         <source>Show collection s&amp;tatistics</source>
-        <translation>Показати с&amp;татистику колекції</translation>
+        <translation>lukin &amp;nanpa kulupu</translation>
     </message>
     <message>
         <source>Size &amp;Down</source>
-        <translation>З&amp;меншити розмір</translation>
+        <translation>lili &amp;sitelen</translation>
     </message>
     <message>
         <source>Size &amp;Up</source>
-        <translation>З&amp;більшити розмір</translation>
+        <translation>suli &amp;sitelen</translation>
     </message>
     <message>
         <source>The HTTP server is still running. Would you like to stop it?</source>
-        <translation>HTTP-сервер все ще працює. Бажаєте його зупинити?</translation>
+        <translation>tomo sona HTTP li tawa. o pini?</translation>
     </message>
     <message>
         <source>The right decision!</source>
-        <translation>Правильне рішення!</translation>
+        <translation>nasin pona!</translation>
     </message>
     <message>
         <source>To search for books by %1, enter the name or title here and press Enter</source>
-        <translation>Для пошуку книг за %1 введіть ім&apos;я або назву тут і натисніть Enter</translation>
+        <translation>o sitelen nimi %1 tawa alasa lipu</translation>
     </message>
     <message>
         <source>View &amp;Help</source>
-        <translation>&amp;Довідка</translation>
+        <translation>lukin &amp;pona</translation>
     </message>
     <message>
         <source>Well, you only have yourself to blame!</source>
-        <translation>Що ж, нарікайте тепер на себе!</translation>
+        <translation>pakala li sina taso!</translation>
     </message>
     <message>
         <source>annotation</source>
-        <translation>анотацією</translation>
+        <translation>sona lili</translation>
     </message>
     <message>
         <source>author</source>
-        <translation>автором</translation>
+        <translation>jan pali</translation>
     </message>
     <message>
         <source>series</source>
-        <translation>серією</translation>
+        <translation>open</translation>
     </message>
     <message>
         <source>title</source>
-        <translation>назвою</translation>
+        <translation>nimi</translation>
     </message>
 </context>
 <context>
     <name>Measure</name>
     <message>
         <source>%1 Gb</source>
-        <translation>%1 Гб</translation>
+        <translation>%1 Kb</translation>
     </message>
     <message>
         <source>%1 Kb</source>
-        <translation>%1 Кб</translation>
+        <translation>%1 kb</translation>
     </message>
     <message>
         <source>%1 Mb</source>
-        <translation>%1 Мб</translation>
+        <translation>%1 Mb</translation>
     </message>
     <message>
         <source>%1 b</source>
-        <translation>%1 б</translation>
+        <translation>%1 b</translation>
     </message>
 </context>
 <context>
     <name>ModeLineEdit</name>
     <message>
         <source>Filter</source>
-        <translation>Фільтр</translation>
+        <translation>weka ike</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation>Пошук</translation>
+        <translation>alasa</translation>
     </message>
 </context>
 <context>
     <name>Month</name>
     <message>
         <source>1</source>
-        <translation>Січень</translation>
+        <translation>tenpo sike open</translation>
     </message>
     <message>
         <source>10</source>
-        <translation>Жовтень</translation>
+        <translation>tenpo sike luka luka</translation>
     </message>
     <message>
         <source>11</source>
-        <translation>Листопад</translation>
+        <translation>tenpo sike luka luka wan</translation>
     </message>
     <message>
         <source>12</source>
-        <translation>Грудень</translation>
+        <translation>tenpo sike luka luka tu</translation>
     </message>
     <message>
         <source>2</source>
-        <translation>Лютий</translation>
+        <translation>tenpo sike tu</translation>
     </message>
     <message>
         <source>2147483647</source>
-        <translation>Не вказано</translation>
+        <translation>sona ala</translation>
     </message>
     <message>
         <source>3</source>
-        <translation>Березень</translation>
+        <translation>tenpo sike tu wan</translation>
     </message>
     <message>
         <source>4</source>
-        <translation>Квітень</translation>
+        <translation>tenpo sike tu tu</translation>
     </message>
     <message>
         <source>5</source>
-        <translation>Травень</translation>
+        <translation>tenpo sike luka</translation>
     </message>
     <message>
         <source>6</source>
-        <translation>Червень</translation>
+        <translation>tenpo sike luka wan</translation>
     </message>
     <message>
         <source>7</source>
-        <translation>Липень</translation>
+        <translation>tenpo sike luka tu</translation>
     </message>
     <message>
         <source>8</source>
-        <translation>Серпень</translation>
+        <translation>tenpo sike luka tu wan</translation>
     </message>
     <message>
         <source>9</source>
-        <translation>Вересень</translation>
+        <translation>tenpo sike luka tu tu</translation>
     </message>
 </context>
 <context>
     <name>Navigation</name>
     <message>
         <source>All</source>
-        <translation>Усі</translation>
+        <translation>ale</translation>
     </message>
     <message>
         <source>All books</source>
-        <translation>Усі книги</translation>
+        <translation>lipu ale</translation>
     </message>
     <message>
         <source>All options</source>
-        <translation>Усі варіанти</translation>
+        <translation>nasin ale</translation>
     </message>
     <message>
         <source>AllBooks</source>
-        <translation>Усі книги</translation>
+        <translation>lipu ale</translation>
     </message>
     <message>
         <source>AlreadyRead</source>
-        <translation>Прочитані книги</translation>
+        <translation>lipu lukin pini</translation>
     </message>
     <message>
         <source>Archives</source>
-        <translation>Архіви</translation>
+        <translation>poki lipu</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation>Автори</translation>
+        <translation>jan pali</translation>
     </message>
     <message>
         <source>Books</source>
-        <translation>Книги</translation>
+        <translation>lipu</translation>
     </message>
     <message>
         <source>Create new group...</source>
-        <translation>Створити нову групу...</translation>
+        <translation>pali kulupu sin...</translation>
     </message>
     <message>
         <source>Create new search...</source>
-        <translation>Новий пошук...</translation>
+        <translation>pali alasa sin...</translation>
     </message>
     <message>
         <source>Filter books</source>
-        <translation>Відфільтрувати книги</translation>
+        <translation>weka ike lipu</translation>
     </message>
     <message>
         <source>Filter settings...</source>
-        <translation>Налаштування фільтра...</translation>
+        <translation>nasin weka ike...</translation>
     </message>
     <message>
         <source>Filters</source>
-        <translation>Фільтри</translation>
+        <translation>weka ike</translation>
     </message>
     <message>
         <source>Genres</source>
-        <translation>Жанри</translation>
+        <translation>nasin</translation>
     </message>
     <message>
         <source>Groups</source>
-        <translation>Групи</translation>
+        <translation>kulupu</translation>
     </message>
     <message>
         <source>Hide</source>
-        <translation>Приховати</translation>
+        <translation>pimeja</translation>
     </message>
     <message>
         <source>Keywords</source>
-        <translation>Ключові слова</translation>
+        <translation>nimi lawa</translation>
     </message>
     <message>
         <source>Languages</source>
-        <translation>Мови</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>PublishYear</source>
-        <translation>Рік видання</translation>
+        <translation>tenpo sike</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Видалити</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Remove from group</source>
-        <translation>Видалити із групи</translation>
+        <translation>weka tan kulupu</translation>
     </message>
     <message>
         <source>Rename group...</source>
-        <translation>Перейменувати групу...</translation>
+        <translation>ante nimi kulupu...</translation>
     </message>
     <message>
         <source>Reviews</source>
-        <translation>Відгуки</translation>
+        <translation>toki lukin</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Пошук</translation>
+        <translation>alasa</translation>
     </message>
     <message>
         <source>Series</source>
-        <translation>Серії</translation>
+        <translation>open</translation>
     </message>
     <message>
         <source>Updates</source>
-        <translation>Оновлення</translation>
+        <translation>sin</translation>
     </message>
 </context>
 <context>
     <name>OpdsDialog</name>
     <message>
         <source>Address</source>
-        <translation>Адреса</translation>
+        <translation>nasin</translation>
     </message>
     <message>
         <source>Address has been copied to the clipboard</source>
-        <translation>Адресу скопійовано в буфер обміну</translation>
+        <translation>nasin li kama lon poki</translation>
     </message>
     <message>
         <source>Any</source>
-        <translation>Будь-який</translation>
+        <translation>ijo</translation>
     </message>
     <message>
         <source>Ask every time</source>
-        <translation>Запитувати щоразу</translation>
+        <translation>toki tenpo ale</translation>
     </message>
     <message>
         <source>Authorization</source>
-        <translation>Авторизація</translation>
+        <translation>nasin lon</translation>
     </message>
     <message>
         <source>Autostart</source>
-        <translation>Автозапуск</translation>
+        <translation>open auto</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>pini</translation>
     </message>
     <message>
         <source>Continue working</source>
-        <translation>Продовжувати роботу</translation>
+        <translation>tawa sin</translation>
     </message>
     <message>
         <source>Copy address to clipboard</source>
-        <translation>Копіювати адресу в буфер обміну</translation>
+        <translation>sama nasin tawa poki</translation>
     </message>
     <message>
         <source>Http Server</source>
-        <translation>Http сервер</translation>
+        <translation>tomo sona Http</translation>
     </message>
     <message>
         <source>No network interfaces found</source>
-        <translation>Мережевих інтерфейсів не знайдено</translation>
+        <translation>linja ala</translation>
     </message>
     <message>
         <source>OPDS</source>
-        <translation></translation>
+        <translation>OPDS</translation>
     </message>
     <message>
         <source>On FLibrary exit</source>
-        <translation>При виході з FLibrary</translation>
+        <translation>lon pini FLibrary</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Пароль</translation>
+        <translation>nimi awen</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation>nasin kalama</translation>
     </message>
     <message>
         <source>ReactApp web interface</source>
-        <translation>Веб-інтерфейс ReactApp</translation>
+        <translation>nasin ReactApp</translation>
     </message>
     <message>
         <source>Shutdown server</source>
-        <translation>Зупинити сервер</translation>
+        <translation>pini tomo sona</translation>
     </message>
     <message>
         <source>Simple web interface</source>
-        <translation>Спрощений веб-інтерфейс</translation>
+        <translation>linja lili</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation>Пуск</translation>
+        <translation>open</translation>
     </message>
     <message>
         <source>Start automatically</source>
-        <translation>Запускати автоматично</translation>
+        <translation>open auto</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation>Стоп</translation>
+        <translation>pini</translation>
     </message>
     <message>
         <source>User</source>
-        <translation>Користувач</translation>
+        <translation>jan</translation>
     </message>
 </context>
 <context>
     <name>ProgressBar</name>
     <message>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>weka</translation>
     </message>
 </context>
 <context>
     <name>QueryWindow</name>
     <message>
         <source>&amp;Commit</source>
-        <translation>&amp;Підтвердити</translation>
+        <translation>&amp;pana</translation>
     </message>
     <message>
         <source>E&amp;xecute</source>
-        <translation>&amp;Виконати</translation>
+        <translation>p&amp;ali</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>В&amp;ихід</translation>
+        <translation>p&amp;ini</translation>
     </message>
     <message>
         <source>Explain query &amp;plan</source>
-        <translation>Поясніть &amp;план запиту</translation>
+        <translation>sona &amp;nasin alasa</translation>
     </message>
     <message>
-        <source>Let&apos;s run a query on the database</source>
-        <translation>Давайте виконаємо запит до бази даних</translation>
+        <source>Let's run a query on the database</source>
+        <translation>o alasa lon lipu sona</translation>
     </message>
     <message>
         <source>Roll&amp;back</source>
-        <translation>Від&amp;котити</translation>
+        <translation>k&amp;ama sin</translation>
     </message>
     <message>
         <source>Start &amp;transaction</source>
-        <translation>Старт &amp;транзакції</translation>
+        <translation>open &amp;pali</translation>
     </message>
 </context>
 <context>
     <name>ReaderController</name>
     <message>
-        <source>&apos;%1&apos; not found. Will you specify another application?</source>
-        <translation>Файл &apos;%1&apos; не знайдено. Спробуєте вказати іншу програму?</translation>
+        <source>'%1' not found. Will you specify another application?</source>
+        <translation>'%1' li lon ala. o toki ilo ante?</translation>
     </message>
     <message>
         <source>Applications (*.exe)</source>
-        <translation>Програми (*.exe)</translation>
+        <translation>ilo (*.exe)</translation>
     </message>
     <message>
         <source>Book file not found. The archive may have been moved or deleted.</source>
-        <translation>Файл книги не знайдено. Можливо, архів було переміщено або видалено.</translation>
+        <translation>lipu li lon ala. poki li ken tawa.</translation>
     </message>
     <message>
         <source>Cannot start default reader. Will you specify the application manually?</source>
-        <translation>Не вдалося запустити системну читалку. Спробуєте вказати програму для читання книг вручну?</translation>
+        <translation>ken ala open ilo lukin. o toki ilo?</translation>
     </message>
     <message>
         <source>Select %1 reader</source>
-        <translation>Вкажіть читалку для %1</translation>
+        <translation>wile ilo lukin %1</translation>
     </message>
     <message>
         <source>Specify the file to be read</source>
-        <translation>Вкажіть файл для читання</translation>
+        <translation>o toki lipu tawa lukin</translation>
     </message>
     <message>
         <source>Unsupported file type</source>
-        <translation>Непідтримуваний тип файлу</translation>
+        <translation>nasin lipu li sona ala</translation>
     </message>
     <message>
         <source>Use the default reader?</source>
-        <translation>Використовувати системну читалку?</translation>
+        <translation>kepeken ilo lukin sin?</translation>
     </message>
 </context>
 <context>
     <name>RelativePathLineEdit</name>
     <message>
         <source>Transform path to absolute</source>
-        <translation>Перетворити шлях на абсолютний</translation>
+        <translation>ante nasin tawa nasin suli</translation>
     </message>
     <message>
         <source>Transform path to relative</source>
-        <translation>Перетворити шлях на відносний</translation>
+        <translation>ante nasin tawa nasin lili</translation>
     </message>
 </context>
 <context>
     <name>Requester</name>
     <message>
         <source>&lt;&lt; &lt;&lt; To begin</source>
-        <translation>&lt;&lt; &lt;&lt; На початок</translation>
+        <translation>&lt;&lt; &lt;&lt; open</translation>
     </message>
     <message>
         <source>&lt;&lt; Back</source>
-        <translation>&lt;&lt; Назад</translation>
+        <translation>&lt;&lt; pini</translation>
     </message>
     <message>
-        <source>Authors found for the request &quot;%1&quot;: %2</source>
-        <translation>За запитом &quot;%1%&quot; знайдені автори %2</translation>
+        <source>Authors found for the request "%1": %2</source>
+        <translation>jan pali kama tan "%1": %2</translation>
     </message>
     <message>
         <source>Books</source>
-        <translation>Усі книги розділу</translation>
+        <translation>lipu</translation>
     </message>
     <message>
-        <source>Books found for the request &quot;%1&quot;: %2</source>
-        <translation>За запитом &quot;%1&quot; знайдені книги: %2</translation>
+        <source>Books found for the request "%1": %2</source>
+        <translation>lipu kama tan "%1": %2</translation>
     </message>
     <message>
         <source>Books: %1</source>
-        <translation>Книги: %1</translation>
+        <translation>lipu: %1</translation>
     </message>
     <message>
         <source>Forward &gt;&gt;</source>
-        <translation>Вперед &gt;&gt;</translation>
+        <translation>tawa &gt;&gt;</translation>
     </message>
     <message>
-        <source>No books found for the request &quot;%1&quot;</source>
-        <translation>За запитом &quot;%1&quot; книг не знайдено</translation>
+        <source>No books found for the request "%1"</source>
+        <translation>lipu ala tan "%1"</translation>
     </message>
     <message>
-        <source>Series found for the request &quot;%1&quot;: %2</source>
-        <translation>За запитом &quot;%1&quot; знайдені серії %2</translation>
+        <source>Series found for the request "%1": %2</source>
+        <translation>open kama tan "%1": %2</translation>
     </message>
     <message>
-        <source>Specify what to search for your request &quot;%1&quot;</source>
-        <translation>Вкажіть, що шукати для вашого запиту &quot;%1&quot;</translation>
+        <source>Specify what to search for your request "%1"</source>
+        <translation>o toki wile alasa "%1"</translation>
     </message>
     <message>
         <source>To end &gt;&gt; &gt;&gt;</source>
-        <translation>В кінець &gt;&gt; &gt;&gt;</translation>
+        <translation>pini &gt;&gt; &gt;&gt;</translation>
     </message>
 </context>
 <context>
     <name>ScriptCommandModel</name>
     <message>
         <source>Command</source>
-        <translation>Команда</translation>
+        <translation>pali</translation>
     </message>
 </context>
 <context>
     <name>ScriptController</name>
     <message>
         <source>%all_keywords%</source>
-        <translation>Список ключових слів</translation>
+        <translation>nimi lawa ale</translation>
     </message>
     <message>
         <source>%author%</source>
-        <translation>Прізвище Ім&apos;я По батькові автора</translation>
+        <translation>nimi jan pali</translation>
     </message>
     <message>
         <source>%author_f%</source>
-        <translation>І. автора</translation>
+        <translation>nimi open pi jan pali</translation>
     </message>
     <message>
         <source>%author_first_name%</source>
-        <translation>Ім&apos;я автора</translation>
+        <translation>nimi open pi jan pali</translation>
     </message>
     <message>
         <source>%author_last_fm%</source>
-        <translation>Прізвище І.П. автора</translation>
+        <translation>nimi pi jan pali</translation>
     </message>
     <message>
         <source>%author_last_name%</source>
-        <translation>Прізвище автора</translation>
+        <translation>nimi pini pi jan pali</translation>
     </message>
     <message>
         <source>%author_m%</source>
-        <translation>Пб. автора</translation>
+        <translation>nimi insa pi jan pali</translation>
     </message>
     <message>
         <source>%author_middle_name%</source>
-        <translation>По-батькові автора</translation>
+        <translation>nimi insa pi jan pali</translation>
     </message>
     <message>
         <source>%base_file_name%</source>
-        <translation>Назва файлу без розширення</translation>
+        <translation>nimi lipu</translation>
     </message>
     <message>
         <source>%db_id%</source>
-        <translation>Ідентифікатор книги з бази даних</translation>
+        <translation>nanpa lipu sona</translation>
     </message>
     <message>
         <source>%file_ext%</source>
-        <translation>Розширення файлу</translation>
+        <translation>nimi pini lipu</translation>
     </message>
     <message>
         <source>%file_name%</source>
-        <translation>Назва файлу</translation>
+        <translation>nimi lipu</translation>
     </message>
     <message>
         <source>%file_size%</source>
-        <translation>Розмір файлу</translation>
+        <translation>suli lipu</translation>
     </message>
     <message>
         <source>%genre%</source>
-        <translation>Жанр книги</translation>
+        <translation>nasin lipu</translation>
     </message>
     <message>
         <source>%genre_tree%</source>
-        <translation>Жанр, піджанр тощо</translation>
+        <translation>nasin en nasin lili</translation>
     </message>
     <message>
         <source>%keyword%</source>
-        <translation>Ключове слово</translation>
+        <translation>nimi lawa</translation>
     </message>
     <message>
         <source>%language%</source>
-        <translation>Мова</translation>
+        <translation>toki</translation>
     </message>
     <message>
         <source>%lib_id%</source>
-        <translation>Ідентифікатор книги з мережевої бібліотеки-джерела</translation>
+        <translation>nanpa lipu linja</translation>
     </message>
     <message>
         <source>%seq_number%</source>
-        <translation>Порядковий номер у серії</translation>
+        <translation>nanpa open</translation>
     </message>
     <message>
         <source>%series%</source>
-        <translation>Серія</translation>
+        <translation>open</translation>
     </message>
     <message>
         <source>%source_file%</source>
-        <translation>Повний шлях до розпакованого файлу у тимчасовій папці</translation>
+        <translation>nasin lipu</translation>
     </message>
     <message>
         <source>%title%</source>
-        <translation>Назва книги</translation>
+        <translation>nimi lipu</translation>
     </message>
     <message>
         <source>%uid%</source>
-        <translation>Унікальний ідентифікатор (GUID)</translation>
+        <translation>nanpa ante</translation>
     </message>
     <message>
         <source>%user_destination_folder%</source>
-        <translation>Папка призначення з діалогового вікна</translation>
+        <translation>poki tawa</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation>Завантажити</translation>
+        <translation>kama</translation>
     </message>
     <message>
         <source>Embedded</source>
-        <translation>Вбудована команда</translation>
+        <translation>pali insa</translation>
     </message>
     <message>
         <source>ExportToDevice</source>
-        <translation>Експорт</translation>
+        <translation>pana weka</translation>
     </message>
     <message>
         <source>LaunchApp</source>
-        <translation>Запуск консольної програми</translation>
+        <translation>open ilo</translation>
     </message>
     <message>
         <source>LaunchGuiApp</source>
-        <translation>Запуск GUI програми</translation>
+        <translation>open ilo lukin</translation>
     </message>
     <message>
         <source>OpenLink</source>
-        <translation>Перейти за посиланням</translation>
+        <translation>Open link</translation>
     </message>
     <message>
         <source>System</source>
-        <translation>Системна команда</translation>
+        <translation>ilo</translation>
     </message>
 </context>
 <context>
     <name>ScriptDialog</name>
     <message>
         <source>Add command</source>
-        <translation>Додати команду</translation>
+        <translation>pana pali</translation>
     </message>
     <message>
         <source>Add script</source>
-        <translation>Додати скрипт</translation>
+        <translation>pana nasin pali</translation>
     </message>
     <message>
         <source>Arguments</source>
-        <translation>Аргументи</translation>
+        <translation>nimi pali</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Command</source>
-        <translation>Команда</translation>
+        <translation>pali</translation>
     </message>
     <message>
         <source>Command settings</source>
-        <translation>Налаштування команди</translation>
+        <translation>nasin pali</translation>
     </message>
     <message>
         <source>Edit command</source>
-        <translation>Редагувати команду</translation>
+        <translation>ante pali</translation>
     </message>
     <message>
         <source>Remove command</source>
-        <translation>Видалити команду</translation>
+        <translation>weka pali</translation>
     </message>
     <message>
         <source>Remove script</source>
-        <translation>Видалити скрипт</translation>
+        <translation>weka nasin pali</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Зберегти</translation>
+        <translation>awen</translation>
     </message>
     <message>
         <source>Script commands</source>
-        <translation>Команди скрипта</translation>
+        <translation>pali nasin</translation>
     </message>
     <message>
         <source>Scripts</source>
-        <translation>Скрипти</translation>
+        <translation>nasin pali</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation>nasin</translation>
     </message>
     <message>
         <source>Working folder</source>
-        <translation>Робоча папка</translation>
+        <translation>poki pali</translation>
     </message>
 </context>
 <context>
     <name>ScriptEditor</name>
     <message>
         <source>Applications (*.exe);;Scripts (*.bat *.cmd);;All files (*.*)</source>
-        <translation>Програми (*.exe);;Скрипти (*.bat *.cmd);;Всі файли (*.*)</translation>
+        <translation>ilo (*.exe);;nasin pali;;lipu ale (*.*)</translation>
     </message>
     <message>
         <source>Select Application</source>
-        <translation>Виберіть програму</translation>
+        <translation>wile ilo</translation>
     </message>
     <message>
         <source>Select working folder</source>
-        <translation>Виберіть робочу папку</translation>
+        <translation>wile poki pali</translation>
     </message>
 </context>
 <context>
     <name>ScriptModel</name>
     <message>
         <source>Name</source>
-        <translation>Назва</translation>
+        <translation>nimi</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation>nasin</translation>
     </message>
 </context>
 <context>
     <name>SearchController</name>
     <message>
         <source>Cannot create search query (%1)</source>
-        <translation>Неможливо створити пошуковий запит %1</translation>
+        <translation>ken ala pali alasa (%1)</translation>
     </message>
     <message>
         <source>Cannot remove search query</source>
-        <translation>Неможливо видалити пошуковий запит</translation>
+        <translation>ken ala weka alasa</translation>
     </message>
     <message>
         <source>Delete the selected searches (%1)?</source>
-        <translation>Ви впевнені, що хочете видалити пошукові запити (%1)?</translation>
+        <translation>weka alasa wile (%1)?</translation>
     </message>
     <message>
         <source>Search books</source>
-        <translation>Пошук книг</translation>
+        <translation>alasa lipu</translation>
     </message>
     <message>
         <source>Search query</source>
-        <translation>Пошуковий запит</translation>
+        <translation>toki alasa</translation>
     </message>
     <message>
-        <source>Search query &quot;%1&quot; already exists.
+        <source>Search query "%1" already exists.
 Try again?</source>
-        <translation>Пошуковий запит &quot;%1&quot; вже є.
-Спробуєте ще раз?</translation>
+        <translation>alasa "%1" li lon.
+o pali sin?</translation>
     </message>
     <message>
         <source>Search query is too short. At least %1 characters required.
 Try again?</source>
-        <translation>Пошуковий запит надто короткий. Необхідний мінімум символів - %1
-Спробуєте ще раз?</translation>
+        <translation>alasa li lili.
+o pali sin?</translation>
     </message>
     <message>
         <source>Search query too long.
 Try again?</source>
-        <translation>Пошуковий запит надто довгий.
-Спробуєте ще раз?</translation>
+        <translation>alasa li suli.
+o pali sin?</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
         <source>All settings</source>
-        <translation>Усі налаштування</translation>
+        <translation>nasin ale</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation>Ключ</translation>
+        <translation>nimi</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Видалити</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation>Значення</translation>
+        <translation>ijo</translation>
     </message>
 </context>
 <context>
     <name>SingleInstanceController</name>
     <message>
         <source>The program is already running. Do you want to run another instance?</source>
-        <translation>Програму вже запущено. Бажаєте запустити ще один екземпляр?</translation>
+        <translation>ilo li tawa. o open sin?</translation>
     </message>
 </context>
 <context>
     <name>TreeView</name>
     <message>
         <source>Books view mode</source>
-        <translation>Режим перегляду книг</translation>
+        <translation>nasin lukin lipu</translation>
     </message>
     <message>
         <source>Navigation</source>
-        <translation>Навігація</translation>
+        <translation>tawa</translation>
     </message>
 </context>
 <context>
     <name>UpdateChecker</name>
     <message>
-        <source>%1 released!&lt;br/&gt;&lt;a href=&apos;%2&apos;&gt;&lt;font size=&apos;%3px&apos;&gt;Visit release page&lt;/font&gt;&lt;/a&gt;</source>
-        <translation>Нова версія: %1!&lt;br/&gt;&lt;a href=&apos;%2&apos;&gt;&lt;font size=&apos;%3px&apos;&gt;Перейти на сторінку нової версії&lt;/font&gt;&lt;/a&gt;</translation>
+        <source>%1 released!&lt;br/&gt;&lt;a href='%2'&gt;&lt;font size='%3px'&gt;Visit release page&lt;/font&gt;&lt;/a&gt;</source>
+        <translation>%1 li sin!&lt;br/&gt;&lt;a href='%2'&gt;&lt;font size='%3px'&gt;lukin lipu sin&lt;/font&gt;&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Скасувати</translation>
+        <translation>weka</translation>
     </message>
     <message>
-        <source>Cannot write to &apos;%1&apos;</source>
-        <translation>Помилка запису в %1</translation>
+        <source>Cannot write to '%1'</source>
+        <translation>ken ala sitelen tawa '%1'</translation>
     </message>
     <message>
         <source>Current version %1 is actual</source>
-        <translation>Ваша версія %1 актуальна</translation>
+        <translation>nanpa sin %1 li pona</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation>Завантажити</translation>
+        <translation>kama</translation>
     </message>
     <message>
         <source>Install %1</source>
-        <translation>Встановити %1</translation>
+        <translation>pana %1</translation>
     </message>
     <message>
         <source>Last version %1, your version %2. Did a miracle happen?</source>
-        <translation>Остання версія %1, ваша версія %2. Сталося диво?</translation>
+        <translation>sin %1, sina jo %2. nasa!</translation>
     </message>
     <message>
         <source>Run the installer?</source>
-        <translation>Запустити інсталятор?</translation>
+        <translation>open ilo pana?</translation>
     </message>
     <message>
         <source>Select folder for app installer</source>
-        <translation>Оберіть папку для завантаження інсталятора програми</translation>
+        <translation>wile poki ilo pana</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation>Пропустити</translation>
+        <translation>weka</translation>
     </message>
     <message>
         <source>Something strange, the installer file is missing. Visit download page?</source>
-        <translation>Дивно, файл інсталятора не знайдено. Перейти на сторінку завантаження?</translation>
+        <translation>lipu ilo pana li lon ala. lukin?</translation>
     </message>
     <message>
         <source>Update check failed</source>
-        <translation>Помилка перевірки оновлень</translation>
+        <translation>alasa sin li pakala</translation>
     </message>
 </context>
 <context>
     <name>UserData</name>
     <message>
         <source>%1: must be integer</source>
-        <translation>Номер версії %1 має бути цілим значенням</translation>
+        <translation>%1: o nanpa</translation>
     </message>
     <message>
         <source>Cannot find user data node, must be %1</source>
-        <translation>Не знайдено вузол даних користувача %1</translation>
+        <translation>ken ala alasa sona jan, o %1</translation>
     </message>
     <message>
         <source>Cannot find version attribute, must be %1</source>
-        <translation>Не знайдено атрибута вузла версії %1</translation>
+        <translation>ken ala alasa nanpa sin, o %1</translation>
     </message>
     <message>
         <source>Cannot find version node, must be %1</source>
-        <translation>Не знайдено вузол версії %1</translation>
+        <translation>ken ala alasa nanpa sin, o %1</translation>
     </message>
     <message>
         <source>Cannot read from %1</source>
-        <translation>Не знайдено вузол версії %1</translation>
+        <translation>ken ala lukin %1</translation>
     </message>
     <message>
-        <source>Cannot write to &apos;%1&apos;</source>
-        <translation>Помилка запису в %1</translation>
+        <source>Cannot write to '%1'</source>
+        <translation>ken ala sitelen tawa '%1'</translation>
     </message>
     <message>
         <source>Flibrary export files (*%1)</source>
-        <translation>Файли експорту FLibrary (*%1)</translation>
+        <translation>lipu pana FLibrary (*%1)</translation>
     </message>
     <message>
         <source>Invalid root node name, must be %1</source>
-        <translation>Недійсне ім&apos;я кореневого вузла, має бути %1</translation>
+        <translation>nimi lawa ike, o %1</translation>
     </message>
     <message>
         <source>Select a file to import user data</source>
-        <translation>Виберіть файл імпорту даних користувача</translation>
+        <translation>wile lipu kama sona jan</translation>
     </message>
     <message>
         <source>Specify a file to export user data</source>
-        <translation>Вкажіть файл експорту даних користувача</translation>
+        <translation>o toki lipu pana sona jan</translation>
     </message>
     <message>
         <source>User data successfully recovered</source>
-        <translation>Дані користувача відновлено</translation>
+        <translation>sona jan li kama sin pona</translation>
     </message>
     <message>
         <source>User data successfully saved</source>
-        <translation>Дані користувача успішно збережено</translation>
+        <translation>sona jan li awen pona</translation>
     </message>
     <message>
         <source>Version %1 must be greater than 0 and less than %2</source>
-        <translation>Версія файлу %1 повинна бути більше 0 і менше %2</translation>
+        <translation>nanpa sin %1 o lon insa 0 en %2</translation>
     </message>
 </context>
 <context>
     <name>opds</name>
     <message>
         <source>%1 Home</source>
-        <translation>%1 Додому</translation>
+        <translation>%1 tomo</translation>
     </message>
     <message>
         <source>Read</source>
-        <translation>Читати</translation>
+        <translation>lukin</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Пошук</translation>
+        <translation>alasa</translation>
     </message>
     <message>
         <source>more</source>
-        <translation>ще</translation>
+        <translation>mute sin</translation>
     </message>
 </context>
 </TS>

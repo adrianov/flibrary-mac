@@ -17,7 +17,7 @@ if (NOT EXISTS ${QT_TRANSLATIONS_DIR})
 	message(FATAL_ERROR "QT_TRANSLATIONS_DIR not found: ${QT_TRANSLATIONS_DIR}")
 endif()
 
-set(locales en ru uk)
+set(locales en ru uk tok)
 
 set(LOCALES_HEADER_CONTENT)
 set(LRELEASE_LIST)
@@ -28,10 +28,13 @@ foreach(locale ${locales})
     set(QTBASE_QMFILE "${QT_TRANSLATIONS_DIR}/qtbase_${locale}.qm")
     set(QMFILE "${CMAKE_BINARY_DIR}/bin/locales/FLibrary_${locale}.qm")
     set(TSFILE "${CMAKE_CURRENT_LIST_DIR}/${locale}.ts")
-    
-	file(COPY ${QTBASE_QMFILE} DESTINATION "${CMAKE_BINARY_DIR}/bin/locales/")
-	install(FILES ${QTBASE_QMFILE} ${QMFILE} DESTINATION "locales/")
-    
+
+    if(EXISTS ${QTBASE_QMFILE})
+        file(COPY ${QTBASE_QMFILE} DESTINATION "${CMAKE_BINARY_DIR}/bin/locales/")
+        install(FILES ${QTBASE_QMFILE} DESTINATION "locales/")
+    endif()
+    install(FILES ${QMFILE} DESTINATION "locales/")
+
     list(APPEND LRELEASE_LIST COMMAND "${QT_LRELEASE_TOOL}" "${TSFILE}" -qm "${QMFILE}")
     list(APPEND LUPDATE_LIST -ts "${TSFILE}")
 endforeach()
