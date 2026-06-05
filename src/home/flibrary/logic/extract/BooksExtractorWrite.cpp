@@ -11,6 +11,7 @@
 
 #include "Constant.h"
 #include "platform/StrUtil.h"
+#include "util/files.h"
 #include "util/ImageRestore.h"
 
 #include "log.h"
@@ -105,8 +106,8 @@ std::pair<bool, std::filesystem::path> WriteFile(
 
 	exportHelper.CheckPath(result.second);
 
-	if (exists(result.second))
-		if (!remove(result.second))
+	if (std::filesystem::exists(result.second))
+		if (!std::filesystem::remove(result.second))
 			return assert(false), result;
 
 	result.first = [&] {
@@ -171,8 +172,8 @@ std::filesystem::path Process(
 
 	const auto stream = zip.Read(archiveFile);
 	auto [ok, path]        = WriteFile(settings, stream->GetStream(), folder, archiveFile, book, progress, std::move(zipProgressCallback), exportHelper, mode);
-	if (!ok && exists(path))
-		remove(path);
+	if (!ok && std::filesystem::exists(path))
+		std::filesystem::remove(path);
 
 	return ok ? path : std::filesystem::path {};
 }
