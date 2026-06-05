@@ -73,8 +73,9 @@ git clone https://github.com/heimdallr/books.git --recursive
 ##### Зависимости
 ```
 brew install conan ninja qt p7zip
-git submodule update --init --recursive
+git submodule update --init --recursive   # Hypodermic, ReactApp, sqlite3pp
 ```
+`src/ext/foundation`, `src/ext/bit7z` и `src/ext/scripts` входят в репозиторий напрямую (не сабмодули).
 
 ##### Сборка
 ```

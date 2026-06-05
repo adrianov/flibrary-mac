@@ -1,0 +1,3 @@
+[Paths]
+Plugins = @QT_CONF_PLUGINS_PATH@
+Qml2Imports = @QT_CONF_QML_PATH@

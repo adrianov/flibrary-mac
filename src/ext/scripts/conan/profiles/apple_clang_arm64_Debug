@@ -1,0 +1,8 @@
+[settings]
+os=Macos
+arch=armv8
+build_type=Debug
+compiler=apple-clang
+compiler.version=21
+compiler.cppstd=gnu23
+compiler.libcxx=libc++

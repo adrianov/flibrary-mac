@@ -1,0 +1,34 @@
+set(MOC_BINARY "@QT_MOC_EXECUTABLE@")
+set(Qt6Designer_INCLUDE_DIRS @Qt6Designer_INCLUDE_DIRS@)
+set(moc_options)
+if(HAS_DESIGNER)
+	#moc не получает по умолчанию additional includes, что, в принципе, нормально
+	#но только не в случае со сборкой плагинов. Потому для проектов, зависимых от дизайнера инклуды пропихиваем дополнительно.
+	foreach (dir ${Qt6Designer_INCLUDE_DIRS})
+		list(APPEND moc_options "-I${dir}")
+	endforeach()
+endif()
+string(REPLACE "," ";" INCLUDES "${INCLUDES}")
+foreach (dir ${INCLUDES})
+	list(APPEND moc_options "-I${dir}")
+endforeach()
+
+set(moc_flags)
+if(WIN32)
+	set(${moc_flags} -DWIN32)
+endif()
+
+file(STRINGS ${INFILE} contains_q_object_or_q_namespace REGEX "Q_OBJECT|Q_NAMESPACE")
+if(NOT contains_q_object_or_q_namespace)
+	file(WRITE ${OUTFILE} "")
+	return()
+endif()
+
+execute_process(
+	COMMAND ${MOC_BINARY} ${moc_flags} ${moc_options} -o "${OUTFILE}" "${INFILE}"
+	RESULT_VARIABLE result
+	OUTPUT_VARIABLE output
+)
+if (result)
+	message(FATAL_ERROR "${output}")
+endif()
