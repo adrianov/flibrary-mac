@@ -16,9 +16,8 @@ namespace
 
 QString IsbnIdentifier(const QString& isbn)
 {
-	const auto digits = isbn;
-	auto       normalized = QString {};
-	for (const auto ch : digits)
+	auto normalized = QString {};
+	for (const auto ch : isbn)
 	{
 		if (ch.isDigit())
 			normalized.append(ch);
