@@ -504,6 +504,41 @@ bool CheckSpecialTitle(const QString& fb2Path)
 	return true;
 }
 
+bool CheckChapterTitle(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open chapter_title fixture\n";
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << "chapter_title parse failed\n";
+		return false;
+	}
+
+	if (!parsed.bodyHtml.contains(QStringLiteral("Глава первая<br />")))
+	{
+		std::cerr << "missing title line break: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+	if (parsed.bodyHtml.contains(QString::fromUtf8("Глава первая Коротышки")))
+	{
+		std::cerr << "title lines glued: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+	if (parsed.tocItems.empty() || !parsed.tocItems.front().title.contains(QStringLiteral(" — ")))
+	{
+		std::cerr << "toc title missing separator\n";
+		return false;
+	}
+
+	return true;
+}
+
 bool CheckCoverOverride(const QString& fb2Path)
 {
 	static const QByteArray png = QByteArray::fromHex(
@@ -547,7 +582,7 @@ bool CheckPoem(const QString& fb2Path)
 	}
 
 	const auto& html = parsed.bodyHtml;
-	if (!html.contains(QStringLiteral("epub:type=\"poem\"")))
+	if (!html.contains(QStringLiteral("z3998:poem")))
 	{
 		std::cerr << "missing poem section: " << html.toStdString() << '\n';
 		return false;
@@ -568,6 +603,262 @@ bool CheckPoem(const QString& fb2Path)
 		return false;
 	}
 
+	return true;
+}
+
+bool CheckFb2Elements(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open fb2_elements fixture\n";
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << "fb2_elements parse failed\n";
+		return false;
+	}
+
+	const auto& html = parsed.bodyHtml;
+	const auto require = [&](const QString& needle, const char* label) {
+		if (html.contains(needle))
+			return true;
+		std::cerr << "missing " << label << ": " << html.toStdString() << '\n';
+		return false;
+	};
+
+	if (!require(QStringLiteral("epub:type=\"epigraph\""), "epigraph"))
+		return false;
+	if (!require(QStringLiteral("Oscar Wilde"), "text-author"))
+		return false;
+	if (!require(QStringLiteral("<blockquote>"), "cite blockquote"))
+		return false;
+	if (!require(QStringLiteral("Sign on the wall."), "cite text"))
+		return false;
+	if (!require(QStringLiteral("<code>printf()</code>"), "code"))
+		return false;
+	if (!require(QStringLiteral("<s>deleted</s>"), "strikethrough"))
+		return false;
+	if (!require(QStringLiteral("H<sub>2</sub>O"), "sub"))
+		return false;
+	if (!require(QStringLiteral("x<sup>2</sup>"), "sup"))
+		return false;
+	if (!require(QStringLiteral("class=\"fb2-note\">custom</span>"), "style"))
+		return false;
+	if (!require(QStringLiteral("<table>"), "table"))
+		return false;
+	if (!require(QStringLiteral("<th>Name</th>"), "table header"))
+		return false;
+	if (!require(QStringLiteral("<td>Alpha</td>"), "table cell"))
+		return false;
+	if (!require(QStringLiteral("aside class=\"annotation\""), "annotation"))
+		return false;
+	if (!require(QStringLiteral("Editor note here."), "annotation text"))
+		return false;
+	if (!require(QStringLiteral("p class=\"subtitle\">Poem title</p>"), "poem subtitle"))
+		return false;
+	if (!require(QStringLiteral("Anonymous"), "poem text-author"))
+		return false;
+
+	return true;
+}
+
+bool CheckMetadata(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open fb2_metadata fixture\n";
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << "fb2_metadata parse failed\n";
+		return false;
+	}
+
+	if (parsed.metadata.authors.size() != 2)
+	{
+		std::cerr << "expected two authors, got " << parsed.metadata.authors.size() << '\n';
+		return false;
+	}
+	if (parsed.metadata.translators.size() != 1)
+	{
+		std::cerr << "expected one translator\n";
+		return false;
+	}
+	if (!parsed.metadata.annotation.contains(QStringLiteral("great")))
+	{
+		std::cerr << "annotation text missing\n";
+		return false;
+	}
+	if (parsed.metadata.keywords.size() < 2)
+	{
+		std::cerr << "keywords missing\n";
+		return false;
+	}
+	if (parsed.metadata.genres.size() < 2)
+	{
+		std::cerr << "genres missing\n";
+		return false;
+	}
+	if (parsed.metadata.sequence.name != QStringLiteral("Test Series"))
+	{
+		std::cerr << "sequence name missing\n";
+		return false;
+	}
+	if (parsed.metadata.publishInfo.isbn.isEmpty())
+	{
+		std::cerr << "isbn missing\n";
+		return false;
+	}
+
+	const auto epubPath = QStringLiteral("/tmp/fb2_epub_metadata_test.epub");
+	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath))
+	{
+		std::cerr << "metadata epub conversion failed\n";
+		return false;
+	}
+
+	const auto opf = QString::fromUtf8(ReadEpubMember(epubPath, QStringLiteral("OEBPS/content.opf")));
+	const auto require = [&](const QString& needle, const char* label) {
+		if (opf.contains(needle))
+			return true;
+		std::cerr << "missing " << label << " in opf: " << opf.toStdString() << '\n';
+		return false;
+	};
+
+	if (!require(QStringLiteral("<dc:title>Meta Test Book</dc:title>"), "title"))
+		return false;
+	if (!require(QStringLiteral("Ivan Petrov"), "first author"))
+		return false;
+	if (!require(QStringLiteral("Anna Petrova"), "second author"))
+		return false;
+	if (!require(QStringLiteral("John Smith"), "translator"))
+		return false;
+	if (!require(QStringLiteral("property=\"role\" scheme=\"marc:relators\">aut"), "author role"))
+		return false;
+	if (!require(QStringLiteral("property=\"role\" scheme=\"marc:relators\">trl"), "translator role"))
+		return false;
+	if (!require(QStringLiteral("<dc:description>A great book.</dc:description>"), "description"))
+		return false;
+	if (!require(QStringLiteral("<dc:subject>space</dc:subject>"), "keyword"))
+		return false;
+	if (!require(QStringLiteral("<dc:subject>sf</dc:subject>"), "genre"))
+		return false;
+	if (!require(QStringLiteral("<dc:publisher>Test Publisher</dc:publisher>"), "publisher"))
+		return false;
+	if (!require(QStringLiteral("<dc:date>2024</dc:date>"), "date"))
+		return false;
+	if (!require(QStringLiteral("urn:isbn:9785389123456"), "isbn identifier"))
+		return false;
+	if (!require(QStringLiteral("property=\"belongs-to-collection\""), "series"))
+		return false;
+	if (!require(QStringLiteral("Test Series"), "series name"))
+		return false;
+	if (!require(QStringLiteral("property=\"group-position\">3"), "series number"))
+		return false;
+	if (!require(QStringLiteral("<dc:language>ru</dc:language>"), "language"))
+		return false;
+	if (!require(QStringLiteral("<dc:language>en</dc:language>"), "source language"))
+		return false;
+
+	QFile::remove(epubPath);
+	return true;
+}
+
+bool CheckConversionNext(const QString& fb2Path)
+{
+	QFile fb2File(fb2Path);
+	if (!fb2File.open(QIODevice::ReadOnly))
+	{
+		std::cerr << "cannot open fb2_conversion_next fixture\n";
+		return false;
+	}
+
+	ParsedFb2 parsed;
+	if (!HomeCompa::Util::ParseFb2(fb2File, parsed))
+	{
+		std::cerr << "fb2_conversion_next parse failed\n";
+		return false;
+	}
+
+	if (parsed.metadata.sourceTitle != QStringLiteral("Original Title"))
+	{
+		std::cerr << "missing source title\n";
+		return false;
+	}
+	if (parsed.metadata.sourceAuthors.size() != 1)
+	{
+		std::cerr << "missing source author\n";
+		return false;
+	}
+	if (!parsed.bodyHtml.contains(QStringLiteral("epub:type=\"abstract\"")))
+	{
+		std::cerr << "missing annotation section: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+	if (!parsed.bodyHtml.contains(QStringLiteral("First paragraph.")))
+	{
+		std::cerr << "missing first annotation paragraph\n";
+		return false;
+	}
+	if (!parsed.bodyHtml.contains(QStringLiteral("Second paragraph.")))
+	{
+		std::cerr << "missing second annotation paragraph\n";
+		return false;
+	}
+	if (parsed.bodyHtml.contains(QStringLiteral("paragraph.Second")))
+	{
+		std::cerr << "glued annotation paragraphs: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+	if (!parsed.bodyHtml.contains(QStringLiteral("<section epub:type=\"abstract\" class=\"book-annotation\">")))
+	{
+		std::cerr << "missing annotation section\n";
+		return false;
+	}
+	if (!parsed.bodyHtml.contains(QStringLiteral("fb2-body-appendix")))
+	{
+		std::cerr << "missing appendix body: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+	if (!parsed.bodyHtml.contains(QStringLiteral("Appendix text.")))
+	{
+		std::cerr << "missing appendix text\n";
+		return false;
+	}
+	if (!parsed.bodyHtml.contains(QStringLiteral("alt=\"Diagram alt\"")))
+	{
+		std::cerr << "missing image alt: " << parsed.bodyHtml.toStdString() << '\n';
+		return false;
+	}
+
+	const auto epubPath = QStringLiteral("/tmp/fb2_epub_conversion_next_test.epub");
+	if (!HomeCompa::Util::ConvertFb2ToEpub(fb2Path, epubPath))
+	{
+		std::cerr << "conversion_next epub failed\n";
+		return false;
+	}
+
+	const auto opf = QString::fromUtf8(ReadEpubMember(epubPath, QStringLiteral("OEBPS/content.opf")));
+	if (!opf.contains(QStringLiteral("property=\"dcterms:alternative\">Original Title")))
+	{
+		std::cerr << "missing source title in opf: " << opf.toStdString() << '\n';
+		return false;
+	}
+	if (!opf.contains(QStringLiteral("name=\"original-author\" content=\"Ivan Ivanov\"")))
+	{
+		std::cerr << "missing original author in opf\n";
+		return false;
+	}
+
+	QFile::remove(epubPath);
 	return true;
 }
 

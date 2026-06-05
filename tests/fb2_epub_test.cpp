@@ -110,7 +110,19 @@ int main(int argc, char* argv[])
 	if (!Fb2EpubTest::CheckSpecialTitle(QStringLiteral("../../tests/fixtures/special_title.fb2")))
 		return 1;
 
+	if (!Fb2EpubTest::CheckChapterTitle(QStringLiteral("../../tests/fixtures/chapter_title.fb2")))
+		return 1;
+
 	if (!Fb2EpubTest::CheckPoem(QStringLiteral("../../tests/fixtures/poem.fb2")))
+		return 1;
+
+	if (!Fb2EpubTest::CheckFb2Elements(QStringLiteral("../../tests/fixtures/fb2_elements.fb2")))
+		return 1;
+
+	if (!Fb2EpubTest::CheckMetadata(QStringLiteral("../../tests/fixtures/fb2_metadata.fb2")))
+		return 1;
+
+	if (!Fb2EpubTest::CheckConversionNext(QStringLiteral("../../tests/fixtures/fb2_conversion_next.fb2")))
 		return 1;
 
 #ifdef Q_OS_MACOS

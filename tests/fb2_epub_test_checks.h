@@ -24,8 +24,12 @@ namespace Fb2EpubTest
 [[nodiscard]] bool CheckDropCap(const QString& fb2Path);
 [[nodiscard]] bool CheckInlineImage(const QString& fb2Path);
 [[nodiscard]] bool CheckSpecialTitle(const QString& fb2Path);
+[[nodiscard]] bool CheckChapterTitle(const QString& fb2Path);
 [[nodiscard]] bool CheckCoverOverride(const QString& fb2Path);
 [[nodiscard]] bool CheckPoem(const QString& fb2Path);
+[[nodiscard]] bool CheckFb2Elements(const QString& fb2Path);
+[[nodiscard]] bool CheckMetadata(const QString& fb2Path);
+[[nodiscard]] bool CheckConversionNext(const QString& fb2Path);
 [[nodiscard]] bool CheckEpubRepack();
 
 } // namespace Fb2EpubTest

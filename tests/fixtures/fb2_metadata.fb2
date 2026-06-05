@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+  <description>
+    <title-info>
+      <genre value="sf"/>
+      <genre>adventure</genre>
+      <book-title>Meta Test Book</book-title>
+      <annotation><p>A <emphasis>great</emphasis> book.</p></annotation>
+      <keywords>space, adventure</keywords>
+      <sequence name="Test Series" number="3"/>
+      <lang>ru</lang>
+      <src-lang>en</src-lang>
+      <author><first-name>Ivan</first-name><last-name>Petrov</last-name></author>
+      <author><first-name>Anna</first-name><last-name>Petrova</last-name></author>
+      <translator><first-name>John</first-name><last-name>Smith</last-name></translator>
+    </title-info>
+    <publish-info>
+      <book-name>Meta Test Book</book-name>
+      <publisher>Test Publisher</publisher>
+      <city>Moscow</city>
+      <year>2024</year>
+      <isbn>978-5-389-12345-6</isbn>
+    </publish-info>
+    <document-info>
+      <id>doc-uuid-123</id>
+      <date>2024-01-15</date>
+    </document-info>
+  </description>
+  <body>
+    <section><p>Metadata body text.</p></section>
+  </body>
+</FictionBook>

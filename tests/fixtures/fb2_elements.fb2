@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+  <description>
+    <title-info>
+      <book-title>Elements Test</book-title>
+      <lang>en</lang>
+    </title-info>
+  </description>
+  <body>
+    <section>
+      <title><p>Chapter</p></title>
+      <epigraph>
+        <p>To live is the rarest thing in the world.</p>
+        <text-author>Oscar Wilde</text-author>
+      </epigraph>
+      <cite>
+        <p>Sign on the wall.</p>
+      </cite>
+      <p>Inline <code>printf()</code>, <strikethrough>deleted</strikethrough>, H<sub>2</sub>O, x<sup>2</sup>, and <style name="note">custom</style>.</p>
+      <table>
+        <tr><th>Name</th><th>Value</th></tr>
+        <tr><td>Alpha</td><td>One</td></tr>
+      </table>
+      <annotation>
+        <p>Editor note here.</p>
+      </annotation>
+      <poem>
+        <subtitle>Poem title</subtitle>
+        <stanza>
+          <v>Line one,</v>
+          <v>Line two.</v>
+        </stanza>
+        <text-author>Anonymous</text-author>
+      </poem>
+    </section>
+  </body>
+</FictionBook>

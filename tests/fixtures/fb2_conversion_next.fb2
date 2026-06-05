@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+  <description>
+    <title-info>
+      <book-title>Next Features</book-title>
+      <lang>en</lang>
+      <annotation><p>First paragraph.</p><p>Second paragraph.</p></annotation>
+      <author><first-name>Jane</first-name><last-name>Doe</last-name></author>
+    </title-info>
+    <src-title-info>
+      <book-title>Original Title</book-title>
+      <author><first-name>Ivan</first-name><last-name>Ivanov</last-name></author>
+    </src-title-info>
+  </description>
+  <body>
+    <section>
+      <image l:href="#pic"><description>Diagram alt</description></image>
+      <p>Main chapter.</p>
+    </section>
+  </body>
+  <body name="appendix">
+    <section><p>Appendix text.</p></section>
+  </body>
+  <binary id="pic" content-type="image/png">iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==</binary>
+</FictionBook>
