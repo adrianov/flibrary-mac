@@ -60,9 +60,12 @@ QT_TRANSLATE_NOOP("Book", "Year")
 
 #endif
 
-constexpr auto READER    = QT_TRANSLATE_NOOP("Book", "Reader");
-constexpr auto DATE_TIME = QT_TRANSLATE_NOOP("Book", "Date, Time");
-constexpr auto COMMENT   = QT_TRANSLATE_NOOP("Book", "Comment");
+constexpr auto READER       = QT_TRANSLATE_NOOP("Book", "Reader");
+constexpr auto DATE_TIME    = QT_TRANSLATE_NOOP("Book", "Date, Time");
+constexpr auto COMMENT      = QT_TRANSLATE_NOOP("Book", "Comment");
+// Annotation panel headers use Book context; every locale .ts must define these (see check_locales.py).
+constexpr auto BOOK_CONTENT = QT_TRANSLATE_NOOP("Book", "Content");
+constexpr auto DESCRIPTION  = QT_TRANSLATE_NOOP("Book", "Description");
 
 constexpr auto NAVIGATION   = "Navigation";
 constexpr auto Authors      = QT_TRANSLATE_NOOP("Navigation", "Authors");

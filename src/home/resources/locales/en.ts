@@ -182,14 +182,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Content</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>Metadata</translation>
-    </message>
-    <message>
         <source>Export statistics:</source>
         <translation></translation>
     </message>
@@ -239,7 +231,7 @@
     </message>
     <message>
         <source>No structured metadata in the file</source>
-        <translation type="unfinished"></translation>
+        <translation>No structured metadata in the file</translation>
     </message>
     <message>
         <source>PublishYear:</source>
@@ -339,8 +331,16 @@
         <translation></translation>
     </message>
     <message>
+        <source>Content</source>
+        <translation>Content</translation>
+    </message>
+    <message>
         <source>Date, Time</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>Metadata</translation>
     </message>
     <message>
         <source>FileName</source>
@@ -463,7 +463,7 @@
     </message>
     <message>
         <source>As &amp;epub</source>
-        <translation type="unfinished"></translation>
+        <translation>As &amp;epub</translation>
     </message>
     <message>
         <source>As &amp;inpx collection</source>
@@ -4440,6 +4440,10 @@ Try again?</source>
     <message>
         <source>en</source>
         <translation>&amp;English</translation>
+    </message>
+    <message>
+        <source>eo</source>
+        <translation>&amp;Esperanto</translation>
     </message>
     <message>
         <source>ru</source>

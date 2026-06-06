@@ -429,10 +429,16 @@ private: // IAnnotationController::IObserver
 			m_ui.cover->setCursor(Qt::PointingHandCursor);
 
 		if (auto content = dataProvider.GetContent(); content->GetChildCount() > 0)
+		{
+			content->SetData(QString(Loc::BOOK_CONTENT), NavigationItem::Column::Title);
 			m_content.try_emplace(ContentMode::Content, std::move(content));
+		}
 
 		if (auto content = dataProvider.GetDescription(); content->GetChildCount() > 0)
+		{
+			content->SetData(QString(Loc::DESCRIPTION), NavigationItem::Column::Title);
 			m_content.try_emplace(ContentMode::Metadata, std::move(content));
+		}
 
 		OnResize();
 		OnContentChanged();

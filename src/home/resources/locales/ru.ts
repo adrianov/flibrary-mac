@@ -182,14 +182,6 @@
         <translation>Не удалось сохранить изображение в %1</translation>
     </message>
     <message>
-        <source>Content</source>
-        <translation>Содержание</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>Метаданные</translation>
-    </message>
-    <message>
         <source>Export statistics:</source>
         <translation>Статистика экспорта:</translation>
     </message>
@@ -239,7 +231,7 @@
     </message>
     <message>
         <source>No structured metadata in the file</source>
-        <translation type="unfinished"></translation>
+        <translation>В файле нет структурированных метаданных</translation>
     </message>
     <message>
         <source>PublishYear:</source>
@@ -340,7 +332,7 @@
     </message>
     <message>
         <source>Content</source>
-        <translation type="vanished">Содержание</translation>
+        <translation>Содержание</translation>
     </message>
     <message>
         <source>Date, Time</source>
@@ -348,7 +340,7 @@
     </message>
     <message>
         <source>Description</source>
-        <translation type="vanished">Описание</translation>
+        <translation>Метаданные</translation>
     </message>
     <message>
         <source>FileName</source>
@@ -471,7 +463,7 @@
     </message>
     <message>
         <source>As &amp;epub</source>
-        <translation type="unfinished"></translation>
+        <translation>Как &amp;epub</translation>
     </message>
     <message>
         <source>As &amp;inpx collection</source>
@@ -4463,6 +4455,10 @@ Try again?</source>
         <translation>&amp;English</translation>
     </message>
     <message>
+        <source>eo</source>
+        <translation>&amp;Esperanto</translation>
+    </message>
+    <message>
         <source>ru</source>
         <translation>&amp;Русский</translation>
     </message>
@@ -5203,7 +5199,7 @@ Try again?</source>
     </message>
     <message>
         <source>OPDS</source>
-        <translation></translation>
+        <translation>OPDS</translation>
     </message>
     <message>
         <source>On FLibrary exit</source>

@@ -3,6 +3,7 @@
 #include "ArchiveDescriptionFallback.h"
 
 #include <ranges>
+#include <string_view>
 
 #include <QFile>
 #include <QFileInfo>
@@ -35,10 +36,11 @@ using namespace Flibrary;
 namespace
 {
 
-constexpr auto CONTEXT     = "Annotation";
-constexpr auto CONTENT     = QT_TRANSLATE_NOOP("Annotation", "Content");
-constexpr auto DESCRIPTION = QT_TRANSLATE_NOOP("Annotation", "Description");
-constexpr auto FILE_EMPTY  = QT_TRANSLATE_NOOP("Annotation", "File is empty");
+static_assert(std::string_view { Loc::BOOK_CONTENT } == "Content");
+static_assert(std::string_view { Loc::DESCRIPTION } == "Description");
+
+constexpr auto CONTEXT    = "Annotation";
+constexpr auto FILE_EMPTY = QT_TRANSLATE_NOOP("Annotation", "File is empty");
 TR_DEF
 
 constexpr auto ID_KEY                 = "id";
@@ -149,8 +151,8 @@ public:
 		, m_ioDevice { ioDevice }
 		, m_total { m_ioDevice.size() }
 	{
-		m_data.content->SetData(Tr(CONTENT), NavigationItem::Column::Title);
-		m_data.description->SetData(Tr(DESCRIPTION), NavigationItem::Column::Title);
+		m_data.content->SetData(QString(Loc::BOOK_CONTENT), NavigationItem::Column::Title);
+		m_data.description->SetData(QString(Loc::DESCRIPTION), NavigationItem::Column::Title);
 	}
 
 private: // IParser

@@ -182,14 +182,6 @@
         <translation>ken ala awen sitelen tawa %1</translation>
     </message>
     <message>
-        <source>Content</source>
-        <translation>insa</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>sona</translation>
-    </message>
-    <message>
         <source>Export statistics:</source>
         <translation>nanpa pana weka:</translation>
     </message>
@@ -239,7 +231,7 @@
     </message>
     <message>
         <source>No structured metadata in the file</source>
-        <translation type="unfinished">sona lipu li lon ala</translation>
+        <translation>sona lipu li lon ala</translation>
     </message>
     <message>
         <source>PublishYear:</source>
@@ -394,7 +386,15 @@
         <source>Year</source>
         <translation>tenpo sike</translation>
     </message>
-<message><source>Content</source><translation>insa</translation></message><message><source>Description</source><translation>sona</translation></message></context>
+    <message>
+        <source>Content</source>
+        <translation>insa</translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>sona</translation>
+    </message>
+</context>
 <context>
     <name>BookContextMenu</name>
     <message>
@@ -463,7 +463,7 @@
     </message>
     <message>
         <source>As &amp;epub</source>
-        <translation type="unfinished">nasin &amp;epub</translation>
+        <translation>nasin &amp;epub</translation>
     </message>
     <message>
         <source>As &amp;inpx collection</source>
@@ -4463,6 +4463,10 @@ o pali sin?</translation>
     <message>
         <source>tok</source>
         <translation>&amp;toki pona</translation>
+    </message>
+    <message>
+        <source>eo</source>
+        <translation>&amp;Esperanto</translation>
     </message>
 </context>
 <context>
