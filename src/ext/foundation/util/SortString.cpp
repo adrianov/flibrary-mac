@@ -91,6 +91,7 @@ void QStringWrapper::SetLocale(const QString& locale)
 		{ "uk",  { QLocale::Ukrainian, &FixCategoryCyr } },
 		{ "en",  { QLocale::C,         &FixCategoryDefault } },
 		{ "tok", { QLocale::C,         &FixCategoryDefault } },
+		{ "eo",  { QLocale::Esperanto, &FixCategoryDefault } },
 	};
 #ifdef LOCALIZED_APPLICATION
 	static_assert(std::size(localeDescription) == std::size(Loc::LOCALES));

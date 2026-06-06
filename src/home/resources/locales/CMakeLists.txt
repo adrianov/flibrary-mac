@@ -17,13 +17,17 @@ if (NOT EXISTS ${QT_TRANSLATIONS_DIR})
 	message(FATAL_ERROR "QT_TRANSLATIONS_DIR not found: ${QT_TRANSLATIONS_DIR}")
 endif()
 
-set(locales en ru uk tok)
+set(locales en ru uk tok eo)
+
+find_program(PYTHON3_EXECUTABLE python3 REQUIRED)
 
 set(LOCALES_HEADER_CONTENT)
 set(LRELEASE_LIST)
 set(LUPDATE_LIST)
+set(LOCALES_CHECK_ARGS)
 
 foreach(locale ${locales})
+    list(APPEND LOCALES_CHECK_ARGS --locale "${locale}")
     set(LOCALES_HEADER_CONTENT "${LOCALES_HEADER_CONTENT}\tQT_TRANSLATE_NOOP(\"Language\", \"${locale}\"),\n")
     set(QTBASE_QMFILE "${QT_TRANSLATIONS_DIR}/qtbase_${locale}.qm")
     set(QMFILE "${CMAKE_BINARY_DIR}/bin/locales/FLibrary_${locale}.qm")
@@ -66,7 +70,14 @@ execute_process(
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/../../
 )
 
+add_custom_target(locales_check
+	COMMAND "${PYTHON3_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/check_locales.py"
+		--ts-dir "${CMAKE_CURRENT_LIST_DIR}"
+		${LOCALES_CHECK_ARGS}
+)
+
 add_custom_target(locales ${LRELEASE_LIST})
+add_dependencies(locales locales_check)
 add_custom_target(locales_update_no_obsolete 
 	COMMAND ${LUPDATE_COMMAND} -no-obsolete
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/../../
