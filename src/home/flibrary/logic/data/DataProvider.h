@@ -40,6 +40,7 @@ private: // IDataProvider
 	void           SetNavigationMode(NavigationMode navigationMode) override;
 	void           SetNavigationRequestCallback(Callback callback) override;
 	void           RequestNavigation(bool force) const override;
+	void           ResetNavigationCache() const override;
 	void           RequestBooks(bool force) const override;
 	const QString& GetNavigationID() const noexcept override;
 

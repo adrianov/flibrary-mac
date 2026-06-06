@@ -7,6 +7,7 @@
 #include "database/interface/ITemporaryTable.h"
 #include "database/interface/ITransaction.h"
 
+#include "interface/constants/Localization.h"
 #include "interface/localization.h"
 #include "interface/logic/IDatabaseUser.h"
 #include "interface/logic/IProgressController.h"
@@ -56,6 +57,20 @@ IDataItem::Ptr CreateSimpleListItem(const DB::IQuery& query)
 {
 	auto item = IDataItem::Ptr(NavigationItem::Create());
 	UpdateItem(*item, query, { 1 }, 2, 3);
+	return item;
+}
+
+IDataItem::Ptr CreateAllBooksItem(const DB::IQuery& /*query*/)
+{
+	auto item = IDataItem::Ptr(NavigationItem::Create());
+	item->SetData(Loc::Tr(Loc::NAVIGATION, Loc::AllBooks));
+	return item;
+}
+
+IDataItem::Ptr CreateAlreadyReadItem(const DB::IQuery& /*query*/)
+{
+	auto item = IDataItem::Ptr(NavigationItem::Create());
+	item->SetData(Loc::Tr(Loc::NAVIGATION, Loc::AlreadyRead));
 	return item;
 }
 

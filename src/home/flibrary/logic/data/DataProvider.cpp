@@ -92,6 +92,11 @@ public:
 		m_navigationTimer->start();
 	}
 
+	void ResetNavigationCache() const
+	{
+		m_navigationQueryExecutor->InvalidateCache();
+	}
+
 	void RequestBooks(const bool force) const
 	{
 		if (force)
@@ -263,6 +268,11 @@ void DataProvider::SetBookRequestCallback(Callback callback)
 void DataProvider::RequestNavigation(const bool force) const
 {
 	m_impl->RequestNavigation(force);
+}
+
+void DataProvider::ResetNavigationCache() const
+{
+	m_impl->ResetNavigationCache();
 }
 
 void DataProvider::RequestBooks(const bool force) const

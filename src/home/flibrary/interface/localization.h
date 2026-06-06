@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+#include <functional>
 #include <vector>
 
 #include <QString>
@@ -27,6 +29,9 @@ FLINT_EXPORT std::vector<const char*> GetLocales();
 FLINT_EXPORT QString                  GetLocale(const ISettings& settings);
 FLINT_EXPORT const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const ISettings& settings);
 FLINT_EXPORT const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const QString& locale);
+FLINT_EXPORT uint64_t                                           RegisterLocaleChangedHandler(std::function<void()> handler);
+FLINT_EXPORT void                                               UnregisterLocaleChangedHandler(uint64_t id);
+FLINT_EXPORT void                                               NotifyLocaleChanged();
 
 inline QString Error()
 {

@@ -1,5 +1,6 @@
 #include "localization.h"
 
+#include <algorithm>
 #include <ranges>
 
 #include <QCoreApplication>
@@ -21,6 +22,9 @@ namespace
 {
 
 std::vector<PropagateConstPtr<QTranslator>> g_translators;
+
+uint64_t g_nextLocaleHandlerId { 1 };
+std::vector<std::pair<uint64_t, std::function<void()>>> g_localeHandlers;
 
 void UninstallTranslators()
 {
@@ -90,6 +94,27 @@ const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const QString& lo
 	}
 
 	return g_translators;
+}
+
+uint64_t RegisterLocaleChangedHandler(std::function<void()> handler)
+{
+	const auto id = g_nextLocaleHandlerId++;
+	g_localeHandlers.emplace_back(id, std::move(handler));
+	return id;
+}
+
+void UnregisterLocaleChangedHandler(const uint64_t id)
+{
+	std::erase_if(g_localeHandlers, [id](const auto& item) {
+		return item.first == id;
+	});
+}
+
+void NotifyLocaleChanged()
+{
+	const auto handlers = g_localeHandlers;
+	for (const auto& [_, handler] : handlers)
+		handler();
 }
 
 } // namespace HomeCompa::Loc

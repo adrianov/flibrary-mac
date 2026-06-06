@@ -3,6 +3,7 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QMenu>
+#include <QMetaObject>
 
 #include "interface/constants/SettingsConstant.h"
 #include "interface/localization.h"
@@ -30,6 +31,8 @@ void ApplyLocale(const QString& locale)
 		for (auto* widget : app->allWidgets())
 			QApplication::sendEvent(widget, &event);
 	}
+
+	Loc::NotifyLocaleChanged();
 }
 
 }
@@ -89,7 +92,7 @@ private:
 		}
 
 		m_settings->Set(Constant::Settings::LOCALE_KEY, locale);
-		ApplyLocale(locale);
+		QMetaObject::invokeMethod(qApp, [locale] { ApplyLocale(locale); }, Qt::QueuedConnection);
 	}
 
 private:

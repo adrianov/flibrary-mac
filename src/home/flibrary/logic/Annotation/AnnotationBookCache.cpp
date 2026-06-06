@@ -26,9 +26,9 @@ AnnotationBookCache::AnnotationBookCache(QString dbPath)
 {
 }
 
-QString AnnotationBookCache::DbKey(const QString& bookId, const bool filterEnabled, const bool showReviews)
+QString AnnotationBookCache::DbKey(const QString& bookId, const bool filterEnabled, const bool showReviews, const QString& locale)
 {
-	return QStringLiteral("%1|%2|%3").arg(bookId).arg(filterEnabled).arg(showReviews);
+	return QStringLiteral("%1|%2|%3|%4").arg(bookId).arg(filterEnabled).arg(showReviews).arg(locale);
 }
 
 std::optional<ArchiveParser::Data> AnnotationBookCache::Archive(const QString& bookId) const
@@ -51,41 +51,41 @@ void AnnotationBookCache::PutArchive(QString bookId, const ArchiveParser::Data& 
 	m_disk.Put(NS_ARCHIVE, bookId, AnnotationCacheCodec::EncodeArchive(data));
 }
 
-std::optional<AnnotationDbCache> AnnotationBookCache::Database(const QString& bookId, const bool filterEnabled, const bool showReviews) const
+std::optional<AnnotationDbCache> AnnotationBookCache::Database(const QString& bookId, const bool filterEnabled, const bool showReviews, const QString& locale) const
 {
 	if (bookId.isEmpty())
 		return std::nullopt;
 
-	const auto bytes = m_disk.Get(NS_DATABASE, DbKey(bookId, filterEnabled, showReviews));
+	const auto bytes = m_disk.Get(NS_DATABASE, DbKey(bookId, filterEnabled, showReviews, locale));
 	if (!bytes)
 		return std::nullopt;
 
 	return AnnotationCacheCodec::DecodeDatabase(*bytes);
 }
 
-void AnnotationBookCache::PutDatabase(QString bookId, const bool filterEnabled, const bool showReviews, const AnnotationDbCache& data)
+void AnnotationBookCache::PutDatabase(QString bookId, const bool filterEnabled, const bool showReviews, const QString& locale, const AnnotationDbCache& data)
 {
 	if (bookId.isEmpty())
 		return;
 
-	m_disk.Put(NS_DATABASE, DbKey(bookId, filterEnabled, showReviews), AnnotationCacheCodec::EncodeDatabase(data));
+	m_disk.Put(NS_DATABASE, DbKey(bookId, filterEnabled, showReviews, locale), AnnotationCacheCodec::EncodeDatabase(data));
 }
 
-bool AnnotationBookCache::HasDatabase(const QString& bookId, const bool filterEnabled, const bool showReviews) const
+bool AnnotationBookCache::HasDatabase(const QString& bookId, const bool filterEnabled, const bool showReviews, const QString& locale) const
 {
 	if (bookId.isEmpty())
 		return false;
 
-	const auto db = Database(bookId, filterEnabled, showReviews);
+	const auto db = Database(bookId, filterEnabled, showReviews, locale);
 	return db && db->book && !db->book->GetId().isEmpty();
 }
 
-bool AnnotationBookCache::IsCached(const QString& bookId, const bool filterEnabled, const bool showReviews) const
+bool AnnotationBookCache::IsCached(const QString& bookId, const bool filterEnabled, const bool showReviews, const QString& locale) const
 {
 	if (bookId.isEmpty() || !m_disk.Get(NS_ARCHIVE, bookId))
 		return false;
 
-	return HasDatabase(bookId, filterEnabled, showReviews);
+	return HasDatabase(bookId, filterEnabled, showReviews, locale);
 }
 
 } // namespace HomeCompa::Flibrary

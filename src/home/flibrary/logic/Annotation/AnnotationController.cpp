@@ -23,6 +23,7 @@
 
 #include "AnnotationBookCache.h"
 #include "AnnotationControllerFormat.h"
+#include "AnnotationControllerJoke.h"
 #include "AnnotationDbLoader.h"
 #include "ArchiveDescriptionFallback.h"
 #include "ArchiveParser.h"
@@ -41,40 +42,6 @@ enum class Ready
 	Database = 1 << 0,
 	Archive  = 1 << 1,
 	All      = None | Database | Archive
-};
-
-class JokeRequesterClientImpl : virtual public IJokeRequester::IClient
-{
-public:
-	static std::shared_ptr<IClient> Create(IClient& impl)
-	{
-		return std::make_shared<JokeRequesterClientImpl>(impl);
-	}
-
-public:
-	explicit JokeRequesterClientImpl(IClient& impl)
-		: m_impl(impl)
-	{
-	}
-
-private: // IJokeRequester::IClient
-	void OnError(const QString& api, const QString& error) override
-	{
-		m_impl.OnError(api, error);
-	}
-
-	void OnTextReceived(const QString& value) override
-	{
-		m_impl.OnTextReceived(value);
-	}
-
-	void OnImageReceived(const QByteArray& value) override
-	{
-		m_impl.OnImageReceived(value);
-	}
-
-private:
-	IClient& m_impl;
 };
 
 } // namespace
@@ -106,7 +73,7 @@ public:
 		, m_databaseUser { std::move(databaseUser) }
 		, m_filterProvider { std::move(filterProvider) }
 		, m_executor { logicFactory->GetExecutor() }
-		, m_jokeRequesterClientImpl(JokeRequesterClientImpl::Create(*this))
+		, m_jokeRequesterClientImpl(CreateJokeRequesterClient(*this))
 		, m_book { NavigationItem::Create() }
 		, m_series { NavigationItem::Create() }
 		, m_authors { NavigationItem::Create() }
@@ -122,10 +89,12 @@ public:
 			RequestJoke();
 		});
 		m_filterProvider->RegisterObserver(this);
+		m_localeHandlerId = Loc::RegisterLocaleChangedHandler([this] { ReloadForLocale(); });
 	}
 
 	~Impl() override
 	{
+		Loc::UnregisterLocaleChangedHandler(m_localeHandlerId);
 		m_filterProvider->UnregisterObserver(this);
 		m_stopping = true;
 		++m_preloadGeneration;
@@ -181,6 +150,15 @@ public:
 		}
 	}
 
+	void ReloadForLocale()
+	{
+		if (m_currentBookId.isEmpty())
+			return;
+
+		++m_extractGeneration;
+		RequestSessionCache();
+	}
+
 	void EmitAnnotationChanged()
 	{
 		if (!m_book || m_book->GetId().isEmpty() || m_book->GetId() != m_currentBookId)
@@ -204,6 +182,7 @@ public:
 		const auto generation  = m_preloadGeneration;
 		const auto filter      = FilterEnabled();
 		const auto showReviews = m_showReviews;
+		const auto locale      = CacheLocale();
 
 		if (bookIds.size() > 20)
 			bookIds.resize(20);
@@ -214,8 +193,8 @@ public:
 		{
 			(*m_executor)(
 				{ "Preload book annotation",
-				  [this, bookId, generation, filter, showReviews] -> std::function<void(size_t)> {
-					  if (m_stopping || generation != m_preloadGeneration || bookId.isEmpty() || bookId == m_currentBookId || m_bookCache.HasDatabase(bookId, filter, showReviews))
+				  [this, bookId, generation, filter, showReviews, locale] -> std::function<void(size_t)> {
+					  if (m_stopping || generation != m_preloadGeneration || bookId.isEmpty() || bookId == m_currentBookId || m_bookCache.HasDatabase(bookId, filter, showReviews, locale))
 						  return [](size_t) {};
 
 					  const auto db = m_databaseUser->Database();
@@ -226,13 +205,14 @@ public:
 					  if (!book || book->GetId().isEmpty() || m_stopping || generation != m_preloadGeneration)
 						  return [](size_t) {};
 
-					  if (m_stopping || generation != m_preloadGeneration || m_bookCache.HasDatabase(bookId, filter, showReviews))
+					  if (m_stopping || generation != m_preloadGeneration || m_bookCache.HasDatabase(bookId, filter, showReviews, locale))
 						  return [](size_t) {};
 
 					  m_bookCache.PutDatabase(
 						  bookId,
 						  filter,
 						  showReviews,
+						  locale,
 						  AnnotationDbLoader::Build(*db, book, filter, showReviews, *m_collectionProvider, *m_settings)
 					  );
 					  return [](size_t) {};
@@ -244,147 +224,35 @@ public:
 	}
 
 private: // IDataProvider
-	[[nodiscard]] const IDataItem& GetBook() const noexcept override
-	{
-		return *m_book;
-	}
-
-	[[nodiscard]] const IDataItem& GetSeries() const noexcept override
-	{
-		return *m_series;
-	}
-
-	[[nodiscard]] const IDataItem& GetAuthors() const noexcept override
-	{
-		return *m_authors;
-	}
-
-	[[nodiscard]] const IDataItem& GetGenres() const noexcept override
-	{
-		return *m_genres;
-	}
-
-	[[nodiscard]] const IDataItem& GetGroups() const noexcept override
-	{
-		return *m_groups;
-	}
-
-	[[nodiscard]] const IDataItem& GetKeywords() const noexcept override
-	{
-		return *m_keywords;
-	}
-
-	[[nodiscard]] const IDataItem& GetFolder() const noexcept override
-	{
-		return *m_folder;
-	}
-
-	[[nodiscard]] const IDataItem& GetUpdate() const noexcept override
-	{
-		return *m_update;
-	}
-
-	[[nodiscard]] const QString& GetError() const noexcept override
-	{
-		return m_archiveData.error;
-	}
-
-	[[nodiscard]] const QString& GetAnnotation() const noexcept override
-	{
-		return m_archiveData.annotation;
-	}
-
-	[[nodiscard]] const QString& GetEpigraph() const noexcept override
-	{
-		return m_archiveData.epigraph;
-	}
-
-	[[nodiscard]] const QString& GetEpigraphAuthor() const noexcept override
-	{
-		return m_archiveData.epigraphAuthor;
-	}
-
-	[[nodiscard]] const QString& GetLanguage() const noexcept override
-	{
-		return m_archiveData.language;
-	}
-
-	[[nodiscard]] const QString& GetSourceLanguage() const noexcept override
-	{
-		return m_archiveData.sourceLanguage;
-	}
-
-	[[nodiscard]] const QString& GetSourceLibrary() const noexcept override
-	{
-		return m_sourceLib;
-	}
-
-	[[nodiscard]] const std::vector<QString>& GetFb2Keywords() const noexcept override
-	{
-		return m_archiveData.keywords;
-	}
-
-	[[nodiscard]] const Covers& GetCovers() const noexcept override
-	{
-		return m_archiveData.covers;
-	}
-
-	[[nodiscard]] size_t GetTextSize() const noexcept override
-	{
-		return m_archiveData.textSize;
-	}
-
-	[[nodiscard]] size_t GetWordCount() const noexcept override
-	{
-		return m_archiveData.wordCount;
-	}
-
-	[[nodiscard]] IDataItem::Ptr GetContent() const noexcept override
-	{
-		return m_archiveData.content;
-	}
-
-	[[nodiscard]] IDataItem::Ptr GetDescription() const noexcept override
-	{
-		return m_archiveData.description;
-	}
-
-	[[nodiscard]] IDataItem::Ptr GetTranslators() const noexcept override
-	{
-		return m_archiveData.translators;
-	}
-
-	[[nodiscard]] const QString& GetPublisher() const noexcept override
-	{
-		return m_archiveData.publishInfo.publisher;
-	}
-
-	[[nodiscard]] const QString& GetPublishCity() const noexcept override
-	{
-		return m_archiveData.publishInfo.city;
-	}
-
-	[[nodiscard]] const QString& GetPublishYear() const noexcept override
-	{
-		return m_archiveData.publishInfo.year;
-	}
-
-	[[nodiscard]] const QString& GetPublishIsbn() const noexcept override
-	{
-		return m_archiveData.publishInfo.isbn;
-	}
-
-	[[nodiscard]] const ExportStatistics& GetExportStatistics() const noexcept override
-	{
-		return m_exportStatistics;
-	}
-
-	[[nodiscard]] const Reviews& GetReviews() const noexcept override
-	{
-		return m_reviews;
-	}
-
-	[[nodiscard]] std::vector<IDataItem::Flags> GetFlags(const NavigationMode navigationMode, const std::vector<QString>& ids) const override
+	[[nodiscard]] const IDataItem& GetBook() const noexcept override { return *m_book; }
+	[[nodiscard]] const IDataItem& GetSeries() const noexcept override { return *m_series; }
+	[[nodiscard]] const IDataItem& GetAuthors() const noexcept override { return *m_authors; }
+	[[nodiscard]] const IDataItem& GetGenres() const noexcept override { return *m_genres; }
+	[[nodiscard]] const IDataItem& GetGroups() const noexcept override { return *m_groups; }
+	[[nodiscard]] const IDataItem& GetKeywords() const noexcept override { return *m_keywords; }
+	[[nodiscard]] const IDataItem& GetFolder() const noexcept override { return *m_folder; }
+	[[nodiscard]] const IDataItem& GetUpdate() const noexcept override { return *m_update; }
+	[[nodiscard]] const QString& GetError() const noexcept override { return m_archiveData.error; }
+	[[nodiscard]] const QString& GetAnnotation() const noexcept override { return m_archiveData.annotation; }
+	[[nodiscard]] const QString& GetEpigraph() const noexcept override { return m_archiveData.epigraph; }
+	[[nodiscard]] const QString& GetEpigraphAuthor() const noexcept override { return m_archiveData.epigraphAuthor; }
+	[[nodiscard]] const QString& GetLanguage() const noexcept override { return m_archiveData.language; }
+	[[nodiscard]] const QString& GetSourceLanguage() const noexcept override { return m_archiveData.sourceLanguage; }
+	[[nodiscard]] const QString& GetSourceLibrary() const noexcept override { return m_sourceLib; }
+	[[nodiscard]] const std::vector<QString>& GetFb2Keywords() const noexcept override { return m_archiveData.keywords; }
+	[[nodiscard]] const Covers& GetCovers() const noexcept override { return m_archiveData.covers; }
+	[[nodiscard]] size_t GetTextSize() const noexcept override { return m_archiveData.textSize; }
+	[[nodiscard]] size_t GetWordCount() const noexcept override { return m_archiveData.wordCount; }
+	[[nodiscard]] IDataItem::Ptr GetContent() const noexcept override { return m_archiveData.content; }
+	[[nodiscard]] IDataItem::Ptr GetDescription() const noexcept override { return m_archiveData.description; }
+	[[nodiscard]] IDataItem::Ptr GetTranslators() const noexcept override { return m_archiveData.translators; }
+	[[nodiscard]] const QString& GetPublisher() const noexcept override { return m_archiveData.publishInfo.publisher; }
+	[[nodiscard]] const QString& GetPublishCity() const noexcept override { return m_archiveData.publishInfo.city; }
+	[[nodiscard]] const QString& GetPublishYear() const noexcept override { return m_archiveData.publishInfo.year; }
+	[[nodiscard]] const QString& GetPublishIsbn() const noexcept override { return m_archiveData.publishInfo.isbn; }
+	[[nodiscard]] const ExportStatistics& GetExportStatistics() const noexcept override { return m_exportStatistics; }
+	[[nodiscard]] const Reviews& GetReviews() const noexcept override { return m_reviews; }
+	[[nodiscard]] std::vector<IDataItem::Flags> GetFlags(NavigationMode navigationMode, const std::vector<QString>& ids) const override
 	{
 		return m_filterProvider->GetFlags(navigationMode, ids);
 	}
@@ -438,6 +306,11 @@ private:
 		return m_filterProvider->IsFilterEnabled();
 	}
 
+	[[nodiscard]] QString CacheLocale() const
+	{
+		return Loc::GetLocale(*m_settings);
+	}
+
 	void ApplyDbData(const AnnotationDbCache& data)
 	{
 		m_book             = data.book;
@@ -489,12 +362,13 @@ private:
 		const auto bookId      = m_currentBookId;
 		const auto filter      = FilterEnabled();
 		const auto showReviews = m_showReviews;
+		const auto locale      = CacheLocale();
 
 		(*m_executor)(
 			{ "Load annotation cache",
-			  [this, bookId, filter, showReviews, onMiss = std::move(onMiss)]() mutable {
+			  [this, bookId, filter, showReviews, locale, onMiss = std::move(onMiss)]() mutable {
 				  const auto archived = m_bookCache.Archive(bookId);
-				  const auto dbData   = m_bookCache.Database(bookId, filter, showReviews);
+				  const auto dbData   = m_bookCache.Database(bookId, filter, showReviews, locale);
 				  return [this, bookId, onMiss = std::move(onMiss), archived = std::move(archived), dbData = std::move(dbData)](size_t) mutable {
 					  if (bookId != m_currentBookId)
 						  return;
@@ -658,7 +532,7 @@ private:
 
 					  ApplyDbData(cache);
 					  m_ready |= Ready::Database;
-					  m_bookCache.PutDatabase(cache.book->GetId(), FilterEnabled(), m_showReviews, cache);
+					  m_bookCache.PutDatabase(cache.book->GetId(), FilterEnabled(), m_showReviews, CacheLocale(), cache);
 					  if (m_ready == Ready::All)
 						  EmitAnnotationChanged();
 				  };
@@ -724,6 +598,8 @@ private:
 
 	std::random_device m_rd;
 	std::mt19937       m_mt { m_rd() };
+
+	uint64_t m_localeHandlerId { 0 };
 };
 
 AnnotationController::AnnotationController(

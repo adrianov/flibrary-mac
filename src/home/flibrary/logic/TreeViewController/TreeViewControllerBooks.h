@@ -46,6 +46,7 @@ private: // AbstractTreeViewController
 	void                   RequestContextMenu(const QModelIndex& index, RequestContextMenuOptions options, RequestContextMenuCallback callback) override;
 	void                   OnContextMenuTriggered(QAbstractItemModel* model, const QModelIndex& index, const QList<QModelIndex>& indexList, IDataItem::Ptr item) override;
 	void                   OnDoubleClicked(const QModelIndex& index) const override;
+	void                   OnLocaleChanged() const override;
 
 private:
 	struct Impl;

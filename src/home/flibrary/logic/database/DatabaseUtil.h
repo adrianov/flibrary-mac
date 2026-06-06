@@ -32,6 +32,8 @@ select b.BookID, b.Title, b.UpdateDate, nullif(b.LibRate, 0), b.Lang, b.Year, f.
 )";
 
 IDataItem::Ptr CreateSimpleListItem(const DB::IQuery& query);
+IDataItem::Ptr CreateAllBooksItem(const DB::IQuery& query);
+IDataItem::Ptr CreateAlreadyReadItem(const DB::IQuery& query);
 IDataItem::Ptr CreateSeriesItem(const DB::IQuery& query);
 IDataItem::Ptr CreateGenreItem(const DB::IQuery& query);
 IDataItem::Ptr CreateLanguageItem(const DB::IQuery& query);

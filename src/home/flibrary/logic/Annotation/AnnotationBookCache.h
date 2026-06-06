@@ -21,16 +21,16 @@ public:
 	[[nodiscard]] std::optional<ArchiveParser::Data> Archive(const QString& bookId) const;
 	void                                             PutArchive(QString bookId, const ArchiveParser::Data& data);
 
-	[[nodiscard]] std::optional<AnnotationDbCache> Database(const QString& bookId, bool filterEnabled, bool showReviews) const;
-	void                                         PutDatabase(QString bookId, bool filterEnabled, bool showReviews, const AnnotationDbCache& data);
-	[[nodiscard]] bool                           HasDatabase(const QString& bookId, bool filterEnabled, bool showReviews) const;
+	[[nodiscard]] std::optional<AnnotationDbCache> Database(const QString& bookId, bool filterEnabled, bool showReviews, const QString& locale) const;
+	void                                         PutDatabase(QString bookId, bool filterEnabled, bool showReviews, const QString& locale, const AnnotationDbCache& data);
+	[[nodiscard]] bool                           HasDatabase(const QString& bookId, bool filterEnabled, bool showReviews, const QString& locale) const;
 
-	[[nodiscard]] bool IsCached(const QString& bookId, bool filterEnabled, bool showReviews) const;
+	[[nodiscard]] bool IsCached(const QString& bookId, bool filterEnabled, bool showReviews, const QString& locale) const;
 
 	[[nodiscard]] static QString DefaultPath();
 
 private:
-	static QString DbKey(const QString& bookId, bool filterEnabled, bool showReviews);
+	static QString DbKey(const QString& bookId, bool filterEnabled, bool showReviews, const QString& locale);
 
 	static constexpr auto NS_ARCHIVE = "ann/archive";
 	static constexpr auto NS_DATABASE = "ann/db";

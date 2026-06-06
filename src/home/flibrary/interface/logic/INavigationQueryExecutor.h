@@ -25,6 +25,7 @@ public:
 public:
 	virtual ~INavigationQueryExecutor()                                                                                           = default;
 	virtual void                    RequestNavigation(NavigationMode navigationMode, Callback callback, bool force = false) const = 0;
+	virtual void                    InvalidateCache() const                                                                       = 0;
 	virtual const QueryDescription& GetQueryDescription(NavigationMode navigationMode) const                                      = 0;
 };
 

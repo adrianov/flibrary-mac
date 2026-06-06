@@ -181,3 +181,8 @@ void TreeViewControllerBooks::OnDoubleClicked(const QModelIndex& index) const
 
 	m_impl->bookInteractor->OnDoubleClicked(id);
 }
+
+void TreeViewControllerBooks::OnLocaleChanged() const
+{
+	m_impl->dataProvider->RequestBooks(true);
+}

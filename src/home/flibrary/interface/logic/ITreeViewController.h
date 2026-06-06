@@ -70,6 +70,7 @@ public:
 
 	virtual void RegisterObserver(IObserver* observer)   = 0;
 	virtual void UnregisterObserver(IObserver* observer) = 0;
+	virtual void OnLocaleChanged() const                 = 0;
 };
 
 } // namespace HomeCompa::Flibrary

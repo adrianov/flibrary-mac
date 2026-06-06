@@ -29,6 +29,7 @@ public:
 	virtual void SetNavigationMode(NavigationMode navigationMode) = 0;
 	virtual void SetNavigationRequestCallback(Callback callback)  = 0;
 	virtual void RequestNavigation(bool force = false) const      = 0;
+	virtual void ResetNavigationCache() const                     = 0;
 };
 
 class IBookInfoProvider : virtual public IDataProviderDetails::IDataProvider

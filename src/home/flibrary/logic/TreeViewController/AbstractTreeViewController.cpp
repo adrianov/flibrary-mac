@@ -57,3 +57,7 @@ void AbstractTreeViewController::SetMode(const QString& mode)
 	m_settings->Set(m_impl->settingsModeKey, mode);
 	OnModeChanged(mode);
 }
+
+void AbstractTreeViewController::OnLocaleChanged() const
+{
+}

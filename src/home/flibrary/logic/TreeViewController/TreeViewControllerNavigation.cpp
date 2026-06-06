@@ -874,6 +874,15 @@ void TreeViewControllerNavigation::ResetCachedModel(const NavigationMode mode) c
 		m_impl->models[index].reset();
 }
 
+void TreeViewControllerNavigation::OnLocaleChanged() const
+{
+	for (auto& model : m_impl->models)
+		model.reset();
+
+	m_impl->dataProvider->ResetNavigationCache();
+	RequestNavigation(true);
+}
+
 void TreeViewControllerNavigation::RequestBooks(const bool force) const
 {
 	m_impl->dataProvider->RequestBooks(force);

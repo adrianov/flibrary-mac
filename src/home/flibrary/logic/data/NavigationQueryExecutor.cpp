@@ -507,7 +507,7 @@ from PublishYears y)",
 	{ NavigationMode::AlreadyRead,
      { &RequestNavigationSimpleList,
      { "select 'Already read books'",
-     &DatabaseUtil::CreateSimpleListItem,
+     &DatabaseUtil::CreateAlreadyReadItem,
      { .booksFrom = "from Books_View b", .booksWhere = "where b.UserRate is not null", .navigationFrom = "from Books_View b", .navigationWhere = "where b.UserRate is not null" },
      &IBooksListCreator::CreateGeneralList,
      &IBooksTreeCreator::CreateGeneralTree,
@@ -517,7 +517,7 @@ from PublishYears y)",
 	{    NavigationMode::AllBooks,
      { &RequestNavigationSimpleList,
      { "select 'All books'",
-     &DatabaseUtil::CreateSimpleListItem,
+     &DatabaseUtil::CreateAllBooksItem,
      { .booksFrom = "from Books_View b", .navigationFrom = "from Books_View b" },
      &IBooksListCreator::CreateGeneralList,
      &IBooksTreeCreator::CreateGeneralTree,
@@ -594,6 +594,11 @@ NavigationQueryExecutor::NavigationQueryExecutor(std::shared_ptr<IDatabaseUser> 
 NavigationQueryExecutor::~NavigationQueryExecutor()
 {
 	PLOGV << "NavigationQueryExecutor destroyed";
+}
+
+void NavigationQueryExecutor::InvalidateCache() const
+{
+	m_impl->cache.clear();
 }
 
 void NavigationQueryExecutor::RequestNavigation(const NavigationMode navigationMode, Callback callback, const bool force) const
