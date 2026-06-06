@@ -44,6 +44,7 @@
 #include "zip.h"
 
 #include "BooksHeaderLayout.h"
+#include "TreeViewContextMenu.h"
 
 using namespace HomeCompa;
 using namespace Flibrary;
@@ -52,38 +53,6 @@ namespace
 {
 
 constexpr int PRELOAD_BOOK_COUNT = 20;
-
-std::vector<QString> CollectNextBookIds(const QAbstractItemModel& model, const QModelIndex& current, const int maxCount)
-{
-	std::vector<QString> result;
-	if (!current.isValid() || maxCount <= 0 || current.data(Role::Type).value<ItemType>() != ItemType::Books)
-		return result;
-
-	result.reserve(static_cast<size_t>(maxCount));
-
-	bool afterCurrent = false;
-	std::function<void(const QModelIndex&)> visit = [&](const QModelIndex& parent) {
-		for (int row = 0, count = model.rowCount(parent); row < count && static_cast<int>(result.size()) < maxCount; ++row)
-		{
-			const auto index = model.index(row, 0, parent);
-			if (index == current)
-			{
-				afterCurrent = true;
-				continue;
-			}
-
-			if (afterCurrent && index.data(Role::Type).value<ItemType>() == ItemType::Books)
-				result.emplace_back(index.data(Role::Id).toString());
-
-			if (model.rowCount(index) > 0)
-				visit(index);
-		}
-	};
-
-	visit({});
-	return result;
-}
-
 
 constexpr auto CONTEXT        = "TreeView";
 constexpr auto NAVIGATION     = QT_TRANSLATE_NOOP("TreeView", "Navigation");
@@ -347,54 +316,6 @@ private:
 	const QWidget&  m_widget;
 };
 
-class MenuEventFilter final : public QObject
-{
-public:
-	explicit MenuEventFilter(QObject* parent = nullptr)
-		: QObject(parent)
-	{
-		m_timer.setSingleShot(true);
-		m_timer.setInterval(std::chrono::seconds(2));
-		connect(&m_timer, &QTimer::timeout, [this] {
-			m_text.clear();
-		});
-	}
-
-private: // QObject
-	bool eventFilter(QObject* watched, QEvent* event) override
-	{
-		if (event->type() != QEvent::KeyPress)
-			return QObject::eventFilter(watched, event);
-
-		const auto text = static_cast<const QKeyEvent*>(event)->text(); // NOLINT(cppcoreguidelines-pro-type-static-cast-downcast)
-		if (text.isEmpty())
-			return false;
-
-		auto* menu = qobject_cast<QMenu*>(watched);
-		if (!menu)
-			return false;
-
-		m_text.append(text);
-		m_timer.start();
-
-		const auto actions = menu->actions();
-		if (const auto it = std::ranges::find_if(
-				actions,
-				[this](const QAction* action) {
-					return action->text().startsWith(m_text, Qt::CaseInsensitive);
-				}
-			);
-		    it != actions.end())
-			menu->setActiveAction(*it);
-
-		return false;
-	}
-
-private:
-	QTimer  m_timer;
-	QString m_text;
-};
-
 class ArchiveSorter final : public IModelSorter
 {
 	auto sortable(const QModelIndex& index) const
@@ -511,6 +432,12 @@ public:
 			if (!name.isEmpty())
 				m_ui.cbMode->setItemText(i, Loc::Tr(m_controller->TrContext(), name.toUtf8().constData()));
 		}
+	}
+
+	void OnLanguageChange() const
+	{
+		RetranslateComboBox();
+		m_controller->OnLocaleChanged();
 	}
 
 	void ResizeEvent(const QResizeEvent* event)
@@ -699,7 +626,7 @@ private:
 		connect(m_ui.treeView->selectionModel(), &QItemSelectionModel::currentRowChanged, &m_self, [this](const QModelIndex& index, const QModelIndex& prev) {
 			auto currentId = index.data(Role::Id).toString();
 			const auto*    bookModel = m_ui.treeView->model();
-			auto           preload   = m_controller->GetItemType() == ItemType::Books && bookModel ? CollectNextBookIds(*bookModel, index, PRELOAD_BOOK_COUNT) : std::vector<QString> {};
+			auto           preload   = m_controller->GetItemType() == ItemType::Books && bookModel ? TreeViewContextMenu::CollectNextBookIds(*bookModel, index, PRELOAD_BOOK_COUNT) : std::vector<QString> {};
 			m_controller->SetCurrentId(index.data(Role::Type).value<ItemType>(), currentId, false, std::move(preload));
 			if (prev.isValid())
 				m_settings->Set(GetRecentIdKey(), m_currentId = std::move(currentId));
@@ -847,71 +774,11 @@ private:
 
 		QMenu menu;
 		menu.setFont(m_self.font());
-		GenerateMenu(menu, *item);
+		TreeViewContextMenu::Generate(menu, *item, m_controller->TrContext(), m_menuEventFilter, [this](IDataItem::Ptr child) {
+			OnContextMenuTriggered(std::move(child));
+		});
 		if (!menu.isEmpty())
 			menu.exec(QCursor::pos());
-	}
-
-	void GenerateMenu(QMenu& menu, const IDataItem& item)
-	{
-		const auto                                      font = menu.font();
-		const QFontMetrics                              metrics(font);
-		std::stack<std::pair<const IDataItem*, QMenu*>> stack { { { &item, &menu } } };
-
-		const auto getBool = [](const IDataItem& menuItem, const int column, const bool defaultValue) {
-			const auto& str = menuItem.GetData(column);
-			return str.isEmpty() ? defaultValue : QVariant(str).toBool();
-		};
-
-		while (!stack.empty())
-		{
-			auto [parent, subMenu] = stack.top();
-			stack.pop();
-
-			auto maxWidth = subMenu->minimumWidth();
-
-			for (size_t i = 0, sz = parent->GetChildCount(); i < sz; ++i)
-			{
-				auto       child     = parent->GetChild(i);
-				const auto enabled   = getBool(*child, MenuItem::Column::Enabled, true);
-				const auto title     = child->GetData().toStdString();
-				const auto titleText = Loc::Tr(m_controller->TrContext(), title.data());
-				auto       statusTip = titleText;
-				statusTip.replace("&", "");
-				maxWidth = std::max(maxWidth, metrics.boundingRect(statusTip).width() + 3 * (metrics.ascent() + metrics.descent()));
-
-				if (child->GetChildCount() != 0)
-				{
-					auto* subSubMenu = stack.emplace(child.get(), subMenu->addMenu(titleText)).second;
-					subSubMenu->setFont(font);
-					subSubMenu->setEnabled(enabled);
-					subSubMenu->setStatusTip(statusTip);
-					continue;
-				}
-
-				if (const auto childId = child->GetData(MenuItem::Column::Id).toInt(); childId < 0)
-				{
-					subMenu->addSeparator();
-					continue;
-				}
-
-				const auto checkable = getBool(*child, MenuItem::Column::Checkable, false);
-				const auto checked   = getBool(*child, MenuItem::Column::Checked, false);
-
-				auto* action = subMenu->addAction(titleText, [this, child = std::move(child)]() mutable {
-					OnContextMenuTriggered(std::move(child));
-				});
-				action->setStatusTip(statusTip);
-				action->setEnabled(enabled);
-				action->setCheckable(checkable);
-				if (checkable)
-					action->setChecked(checked);
-			}
-
-			subMenu->setMinimumWidth(maxWidth);
-			if (parent->GetChildCount() > 16)
-				subMenu->installEventFilter(&m_menuEventFilter);
-		}
 	}
 
 	void OnContextMenuTriggered(IDataItem::Ptr item)
@@ -1410,7 +1277,7 @@ private:
 	bool                                                          m_restoreBooksLayoutPending { false };
 	QString                                                       m_lastRestoredLayoutKey;
 	ITreeViewController::RemoveItems                              m_removeItems;
-	MenuEventFilter                                               m_menuEventFilter;
+	TreeViewContextMenu::MenuEventFilter                          m_menuEventFilter;
 	HeaderView*                                                   m_booksHeaderView;
 	IDataItem::Flags                                              m_navigationItemFlags { IDataItem::Flags::None };
 	const ArchiveSorter                                           m_archiveSorter;
@@ -1487,6 +1354,6 @@ void TreeView::resizeEvent(QResizeEvent* event)
 void TreeView::changeEvent(QEvent* event)
 {
 	if (event->type() == QEvent::LanguageChange)
-		m_impl->RetranslateComboBox();
+		m_impl->OnLanguageChange();
 	QWidget::changeEvent(event);
 }
