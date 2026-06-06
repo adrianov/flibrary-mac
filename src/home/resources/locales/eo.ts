@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>FLibrary database files (*.db *.sqlite *.sqlite3);;All files (*.*)</source>
-        <translation>FLioraj datumbazaj dosieroj (*.db *.sqlite *.sqlite3);;Ĉiuj dosieroj (*.*)</translation>
+        <translation>FLibrary datumbazaj dosieroj (*.db *.sqlite *.sqlite3);;Ĉiuj dosieroj (*.*)</translation>
     </message>
     <message>
         <source>Index file</source>
@@ -227,7 +227,7 @@
     </message>
     <message>
         <source>My rate:</source>
-        <translation>Mia tarifo:</translation>
+        <translation>Mia takso:</translation>
     </message>
     <message>
         <source>No structured metadata in the file</source>
@@ -239,7 +239,7 @@
     </message>
     <message>
         <source>Rate:</source>
-        <translation>Prezo:</translation>
+        <translation>Takso:</translation>
     </message>
     <message>
         <source>Read</source>
@@ -356,11 +356,11 @@
     </message>
     <message>
         <source>Lang</source>
-        <translation>Lang</translation>
+        <translation>Lingvo</translation>
     </message>
     <message>
         <source>LibRate</source>
-        <translation>LibRate</translation>
+        <translation>Lib-takso</translation>
     </message>
     <message>
         <source>Reader</source>
@@ -368,7 +368,7 @@
     </message>
     <message>
         <source>SeqNumber</source>
-        <translation>SeqNumber</translation>
+        <translation>Nr.</translation>
     </message>
     <message>
         <source>Series</source>
@@ -388,7 +388,7 @@
     </message>
     <message>
         <source>UserRate</source>
-        <translation>UserRate</translation>
+        <translation>Mia takso</translation>
     </message>
     <message>
         <source>Year</source>
@@ -527,7 +527,7 @@
     </message>
     <message>
         <source>Hash</source>
-        <translation>Haŝiŝo</translation>
+        <translation>Haŝo</translation>
     </message>
     <message>
         <source>No rating</source>
@@ -888,11 +888,11 @@ Rekomenci nun?</translation>
     </message>
     <message>
         <source>&amp;Collapse all</source>
-        <translation>&amp;Disfalu ĉion</translation>
+        <translation>&amp;Kuntiri ĉion</translation>
     </message>
     <message>
         <source>&amp;Expand all</source>
-        <translation>&amp;Venigi ĉion</translation>
+        <translation>&amp;Vastigi ĉion</translation>
     </message>
     <message>
         <source>&amp;Invert</source>
@@ -915,7 +915,7 @@ Rekomenci nun?</translation>
     </message>
     <message>
         <source>About FLibrary</source>
-        <translation>Pri FLLibrary</translation>
+        <translation>Pri FLibrary</translation>
     </message>
     <message>
         <source>Another e-library book cataloger</source>
@@ -1714,7 +1714,7 @@ Rekomenci nun?</translation>
     </message>
     <message>
         <source>in_verse</source>
-        <translation>inverse</translation>
+        <translation>en_verso</translation>
     </message>
     <message>
         <source>industries</source>
@@ -1746,7 +1746,7 @@ Rekomenci nun?</translation>
     </message>
     <message>
         <source>love_all</source>
-        <translation>amu_ĉion</translation>
+        <translation>amo_ĉio</translation>
     </message>
     <message>
         <source>love_all_root</source>
@@ -1854,7 +1854,7 @@ Rekomenci nun?</translation>
     </message>
     <message>
         <source>nonf_biography_military_figures</source>
-        <translation>nef_biografio_militaj_ciferoj</translation>
+        <translation>nef_biografio_militaj_figuroj</translation>
     </message>
     <message>
         <source>nonf_biography_writers</source>
@@ -2654,7 +2654,7 @@ Try again?</source>
     <name>HotkeyDialog</name>
     <message>
         <source>Hotkey settings</source>
-        <translation>Hotkey agordoj</translation>
+        <translation>Klavaj agordoj</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -2728,7 +2728,7 @@ Try again?</source>
     </message>
     <message>
         <source>Misc</source>
-        <translation>Misc</translation>
+        <translation>Diversaĵoj</translation>
     </message>
     <message>
         <source>One more useless fact</source>
@@ -2771,7 +2771,7 @@ Try again?</source>
     </message>
     <message>
         <source>Achinese</source>
-        <translation>ĉina</translation>
+        <translation>aceha</translation>
     </message>
     <message>
         <source>Acoli</source>
@@ -2787,7 +2787,7 @@ Try again?</source>
     </message>
     <message>
         <source>Afar</source>
-        <translation>Malproksime</translation>
+        <translation>afara</translation>
     </message>
     <message>
         <source>Afrihili</source>
@@ -2795,7 +2795,7 @@ Try again?</source>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation>la afrikansa</translation>
+        <translation>afrikansa</translation>
     </message>
     <message>
         <source>Ainu</source>
@@ -2807,7 +2807,7 @@ Try again?</source>
     </message>
     <message>
         <source>Akkadian</source>
-        <translation>akadano</translation>
+        <translation>akada</translation>
     </message>
     <message>
         <source>Albanian</source>
@@ -2815,11 +2815,11 @@ Try again?</source>
     </message>
     <message>
         <source>Aleut</source>
-        <translation>Aleŭto</translation>
+        <translation>aleŭta</translation>
     </message>
     <message>
         <source>Amharic</source>
-        <translation>Amhara</translation>
+        <translation>amhara</translation>
     </message>
     <message>
         <source>Ancient Egyptian</source>
@@ -2839,7 +2839,7 @@ Try again?</source>
     </message>
     <message>
         <source>Aragonese</source>
-        <translation>aragonano</translation>
+        <translation>aragona</translation>
     </message>
     <message>
         <source>Arapaho</source>
@@ -2851,7 +2851,7 @@ Try again?</source>
     </message>
     <message>
         <source>Armenian</source>
-        <translation>la armena</translation>
+        <translation>armena</translation>
     </message>
     <message>
         <source>Aromanian</source>
@@ -2887,7 +2887,7 @@ Try again?</source>
     </message>
     <message>
         <source>Azerbaijani</source>
-        <translation>Azerbajĝana</translation>
+        <translation>azerbajĝana</translation>
     </message>
     <message>
         <source>Balinese</source>
@@ -2895,7 +2895,7 @@ Try again?</source>
     </message>
     <message>
         <source>Baluchi</source>
-        <translation>Baluĉio</translation>
+        <translation>baluĉa</translation>
     </message>
     <message>
         <source>Bambara</source>
@@ -2919,7 +2919,7 @@ Try again?</source>
     </message>
     <message>
         <source>Belarusian</source>
-        <translation>Belarusian</translation>
+        <translation>belarusa</translation>
     </message>
     <message>
         <source>Bemba</source>
@@ -2951,7 +2951,7 @@ Try again?</source>
     </message>
     <message>
         <source>Blissymbolics</source>
-        <translation>Felisimboloj</translation>
+        <translation>Blissimboloj</translation>
     </message>
     <message>
         <source>Bosnian</source>
@@ -2975,7 +2975,7 @@ Try again?</source>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation>bulgaro</translation>
+        <translation>bulgara</translation>
     </message>
     <message>
         <source>Buriat</source>
@@ -2983,7 +2983,7 @@ Try again?</source>
     </message>
     <message>
         <source>Burmese</source>
-        <translation>birmano</translation>
+        <translation>birmana</translation>
     </message>
     <message>
         <source>Caddo</source>
@@ -3003,7 +3003,7 @@ Try again?</source>
     </message>
     <message>
         <source>Chagatai</source>
-        <translation>Ĉagatajo</translation>
+        <translation>ĉagataja</translation>
     </message>
     <message>
         <source>Chamorro</source>
@@ -3011,15 +3011,15 @@ Try again?</source>
     </message>
     <message>
         <source>Chechen</source>
-        <translation>ĉeĉeno</translation>
+        <translation>ĉeĉena</translation>
     </message>
     <message>
         <source>Cherokee</source>
-        <translation>Ĉerokoj</translation>
+        <translation>ĉeroka</translation>
     </message>
     <message>
         <source>Cheyenne</source>
-        <translation>ĉejeno</translation>
+        <translation>ĉejena</translation>
     </message>
     <message>
         <source>Chibcha</source>
@@ -3027,7 +3027,7 @@ Try again?</source>
     </message>
     <message>
         <source>Chinese</source>
-        <translation>ĉinoj</translation>
+        <translation>ĉina</translation>
     </message>
     <message>
         <source>Chinook</source>
@@ -3051,7 +3051,7 @@ Try again?</source>
     </message>
     <message>
         <source>Chuvash</source>
-        <translation>ĉuvaŝoj</translation>
+        <translation>ĉuvaŝa</translation>
     </message>
     <message>
         <source>Classical Syriac</source>
@@ -3059,7 +3059,7 @@ Try again?</source>
     </message>
     <message>
         <source>Coptic</source>
-        <translation>Kopto</translation>
+        <translation>kopta</translation>
     </message>
     <message>
         <source>Cornish</source>
@@ -3071,7 +3071,7 @@ Try again?</source>
     </message>
     <message>
         <source>Cree</source>
-        <translation>krio</translation>
+        <translation>kria</translation>
     </message>
     <message>
         <source>Creek</source>
@@ -3155,7 +3155,7 @@ Try again?</source>
     </message>
     <message>
         <source>English</source>
-        <translation>la angla</translation>
+        <translation>angla</translation>
     </message>
     <message>
         <source>Erzya</source>
@@ -3319,7 +3319,7 @@ Try again?</source>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation>la hebrea</translation>
+        <translation>hebrea</translation>
     </message>
     <message>
         <source>Herero</source>
@@ -3331,7 +3331,7 @@ Try again?</source>
     </message>
     <message>
         <source>Hindi</source>
-        <translation>Hindia</translation>
+        <translation>hinda</translation>
     </message>
     <message>
         <source>Hiri Motu</source>
@@ -3415,7 +3415,7 @@ Try again?</source>
     </message>
     <message>
         <source>Japanese</source>
-        <translation>Japanoj</translation>
+        <translation>japana</translation>
     </message>
     <message>
         <source>Javanese</source>
@@ -3575,7 +3575,7 @@ Try again?</source>
     </message>
     <message>
         <source>Latin</source>
-        <translation>la latina</translation>
+        <translation>latina</translation>
     </message>
     <message>
         <source>Latvian</source>
@@ -3971,7 +3971,7 @@ Try again?</source>
     </message>
     <message>
         <source>Persian</source>
-        <translation>la persa</translation>
+        <translation>persa</translation>
     </message>
     <message>
         <source>Phoenician</source>
@@ -4119,11 +4119,11 @@ Try again?</source>
     </message>
     <message>
         <source>Slovak</source>
-        <translation>la slovaka</translation>
+        <translation>slovaka</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation>sloveno</translation>
+        <translation>slovena</translation>
     </message>
     <message>
         <source>Sogdian</source>
@@ -4243,7 +4243,7 @@ Try again?</source>
     </message>
     <message>
         <source>Tibetan</source>
-        <translation>Tibetano</translation>
+        <translation>tibeta</translation>
     </message>
     <message>
         <source>Tigre</source>
