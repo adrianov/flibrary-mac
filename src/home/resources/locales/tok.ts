@@ -2822,11 +2822,11 @@ o pali sin?</translation>
     </message>
     <message>
         <source>Ancient Egyptian</source>
-        <translation>toki Mesiko pi tenpo pini</translation>
+        <translation>toki Misita pi tenpo pini</translation>
     </message>
     <message>
         <source>Ancient Greek</source>
-        <translation>toki Losi pi tenpo pini</translation>
+        <translation>toki Elata pi tenpo pini</translation>
     </message>
     <message>
         <source>Angika</source>
@@ -3254,7 +3254,7 @@ o pali sin?</translation>
     </message>
     <message>
         <source>Georgian</source>
-        <translation>toki Kolia</translation>
+        <translation>toki Jolia</translation>
     </message>
     <message>
         <source>German</source>
@@ -3282,7 +3282,7 @@ o pali sin?</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation>toki Losi</translation>
+        <translation>toki Elata</translation>
     </message>
     <message>
         <source>Greenlandic</source>
