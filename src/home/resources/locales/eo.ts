@@ -1098,1491 +1098,1491 @@ Rekomenci nun?</translation>
     <name>Genre</name>
     <message>
         <source>about_musicians</source>
-        <translation>pri_muzikistoj</translation>
+        <translation>Muzikistoj. Komponistoj. Artistoj</translation>
     </message>
     <message>
         <source>accounting</source>
-        <translation>kontado</translation>
+        <translation>Kontado</translation>
     </message>
     <message>
         <source>adv_animal</source>
-        <translation>adv_besto</translation>
+        <translation>Naturo &amp; bestoj</translation>
     </message>
     <message>
         <source>adv_geo</source>
-        <translation>adv_geo</translation>
+        <translation>Vojaĝado kaj geografio</translation>
     </message>
     <message>
         <source>adv_history</source>
-        <translation>adv_historio</translation>
+        <translation>Historio</translation>
     </message>
     <message>
         <source>adv_indian</source>
-        <translation>adv_indiano</translation>
+        <translation>Indianoj</translation>
     </message>
     <message>
         <source>adv_maritime</source>
-        <translation>adv_maritime</translation>
+        <translation>Mara Fikcio</translation>
     </message>
     <message>
         <source>adv_modern</source>
-        <translation>adv_moderna</translation>
+        <translation>Moderna</translation>
     </message>
     <message>
         <source>adv_story</source>
-        <translation>adv_rakonto</translation>
+        <translation>Rakonto</translation>
     </message>
     <message>
         <source>adv_western</source>
-        <translation>adv_okcidenta</translation>
+        <translation>Okcidenta</translation>
     </message>
     <message>
         <source>adventure</source>
-        <translation>aventuro</translation>
+        <translation>Aventuro</translation>
     </message>
     <message>
         <source>adventure_all_root</source>
-        <translation>aventuro_ĉia_radiko</translation>
+        <translation>Aventuro</translation>
     </message>
     <message>
         <source>adventure_fantasy</source>
-        <translation>aventuro_fantazio</translation>
+        <translation>Aventura fantazio</translation>
     </message>
     <message>
         <source>antique</source>
-        <translation>antikva</translation>
+        <translation>Antikva literaturo</translation>
     </message>
     <message>
         <source>antique_all</source>
-        <translation>antique_all</translation>
+        <translation>Antikva: aliaj</translation>
     </message>
     <message>
         <source>antique_all_root</source>
-        <translation>antique_all_root</translation>
+        <translation>Antikva literaturo</translation>
     </message>
     <message>
         <source>antique_ant</source>
-        <translation>antique_ant</translation>
+        <translation>Antikva</translation>
     </message>
     <message>
         <source>antique_east</source>
-        <translation>antique_east</translation>
+        <translation>Malnova oriento</translation>
     </message>
     <message>
         <source>antique_european</source>
-        <translation>antique_european</translation>
+        <translation>Eŭropa</translation>
     </message>
     <message>
         <source>antique_myths</source>
-        <translation>antikvaj_mitoj</translation>
+        <translation>Mitoj</translation>
     </message>
     <message>
         <source>antique_russian</source>
-        <translation>antique_rusan</translation>
+        <translation>Malnova rusa literaturo</translation>
     </message>
     <message>
         <source>antiscience_all_root</source>
-        <translation>antiscience_all_root</translation>
+        <translation>Kontraŭ-scienco. Obskurantismo</translation>
     </message>
     <message>
         <source>aphorisms</source>
-        <translation>aforismoj</translation>
+        <translation>Aforismoj</translation>
     </message>
     <message>
         <source>architecture_book</source>
-        <translation>arkitekturo_libro</translation>
+        <translation>Arkitekturo</translation>
     </message>
     <message>
         <source>art_all_root</source>
-        <translation>arto_ĉia_radiko</translation>
+        <translation>Arto</translation>
     </message>
     <message>
         <source>art_criticism</source>
-        <translation>art_kritiko</translation>
+        <translation>Kritiko</translation>
     </message>
     <message>
         <source>art_world_culture</source>
-        <translation>art_monda_kulturo</translation>
+        <translation>Monda kulturo</translation>
     </message>
     <message>
         <source>asian_fantasy</source>
-        <translation>azia_fantazio</translation>
+        <translation>Azia Fantazio</translation>
     </message>
     <message>
         <source>astrology</source>
-        <translation>astrologio</translation>
+        <translation>Astrologio</translation>
     </message>
     <message>
         <source>auto_business</source>
-        <translation>aŭto_komerco</translation>
+        <translation>Aŭtomobila komerco</translation>
     </message>
     <message>
         <source>auto_regulations</source>
-        <translation>aŭtomata_regularoj</translation>
+        <translation>Aŭtoj kaj trafikreguloj</translation>
     </message>
     <message>
         <source>banking</source>
-        <translation>bankado</translation>
+        <translation>Bankado</translation>
     </message>
     <message>
         <source>boyar_anime</source>
-        <translation>bojar_anime</translation>
+        <translation>Bojaro-animeo</translation>
     </message>
     <message>
         <source>busines</source>
-        <translation>komercoj</translation>
+        <translation>Komerco: aliaj</translation>
     </message>
     <message>
         <source>busines_all_root</source>
-        <translation>busines_all_root</translation>
+        <translation>Komerco</translation>
     </message>
     <message>
         <source>child_adv</source>
-        <translation>infano_adv</translation>
+        <translation>Aventuroj</translation>
     </message>
     <message>
         <source>child_adv_animal</source>
-        <translation>infano_adv_besto</translation>
+        <translation>Pri bestoj kaj naturo</translation>
     </message>
     <message>
         <source>child_classical</source>
-        <translation>infano_klasika</translation>
+        <translation>Klasika</translation>
     </message>
     <message>
         <source>child_det</source>
-        <translation>infano_det</translation>
+        <translation>Infana agoplena</translation>
     </message>
     <message>
         <source>child_det_animal_detectives</source>
-        <translation>infan_detektivoj_bestaj_detektivoj</translation>
+        <translation>Infanaj detektivoj: bestaj detektivoj</translation>
     </message>
     <message>
         <source>child_det_children_detectives</source>
-        <translation>child_det_children_detektivoj</translation>
+        <translation>Infanaj detektivoj: infanoj-detektivoj</translation>
     </message>
     <message>
         <source>child_det_other</source>
-        <translation>infano_det_alia</translation>
+        <translation>Infanaj detektivoj: aliaj</translation>
     </message>
     <message>
         <source>child_dramaturgy</source>
-        <translation>infana_dramaturgio</translation>
+        <translation>Dramo por infanoj kaj adoleskantoj</translation>
     </message>
     <message>
         <source>child_education</source>
-        <translation>infana_edukado</translation>
+        <translation>Eduka</translation>
     </message>
     <message>
         <source>child_folklore</source>
-        <translation>infana_folkloro</translation>
+        <translation>Infana folkloro</translation>
     </message>
     <message>
         <source>child_prose</source>
-        <translation>infana_prozo</translation>
+        <translation>Prozo</translation>
     </message>
     <message>
         <source>child_prose_history</source>
-        <translation>infana_proza_historio</translation>
+        <translation>Milita kaj historia literaturo</translation>
     </message>
     <message>
         <source>child_prose_humor</source>
-        <translation>infana_proza_humoro</translation>
+        <translation>Infana prozo: humura</translation>
     </message>
     <message>
         <source>child_prose_romantic</source>
-        <translation>infana_prozo_romantika</translation>
+        <translation>Romantika</translation>
     </message>
     <message>
         <source>child_sf</source>
-        <translation>infano_sf</translation>
+        <translation>Sciencfikcio</translation>
     </message>
     <message>
         <source>child_sf_fantasy</source>
-        <translation>child_sf_fantasy</translation>
+        <translation>Fantazio</translation>
     </message>
     <message>
         <source>child_sf_horror</source>
-        <translation>child_sf_horror</translation>
+        <translation>Teruro kaj mistikismo</translation>
     </message>
     <message>
         <source>child_sf_hronoopera</source>
-        <translation>child_sf_hronoopera</translation>
+        <translation>Tempora Fantazio. Tempovojaĝantoj</translation>
     </message>
     <message>
         <source>child_sf_space</source>
-        <translation>infano_sf_spaco</translation>
+        <translation>Spacaj Aventuroj. Eksterteranoj</translation>
     </message>
     <message>
         <source>child_tale</source>
-        <translation>infana_fabelo</translation>
+        <translation>Fabeloj</translation>
     </message>
     <message>
         <source>child_tale_foreign_writers</source>
-        <translation>infan_fabeloj_fremdaj_verkistoj</translation>
+        <translation>Fabeloj de eksterlandaj verkistoj</translation>
     </message>
     <message>
         <source>child_tale_rus</source>
-        <translation>infana_fabelo_rus</translation>
+        <translation>Rusaj fabeloj</translation>
     </message>
     <message>
         <source>child_tale_russian_writers</source>
-        <translation>infan_fabeloj_rusaj_verkistoj</translation>
+        <translation>Fabeloj de rusaj verkistoj</translation>
     </message>
     <message>
         <source>child_verse</source>
-        <translation>infano_verso</translation>
+        <translation>Versoj</translation>
     </message>
     <message>
         <source>children</source>
-        <translation>infanoj</translation>
+        <translation>Infanoj</translation>
     </message>
     <message>
         <source>children_all_root</source>
-        <translation>infanoj_ĉia_radiko</translation>
+        <translation>Infanoj</translation>
     </message>
     <message>
         <source>cine</source>
-        <translation>kino</translation>
+        <translation>Kino</translation>
     </message>
     <message>
         <source>comedy</source>
-        <translation>komedio</translation>
+        <translation>Komedio</translation>
     </message>
     <message>
         <source>comics</source>
-        <translation>bildstrioj</translation>
+        <translation>Bildstrioj</translation>
     </message>
     <message>
         <source>comp_all</source>
-        <translation>komp_all</translation>
+        <translation>Komputiloj: aliaj</translation>
     </message>
     <message>
         <source>comp_db</source>
-        <translation>komp_db</translation>
+        <translation>Datumbazo</translation>
     </message>
     <message>
         <source>comp_dsp</source>
-        <translation>komp_dsp</translation>
+        <translation>Cifereca signaltraktado</translation>
     </message>
     <message>
         <source>comp_hard</source>
-        <translation>komp_malmola</translation>
+        <translation>Aparataro</translation>
     </message>
     <message>
         <source>comp_osnet</source>
-        <translation>comp_osnet</translation>
+        <translation>OS kaj Retoj</translation>
     </message>
     <message>
         <source>comp_programming</source>
-        <translation>komp_programado</translation>
+        <translation>Programado</translation>
     </message>
     <message>
         <source>comp_soft</source>
-        <translation>comp_soft</translation>
+        <translation>Programaro</translation>
     </message>
     <message>
         <source>comp_www</source>
-        <translation>kom_www</translation>
+        <translation>Interreto</translation>
     </message>
     <message>
         <source>computer_translation</source>
-        <translation>komputila_traduko</translation>
+        <translation>Maŝintradukado</translation>
     </message>
     <message>
         <source>computers</source>
-        <translation>komputiloj</translation>
+        <translation>Komputiloj</translation>
     </message>
     <message>
         <source>computers_all_root</source>
-        <translation>computers_all_root</translation>
+        <translation>Komputiloj kaj Interreto</translation>
     </message>
     <message>
         <source>culture_all</source>
-        <translation>kulturo_ĉio</translation>
+        <translation>Kulturo: aliaj</translation>
     </message>
     <message>
         <source>dark_fantasy</source>
-        <translation>malluma_fantazio</translation>
+        <translation>Malhela fantazio</translation>
     </message>
     <message>
         <source>design</source>
-        <translation>dezajno</translation>
+        <translation>Dezajno</translation>
     </message>
     <message>
         <source>det_action</source>
-        <translation>det_ago</translation>
+        <translation>Ago</translation>
     </message>
     <message>
         <source>det_all</source>
-        <translation>det_all</translation>
+        <translation>Detektivo: alia</translation>
     </message>
     <message>
         <source>det_artifact</source>
-        <translation>det_artefakto</translation>
+        <translation>Artefakto-Detektivoj</translation>
     </message>
     <message>
         <source>det_classic</source>
-        <translation>det_classic</translation>
+        <translation>Klasikaj detektivoj</translation>
     </message>
     <message>
         <source>det_cozy</source>
-        <translation>det_cozy</translation>
+        <translation>Komforta detektivo</translation>
     </message>
     <message>
         <source>det_crime</source>
-        <translation>det_crime</translation>
+        <translation>Krimdetektivoj</translation>
     </message>
     <message>
         <source>det_espionage</source>
-        <translation>det_spionage</translation>
+        <translation>Spionaj detektivoj</translation>
     </message>
     <message>
         <source>det_hard</source>
-        <translation>det_hard</translation>
+        <translation>Malmola boligita</translation>
     </message>
     <message>
         <source>det_history</source>
-        <translation>det_historio</translation>
+        <translation>Historiaj detektivoj</translation>
     </message>
     <message>
         <source>det_irony</source>
-        <translation>det_irony</translation>
+        <translation>Ironiaj detektivoj</translation>
     </message>
     <message>
         <source>det_maniac</source>
-        <translation>det_maniac</translation>
+        <translation>Maniuloj</translation>
     </message>
     <message>
         <source>det_police</source>
-        <translation>det_police</translation>
+        <translation>Policaj Rakontoj</translation>
     </message>
     <message>
         <source>det_political</source>
-        <translation>det_politika</translation>
+        <translation>Politikaj detektivoj</translation>
     </message>
     <message>
         <source>det_su</source>
-        <translation>det_su</translation>
+        <translation>Sovetia detektivo</translation>
     </message>
     <message>
         <source>detective</source>
-        <translation>detektivo</translation>
+        <translation>Detektivoj</translation>
     </message>
     <message>
         <source>detective_all_root</source>
-        <translation>detektivo_ĉia_radiko</translation>
+        <translation>Detektivoj</translation>
     </message>
     <message>
         <source>diafilm</source>
-        <translation>diafilmo</translation>
+        <translation>Filmstrioj</translation>
     </message>
     <message>
         <source>dissident</source>
-        <translation>disidento</translation>
+        <translation>Disidento</translation>
     </message>
     <message>
         <source>dorama</source>
-        <translation>dorama</translation>
+        <translation>Dorama</translation>
     </message>
     <message>
         <source>drama</source>
-        <translation>dramo</translation>
+        <translation>Dramo</translation>
     </message>
     <message>
         <source>drama_antique</source>
-        <translation>drama_antique</translation>
+        <translation>Antikva</translation>
     </message>
     <message>
         <source>dramaturgy</source>
-        <translation>dramaturgio</translation>
+        <translation>Dramaturgio</translation>
     </message>
     <message>
         <source>dystopian</source>
-        <translation>distopia</translation>
+        <translation>Distopio</translation>
     </message>
     <message>
         <source>economics</source>
-        <translation>ekonomio</translation>
+        <translation>Ekonomiko</translation>
     </message>
     <message>
         <source>economics_ref</source>
-        <translation>ekonomio_ref</translation>
+        <translation>Referenco</translation>
     </message>
     <message>
         <source>epic</source>
-        <translation>epopeo</translation>
+        <translation>Epopeo</translation>
     </message>
     <message>
         <source>epic_all_root</source>
-        <translation>epopea_ĉia_radiko</translation>
+        <translation>Folkloro</translation>
     </message>
     <message>
         <source>epic_poetry</source>
-        <translation>epopea_poezio</translation>
+        <translation>Epopea poezio</translation>
     </message>
     <message>
         <source>epistolary_fiction</source>
-        <translation>epistolary_fikcio</translation>
+        <translation>Epistola prozo</translation>
     </message>
     <message>
         <source>equ_history</source>
-        <translation>equ_historio</translation>
+        <translation>Historio de teknologio</translation>
     </message>
     <message>
         <source>essay</source>
-        <translation>eseo</translation>
+        <translation>Eseo</translation>
     </message>
     <message>
         <source>everyday_fantasy</source>
-        <translation>ĉiutaga_fantazio</translation>
+        <translation>Ĉiutaga fantazio</translation>
     </message>
     <message>
         <source>experimental_poetry</source>
-        <translation>eksperimenta_poezio</translation>
+        <translation>Eksperimenta poezio</translation>
     </message>
     <message>
         <source>extravaganza</source>
-        <translation>ekstravaganco</translation>
+        <translation>Ekstravaganco</translation>
     </message>
     <message>
         <source>fable</source>
-        <translation>fablo</translation>
+        <translation>Fabelo</translation>
     </message>
     <message>
         <source>fairy_fantasy</source>
-        <translation>feino_fantazio</translation>
+        <translation>Fantazio de fabelo</translation>
     </message>
     <message>
         <source>family</source>
-        <translation>familio</translation>
+        <translation>Familio</translation>
     </message>
     <message>
         <source>fan_translation</source>
-        <translation>fan_traduko</translation>
+        <translation>Amatora traduko</translation>
     </message>
     <message>
         <source>fanfiction</source>
-        <translation>fanfikcio</translation>
+        <translation>Fanfikcio</translation>
     </message>
     <message>
         <source>fantasy_all_root</source>
-        <translation>fantasy_all_root</translation>
+        <translation>Fantazio</translation>
     </message>
     <message>
         <source>fantasy_alt_hist</source>
-        <translation>fantasy_alt_hist</translation>
+        <translation>Alterna historio. Fantazio</translation>
     </message>
     <message>
         <source>fantasy_det</source>
-        <translation>fantazio_det</translation>
+        <translation>Fantazia detektivo</translation>
     </message>
     <message>
         <source>folk_songs</source>
-        <translation>popolkantoj</translation>
+        <translation>Popolkantoj</translation>
     </message>
     <message>
         <source>folk_tale</source>
-        <translation>popola_fabelo</translation>
+        <translation>Popola fabelo</translation>
     </message>
     <message>
         <source>folklore</source>
-        <translation>folkloro</translation>
+        <translation>Folkloro: aliaj</translation>
     </message>
     <message>
         <source>foreign_all_root</source>
-        <translation>fremda_ĉia_radiko</translation>
+        <translation>Fremda literaturo</translation>
     </message>
     <message>
         <source>foreign_antique</source>
-        <translation>fremda_antikveco</translation>
+        <translation>Fremda antikvaĵo</translation>
     </message>
     <message>
         <source>foreign_children</source>
-        <translation>fremdaj_infanoj</translation>
+        <translation>Eksterlandaj infanoj</translation>
     </message>
     <message>
         <source>foreign_language</source>
-        <translation>fremda_lingvo</translation>
+        <translation>Fremdaj lingvoj</translation>
     </message>
     <message>
         <source>foreign_prose</source>
-        <translation>fremda_prozo</translation>
+        <translation>Fremda prozo</translation>
     </message>
     <message>
         <source>foreign_sf</source>
-        <translation>fremda_sf</translation>
+        <translation>Eksterlanda sciencfikcio</translation>
     </message>
     <message>
         <source>geo_guides</source>
-        <translation>geo_gvidiloj</translation>
+        <translation>Geografiaj gvidiloj</translation>
     </message>
     <message>
         <source>global_economy</source>
-        <translation>tutmonda_ekonomio</translation>
+        <translation>Tutmonda ekonomio</translation>
     </message>
     <message>
         <source>gothic_novel</source>
-        <translation>gotika_romano</translation>
+        <translation>Gotika romano</translation>
     </message>
     <message>
         <source>great_story</source>
-        <translation>bonega_rakonto</translation>
+        <translation>Bonega rakonto</translation>
     </message>
     <message>
         <source>historical_fantasy</source>
-        <translation>historia_fantazio</translation>
+        <translation>Historia fantazio</translation>
     </message>
     <message>
         <source>home</source>
-        <translation>hejmen</translation>
+        <translation>Hejma Ekonomio</translation>
     </message>
     <message>
         <source>home_all_root</source>
-        <translation>hejmo_ĉia_radiko</translation>
+        <translation>Hejmo kaj Familio</translation>
     </message>
     <message>
         <source>home_collecting</source>
-        <translation>hejmo_kolektado</translation>
+        <translation>Kolektado</translation>
     </message>
     <message>
         <source>home_cooking</source>
-        <translation>hejme_kuirado</translation>
+        <translation>Kuirado</translation>
     </message>
     <message>
         <source>home_crafts</source>
-        <translation>hejmo_metioj</translation>
+        <translation>Metioj</translation>
     </message>
     <message>
         <source>home_diy</source>
-        <translation>hejmo_diy</translation>
+        <translation>Faru ĝin mem</translation>
     </message>
     <message>
         <source>home_entertain</source>
-        <translation>hejmo_amuziĝi</translation>
+        <translation>Distro</translation>
     </message>
     <message>
         <source>home_garden</source>
-        <translation>hejmo_ĝardeno</translation>
+        <translation>Ĝardeno</translation>
     </message>
     <message>
         <source>home_health</source>
-        <translation>hejmo_sano</translation>
+        <translation>Sano</translation>
     </message>
     <message>
         <source>home_pets</source>
-        <translation>hejmo_dorlotbestoj</translation>
+        <translation>Dorlotbestoj</translation>
     </message>
     <message>
         <source>home_sex</source>
-        <translation>hejmo_sekso</translation>
+        <translation>Erotika</translation>
     </message>
     <message>
         <source>home_sport</source>
-        <translation>hejmo_sporto</translation>
+        <translation>Sporto</translation>
     </message>
     <message>
         <source>hronoopera</source>
-        <translation>hronoopera</translation>
+        <translation>Kronopero</translation>
     </message>
     <message>
         <source>humor</source>
-        <translation>humuro</translation>
+        <translation>Humuro</translation>
     </message>
     <message>
         <source>humor_all</source>
-        <translation>humor_all</translation>
+        <translation>Humuro: aliaj</translation>
     </message>
     <message>
         <source>humor_all_root</source>
-        <translation>humoro_ĉia_radiko</translation>
+        <translation>Humuro</translation>
     </message>
     <message>
         <source>humor_anecdote</source>
-        <translation>humuro_anekdoto</translation>
+        <translation>Ŝerco</translation>
     </message>
     <message>
         <source>humor_prose</source>
-        <translation>humor_prozo</translation>
+        <translation>Humura prozo</translation>
     </message>
     <message>
         <source>humor_satire</source>
-        <translation>humor_satire</translation>
+        <translation>Satiro</translation>
     </message>
     <message>
         <source>humor_verse</source>
-        <translation>humuro_verso</translation>
+        <translation>Humuraj poemoj</translation>
     </message>
     <message>
         <source>in_verse</source>
-        <translation>en_verso</translation>
+        <translation>En verso</translation>
     </message>
     <message>
         <source>industries</source>
-        <translation>industrioj</translation>
+        <translation>Industrioj</translation>
     </message>
     <message>
         <source>job_hunting</source>
-        <translation>labor_ĉasado</translation>
+        <translation>Laborĉasado</translation>
     </message>
     <message>
         <source>limerick</source>
-        <translation>limeriko</translation>
+        <translation>Limeriko</translation>
     </message>
     <message>
         <source>literature_18</source>
-        <translation>literaturo_18</translation>
+        <translation>18-a jarcento</translation>
     </message>
     <message>
         <source>literature_19</source>
-        <translation>literaturo_19</translation>
+        <translation>19-a jarcento</translation>
     </message>
     <message>
         <source>literature_20</source>
-        <translation>literaturo_20</translation>
+        <translation>20-a jarcento</translation>
     </message>
     <message>
         <source>love</source>
-        <translation>amo</translation>
+        <translation>Amo</translation>
     </message>
     <message>
         <source>love_all</source>
-        <translation>amo_ĉio</translation>
+        <translation>Amo: aliaj</translation>
     </message>
     <message>
         <source>love_all_root</source>
-        <translation>amo_ĉia_radiko</translation>
+        <translation>Enamiĝo</translation>
     </message>
     <message>
         <source>love_contemporary</source>
-        <translation>amo_nuntempa</translation>
+        <translation>Modernaj amromanoj</translation>
     </message>
     <message>
         <source>love_detective</source>
-        <translation>amo_detektivo</translation>
+        <translation>Suspensplenaj amromanoj</translation>
     </message>
     <message>
         <source>love_erotica</source>
-        <translation>amo_erotiko</translation>
+        <translation>Erotiko</translation>
     </message>
     <message>
         <source>love_hard</source>
-        <translation>amo_malmola</translation>
+        <translation>Amu forte</translation>
     </message>
     <message>
         <source>love_history</source>
-        <translation>am_historio</translation>
+        <translation>Historiaj amromanoj</translation>
     </message>
     <message>
         <source>love_sf</source>
-        <translation>amo_sf</translation>
+        <translation>Romanoj kaj fantaziaj romanoj</translation>
     </message>
     <message>
         <source>love_short</source>
-        <translation>amo_mallonga</translation>
+        <translation>Mallongaj amromanoj</translation>
     </message>
     <message>
         <source>lyrics</source>
-        <translation>kantotekstoj</translation>
+        <translation>Kantotekstoj</translation>
     </message>
     <message>
         <source>magic_school</source>
-        <translation>magio_lernejo</translation>
+        <translation>Magia Akademio</translation>
     </message>
     <message>
         <source>management</source>
-        <translation>administrado</translation>
+        <translation>Administrado</translation>
     </message>
     <message>
         <source>marketing</source>
-        <translation>merkatado</translation>
+        <translation>Merkatado</translation>
     </message>
     <message>
         <source>military</source>
-        <translation>militistaro</translation>
+        <translation>Militisto: aliaj</translation>
     </message>
     <message>
         <source>military_all_root</source>
-        <translation>milita_ĉia_radiko</translation>
+        <translation>Milita</translation>
     </message>
     <message>
         <source>military_arts</source>
-        <translation>militaj_artoj</translation>
+        <translation>Marciaj artoj</translation>
     </message>
     <message>
         <source>military_history</source>
-        <translation>milita_historio</translation>
+        <translation>Milita historio</translation>
     </message>
     <message>
         <source>military_special</source>
-        <translation>milita_speciala</translation>
+        <translation>Milita specialaĵo</translation>
     </message>
     <message>
         <source>military_weapon</source>
-        <translation>milita_armilo</translation>
+        <translation>Armilo</translation>
     </message>
     <message>
         <source>modern_tale</source>
-        <translation>moderna_fabelo</translation>
+        <translation>Moderna rakonto</translation>
     </message>
     <message>
         <source>music</source>
-        <translation>muziko</translation>
+        <translation>Muziko</translation>
     </message>
     <message>
         <source>mystery</source>
-        <translation>mistero</translation>
+        <translation>Mistero</translation>
     </message>
     <message>
         <source>network_literature</source>
-        <translation>reto_literaturo</translation>
+        <translation>Reta literaturo</translation>
     </message>
     <message>
         <source>nonf_all</source>
-        <translation>nef_all</translation>
+        <translation>Dokumentario</translation>
     </message>
     <message>
         <source>nonf_biography</source>
-        <translation>nef_biografio</translation>
+        <translation>Biografio</translation>
     </message>
     <message>
         <source>nonf_biography_celebrities</source>
-        <translation>nef_biografioj_famuloj</translation>
+        <translation>Filmsteluloj. Teatro. Baleto. Spektaklokomerco</translation>
     </message>
     <message>
         <source>nonf_biography_historical</source>
-        <translation>nef_biografio_historia</translation>
+        <translation>Historiaj figuroj</translation>
     </message>
     <message>
         <source>nonf_biography_military_figures</source>
-        <translation>nef_biografio_militaj_figuroj</translation>
+        <translation>Militmemoroj</translation>
     </message>
     <message>
         <source>nonf_biography_writers</source>
-        <translation>nef_biografioj_verkistoj</translation>
+        <translation>Verkistoj. Poetoj. Dramistoj</translation>
     </message>
     <message>
         <source>nonf_criticism</source>
-        <translation>nonf_kritiko</translation>
+        <translation>Kritiko</translation>
     </message>
     <message>
         <source>nonf_military</source>
-        <translation>nef_milita</translation>
+        <translation>Milita</translation>
     </message>
     <message>
         <source>nonf_publicism</source>
-        <translation>nonf_publicism</translation>
+        <translation>Publikismo</translation>
     </message>
     <message>
         <source>nonfiction</source>
-        <translation>nefikcio</translation>
+        <translation>Nefikcio</translation>
     </message>
     <message>
         <source>nonfiction_all_root</source>
-        <translation>nefikcio_ĉia_radiko</translation>
+        <translation>Nefikcio</translation>
     </message>
     <message>
         <source>notes</source>
-        <translation>notoj</translation>
+        <translation>Muziknotoj</translation>
     </message>
     <message>
         <source>notes_all_root</source>
-        <translation>notoj_ĉia_radiko</translation>
+        <translation>Partituro</translation>
     </message>
     <message>
         <source>nsf</source>
-        <translation>nsf</translation>
+        <translation>Ne-sciencfikcio</translation>
     </message>
     <message>
         <source>org_behavior</source>
-        <translation>org_konduto</translation>
+        <translation>Korporacia kulturo</translation>
     </message>
     <message>
         <source>other</source>
-        <translation>aliaj</translation>
+        <translation>Aliaj</translation>
     </message>
     <message>
         <source>other_all_root</source>
-        <translation>alia_ĉia_radiko</translation>
+        <translation>Aliaj</translation>
     </message>
     <message>
         <source>painting</source>
-        <translation>pentrado</translation>
+        <translation>Pentraĵo</translation>
     </message>
     <message>
         <source>palindromes</source>
-        <translation>palindromoj</translation>
+        <translation>Palindromoj</translation>
     </message>
     <message>
         <source>palmistry</source>
-        <translation>kiromantismo</translation>
+        <translation>Kiromanterio</translation>
     </message>
     <message>
         <source>paper_work</source>
-        <translation>papero</translation>
+        <translation>Paperlaboro</translation>
     </message>
     <message>
         <source>periodic</source>
-        <translation>perioda</translation>
+        <translation>Perioda</translation>
     </message>
     <message>
         <source>periodic_all_root</source>
-        <translation>perioda_ĉia_radiko</translation>
+        <translation>Periodaĵoj</translation>
     </message>
     <message>
         <source>personal_finance</source>
-        <translation>persona_financo</translation>
+        <translation>Persona financo</translation>
     </message>
     <message>
         <source>poem</source>
-        <translation>poemo</translation>
+        <translation>Poemo</translation>
     </message>
     <message>
         <source>poetry</source>
-        <translation>poezio</translation>
+        <translation>Poezio</translation>
     </message>
     <message>
         <source>poetry_all</source>
-        <translation>poezio_ĉio</translation>
+        <translation>Poezio: aliaj</translation>
     </message>
     <message>
         <source>poetry_all_root</source>
-        <translation>poezio_ĉia_radiko</translation>
+        <translation>Poezio</translation>
     </message>
     <message>
         <source>poetry_classical</source>
-        <translation>poezio_klasika</translation>
+        <translation>Klasika</translation>
     </message>
     <message>
         <source>poetry_east</source>
-        <translation>poezio_oriento</translation>
+        <translation>Oriento</translation>
     </message>
     <message>
         <source>poetry_modern</source>
-        <translation>poezio_moderna</translation>
+        <translation>Moderna</translation>
     </message>
     <message>
         <source>poetry_rus_classical</source>
-        <translation>poezio_rusa_klasika</translation>
+        <translation>Rusa klasikaĵo</translation>
     </message>
     <message>
         <source>poetry_rus_modern</source>
-        <translation>poezio_rusa_moderna</translation>
+        <translation>Rusa moderna</translation>
     </message>
     <message>
         <source>popadancy</source>
-        <translation>popadancy</translation>
+        <translation>Misfituloj</translation>
     </message>
     <message>
         <source>popular_business</source>
-        <translation>populara_komerco</translation>
+        <translation>Populara pri komerco</translation>
     </message>
     <message>
         <source>prose</source>
-        <translation>prozo</translation>
+        <translation>Prozo</translation>
     </message>
     <message>
         <source>prose_abs</source>
-        <translation>proze_abs</translation>
+        <translation>Absurda prozo</translation>
     </message>
     <message>
         <source>prose_all</source>
-        <translation>proze_all</translation>
+        <translation>Prozo: aliaj</translation>
     </message>
     <message>
         <source>prose_all_root</source>
-        <translation>prozo_ĉia_radiko</translation>
+        <translation>Prozo</translation>
     </message>
     <message>
         <source>prose_classic</source>
-        <translation>prozo_klasika</translation>
+        <translation>Klasika prozo</translation>
     </message>
     <message>
         <source>prose_contemporary</source>
-        <translation>prozo_nuntempa</translation>
+        <translation>Nuntempa prozo</translation>
     </message>
     <message>
         <source>prose_counter</source>
-        <translation>prozo_nombrilo</translation>
+        <translation>Kontraŭkulturo</translation>
     </message>
     <message>
         <source>prose_epic</source>
-        <translation>prozo_epopeo</translation>
+        <translation>Epopeo</translation>
     </message>
     <message>
         <source>prose_game</source>
-        <translation>prozo_ludo</translation>
+        <translation>Ludo</translation>
     </message>
     <message>
         <source>prose_history</source>
-        <translation>prozo_historio</translation>
+        <translation>Historia prozo</translation>
     </message>
     <message>
         <source>prose_magic</source>
-        <translation>prozo_magio</translation>
+        <translation>Magio</translation>
     </message>
     <message>
         <source>prose_military</source>
-        <translation>prozo_milita</translation>
+        <translation>Milita prozo</translation>
     </message>
     <message>
         <source>prose_neformatny</source>
-        <translation>prose_neformatny</translation>
+        <translation>Ne-formata</translation>
     </message>
     <message>
         <source>prose_rus_classic</source>
-        <translation>prose_rus_classic</translation>
+        <translation>Rusa klasika prozo</translation>
     </message>
     <message>
         <source>prose_sentimental</source>
-        <translation>prozo_sentimental</translation>
+        <translation>Sentimenta</translation>
     </message>
     <message>
         <source>prose_su_classics</source>
-        <translation>prose_su_classics</translation>
+        <translation>Sovetia klasika prozo</translation>
     </message>
     <message>
         <source>proverbs</source>
-        <translation>proverboj</translation>
+        <translation>Proverboj</translation>
     </message>
     <message>
         <source>psy_childs</source>
-        <translation>psik_infanoj</translation>
+        <translation>Infanpsikologio</translation>
     </message>
     <message>
         <source>psy_sex_and_family</source>
-        <translation>psi_sekso_kaj_familio</translation>
+        <translation>Sekso kaj familia psikologio</translation>
     </message>
     <message>
         <source>psy_theraphy</source>
-        <translation>psiko_terapio</translation>
+        <translation>Terapio</translation>
     </message>
     <message>
         <source>real_estate</source>
-        <translation>nemoveblaĵoj</translation>
+        <translation>Nemoveblaĵoj</translation>
     </message>
     <message>
         <source>ref_dict</source>
-        <translation>ref_dikt</translation>
+        <translation>Vortaro</translation>
     </message>
     <message>
         <source>ref_encyc</source>
-        <translation>ref_encyc</translation>
+        <translation>Enciklopedio</translation>
     </message>
     <message>
         <source>ref_guide</source>
-        <translation>ref_gvidilo</translation>
+        <translation>Gvidilo</translation>
     </message>
     <message>
         <source>ref_ref</source>
-        <translation>ref_ref</translation>
+        <translation>Referenco</translation>
     </message>
     <message>
         <source>reference</source>
-        <translation>referenco</translation>
+        <translation>Referenco</translation>
     </message>
     <message>
         <source>reference_all_root</source>
-        <translation>referenco_ĉia_radiko</translation>
+        <translation>Referenco</translation>
     </message>
     <message>
         <source>religion</source>
-        <translation>religio</translation>
+        <translation>Religio</translation>
     </message>
     <message>
         <source>religion_all</source>
-        <translation>religion_all</translation>
+        <translation>Religio: aliaj</translation>
     </message>
     <message>
         <source>religion_all_root</source>
-        <translation>religion_all_root</translation>
+        <translation>Religio &amp; Inspiro</translation>
     </message>
     <message>
         <source>religion_budda</source>
-        <translation>religion_budda</translation>
+        <translation>Budhismo</translation>
     </message>
     <message>
         <source>religion_catholicism</source>
-        <translation>religio_katolikismo</translation>
+        <translation>Katolikismo</translation>
     </message>
     <message>
         <source>religion_christianity</source>
-        <translation>religio_kristanismo</translation>
+        <translation>Kristanismo</translation>
     </message>
     <message>
         <source>religion_esoterics</source>
-        <translation>religio_ezoterismo</translation>
+        <translation>Esoterismo</translation>
     </message>
     <message>
         <source>religion_hinduism</source>
-        <translation>religio_hinduismo</translation>
+        <translation>Hinduismo</translation>
     </message>
     <message>
         <source>religion_islam</source>
-        <translation>religio_islamo</translation>
+        <translation>Islamo</translation>
     </message>
     <message>
         <source>religion_judaism</source>
-        <translation>religio_judaismo</translation>
+        <translation>Judismo</translation>
     </message>
     <message>
         <source>religion_orthodoxy</source>
-        <translation>religio_ortodokseco</translation>
+        <translation>Ortodokseco</translation>
     </message>
     <message>
         <source>religion_paganism</source>
-        <translation>religio_paganismo</translation>
+        <translation>Paganismo</translation>
     </message>
     <message>
         <source>religion_protestantism</source>
-        <translation>religio_protestantismo</translation>
+        <translation>Protestantismo</translation>
     </message>
     <message>
         <source>religion_rel</source>
-        <translation>religion_rel</translation>
+        <translation>Religia literaturo</translation>
     </message>
     <message>
         <source>religion_self</source>
-        <translation>religion_self</translation>
+        <translation>Memplibonigo</translation>
     </message>
     <message>
         <source>riddles</source>
-        <translation>enigmoj</translation>
+        <translation>Enigmoj</translation>
     </message>
     <message>
         <source>roman</source>
-        <translation>roman</translation>
+        <translation>Romano</translation>
     </message>
     <message>
         <source>russian_fantasy</source>
-        <translation>rusa_fantazio</translation>
+        <translation>Rusa fantazio</translation>
     </message>
     <message>
         <source>sagas</source>
-        <translation>sagaoj</translation>
+        <translation>Familia sagao</translation>
     </message>
     <message>
         <source>scenarios</source>
-        <translation>scenaroj</translation>
+        <translation>Scenaroj</translation>
     </message>
     <message>
         <source>sci_abstract</source>
-        <translation>sci_abstract</translation>
+        <translation>Abstraktaĵoj</translation>
     </message>
     <message>
         <source>sci_all</source>
-        <translation>sci_all</translation>
+        <translation>Scienco: aliaj</translation>
     </message>
     <message>
         <source>sci_anachem</source>
-        <translation>sci_anachem</translation>
+        <translation>Analiza kemio</translation>
     </message>
     <message>
         <source>sci_biochem</source>
-        <translation>sci_biochem</translation>
+        <translation>Biokemio</translation>
     </message>
     <message>
         <source>sci_biology</source>
-        <translation>sci_biology</translation>
+        <translation>Biologio</translation>
     </message>
     <message>
         <source>sci_biophys</source>
-        <translation>sci_biophys</translation>
+        <translation>Biofiziko</translation>
     </message>
     <message>
         <source>sci_botany</source>
-        <translation>sci_botaniko</translation>
+        <translation>Botaniko</translation>
     </message>
     <message>
         <source>sci_build</source>
-        <translation>sci_build</translation>
+        <translation>Konstruo kaj forto de materialoj</translation>
     </message>
     <message>
         <source>sci_business</source>
-        <translation>sci_business</translation>
+        <translation>Komerca literaturo</translation>
     </message>
     <message>
         <source>sci_chem</source>
-        <translation>sci_chem</translation>
+        <translation>Kemio</translation>
     </message>
     <message>
         <source>sci_cosmos</source>
-        <translation>sci_cosmos</translation>
+        <translation>Astronomio kaj Spaco</translation>
     </message>
     <message>
         <source>sci_crib</source>
-        <translation>sci_crib</translation>
+        <translation>Trompfolioj</translation>
     </message>
     <message>
         <source>sci_culture</source>
-        <translation>sci_culture</translation>
+        <translation>Kultura scienco</translation>
     </message>
     <message>
         <source>sci_ecology</source>
-        <translation>sci_ekologio</translation>
+        <translation>Ekologio</translation>
     </message>
     <message>
         <source>sci_economy</source>
-        <translation>sci_ekonomio</translation>
+        <translation>Ekonomio</translation>
     </message>
     <message>
         <source>sci_geo</source>
-        <translation>sci_geo</translation>
+        <translation>Geologio kaj geografio</translation>
     </message>
     <message>
         <source>sci_history</source>
-        <translation>sci_historio</translation>
+        <translation>Historio</translation>
     </message>
     <message>
         <source>sci_juris</source>
-        <translation>sci_juris</translation>
+        <translation>Jurisprudenco</translation>
     </message>
     <message>
         <source>sci_linguistic</source>
-        <translation>sci_linguistic</translation>
+        <translation>Lingvistiko</translation>
     </message>
     <message>
         <source>sci_math</source>
-        <translation>sci_matematiko</translation>
+        <translation>Matematiko</translation>
     </message>
     <message>
         <source>sci_medicine</source>
-        <translation>sci_medicine</translation>
+        <translation>Medicino</translation>
     </message>
     <message>
         <source>sci_medicine_alternative</source>
-        <translation>sci_medicine_alternative</translation>
+        <translation>Alternativa medicino</translation>
     </message>
     <message>
         <source>sci_metal</source>
-        <translation>sci_metal</translation>
+        <translation>Metalurgio</translation>
     </message>
     <message>
         <source>sci_orgchem</source>
-        <translation>sci_orgchem</translation>
+        <translation>Organika kemio</translation>
     </message>
     <message>
         <source>sci_oriental</source>
-        <translation>sci_orienta</translation>
+        <translation>Orienta</translation>
     </message>
     <message>
         <source>sci_pedagogy</source>
-        <translation>sci_pedagogio</translation>
+        <translation>Pedagogio</translation>
     </message>
     <message>
         <source>sci_philology</source>
-        <translation>sci_filologio</translation>
+        <translation>Filologio</translation>
     </message>
     <message>
         <source>sci_philosophy</source>
-        <translation>sci_filozofio</translation>
+        <translation>Filozofio</translation>
     </message>
     <message>
         <source>sci_phys</source>
-        <translation>sci_phys</translation>
+        <translation>Fiziko</translation>
     </message>
     <message>
         <source>sci_physchem</source>
-        <translation>sci_physchem</translation>
+        <translation>Fizika kemio</translation>
     </message>
     <message>
         <source>sci_politics</source>
-        <translation>sci_politiko</translation>
+        <translation>Politiko</translation>
     </message>
     <message>
         <source>sci_popular</source>
-        <translation>sci_popular</translation>
+        <translation>Populara scienco</translation>
     </message>
     <message>
         <source>sci_psychology</source>
-        <translation>sci_psikologio</translation>
+        <translation>Psikologio</translation>
     </message>
     <message>
         <source>sci_psychology_popular</source>
-        <translation>sci_psikologio_populara</translation>
+        <translation>Populara psikologio</translation>
     </message>
     <message>
         <source>sci_radio</source>
-        <translation>sci_radio</translation>
+        <translation>Radioelektroniko</translation>
     </message>
     <message>
         <source>sci_religion</source>
-        <translation>sci_religion</translation>
+        <translation>Religiaj studoj</translation>
     </message>
     <message>
         <source>sci_social_studies</source>
-        <translation>sci_sociaj_studoj</translation>
+        <translation>Socia scienco</translation>
     </message>
     <message>
         <source>sci_state</source>
-        <translation>sci_state</translation>
+        <translation>Ŝtato kaj leĝo</translation>
     </message>
     <message>
         <source>sci_tech</source>
-        <translation>sci_tech</translation>
+        <translation>Teknika</translation>
     </message>
     <message>
         <source>sci_textbook</source>
-        <translation>sci_lernolibro</translation>
+        <translation>Lernolibroj</translation>
     </message>
     <message>
         <source>sci_theories</source>
-        <translation>sci_teorioj</translation>
+        <translation>Teorioj</translation>
     </message>
     <message>
         <source>sci_transport</source>
-        <translation>sci_transport</translation>
+        <translation>Transporto</translation>
     </message>
     <message>
         <source>sci_veterinary</source>
-        <translation>sci_veterinary</translation>
+        <translation>Bestkuracisto</translation>
     </message>
     <message>
         <source>sci_zoo</source>
-        <translation>sci_zoo</translation>
+        <translation>Zoo</translation>
     </message>
     <message>
         <source>science</source>
-        <translation>scienco</translation>
+        <translation>Scienco</translation>
     </message>
     <message>
         <source>science_all_root</source>
-        <translation>scienco_ĉia_radiko</translation>
+        <translation>Scienca-eduka</translation>
     </message>
     <message>
         <source>screenplays</source>
-        <translation>skriptoj</translation>
+        <translation>Skriptoj</translation>
     </message>
     <message>
         <source>sf</source>
-        <translation>sf</translation>
+        <translation>Sciencfikcio</translation>
     </message>
     <message>
         <source>sf_action</source>
-        <translation>sf_ago</translation>
+        <translation>Ago</translation>
     </message>
     <message>
         <source>sf_all_root</source>
-        <translation>sf_all_root</translation>
+        <translation>Fikcio</translation>
     </message>
     <message>
         <source>sf_cyberpunk</source>
-        <translation>sf_cyberpunk</translation>
+        <translation>Ciberpunko</translation>
     </message>
     <message>
         <source>sf_detective</source>
-        <translation>sf_detektivo</translation>
+        <translation>Detektivo</translation>
     </message>
     <message>
         <source>sf_epic</source>
-        <translation>sf_epopeo</translation>
+        <translation>Epopeo</translation>
     </message>
     <message>
         <source>sf_etc</source>
-        <translation>sf_ktp</translation>
+        <translation>Fikcio: alia</translation>
     </message>
     <message>
         <source>sf_fantasy</source>
-        <translation>sf_fantasy</translation>
+        <translation>Fantazio</translation>
     </message>
     <message>
         <source>sf_fantasy_city</source>
-        <translation>sf_fantasy_city</translation>
+        <translation>Urba fantazio</translation>
     </message>
     <message>
         <source>sf_fantasy_irony</source>
-        <translation>sf_fantasy_irony</translation>
+        <translation>Ironia fantazio</translation>
     </message>
     <message>
         <source>sf_heroic</source>
-        <translation>sf_heroic</translation>
+        <translation>Heroa</translation>
     </message>
     <message>
         <source>sf_history</source>
-        <translation>sf_historio</translation>
+        <translation>Alternativa historio</translation>
     </message>
     <message>
         <source>sf_horror</source>
-        <translation>sf_horror</translation>
+        <translation>Hororo &amp; mistiko</translation>
     </message>
     <message>
         <source>sf_humor</source>
-        <translation>sf_humor</translation>
+        <translation>Humuro</translation>
     </message>
     <message>
         <source>sf_industrial_magic</source>
-        <translation>sf_industria_magio</translation>
+        <translation>Industria magio</translation>
     </message>
     <message>
         <source>sf_irony</source>
-        <translation>sf_ironio</translation>
+        <translation>Ironia fikcio</translation>
     </message>
     <message>
         <source>sf_litrpg</source>
-        <translation>sf_litrpg</translation>
+        <translation>RPG</translation>
     </message>
     <message>
         <source>sf_mystic</source>
-        <translation>sf_mystic</translation>
+        <translation>Mistiko</translation>
     </message>
     <message>
         <source>sf_postapocalyptic</source>
-        <translation>sf_postapokalipsa</translation>
+        <translation>Post-apokalipsa</translation>
     </message>
     <message>
         <source>sf_realrpg</source>
-        <translation>sf_realrpg</translation>
+        <translation>RealRPG</translation>
     </message>
     <message>
         <source>sf_social</source>
-        <translation>sf_socia</translation>
+        <translation>Socia-filozofia</translation>
     </message>
     <message>
         <source>sf_space</source>
-        <translation>sf_spaco</translation>
+        <translation>Spaco</translation>
     </message>
     <message>
         <source>sf_space_opera</source>
-        <translation>sf_spaca_opera</translation>
+        <translation>Kosma opero</translation>
     </message>
     <message>
         <source>sf_stimpank</source>
-        <translation>sf_stimpank</translation>
+        <translation>Steampunko</translation>
     </message>
     <message>
         <source>sf_su</source>
-        <translation>sf_su</translation>
+        <translation>Sovetia sciencfikcio</translation>
     </message>
     <message>
         <source>sf_technofantasy</source>
-        <translation>sf_technofantasy</translation>
+        <translation>Teknofantazio</translation>
     </message>
     <message>
         <source>short_story</source>
-        <translation>novelo</translation>
+        <translation>Novelo</translation>
     </message>
     <message>
         <source>slavic_fantasy</source>
-        <translation>slava_fantazio</translation>
+        <translation>Slava fantazio</translation>
     </message>
     <message>
         <source>small_business</source>
-        <translation>malgranda_komerco</translation>
+        <translation>Malgranda komerco</translation>
     </message>
     <message>
         <source>song_poetry</source>
-        <translation>kanto_poezio</translation>
+        <translation>Kantpoezio</translation>
     </message>
     <message>
         <source>stock</source>
-        <translation>stoko</translation>
+        <translation>Stoko</translation>
     </message>
     <message>
         <source>story</source>
-        <translation>rakonto</translation>
+        <translation>Rakonto</translation>
     </message>
     <message>
         <source>tale_chivalry</source>
-        <translation>fabelo_kavalireco</translation>
+        <translation>Kavaliraj rakontoj</translation>
     </message>
     <message>
         <source>tbg_computers</source>
-        <translation>tbg_komputiloj</translation>
+        <translation>Komputado</translation>
     </message>
     <message>
         <source>tbg_higher</source>
-        <translation>tbg_pli alta</translation>
+        <translation>Supera edukado</translation>
     </message>
     <message>
         <source>tbg_school</source>
-        <translation>tbg_school</translation>
+        <translation>Lernejo</translation>
     </message>
     <message>
         <source>tbg_secondary</source>
-        <translation>tbg_sekundara</translation>
+        <translation>Kroma edukado</translation>
     </message>
     <message>
         <source>tech</source>
-        <translation>tekniko</translation>
+        <translation>Tekniko</translation>
     </message>
     <message>
         <source>tech_all</source>
-        <translation>tech_all</translation>
+        <translation>Tekniko: aliaj</translation>
     </message>
     <message>
         <source>tech_all_root</source>
-        <translation>tech_all_root</translation>
+        <translation>Tekniko</translation>
     </message>
     <message>
         <source>theatre</source>
-        <translation>teatro</translation>
+        <translation>Teatro</translation>
     </message>
     <message>
         <source>thriller</source>
-        <translation>suspensfilmo</translation>
+        <translation>Trileroj</translation>
     </message>
     <message>
         <source>thriller_legal</source>
-        <translation>thriller_legal</translation>
+        <translation>Laŭleĝa trilero</translation>
     </message>
     <message>
         <source>thriller_medical</source>
-        <translation>thriller_medical</translation>
+        <translation>Medicina trilero</translation>
     </message>
     <message>
         <source>thriller_mystery</source>
-        <translation>thriller_mistero</translation>
+        <translation>Mistika trilero</translation>
     </message>
     <message>
         <source>thriller_psychology</source>
-        <translation>thriller_psikologio</translation>
+        <translation>Psikologia trilero</translation>
     </message>
     <message>
         <source>thriller_techno</source>
-        <translation>thriller_techno</translation>
+        <translation>Teknika trilero</translation>
     </message>
     <message>
         <source>trade</source>
-        <translation>komerco</translation>
+        <translation>Komerco</translation>
     </message>
     <message>
         <source>tragedy</source>
-        <translation>tragedio</translation>
+        <translation>Tragedio</translation>
     </message>
     <message>
         <source>travel_notes</source>
-        <translation>vojaĝaj_notoj</translation>
+        <translation>Vojaĝnotoj</translation>
     </message>
     <message>
         <source>unfinished</source>
-        <translation>nefinita</translation>
+        <translation>Nefinita</translation>
     </message>
     <message>
         <source>unknown_root</source>
-        <translation>nekonata_radiko</translation>
+        <translation>Nekonata</translation>
     </message>
     <message>
         <source>unordered</source>
-        <translation>neordigita</translation>
+        <translation>Neordigita</translation>
     </message>
     <message>
         <source>utopia</source>
-        <translation>utopio</translation>
+        <translation>Utopio</translation>
     </message>
     <message>
         <source>vaudeville</source>
-        <translation>vodevilo</translation>
+        <translation>Vodevilo</translation>
     </message>
     <message>
         <source>vers_libre</source>
-        <translation>vers_libre</translation>
+        <translation>Libera verso</translation>
     </message>
     <message>
         <source>visual_poetry</source>
-        <translation>vida_poezio</translation>
+        <translation>Vida poezio</translation>
     </message>
     <message>
         <source>ya</source>
-        <translation>ja</translation>
+        <translation>Adoleskanto</translation>
     </message>
 </context>
 <context>
