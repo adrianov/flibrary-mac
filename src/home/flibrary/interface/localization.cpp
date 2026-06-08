@@ -26,6 +26,15 @@ std::vector<PropagateConstPtr<QTranslator>> g_translators;
 uint64_t g_nextLocaleHandlerId { 1 };
 std::vector<std::pair<uint64_t, std::function<void()>>> g_localeHandlers;
 
+QString LocalesDir()
+{
+#ifdef Q_OS_MACOS
+	return QCoreApplication::applicationDirPath() + "/../Resources/locales";
+#else
+	return QCoreApplication::applicationDirPath() + "/locales";
+#endif
+}
+
 void UninstallTranslators()
 {
 	for (auto& translator : g_translators)
@@ -43,7 +52,7 @@ QString Tr(const char* context, const char* str)
 
 std::vector<const char*> GetLocales()
 {
-	const QDir dir = QCoreApplication::applicationDirPath() + "/locales";
+	const QDir dir = LocalesDir();
 
 	std::vector<const char*> result;
 	std::ranges::copy(
@@ -81,7 +90,7 @@ const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const ISettings& 
 const std::vector<PropagateConstPtr<QTranslator>>& LoadLocales(const QString& locale)
 {
 	UninstallTranslators();
-	const QDir dir = QCoreApplication::applicationDirPath() + "/locales";
+	const QDir dir = LocalesDir();
 
 	for (const auto& file : dir.entryList(QStringList() << QString("*_%1.qm").arg(locale), QDir::Files))
 	{

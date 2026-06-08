@@ -54,12 +54,28 @@ if(APPLE)
 	add_custom_target(${PROJECT_NAME}_icon DEPENDS "${_app_icon_icns}")
 	add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_icon)
 
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+	find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${QT_BIN_DIR}")
+	if(NOT MACDEPLOYQT_EXECUTABLE)
+		message(FATAL_ERROR "macdeployqt not found")
+	endif()
+
+		set(_qt_lib_dir "")
+		execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_INSTALL_LIBS OUTPUT_VARIABLE _qt_lib_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+		add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E make_directory "${_app_frameworks}"
 		COMMAND ${CMAKE_COMMAND} -Dsrc="${CMAKE_BINARY_DIR}/lib" -Ddst="${_app_frameworks}" -P "${CMAKE_SOURCE_DIR}/cmake/copy_bundle_libs.cmake"
+		COMMAND ${CMAKE_COMMAND} -Dsrc="${CMAKE_BINARY_DIR}/lib" -Ddst="${_app_bundle}/Contents/Resources" -P "${CMAKE_SOURCE_DIR}/cmake/copy_data_files.cmake"
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
 			"${CMAKE_BINARY_DIR}/bin/locales"
-			"${_app_bundle}/Contents/MacOS/locales"
+			"${_app_bundle}/Contents/Resources/locales"
+		COMMAND ${CMAKE_COMMAND} -E rm -rf "${_app_bundle}/Contents/PlugIns"
+		COMMAND ${CMAKE_COMMAND} -E rm -f "${_app_bundle}/Contents/Resources/qt.conf"
+		COMMAND "${CMAKE_SOURCE_DIR}/cmake/run_macdeployqt.sh" "${MACDEPLOYQT_EXECUTABLE}" "${_app_bundle}" -libpath="${_qt_lib_dir}"
+		COMMAND ${CMAKE_COMMAND}
+			-DBUNDLE="${_app_bundle}"
+			-DEXECUTABLE_NAME="${PROJECT_NAME}"
+			-P "${CMAKE_SOURCE_DIR}/cmake/fixup_bundle.cmake"
 		COMMAND /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f -R "${_app_bundle}"
 	)
 	set_target_properties(${PROJECT_NAME} PROPERTIES

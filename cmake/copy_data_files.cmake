@@ -1,0 +1,8 @@
+file(GLOB data_files "${src}/*.dat")
+foreach(f ${data_files})
+	if(NOT EXISTS "${f}")
+		continue()
+	endif()
+	get_filename_component(name "${f}" NAME)
+	execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different "${f}" "${dst}/${name}")
+endforeach()

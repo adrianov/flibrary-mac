@@ -2,9 +2,14 @@
 
 #include "FlibraryApplication.h"
 #include <QCommandLineParser>
+#include <QFileInfo>
 #include <QStandardPaths>
 #include <QStyleFactory>
 #include <QTranslator>
+
+#ifdef Q_OS_MACOS
+#include <cstdlib>
+#endif
 
 #include "fnd/FindPair.h"
 
@@ -115,6 +120,9 @@ int main(int argc, char* argv[])
 {
 	try
 	{
+#ifdef Q_OS_MACOS
+		setenv("ICU_DATA", (QFileInfo(QString::fromUtf8(argv[0])).absolutePath() + "/../Resources").toUtf8().constData(), 1);
+#endif
 		QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 
 		FlibraryApplication app(argc, argv);

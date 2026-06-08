@@ -1,4 +1,4 @@
-file(GLOB libs "${src}/*.dylib" "${src}/*.so" "${src}/*.dat")
+file(GLOB libs "${src}/*.dylib" "${src}/*.so")
 foreach(lib ${libs})
 	get_filename_component(name ${lib} NAME)
 	if(NOT EXISTS "${lib}")
