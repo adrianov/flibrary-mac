@@ -4,6 +4,8 @@
 #include <QStatusBar>
 #include <QTimer>
 
+#include <plog/Util.h>
+
 #include "MainWindow.h"
 
 using namespace HomeCompa::Flibrary;
@@ -11,19 +13,13 @@ using namespace HomeCompa::Flibrary;
 namespace
 {
 
-template <typename T>
-QString ToString(const T* source) = delete;
-
-template <>
-QString ToString<char>(const char* source)
+QString LogMessage(const plog::util::nchar* source)
 {
-	return QString::fromStdString(source);
-}
-
-template <>
-QString ToString<wchar_t>(const wchar_t* source)
-{
+#if PLOG_CHAR_IS_UTF8
+	return QString::fromUtf8(source);
+#else
 	return QString::fromStdWString(source);
+#endif
 }
 
 } // namespace
@@ -40,7 +36,7 @@ void StatusBarLogAppender::write(const plog::Record& record)
 		return;
 
 	const QPointer statusBar { m_statusBar() };
-	const auto     message = ToString(record.getMessage());
+	const auto     message = LogMessage(record.getMessage());
 	QTimer::singleShot(0, &m_window, [statusBar, message] {
 		if (statusBar && statusBar->isVisible())
 			statusBar->showMessage(message, 2000);
