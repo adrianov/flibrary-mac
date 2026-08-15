@@ -1,5 +1,4 @@
 #include "opds_run.h"
-#include "opds_setup.h"
 
 #include <QCommandLineParser>
 #include <QCoreApplication>
