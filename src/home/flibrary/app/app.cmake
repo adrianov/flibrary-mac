@@ -62,6 +62,20 @@ if(APPLE)
 	set(_qt_lib_dir "")
 	execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_INSTALL_LIBS OUTPUT_VARIABLE _qt_lib_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
 	set(_opds_bin "${_app_bundle}/Contents/MacOS/opds")
+	set(_keep_plugins)
+	foreach(_plugin ${QtPlugins})
+		set(_plugin_target "Qt${QT_MAJOR_VERSION}::${_plugin}Plugin")
+		if(NOT TARGET ${_plugin_target})
+			continue()
+		endif()
+		get_target_property(_plugin_location ${_plugin_target} LIB_LOCATION)
+		get_filename_component(_plugin_directory "${_plugin_location}" DIRECTORY)
+		get_filename_component(_plugin_type "${_plugin_directory}" NAME)
+		get_filename_component(_plugin_name "${_plugin_location}" NAME)
+		list(APPEND _keep_plugins "${_plugin_type}/${_plugin_name}")
+	endforeach()
+	string(REPLACE ";" "\n" _keep_plugins_txt "${_keep_plugins}")
+	file(WRITE "${CMAKE_BINARY_DIR}/keep_plugins.txt" "${_keep_plugins_txt}\n")
 
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E make_directory "${_app_frameworks}"
@@ -81,6 +95,7 @@ if(APPLE)
 		COMMAND ${CMAKE_COMMAND}
 			-DBUNDLE="${_app_bundle}"
 			-DEXECUTABLE_NAME="${PROJECT_NAME}"
+			-DKEEP_PLUGINS_FILE="${CMAKE_BINARY_DIR}/keep_plugins.txt"
 			-P "${CMAKE_SOURCE_DIR}/cmake/fixup_bundle.cmake"
 		COMMAND /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f -R "${_app_bundle}"
 	)
