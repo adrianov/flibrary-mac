@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
-set -uo pipefail
-"$@" 2>&1 | grep -v -E 'Cannot resolve rpath|using QList\(' || true
-exit "${PIPESTATUS[0]}"
+set -euo pipefail
+tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
+if ! "$@" >"$tmp" 2>&1; then
+	cat "$tmp"
+	exit 1
+fi
+grep -v -E 'Cannot resolve rpath|using QList\(' "$tmp" || true

@@ -20,7 +20,11 @@ struct Fixer
 {
 	Fixer()
 	{
+#ifdef Q_OS_MACOS
+		const QDir dir = QCoreApplication::applicationDirPath() + "/../Resources/locales";
+#else
 		const QDir dir = QCoreApplication::applicationDirPath() + "/locales";
+#endif
 
 		for (const auto& file : dir.entryList(QStringList() << QString("*.qm"), QDir::Files))
 		{
